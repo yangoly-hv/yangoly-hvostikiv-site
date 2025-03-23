@@ -1,0 +1,306 @@
+{
+  "header": {
+    "donateButton": "One-time assistance",
+    "navigation": [
+      {
+        "name": "Home",
+        "href": "/"
+      },
+      {
+        "name": "About",
+        "href": "/#about"
+      },
+      {
+        "name": "Our Projects",
+        "href": "/",
+        "dropdown": [
+          {
+            "name": "Become a guardian angel",
+            "href": "/tails"
+          },
+          {
+            "name": "Adopt into a family",
+            "href": {
+              "pathname": "/tails",
+              "query": { "filter": "needs-family", "page": 1 }
+            }
+          }
+        ]
+      },
+      {
+        "name": "Partnership",
+        "href": "/partnership"
+      },
+      {
+        "name": "Events",
+        "href": "/chairty-events"
+      },
+      {
+        "name": "Blog",
+        "href": "/blog"
+      },
+      {
+        "name": "Reporting",
+        "href": "/reporting"
+      },
+      {
+        "name": "Contacts",
+        "href": "/#contacts"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Angels of Tails",
+    "subtitle": "Charity Fund",
+    "text": "Become an Angel for Tails with us! Help animals feel needed in this world",
+    "button": "Help a Tail"
+  },
+  "about": {
+    "aboutUs": {
+      "title": "About the Charitable Foundation",
+      "paragraphs": [
+        {
+          "segments": [
+            { "text": "Charitable Foundation ", "bold": false },
+            { "text": "\"Angels of Tails\"", "bold": true },
+            {
+              "text": " helps stray animals in frontline territories, where preserving their lives is an extremely challenging task due to constant danger. Animals usually remain alone during military actions, suffering from hunger and cold. The foundation's task is to provide animals with medicines, food and vaccinations, as well as give them a chance for rescue and hope for a dignified life.",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "segments": [
+            { "text": "Our mission", "bold": true },
+            {
+              "text": " is to break through people's indifference towards animals. People must stop treating animals as things. This is what humanity is all about. An animal's life should be valuable to humans! Animals deserve love and security just as much as humans do!",
+              "bold": false
+            }
+          ]
+        }
+      ],
+      "links": [
+        { "text": "Become a Partner", "href": "#" },
+        { "text": "Organization Reports", "href": "#" }
+      ]
+    },
+    "aboutOwner": {
+      "title": "About the Foundation Founder",
+      "paragraphs": [
+        {
+          "segments": [
+            {
+              "text": "Eugenia Nikonchuk has been actively involved in charity and animal protection for 10 years. She dedicated half of her life to sports, working as a fitness trainer, and later switched to helping homeless animals. Her activities began with rescuing a dog in 2022, and since then, Eugenia has become an active participant in public movements aimed at helping animals in frontline zones. She founded the \"Angels of Tails\" foundation to organize assistance and extend it to a larger number of animals.",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "segments": [
+            {
+              "text": "Her mission is to convey to people that ",
+              "bold": false
+            },
+            {
+              "text": "animals are part of Ukraine",
+              "bold": true
+            },
+            {
+              "text": " and they are full-fledged members! Taking care of stray animals is our shared responsibility to become more accountable for our actions. Become an Angel for Tails, protect and help animals who don't have a home and family!",
+              "bold": false
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "workResults": [
+    {
+      "count": "1,000+",
+      "action": "Rescued tails"
+    },
+    {
+      "count": "5,000+",
+      "action": "Kilograms of food"
+    },
+    {
+      "count": "4,000+",
+      "action": "Vaccines, treatments, canned food, etc."
+    }
+  ],
+  "footerNav": [
+    {
+      "name": "Home",
+      "href": "/"
+    },
+    {
+      "name": "About the Fund",
+      "href": "/"
+    },
+    {
+      "name": "Our Projects",
+      "href": "/sterilization-of-tails"
+    },
+    {
+      "name": "Partnership",
+      "href": "/partnership"
+    },
+    {
+      "name": "Charity Events",
+      "href": "/"
+    },
+    {
+      "name": "Reports",
+      "href": "/reporting"
+    },
+    {
+      "name": "Contacts",
+      "href": "/"
+    }
+  ],
+  "partners": {
+    "title": "Our partners"
+  },
+  "contacts": {
+    "title": "Contacts",
+    "subtitle": "To get in touch with us, please leave your contact details"
+  },
+  "donateModal": {
+    "fundraisingTitle": "Our goal for the month",
+    "subtitle": "Current Fundraising Campaign",
+    "goal": "Goal",
+    "currency": "UAH",
+    "donateAmountSection": {
+      "title": "Top-up amount",
+      "anotherAmount": "Another amount",
+      "inputPlaceholder": "Optional",
+      "inputLabel": "Your name or comment",
+      "firstCheckboxLabel": "I want to be the first to know about charitable events",
+      "secondCheckboxLabel": "I have read the public offer agreement for making a charitable donation and agree to the collection, processing, and use of personal data in accordance with the terms of this agreement.",
+      "cardButton": "Pay by card",
+      "submitError": "Confirm that you have read the public offer agreement"
+    }
+  },
+  "sterilization": {
+    "title": "Sterilization of Tail-Waggers",
+    "paragraphs": [
+      {
+        "segments": [
+          {
+            "text": "Sterilization is an important step toward a happy future for our furry friends! Every day, hundreds of stray animals suffer due to overpopulation and lack of resources. Sterilization is not just about preventing unwanted litters but also about preserving the lives and health of adult animals. Your contribution will help us sterilize even more tail-waggers, reducing the number of stray animals and improving their quality of life. Every donation is a saved destiny.",
+            "bold": false
+          }
+        ]
+      },
+      {
+        "segments": [
+          {
+            "text": "Our foundation actively participates in reducing the number of stray animals in a humane way. We have already managed to sterilize 11 dogs and 26 cats.",
+            "bold": false
+          }
+        ]
+      }
+    ]
+  },
+  "partnership": {
+    "hero": {
+      "title": "Partnership to Save Animals from War",
+      "button": "BECOME A PARTNER"
+    },
+    "content": {
+      "title": "To become our partner",
+      "description": "Friends, we decided to organize charitable events ourselves to support animals in frontline territories.",
+      "sections": [
+        {
+          "title": "How do we achieve this?",
+          "items": [
+            "get to know you personally",
+            "introduce you to our activities",
+            "give you unforgettable emotions, good mood and gifts with our furry friends"
+          ]
+        },
+        {
+          "title": "What will you get at our charity events?",
+          "items": [
+            "exclusive and unique gifts that you can't buy online",
+            "gifts personally from us and our partners",
+            "great emotions and wonderful mood"
+          ]
+        }
+      ],
+      "buttons": {
+        "partner": "Become a partner",
+        "documents": "founding documents"
+      }
+    },
+    "modalTitle": "To become our partner, please leave your contact details."
+  },
+  "filters": {
+    "allTails": "All tails",
+    "needsSterilization": "Needs sterilization",
+    "needsFamily": "Needs a family",
+    "adopted": "Adopted"
+  },
+  "chairtyEvents": {
+    "title": "Our Charity Events",
+    "paragraphs": [
+      "Friends, let's imagine what emotions charity foundations often evoke in us? Emotions of sadness, pain, hopelessness... Everything that fills us in these difficult times is sorrow, anxiety, stress.",
+      "Analyzing this, we decided to approach charity through entertainment. This is a chance to help animals not just through donations, but by participating in fun events.",
+      "Unfortunately, during the war, it is very difficult to be in a good and joyful state, we understand this very well. Because of this, it’s hard to complete many fundraisers. People are tired of donating, they often walk by and remain indifferent because they are filled with disappointment and sadness.",
+      "We have already held 2 charity events that we organized ourselves. At the first event, we painted pictures on canvases with handprints of the owners and paw prints of their tails. The second event was very atmospheric, styled for Halloween, with a photo zone, prizes, costumes, and contests."
+    ],
+    "benefitsTitle": "Benefits of Our Charity Events",
+    "benefitsParagraphs": [
+      "Interesting and exciting entertainment: we conduct various interactive activities where everyone receives gifts, and also create unique and exclusive items together with you that cannot be bought anywhere.",
+      "After our events, everyone is left with great mood, positive emotions, and cool photos.",
+      "We create unique themed photo zones, costume looks, and props."
+    ],
+    "missionTitle": "Mission of Our Events",
+    "missionParagraph": "Helping animals in frontline areas through good emotions and entertainment.",
+    "botParagraphs": [
+      "We are looking for partners and like-minded people and are open to cooperation. So, if you want to join us, we will be happy to consider your proposal.",
+      "Dear friends, we are waiting for each of you at our charity events! Follow the news. Become Angels for Tails with us!"
+    ],
+    "buttons": ["Support", "Become a Partner"],
+    "partnerModalTitle": "To become our partner, please leave your contact details"
+  },
+
+  "metadata": {
+    "title": "Angels of Tails | Charity Foundation",
+    "description": "Charitable foundation helping stray animals",
+    "keywords": "charity foundation, animal help, stray animals, pet rescue",
+    "blog": {
+      "title": "Charity Foundation Angels of Tails | Our blog",
+      "description": "Blog of the Angels of Tails charity foundation",
+      "keywords": "charity foundation, animal help, stray animals, pet rescue, blog"
+    },
+    "tails": {
+      "title": "Charity Foundation Angels of Tails | Need help",
+      "description": "Tails in need of help and cared for by the Tails Angels charity foundation",
+      "keywords": "charity foundation, animal help, stray animals, pet rescue, our tails"
+    },
+    "reporting": {
+      "title": "Charity Foundation Angels of Tails | Financial reporting",
+      "description": "Financial statements of the Angels of Tails charity foundation",
+      "keywords": "charity foundation, animal help, stray animals, pet rescue, financial reporting"
+    }
+  },
+  "blog": {
+    "title": "News of our foundation",
+    "timeToRead": " min read",
+    "detailsButton": "More details"
+  },
+  "tails": {
+    "detailsButton": "More details",
+    "allTails": "All tails",
+    "adoptButton": "Take into the family",
+    "oneTimeHelpButton": "One-time assistance",
+    "adoptDescription": "To take the tail into the family, please contact its guardian at this number",
+    "name": "Anatoly",
+    "connectButton": "Connect",
+    "sterilize": "Sterilize"
+  },
+  "reporting": {
+    "title": "Financial reporting"
+  }
+}
