@@ -1,10 +1,11 @@
 "use client";
 import BlogList from "./BlogList";
-import { IBlogProps } from "@/shared/types";
+// import { IBlogProps } from "@/shared/types";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/shared/utils";
 
-export default function Blog({ translation, lang }: IBlogProps) {
+//@ts-expect-error
+export default function Blog({ data, translation }) {
   const { title } = translation;
 
   return (
@@ -19,7 +20,7 @@ export default function Blog({ translation, lang }: IBlogProps) {
       >
         {title}
       </motion.h1>
-      <BlogList lang={lang} translation={translation} />
+      <BlogList data={data} translation={translation} />
     </section>
   );
 }

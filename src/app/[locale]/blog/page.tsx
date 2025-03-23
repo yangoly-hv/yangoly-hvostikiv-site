@@ -4,6 +4,8 @@ import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
 import type {Metadata} from "next";
 
+import {getAllBlogItems} from "@/shared/api/blog";
+
 export async function generateMetadata({
                                            params,
                                        }: PageParams): Promise<Metadata> {
@@ -42,9 +44,11 @@ export default async function BlogPage({ params }: PageParams) {
   const { locale } = await params;
   const { blog, contacts } = await getDictionary(locale);
 
+  const data = await getAllBlogItems(locale);
+
   return (
     <>
-      <Blog translation={blog} lang={locale} />
+      <Blog data={data} translation={blog}  />
       <Contacts translation={contacts} lang={locale} />
     </>
   );
