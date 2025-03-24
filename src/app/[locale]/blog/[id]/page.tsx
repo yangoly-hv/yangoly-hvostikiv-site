@@ -4,7 +4,7 @@ import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
 // import { newsList } from "../constants";
 
-import {extractFirstParagraphText} from "@/shared/utils/functions";
+// import {extractFirstParagraphText} from "@/shared/utils/functions";
 
 import {getBlogItemById} from "@/shared/api/blog";
 import type {Metadata} from "next";
@@ -17,7 +17,7 @@ export async function generateMetadata({
   const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
 
-  const data = await getBlogItemById(id, locale);
+  // const data = await getBlogItemById(id, locale);
 
   return {
     title: metadata.blog.title,
