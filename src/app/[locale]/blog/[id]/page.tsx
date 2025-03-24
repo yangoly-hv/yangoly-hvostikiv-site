@@ -20,27 +20,48 @@ export async function generateMetadata({
   const data = await getBlogItemById(id, locale);
 
   return {
-    title: `${metadata.blog.title} | ${data.title}`,
-    description: `${metadata.blog.description} | ${extractFirstParagraphText(data.description)}`,
+    title: metadata.blog.title,
+    description: metadata.blog.description,
     keywords: metadata.blog.keywords,
     icons: {
       icon: "/favicon.ico",
     },
     openGraph: {
-      title: `${metadata.blog.title} | ${data.title}`,
-      description: `${metadata.blog.description} | ${extractFirstParagraphText(data.description)}`,
-      url: `${baseUrl}/${locale}/blog/${id}`,
+      title: metadata.blog.title,
+      description: metadata.blog.description,
+      url: `${baseUrl}/${locale}/blog`,
       type: "website",
-      locale,
+      locale: locale,
       images: [
         {
-          url: data.mainPhoto.url,
+          url: "/images/about/about-us-desk3.jpg",
           width: 1200,
           height: 630,
-          alt: `${metadata.blog.title} | ${data.title}`,
+          alt: metadata.blog.title,
         },
       ],
     },
+    // title: `${metadata.blog.title} | ${data.title}`,
+    // description: `${metadata.blog.description} | ${extractFirstParagraphText(data.description)}`,
+    // keywords: metadata.blog.keywords,
+    // icons: {
+    //   icon: "/favicon.ico",
+    // },
+    // openGraph: {
+    //   title: `${metadata.blog.title} | ${data.title}`,
+    //   description: `${metadata.blog.description} | ${extractFirstParagraphText(data.description)}`,
+    //   url: `${baseUrl}/${locale}/blog/${id}`,
+    //   type: "website",
+    //   locale,
+    //   images: [
+    //     {
+    //       url: data.mainPhoto.url,
+    //       width: 1200,
+    //       height: 630,
+    //       alt: `${metadata.blog.title} | ${data.title}`,
+    //     },
+    //   ],
+    // },
   };
 }
 
