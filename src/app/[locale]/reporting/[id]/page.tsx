@@ -7,7 +7,7 @@ import { PageParams } from "@/shared/types";
 import {getReportById} from "@/shared/api/reports";
 import type {Metadata} from "next";
 
-// import {extractFirstParagraphText} from "@/shared/utils/functions";
+import {extractFirstParagraphText} from "@/shared/utils/functions";
 
 export async function generateMetadata({
                                          params,
@@ -19,10 +19,11 @@ export async function generateMetadata({
 
   const data = await getReportById(id, locale);
   const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
+  const description = `${metadata.reporting.description} | ${extractFirstParagraphText(data.description)}`;
 
   return {
     title,
-    description: metadata.reporting.description,
+    description,
     keywords: metadata.reporting.keywords,
     icons: {
       icon: "/favicon.ico",
