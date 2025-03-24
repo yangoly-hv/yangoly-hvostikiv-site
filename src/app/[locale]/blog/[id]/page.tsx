@@ -14,31 +14,31 @@ export async function generateMetadata({
                                        }: PageParams): Promise<Metadata> {
   const { locale, id } = await params;
   const { metadata } = await getDictionary(locale);
-  const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv-site.vercel.app";
+  // const baseUrl =
+  //     process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv-site.vercel.app";
 
   return {
     title: metadata.blog.title,
     description: metadata.blog.description,
     keywords: metadata.blog.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title: metadata.blog.title,
-      description: metadata.blog.description,
-      url: `${baseUrl}/${locale}/blog/${id}`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: "/images/about/about-us-desk3.jpg",
-          width: 1200,
-          height: 630,
-          alt: metadata.blog.title,
-        },
-      ],
-    },
+    // icons: {
+    //   icon: "/favicon.ico",
+    // },
+    // openGraph: {
+    //   title: metadata.blog.title,
+    //   description: metadata.blog.description,
+    //   url: `${baseUrl}/${locale}/blog/${id}`,
+    //   type: "website",
+    //   locale: locale,
+    //   images: [
+    //     {
+    //       url: "/images/about/about-us-desk3.jpg",
+    //       width: 1200,
+    //       height: 630,
+    //       alt: metadata.blog.title,
+    //     },
+    //   ],
+    // },
   };
 }
 
