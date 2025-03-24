@@ -12,10 +12,10 @@ import type {Metadata} from "next";
 export async function generateMetadata({
                                          params,
                                        }: PageParams): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale, id } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
+      process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv-site.vercel.app";
 
   return {
     title: metadata.blog.title,
@@ -27,7 +27,7 @@ export async function generateMetadata({
     openGraph: {
       title: metadata.blog.title,
       description: metadata.blog.description,
-      url: `${baseUrl}/${locale}/blog`,
+      url: `${baseUrl}/${locale}/blog/${id}`,
       type: "website",
       locale: locale,
       images: [

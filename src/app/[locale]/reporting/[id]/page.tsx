@@ -15,7 +15,7 @@ export async function generateMetadata({
   const { locale, id } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
+      process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv-site.vercel.app";
 
   const data = await getReportById(id, locale);
   const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;

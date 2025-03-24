@@ -12,7 +12,7 @@ export async function generateMetadata({
   const { locale } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv-site.vercel.app";
 
   return {
     title: metadata.title,
