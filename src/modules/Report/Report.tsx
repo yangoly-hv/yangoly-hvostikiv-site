@@ -10,7 +10,7 @@ export default function Report({ report }: IReportProps) {
     const transformData = getReportData(report);
   const { date, title, description, mainPart, mainPhoto, secondaryPhoto } =
       transformData;
-    console.log(secondaryPhoto)
+
   return (
     <section className="mx-auto container pt-[60px] xl:pt-12 pb-[100px] xl:pb-[148px] px-4 xl:px-10">
       <div className="lg:flex items-center justify-between gap-x-[141px] mb-[60px] lg:mb-12">

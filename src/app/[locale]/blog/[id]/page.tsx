@@ -12,12 +12,10 @@ import type {Metadata} from "next";
 export async function generateMetadata({
                                          params,
                                        }: PageParams): Promise<Metadata> {
-  const { locale, id } = await params;
+  const { locale } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
       process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
-
-  // const data = await getBlogItemById(id, locale);
 
   return {
     title: metadata.blog.title,
@@ -41,6 +39,10 @@ export async function generateMetadata({
         },
       ],
     },
+  };
+}
+
+/*
     // title: `${metadata.blog.title} | ${data.title}`,
     // description: `${metadata.blog.description} | ${extractFirstParagraphText(data.description)}`,
     // keywords: metadata.blog.keywords,
@@ -62,8 +64,7 @@ export async function generateMetadata({
     //     },
     //   ],
     // },
-  };
-}
+* */
 
 export default async function ArticlePage({ params }: PageParams) {
   const { id, locale } = await params;
