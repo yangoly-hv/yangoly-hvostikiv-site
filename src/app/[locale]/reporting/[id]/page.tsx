@@ -18,9 +18,10 @@ export async function generateMetadata({
       process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
 
   const data = await getReportById(id, locale);
+  const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
 
   return {
-    title: metadata.reporting.title,
+    title,
     description: metadata.reporting.description,
     keywords: metadata.reporting.keywords,
     icons: {
