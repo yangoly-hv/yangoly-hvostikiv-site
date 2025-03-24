@@ -7,7 +7,7 @@ import { PageParams } from "@/shared/types";
 import {getReportById} from "@/shared/api/reports";
 import type {Metadata} from "next";
 
-import {extractFirstParagraphText} from "@/shared/utils/functions";
+// import {extractFirstParagraphText} from "@/shared/utils/functions";
 
 export async function generateMetadata({
                                          params,
@@ -18,30 +18,50 @@ export async function generateMetadata({
       process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
 
   const data = await getReportById(id, locale);
-  console.log(data);
 
   return {
-    title: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
-    description: `${metadata.reporting.description} | ${extractFirstParagraphText(data.description)}`,
+    title: metadata.reporting.title,
+    description: metadata.reporting.description,
     keywords: metadata.reporting.keywords,
     icons: {
       icon: "/favicon.ico",
     },
     openGraph: {
-      title: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
-      description: `${metadata.reporting.description} | ${extractFirstParagraphText(data.description)}`,
-      url: `${baseUrl}/${locale}/reporting/${id}`,
+      title: metadata.reporting.title,
+      description: metadata.reporting.description,
+      url: `${baseUrl}/${locale}/reporting`,
       type: "website",
-      locale,
+      locale: locale,
       images: [
         {
-          url: data.mainPhoto.url,
+          url: "/images/about/about-us-desk3.jpg",
           width: 1200,
           height: 630,
-          alt: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
+          alt: metadata.reporting.title,
         },
       ],
     },
+    // title: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
+    // description: `${metadata.reporting.description} | ${extractFirstParagraphText(data.description)}`,
+    // keywords: metadata.reporting.keywords,
+    // icons: {
+    //   icon: "/favicon.ico",
+    // },
+    // openGraph: {
+    //   title: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
+    //   description: `${metadata.reporting.description} | ${extractFirstParagraphText(data.description)}`,
+    //   url: `${baseUrl}/${locale}/reporting/${id}`,
+    //   type: "website",
+    //   locale,
+    //   images: [
+    //     {
+    //       url: data.mainPhoto.url,
+    //       width: 1200,
+    //       height: 630,
+    //       alt: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
+    //     },
+    //   ],
+    // },
   };
 }
 
