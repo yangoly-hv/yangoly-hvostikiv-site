@@ -2,7 +2,7 @@ import Tail from "@/modules/Tail/Tail";
 import Contacts from "@/modules/Contacts/Contacts";
 import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
-import { tails } from "../constans";
+// import { tails } from "../constans";
 
 import {getAnimalById, getAllAnimals} from "@/shared/api/animals";
 import type {Metadata} from "next";
@@ -17,7 +17,6 @@ export async function generateMetadata({
         process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
 
     const data = await getAnimalById(id, locale);
-    console.log(data);
 
     return {
         title: `${metadata.tails.title} | ${data.name}`,

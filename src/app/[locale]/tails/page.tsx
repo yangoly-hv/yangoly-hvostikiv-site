@@ -3,6 +3,7 @@ import Tails from "@/modules/Tails/Tails";
 import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
 import type {Metadata} from "next";
+import {getAllAnimals} from "@/shared/api/animals";
 
 export async function generateMetadata({
                                            params,
@@ -40,10 +41,11 @@ export async function generateMetadata({
 export default async function TailsPage({ params }: PageParams) {
   const { locale } = await params;
   const { contacts, tails } = await getDictionary(locale);
+  const data = await getAllAnimals(locale);
 
   return (
     <>
-      <Tails translation={tails} lang={locale} />
+      <Tails data={data} translation={tails} lang={locale} />
       <Contacts translation={contacts} lang={locale} />
     </>
   );

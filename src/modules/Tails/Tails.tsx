@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import TailCard from "@/shared/components/TailCard/TailCard";
 import Filter from "@/modules/Filter/Filter";
@@ -13,10 +13,13 @@ import { fadeIn, generalSlideUp } from "@/shared/utils";
 
 import {getTailData} from "@/shared/utils/functions";
 
-import {getAllAnimals} from "@/shared/api/animals";
+// import {getAllAnimals} from "@/shared/api/animals";
 
-export default function Tails({ translation, lang }: ITailsProps) {
-    const [items, setItems] = useState([]);
+//@ts-expect-error
+export default function Tails({ data, translation, lang }) {
+    // const [items, setItems] = useState([]);
+    //@ts-expect-error
+    const items = useMemo(() => data.map(item => getTailData(item, lang)), [data, getTailData]);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [filter, setFilter] = useState(searchParams.get("filter") || "all");
@@ -24,22 +27,23 @@ export default function Tails({ translation, lang }: ITailsProps) {
     parseInt(searchParams.get("page") || "1", 10)
   );
   const itemsPerPage = useItemsPerPage();
-    useEffect(() => {
-        const fetchAnimals = async()=> {
-            try {
-                const data = await getAllAnimals(lang);
-                //@ts-expect-error
-                const transformData = data.map(item => getTailData(item, lang));
-                setItems(transformData);
-            }
-            catch (error) {
-                //@ts-expect-error
-                console.log(error.message);
-            }
-        }
 
-        fetchAnimals();
-    }, []);
+    // useEffect(() => {
+    //     const fetchAnimals = async()=> {
+    //         try {
+    //             const data = await getAllAnimals(lang);
+    //             //@ts-expect-error
+    //             const transformData = data.map(item => getTailData(item, lang));
+    //             setItems(transformData);
+    //         }
+    //         catch (error) {
+    //             //@ts-expect-error
+    //             console.log(error.message);
+    //         }
+    //     }
+    //
+    //     fetchAnimals();
+    // }, []);
 
   useEffect(() => {
     setFilter(searchParams.get("filter") || "all");
@@ -79,6 +83,7 @@ export default function Tails({ translation, lang }: ITailsProps) {
 
       <div className="flex justify-center">
         <ul className="grid grid-cols-1 md:grid-cols-2 tabxl:grid-cols-3 laptop:grid-cols-4 gap-5 xl:gap-x-5 xl:gap-y-8 justify-items-center">
+          {/*@ts-expect-error*/}
           {currentItems.map((tail, index) => (
             <motion.li
               key={index}
