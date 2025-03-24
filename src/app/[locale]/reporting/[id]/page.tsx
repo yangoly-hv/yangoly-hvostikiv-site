@@ -36,7 +36,7 @@ export async function generateMetadata({
       locale: locale,
       images: [
         {
-          url: "/images/about/about-us-desk3.jpg",
+          url: data.mainPhoto.url,
           width: 1200,
           height: 630,
           alt: title,
