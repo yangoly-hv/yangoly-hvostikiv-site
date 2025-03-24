@@ -29,9 +29,9 @@ export async function generateMetadata({
       icon: "/favicon.ico",
     },
     openGraph: {
-      title: metadata.reporting.title,
-      description: metadata.reporting.description,
-      url: `${baseUrl}/${locale}/reporting`,
+      title,
+      description,
+      url: `${baseUrl}/${locale}/reporting/${id}`,
       type: "website",
       locale: locale,
       images: [
@@ -39,7 +39,7 @@ export async function generateMetadata({
           url: "/images/about/about-us-desk3.jpg",
           width: 1200,
           height: 630,
-          alt: metadata.reporting.title,
+          alt: title,
         },
       ],
     },
