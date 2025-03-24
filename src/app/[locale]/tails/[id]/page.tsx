@@ -17,17 +17,19 @@ export async function generateMetadata({
         process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
 
     const data = await getAnimalById(id, locale);
+    const title = `${metadata.tails.title} | ${data.name}`;
+    const description = `${metadata.tails.description} | ${extractFirstParagraphText(data.description)}`;
 
     return {
-        title: `${metadata.tails.title} | ${data.name}`,
-        description: `${metadata.tails.description} | ${extractFirstParagraphText(data.description)}`,
+        title,
+        description,
         keywords: metadata.tails.keywords,
         icons: {
             icon: "/favicon.ico",
         },
         openGraph: {
-            title: `${metadata.tails.title} | ${data.name}`,
-            description: `${metadata.tails.description} | ${extractFirstParagraphText(data.description)}`,
+            title,
+            description,
             url: `${baseUrl}/${locale}/tails/${id}`,
             type: "website",
             locale,
@@ -36,7 +38,7 @@ export async function generateMetadata({
                     url: data.images[0].url,
                     width: 1200,
                     height: 630,
-                    alt: `${metadata.tails.title} | ${data.name}`,
+                    alt: title,
                 },
             ],
         },

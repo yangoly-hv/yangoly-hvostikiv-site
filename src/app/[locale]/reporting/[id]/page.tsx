@@ -43,27 +43,6 @@ export async function generateMetadata({
         },
       ],
     },
-    // title: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
-    // description: `${metadata.reporting.description} | ${extractFirstParagraphText(data.description)}`,
-    // keywords: metadata.reporting.keywords,
-    // icons: {
-    //   icon: "/favicon.ico",
-    // },
-    // openGraph: {
-    //   title: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
-    //   description: `${metadata.reporting.description} | ${extractFirstParagraphText(data.description)}`,
-    //   url: `${baseUrl}/${locale}/reporting/${id}`,
-    //   type: "website",
-    //   locale,
-    //   images: [
-    //     {
-    //       url: data.mainPhoto.url,
-    //       width: 1200,
-    //       height: 630,
-    //       alt: `${metadata.reporting.title} | ${data.title} | ${data.date}`,
-    //     },
-    //   ],
-    // },
   };
 }
 
