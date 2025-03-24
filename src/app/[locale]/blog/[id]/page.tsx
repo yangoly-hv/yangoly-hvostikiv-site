@@ -21,9 +21,9 @@ export async function generateMetadata({
     title: metadata.blog.title,
     description: metadata.blog.description,
     keywords: metadata.blog.keywords,
-    // icons: {
-    //   icon: "/favicon.ico",
-    // },
+    icons: {
+      icon: "/favicon.ico",
+    },
     // openGraph: {
     //   title: metadata.blog.title,
     //   description: metadata.blog.description,
