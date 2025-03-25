@@ -10,7 +10,7 @@ import {
 const socials = [
   {
     icon: InstagramIcon,
-    href: "/",
+    href: "https://www.instagram.com/yangoli_hvostikiv/?igsh=MTltMTU5dDI2Mno0Mw%3D%3D#",
     name: "Instagram",
   },
   {
@@ -20,7 +20,7 @@ const socials = [
   },
   {
     icon: FacebookIcon,
-    href: "/",
+    href: "https://www.facebook.com/YangoliHvostikiv",
     name: "Facebook",
   },
   {

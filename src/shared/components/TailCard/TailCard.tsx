@@ -17,7 +17,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
 
   return (
     <div className="max-w-[343px] desk:max-w-[436px] min-h-full py-8 px-4 lg:px-6 rounded-[20px] bg-[#FCFCFC] shadow-blogCard">
-      <motion.div
+        {image && <motion.div
         variants={slideUp}
         initial="hidden"
         whileInView="visible"
@@ -35,7 +35,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
             />
           </div>
         </Link>
-      </motion.div>
+      </motion.div>}
 
       <motion.div
         variants={fadeIn}

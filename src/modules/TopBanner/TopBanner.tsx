@@ -10,13 +10,13 @@ const TopBanner = () => {
           href="tel:+380992004080"
           className="flex items-center gap-2 text-[14px] font-medium hover:text-gray-200"
         >
-          <PhoneIcon /> +380 99 200 40 80
+          <PhoneIcon /> +380 97 200 24 00
         </a>
         <a
           href="mailto:email@gmail.com"
           className="flex items-center gap-2 text-[14px] font-medium hover:text-gray-200"
         >
-          <EmailIcon /> email@gmail.com
+          <EmailIcon /> angelsuaorg@gmail.com
         </a>
         <div className="flex items-center gap-2 text-[14px] font-medium">
           <LocationIcon /> Київ, вул. Шевченка, 25а

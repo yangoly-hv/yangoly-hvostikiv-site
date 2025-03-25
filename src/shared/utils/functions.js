@@ -61,9 +61,9 @@ export const getDateFromISO = (date) => new Date(date).toLocaleDateString("ru-RU
 
 export const getTailData = ({documentId, sex, images, name, description, needs_family, needs_sterilization}, lang) => ({
     id: documentId,
-    image: images[0].url,
+    image: images.length ? images[0]?.url : "",
     //@ts-expect-error
-    images: images.map(img => img.url),
+    images: images.map(img => img?.url),
     name,
     sex: getSexTranslation(sex, lang),
     sterilized: getSterializedText({needs_sterilization, sex, locale: lang}),
@@ -78,16 +78,17 @@ export const getBlogItemData = ({documentId, createdAt, title, description, main
     title,
     description: extractParagraphs(description),
     mainText: description,
-    mainPhoto: mainPhoto.url,
-    secondaryPhoto: secondaryPhoto.url,
+    mainPhoto: mainPhoto?.url,
+    secondaryPhoto: secondaryPhoto?.url,
     mainPart,
 })
 
-export const getReportData = ({date, title, description, mainPhoto, secondaryPhoto, mainPart})=> ({
+export const getReportData = ({date, title, description, mainPhoto, secondaryPhoto, mainPart, link})=> ({
     date,
     title,
     description,
-    mainPhoto: mainPhoto.url,
-    secondaryPhoto: secondaryPhoto.url,
+    mainPhoto: mainPhoto?.url,
+    secondaryPhoto: secondaryPhoto?.url,
     mainPart,
+    link,
 })

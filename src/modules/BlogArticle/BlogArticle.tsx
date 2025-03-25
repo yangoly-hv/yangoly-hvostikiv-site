@@ -12,7 +12,7 @@ import {getBlogItemData} from "@/shared/utils/functions";
 export default function BlogArticle({article, translation}: IBlogArticleProps) {
   //@ts-expect-error
   const transformData = getBlogItemData(article);
-  console.log(transformData)
+
   const { title, description, mainPhoto, secondaryPhoto, mainPart } = transformData;
   const { timeToRead } = translation;
 
@@ -58,7 +58,7 @@ export default function BlogArticle({article, translation}: IBlogArticleProps) {
             </span>
           </motion.div>
         </div>
-        <motion.div
+        {mainPhoto && <motion.div
           variants={slideUp}
           initial="hidden"
           whileInView="visible"
@@ -73,9 +73,9 @@ export default function BlogArticle({article, translation}: IBlogArticleProps) {
             className="object-cover object-center rounded-[18.05px]"
             sizes="(max-width: 1024px) 100vw, 40.8vw"
           />
-        </motion.div>
+        </motion.div>}
       </div>
-      <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]" dangerouslySetInnerHTML={{ __html: mainPart }} />
+      {mainPart && <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]" dangerouslySetInnerHTML={{ __html: mainPart }} />}
       {/*  {mainPart.lists.map((list, idx) => (*/}
       {/*    <Fragment key={idx}>*/}
       {/*      <motion.h2*/}
@@ -113,7 +113,7 @@ export default function BlogArticle({article, translation}: IBlogArticleProps) {
       {/*    {mainPart.text}*/}
       {/*  </motion.p>*/}
       {/*</div>*/}
-      <motion.div
+      {secondaryPhoto && <motion.div
         variants={slideUp}
         initial="hidden"
         whileInView="visible"
@@ -128,7 +128,7 @@ export default function BlogArticle({article, translation}: IBlogArticleProps) {
           className="rounded-[18.05px] object-cover object-center"
           sizes="(max-width: 1024px) 100vw, 100vw"
         />
-      </motion.div>
+      </motion.div>}
     </section>
   );
 }

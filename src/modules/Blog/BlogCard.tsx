@@ -18,7 +18,7 @@ export default function BlogCard({
     <div
       className={`max-w-[343px] desk:max-w-[436px] pt-8 pb-5 px-6 bg-white rounded-[20px] shadow-blogCard ${className}`}
     >
-      <motion.div
+      {mainPhoto && <motion.div
         variants={slideUp}
         initial="hidden"
         whileInView="visible"
@@ -36,7 +36,7 @@ export default function BlogCard({
             />
           </div>
         </Link>
-      </motion.div>
+      </motion.div>}
       <motion.p
         variants={fadeIn}
         initial="hidden"
@@ -56,7 +56,7 @@ export default function BlogCard({
       >
         <Link href={`/blog/${id}`}>
           <h2
-            className="mb-3 text-dark text-[20px] font-semibold leading-[26px] line-clamp-2 focus-visible:text-primary-gray xl:hover:text-primary-gray 
+            className="mb-3 text-dark text-[20px] font-semibold leading-[26px] line-clamp-2 focus-visible:text-primary-gray xl:hover:text-primary-gray
             transition duration-300 ease-out"
           >
             {title}

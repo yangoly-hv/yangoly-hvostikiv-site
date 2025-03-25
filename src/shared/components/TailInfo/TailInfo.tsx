@@ -30,7 +30,7 @@ const TailInfo = ({ tail, locale, translation }) => {
 
   return (
     <div className="flex flex-col items-center lg:flex-row gap-y-7 lg:gap-y-0 lg:bg-white">
-      <motion.div
+        {Boolean(tail?.images?.length) && <motion.div
         variants={fadeIn}
         initial="hidden"
         whileInView="visible"
@@ -38,7 +38,7 @@ const TailInfo = ({ tail, locale, translation }) => {
         custom={0}
       >
         <ImageSlider images={tail.images} />
-      </motion.div>
+      </motion.div>}
       <div className="flex flex-col justify-center w-full max-w-[706px] lg:max-w-full p-6 lg:px-[76px] bg-white rounded-[12px] lg:rounded-none">
         <motion.h2
           variants={fadeIn}

@@ -51,7 +51,7 @@ export default function ReportingList({ data }: IReportingListProps) {
             className="py-[22px] px-[26px] rounded-[32px] bg-white text-[20px] lg:text-[24px] leading-[120%]"
           >
             <Link
-              href={`/reporting/${item.documentId}`}
+              href={`/reporting/${item?.documentId}`}
               className="group flex items-center justify-between w-full"
             >
               <motion.span
@@ -62,7 +62,7 @@ export default function ReportingList({ data }: IReportingListProps) {
                 custom={idx * 0.2 + 0.1}
                 className="transition-colors duration-300 group-[focus-visible]:text-gray/60 xl:group-hover:text-gray/60"
               >
-                {item.date}
+                {item?.date}
               </motion.span>
               <motion.div
                 variants={fadeIn}
