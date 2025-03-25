@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 "use client";
 import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -11,11 +12,12 @@ import { fadeIn, generalSlideUp } from "@/shared/utils";
 
 // import {getAllBlogItems} from "@/shared/api/blog";
 
-import {getBlogItemData} from "@/shared/utils/functions";
+import { getBlogItemData } from "@/shared/utils/functions";
 
 //@ts-expect-error
 export default function BlogList({ data, translation }) {
   // const [items, setItems] = useState([]);
+
   const items = data.map(getBlogItemData);
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -76,20 +78,22 @@ export default function BlogList({ data, translation }) {
           ))}
         </ul>
       </div>
-      {totalPages > 1 && <motion.div
-        variants={fadeIn}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        custom={0.8}
-        className="w-fit mt-8 lg:mt-12 mx-auto"
-      >
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      </motion.div>}
+      {totalPages > 1 && (
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          custom={0.8}
+          className="w-fit mt-8 lg:mt-12 mx-auto"
+        >
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </motion.div>
+      )}
     </>
   );
 }
