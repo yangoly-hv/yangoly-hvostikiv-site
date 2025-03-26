@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { CloseIcon } from "../../../../public/images/icons";
+import { CircleArrowIcon, CloseIcon } from "../../../../public/images/icons";
 import { cn } from "@/shared/utils";
 
 const ImageSlider = ({ images }: { images: string[] }) => {
@@ -14,6 +14,22 @@ const ImageSlider = ({ images }: { images: string[] }) => {
     setSelectedIndex(index);
     if (index > 0 && index < images.length - 1) {
       setThumbs(images.slice(index - 1, index + 2));
+    }
+  };
+
+  const handleSwipeRight = () => {
+    if (selectedIndex === images.length - 1) {
+      setSelectedIndex(0);
+    } else {
+      setSelectedIndex((prev) => prev + 1);
+    }
+  };
+
+  const handleSwipeLeft = () => {
+    if (selectedIndex === 0) {
+      setSelectedIndex(images.length - 1);
+    } else {
+      setSelectedIndex((prev) => prev - 1);
     }
   };
 
@@ -83,6 +99,29 @@ const ImageSlider = ({ images }: { images: string[] }) => {
               exit={{ scale: 0.8 }}
               onClick={(e) => e.stopPropagation()}
             >
+              <button
+                aria-label="swipe right"
+                onClick={handleSwipeRight}
+                className="absolute top-[calc(50%-28px)] right-0 z-10 flex items-center justify-center before:content-[''] before:size-[46px] 
+                before:absolute before:-z-10 before:rounded-full before:bg-orange before:opacity-0 hover:before:opacity-40 before:transition before:duration-300 before:ease-in-out"
+              >
+                <CircleArrowIcon
+                  className="rotate-180 size-14"
+                  strokeWidth="1"
+                />
+              </button>
+              <button
+                aria-label="swipe left"
+                onClick={handleSwipeLeft}
+                className="absolute top-[calc(50%-28px)] left-0 z-10 flex items-center justify-center before:content-[''] before:size-[46px] 
+                before:absolute before:-z-10 before:rounded-full before:bg-orange before:opacity-0 hover:before:opacity-40 before:transition before:duration-300 before:ease-in-out"
+              >
+                <CircleArrowIcon
+                  className="size-14"
+                  strokeWidth="1"
+                  color="black"
+                />
+              </button>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="absolute right-6 top-6 p-2 hover:bg-gray-100 bg-opacity-[1%] rounded-full z-10 transition duration-300 ease-in-out"
