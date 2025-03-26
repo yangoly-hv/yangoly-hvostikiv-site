@@ -143,6 +143,7 @@ export interface IContactsProps {
 export interface ISvgIconProps extends React.SVGProps<SVGSVGElement> {
   variant?: "primary" | "secondary";
   color?: string;
+  strokeWidth?: string;
 }
 
 export interface ICheckBoxIconProps extends React.SVGProps<SVGSVGElement> {
