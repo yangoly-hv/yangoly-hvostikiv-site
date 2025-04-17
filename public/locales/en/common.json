@@ -55,6 +55,12 @@
     "text": "Become an Angel for Tails with us! Help animals feel needed in this world",
     "button": "Help a Tail"
   },
+  "changeLife": {
+    "title": "Together we change animals' lives!",
+    "description": "Be an Angel — choose your path of kindness: partner or volunteer, and together we change animals' lives.",
+    "becomePartner": "Become a partner",
+    "joinVolunteers": "Join the volunteers"
+  },
   "about": {
     "aboutUs": {
       "title": "About the Charitable Foundation",
