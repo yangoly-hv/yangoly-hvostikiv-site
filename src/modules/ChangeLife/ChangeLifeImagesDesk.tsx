@@ -3,7 +3,7 @@ import Image from "next/image";
 export default function ChangeLifeImagesDesk() {
   return (
     <>
-      <div className="hidden md:block absolute z-20 top-[-50px] left-[-40px] xl:left-[-50px] md:h-[509px] xl:h-[634px] aspect-[854/634]">
+      <div className="hidden md:block absolute -z-10 top-[-50px] left-[-40px] xl:left-[-50px] md:h-[509px] xl:h-[634px] aspect-[854/634]">
         <Image
           src="/images/home/changeLife/pawsDesk.svg"
           alt="paws"
@@ -13,7 +13,7 @@ export default function ChangeLifeImagesDesk() {
         />
       </div>
       <div
-        className="hidden md:block absolute z-10 md:bottom-0 md:right-[-320px] lg:right-[-90px] xl:right-[-60px] desk:right-0 
+        className="hidden md:block absolute -z-10 md:bottom-0 md:right-[-320px] lg:right-[-90px] xl:right-[-60px] desk:right-0 
   aspect-[577/196] md:h-[409px] xl:h-[529px] desk:h-[649px]"
       >
         <Image
