@@ -16,6 +16,13 @@ export interface IHeroTranslation {
   button: string;
 }
 
+export interface IChangeLifeTranslation {
+  title: string;
+  description: string;
+  becomePartner: string;
+  joinVolunteers: string;
+}
+
 interface ISegment {
   text: string;
   bold: boolean;

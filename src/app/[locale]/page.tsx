@@ -1,4 +1,5 @@
 import About from "@/modules/About/About";
+import ChangeLife from "@/modules/ChangeLife/ChangeLife";
 import Contacts from "@/modules/Contacts/Contacts";
 import Hero from "@/modules/Hero/Hero";
 import MonthlyGoalSection from "@/modules/MonthlyGoalSection/MonthlyGoalSection";
@@ -10,13 +11,21 @@ import { getDictionary } from "@/shared/utils";
 
 export default async function Home({ params }: PageParams) {
   const { locale } = await params;
-  const { hero, about, workResults, partners, contacts, donateModal } =
-    await getDictionary(locale);
+  const {
+    hero,
+    changeLife,
+    about,
+    workResults,
+    partners,
+    contacts,
+    donateModal,
+  } = await getDictionary(locale);
 
   return (
     <>
       <Hero translation={hero} />
       <WorkResults translation={workResults} />
+      <ChangeLife translation={changeLife} />
       <About translation={about} />
       <MonthlyGoalSection donateModalTranslataion={donateModal} lang={locale} />
       <SupportFundraising lang={locale} />
