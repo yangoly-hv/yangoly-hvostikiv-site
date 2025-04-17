@@ -73,6 +73,15 @@ export interface IAngelsProps {
   lang: Locale;
 }
 
+export interface IAngelsMobProps {
+  translation: IAngelsTranslation;
+  lang: Locale;
+}
+export interface IAngelsDeskProps {
+  translation: IAngelsTranslation;
+  lang: Locale;
+}
+
 export interface IAngelsListProps {
   translation: IAngelsTranslation;
   lang: Locale;

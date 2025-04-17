@@ -1,34 +1,14 @@
 import { IAngelsProps } from "@/shared/types";
-import Button from "@/shared/components/Button/Button";
-import AngelsList from "./AngelsList";
-import Image from "next/image";
+import AngelsMob from "./AngelsMob";
+import AngelsDesk from "./AngelsDesk";
 
 export default function Angels({ translation, lang }: IAngelsProps) {
   const { title, makeContribution } = translation;
 
   return (
-    <section className="flex flex-col gap-y-10 mb-[100px] xl:mb-[120px]">
-      <div className="relative bg-white pt-[33px] pb-[87px] overflow-hidden">
-        <Image
-          src="/images/home/angels/dog.webp"
-          alt="dog"
-          width={905}
-          height={934}
-          className="absolute bottom-0 left-[calc(50%-180px)] w-[211px] h-auto"
-        />
-        <div className="container px-4 xl:px-10 mx-auto">
-          <h2 className="max-w-[152px] ml-[calc(50%+31px)] font-arial text-[14px] xl:text-[24px] leading-[157%] xl:leading-[142px] uppercase">
-            {title}
-          </h2>
-        </div>
-      </div>
-      <div className="flex flex-col gap-y-10 container px-4 xl:px-10 mx-auto">
-        <AngelsList lang={lang} translation={translation}/>
-        <Button
-          text={makeContribution}
-          className="w-full laptop:h-[67px]"
-        ></Button>
-      </div>
+    <section className="mb-[100px] xl:mb-[120px]">
+      <AngelsMob translation={translation} lang={lang} />
+      <AngelsDesk translation={translation} lang={lang} />
     </section>
   );
 }
