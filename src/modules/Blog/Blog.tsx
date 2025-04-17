@@ -4,6 +4,7 @@ import BlogList from "./BlogList";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/shared/utils";
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 //@ts-expect-error
 export default function Blog({ data, translation }) {
   const { title } = translation;

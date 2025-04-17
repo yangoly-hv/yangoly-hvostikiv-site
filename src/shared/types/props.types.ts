@@ -14,6 +14,7 @@ import {
   IPartnershipTranslation,
   IReporting,
   ITails,
+  IAngelsTranslation,
 } from "./dictionary.types";
 import * as yup from "yup";
 import Link from "next/link";
@@ -65,6 +66,16 @@ export interface IHeroProps {
 
 export interface IChangeLifeProps {
   translation: IChangeLifeTranslation;
+}
+
+export interface IAngelsProps {
+  translation: IAngelsTranslation;
+  lang: Locale;
+}
+
+export interface IAngelsListProps {
+  translation: IAngelsTranslation;
+  lang: Locale;
 }
 
 export interface IAboutProps {

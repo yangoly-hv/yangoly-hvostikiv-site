@@ -63,7 +63,10 @@
   },
   "angels": {
     "title": "They’ve already become Angels for the furry ones. Join the light!",
-    "makeContribution": "Make a contribution"
+    "makeContribution": "Make a contribution",
+    "hrn": "hrn",
+    "donor": "Donor",
+    "sum": "Contribution amount"
   },
   "about": {
     "aboutUs": {

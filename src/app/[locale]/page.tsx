@@ -15,6 +15,7 @@ export default async function Home({ params }: PageParams) {
   const {
     hero,
     changeLife,
+    angels,
     about,
     workResults,
     partners,
@@ -27,7 +28,7 @@ export default async function Home({ params }: PageParams) {
       <Hero translation={hero} />
       <WorkResults translation={workResults} />
       <ChangeLife translation={changeLife} />
-      <Angels />
+      <Angels translation={angels} lang={locale} />
       <About translation={about} />
       <MonthlyGoalSection donateModalTranslataion={donateModal} lang={locale} />
       <SupportFundraising lang={locale} />
