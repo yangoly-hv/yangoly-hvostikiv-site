@@ -1,6 +1,6 @@
+import Image from "next/image";
 import Button from "@/shared/components/Button/Button";
 import AngelsList from "./AngelsList";
-import Image from "next/image";
 import { IAngelsMobProps } from "@/shared/types";
 
 export default function AngelsMob({ translation, lang }: IAngelsMobProps) {
