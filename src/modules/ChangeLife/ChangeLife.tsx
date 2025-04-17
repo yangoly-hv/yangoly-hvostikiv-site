@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { IChangeLifeProps } from "@/shared/types";
 import Button from "@/shared/components/Button/Button";
 import ChangeLifeImagesMob from "./ChangeLifeImagesMob";
+import ChangeLifeImagesDesk from "./ChangeLifeImagesDesk";
 
 export default function ChangeLife({ translation }: IChangeLifeProps) {
   const { title, description, becomePartner, joinVolunteers } = translation;
@@ -11,35 +11,7 @@ export default function ChangeLife({ translation }: IChangeLifeProps) {
       <ChangeLifeImagesMob />
       <div className="container px-4 xl:px-10 mx-auto">
         <div className="relative py-6 md:py-[89px] md:bg-white md:rounded-[8px] overflow-hidden">
-          <div className="hidden md:block absolute z-20 top-[-50px] left-[-40px] xl:left-[-50px] md:h-[509px] xl:h-[634px] aspect-[854/634]">
-            <Image
-              src="/images/home/changeLife/pawsDesk.svg"
-              alt="paws"
-              width="854"
-              height="634"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div
-            className="hidden md:block absolute z-10 md:bottom-0 md:right-[-320px] lg:right-[-90px] xl:right-[-60px] desk:right-0 
-          aspect-[577/196] md:h-[409px] xl:h-[529px] desk:h-[649px]"
-          >
-            <Image
-              src="/images/home/changeLife/greenEllipseDesk.svg"
-              alt="background"
-              width="1433"
-              height="520"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <Image
-            src="/images/home/changeLife/dogs.webp"
-            alt="dogs"
-            width={1460}
-            height={1040}
-            className="hidden md:block absolute z-20 md:bottom-[48px] lg:bottom-[-30px] xl:bottom-[-38px] md:right-0 xl:right-[-30px] desk:right-10 md:w-[338px] 
-            lg:w-[518px] xl:w-[763px] h-auto"
-          />
+          <ChangeLifeImagesDesk />
           <div className=" md:pl-[87px]">
             <h2 className="md:w-[363px] laptop:w-[463px] mb-2 md:mb-4 text-center md:text-left uppercase font-arial text-[18px] xl:text-[32px] leading-[127%] laptop:leading-[140%]">
               {title}
