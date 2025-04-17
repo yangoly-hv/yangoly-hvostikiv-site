@@ -22,10 +22,10 @@ const config: Config = {
         },
         orange: {
           DEFAULT: "#EACCAA",
-          bg: "#FFF7E5",
+          bg: "#FFD699",
         },
         green: {
-          DEFAULT: "#74C396",
+          DEFAULT: "#4C7B67",
         },
         gray: {
           DEFAULT: "#27272A",
