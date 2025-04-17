@@ -8,7 +8,7 @@ export default function AngelsMob({ translation, lang }: IAngelsMobProps) {
 
   return (
     <div className="md:hidden flex flex-col gap-y-10">
-      <div className="relative bg-white pt-[33px] pb-[87px] overflow-hidden">
+      <div className="relative z-10 bg-white pt-[33px] pb-[87px] overflow-hidden">
         <Image
           src="/images/home/angels/dog.webp"
           alt="dog"
@@ -16,6 +16,15 @@ export default function AngelsMob({ translation, lang }: IAngelsMobProps) {
           height={934}
           className="absolute bottom-0 left-[calc(50%-180px)] w-[211px] h-auto"
         />
+        <div className="absolute -z-10 top-[-127px] left-[calc(50%-308px)] w-[1166px] h-[1103px]">
+          <Image
+            src="/images/home/angels/ellipseMob.svg"
+            alt="background"
+            width="1166"
+            height="1103"
+            className="w-full h-full object-cover"
+          />
+        </div>
         <div className="container px-4 xl:px-10 mx-auto">
           <h2 className="max-w-[152px] ml-[calc(50%+31px)] font-arial text-[14px] xl:text-[24px] leading-[157%] xl:leading-[142px] uppercase">
             {title}
