@@ -3,6 +3,7 @@ import { dictionaries } from "../utils/getDictionary";
 import {
   IAboutTranslation,
   IBlog,
+  IChangeLifeTranslation,
   IContactsTranslation,
   IDonateAmountSectionTranslation,
   IDonateModalTranslation,
@@ -18,7 +19,7 @@ import * as yup from "yup";
 import Link from "next/link";
 
 export type Locale = keyof typeof dictionaries;
-export type ButtonVariant = "primary" | "secondary" | "outline";
+export type ButtonVariant = "primary" | "secondary" | "orange" | "outline";
 
 export interface ILanguage {
   name: string;
@@ -60,6 +61,10 @@ export interface IBurgerMenuProps {
 
 export interface IHeroProps {
   translation: IHeroTranslation;
+}
+
+export interface IChangeLifeProps {
+  translation: IChangeLifeTranslation;
 }
 
 export interface IAboutProps {

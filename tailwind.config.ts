@@ -17,11 +17,13 @@ const config: Config = {
         desk: "1920px",
       },
       colors: {
+        white: { DEFAULT: "#FFFFFF" },
         dark: {
           DEFAULT: "#18181B",
         },
         orange: {
           DEFAULT: "#EACCAA",
+          bright: "#FFD699",
           bg: "#FFF7E5",
         },
         green: {
