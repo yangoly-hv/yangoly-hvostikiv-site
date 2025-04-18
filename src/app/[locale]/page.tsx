@@ -28,7 +28,11 @@ export default async function Home({ params }: PageParams) {
       <Hero translation={hero} />
       <WorkResults translation={workResults} />
       <ChangeLife translation={changeLife} />
-      <Angels translation={angels} lang={locale} />
+      <Angels
+        translation={angels}
+        lang={locale}
+        donateModalTranslataion={donateModal}
+      />
       <About translation={about} />
       <MonthlyGoalSection donateModalTranslataion={donateModal} lang={locale} />
       <SupportFundraising lang={locale} />

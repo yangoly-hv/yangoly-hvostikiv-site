@@ -71,20 +71,29 @@ export interface IChangeLifeProps {
 export interface IAngelsProps {
   translation: IAngelsTranslation;
   lang: Locale;
+  donateModalTranslataion: IDonateModalTranslation;
 }
 
 export interface IAngelsMobProps {
   translation: IAngelsTranslation;
   lang: Locale;
+  donateModalTranslataion: IDonateModalTranslation;
 }
 export interface IAngelsDeskProps {
   translation: IAngelsTranslation;
   lang: Locale;
+  donateModalTranslataion: IDonateModalTranslation;
 }
 
 export interface IAngelsListProps {
   translation: IAngelsTranslation;
   lang: Locale;
+}
+
+export interface IDonateProps {
+  makeContribution: string;
+  lang: Locale;
+  donateModalTranslataion: IDonateModalTranslation;
 }
 
 export interface IAboutProps {
