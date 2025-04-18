@@ -16,7 +16,7 @@ const InfoBlock = ({
     <div className={`mx-auto  bg-white ${className}`} {...props}>
       <motion.h2
         className={clsx(
-          "text-[20px] xl:text-left  uppercase font-extrabold text-center font-arial xl:text-[32px] text-[#140A01] leading-[130%] mb-[28px]",
+          "xl:w-[583px] text-[20px] xl:text-left uppercase font-extrabold text-center font-arial xl:text-[32px] text-[#140A01] leading-[130%] mb-[28px]",
           titleClassName
         )}
         initial="hidden"

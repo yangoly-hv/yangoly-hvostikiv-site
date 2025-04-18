@@ -14,30 +14,30 @@ import Image from "next/image";
 
 const aboutImages = [
   {
-    src: "/images/about/about-us-desk1.jpg",
+    src: "/images/about/about-us-desk1.webp",
     alt: "Owner with pets showing foundation logo",
   },
   {
-    src: "/images/about/about-us-desk2.png",
+    src: "/images/about/about-us-desk2.webp",
     alt: "Pet drawing with paw",
   },
   {
-    src: "/images/about/about-us-desk3.jpg",
+    src: "/images/about/about-us-desk3.webp",
     alt: "Team members with pets",
   },
 ];
 
 const aboutMobImages = [
   {
-    src: "/images/about/about-us-mob1.jpg",
+    src: "/images/about/about-us-mob1.webp",
     alt: "Owner with pets showing foundation logo",
   },
   {
-    src: "/images/about/about-us-mob2.jpg",
+    src: "/images/about/about-us-mob2.webp",
     alt: "Owner with pets showing foundation logo",
   },
   {
-    src: "/images/about/about-us-mob3.jpg",
+    src: "/images/about/about-us-mob3.webp",
     alt: "Owner with pets showing foundation logo",
   },
 ];
