@@ -15,7 +15,7 @@ export default function ChangeLife({ translation }: IChangeLifeProps) {
       <div className="container px-4 xl:px-10 mx-auto">
         <div className="relative z-20 py-6 md:py-[89px] md:bg-white md:rounded-[8px] overflow-hidden">
           <ChangeLifeImagesDesk />
-          <div className=" md:pl-[87px]">
+          <div className="md:pl-[87px]">
             <AnimatedWrapper
               as="h2"
               animation={fadeInAnimation({ y: 30 })}

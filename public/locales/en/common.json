@@ -61,6 +61,13 @@
     "becomePartner": "Become a partner",
     "joinVolunteers": "Join the volunteers"
   },
+  "angels": {
+    "title": "They’ve already become Angels for the furry ones. Join the light!",
+    "makeContribution": "Make a contribution",
+    "hrn": "hrn",
+    "donor": "Donor",
+    "sum": "Contribution amount"
+  },
   "about": {
     "aboutUs": {
       "title": "About the Charitable Foundation",

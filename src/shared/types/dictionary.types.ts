@@ -23,6 +23,14 @@ export interface IChangeLifeTranslation {
   joinVolunteers: string;
 }
 
+export interface IAngelsTranslation {
+  title: string;
+  makeContribution: string;
+  hrn: string;
+  donor: string;
+  sum: string;
+}
+
 interface ISegment {
   text: string;
   bold: boolean;

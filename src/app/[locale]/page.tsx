@@ -1,4 +1,5 @@
 import About from "@/modules/About/About";
+import Angels from "@/modules/Angels/Angels";
 import ChangeLife from "@/modules/ChangeLife/ChangeLife";
 import Contacts from "@/modules/Contacts/Contacts";
 import Hero from "@/modules/Hero/Hero";
@@ -14,6 +15,7 @@ export default async function Home({ params }: PageParams) {
   const {
     hero,
     changeLife,
+    angels,
     about,
     workResults,
     partners,
@@ -26,6 +28,11 @@ export default async function Home({ params }: PageParams) {
       <Hero translation={hero} />
       <WorkResults translation={workResults} />
       <ChangeLife translation={changeLife} />
+      <Angels
+        translation={angels}
+        lang={locale}
+        donateModalTranslataion={donateModal}
+      />
       <About translation={about} />
       <MonthlyGoalSection donateModalTranslataion={donateModal} lang={locale} />
       <SupportFundraising lang={locale} />
