@@ -29,15 +29,15 @@ const aboutImages = [
 
 const aboutMobImages = [
   {
-    src: "/images/about/about-us-mob1.jpg",
+    src: "/images/about/about-us-mob1.webp",
     alt: "Owner with pets showing foundation logo",
   },
   {
-    src: "/images/about/about-us-mob2.jpg",
+    src: "/images/about/about-us-mob2.webp",
     alt: "Owner with pets showing foundation logo",
   },
   {
-    src: "/images/about/about-us-mob3.jpg",
+    src: "/images/about/about-us-mob3.webp",
     alt: "Owner with pets showing foundation logo",
   },
 ];
