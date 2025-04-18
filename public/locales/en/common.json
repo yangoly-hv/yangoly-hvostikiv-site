@@ -74,10 +74,10 @@
       "paragraphs": [
         {
           "segments": [
-            { "text": "Charitable Foundation ", "bold": false },
-            { "text": "\"Angels of Tails\"", "bold": true },
+            { "text": "The charitable foundation ", "bold": false },
+            { "text": "\"Tail Angels\"", "bold": true },
             {
-              "text": " helps stray animals in frontline territories, where preserving their lives is an extremely challenging task due to constant danger. Animals usually remain alone during military actions, suffering from hunger and cold. The foundation's task is to provide animals with medicines, food and vaccinations, as well as give them a chance for rescue and hope for a dignified life.",
+              "text": " was founded on 31.10.2023 by the Nikonchuk family: Oleh and Yevheniia. The foundation helps homeless animals affected by the war and those in frontline areas using the family’s own funds. Due to the constant danger, ensuring their survival is an extremely difficult task. Animals are often left alone with the war, suffering from hunger, cold, disease, and human aggression. The foundation’s mission is to provide animals with medicine, food, vaccinations, sterilization, and most importantly — a chance for rescue and hope for a dignified life.",
               "bold": false
             }
           ]
@@ -86,7 +86,7 @@
           "segments": [
             { "text": "Our mission", "bold": true },
             {
-              "text": " is to break through people's indifference towards animals. People must stop treating animals as things. This is what humanity is all about. An animal's life should be valuable to humans! Animals deserve love and security just as much as humans do!",
+              "text": " is to break through indifference and irresponsibility towards animals. People must stop treating animals as objects. Humanity lies in that. An animal’s life must be valuable to a human! An animal deserves love and safety just as much as a human does!",
               "bold": false
             }
           ]
