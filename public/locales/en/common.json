@@ -135,6 +135,13 @@
       ]
     }
   },
+  "aviaries": {
+    "title": "Fundraiser for building dog aviaries!",
+    "description": "Let’s help the 'Tail Angels' build aviaries for animals affected by the war. Give them a chance at a new life!",
+    "goal": "Total goal: {{goal}} UAH for materials and construction.",
+    "result": "Raised: {{current}} UAH out of {{goal}} UAH",
+    "supportFundrasing": "Support the fundraiser"
+  },
   "workResults": [
     {
       "count": "1,000+",
