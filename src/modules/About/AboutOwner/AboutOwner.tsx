@@ -26,14 +26,14 @@ const AboutOwner = ({
         viewport={{ once: true }}
         variants={fadeInAnimation({ y: 30 })}
       >
-        <Image
+        {/* <Image
           src="/images/owner_2.jpg"
           alt="Foundation Owner"
           fill
           className="object-top object-cover"
           quality={75}
           priority
-        />
+        /> */}
         <AnimatedWrapper
           as="div"
           animation={fadeInAnimation({ scale: 0.9, delay: 0.2 })}
