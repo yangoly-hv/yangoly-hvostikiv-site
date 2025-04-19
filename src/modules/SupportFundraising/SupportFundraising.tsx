@@ -63,7 +63,7 @@ const SupportFundraising = ({ lang }: { lang: Locale }) => {
   }, []);
 
   return (
-    <section className="container mx-auto px-4 pt-[80px] xl:px-10 bg-orange-bg">
+    <section className="container mx-auto px-4 xl:px-10 bg-orange-bg">
       <h2 className="text-black text-[24px] font-extrabold uppercase xl:text-[32px] leading-[130%] text-center mb-8">
         {t.title}
       </h2>
