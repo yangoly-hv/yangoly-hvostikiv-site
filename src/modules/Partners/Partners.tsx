@@ -1,8 +1,6 @@
-"use client";
+import * as motion from "motion/react-client";
 import Image from "next/image";
 import { IPartnersProps } from "@/shared/types";
-import { motion } from "framer-motion";
-import { generalSlideUp } from "@/shared/utils";
 
 const partners = [
   {
@@ -22,6 +20,7 @@ const Partners = ({
   ...props
 }: IPartnersProps) => {
   const { title } = translation;
+
   return (
     <section {...props}>
       {withTitle && (
@@ -29,8 +28,14 @@ const Partners = ({
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={generalSlideUp}
-          custom={0.2}
+          variants={{
+            hidden: { opacity: 0, y: 30 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, delay: 0.2 },
+            },
+          }}
           className="text-[24px] xl:text-[32px] text-dark font-arial font-black uppercase leading-[130%] text-center mb-8"
         >
           {title}
@@ -41,8 +46,14 @@ const Partners = ({
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        variants={generalSlideUp}
-        custom={0.4}
+        variants={{
+          hidden: { opacity: 0, y: 40 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6, delay: 0.4 },
+          },
+        }}
         className="relative flex overflow-x-hidden overflow-y-hidden w-full h-[60px]"
       >
         <div className="flex space-x-[100px] animate-marquee">

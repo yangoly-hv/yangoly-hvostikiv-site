@@ -25,7 +25,7 @@ export default async function Home({ params }: PageParams) {
 
   return (
     <>
-      <Hero translation={hero} />
+      <Hero lang={locale} translation={hero} />
       <WorkResults translation={workResults} />
       <ChangeLife translation={changeLife} />
       <Angels

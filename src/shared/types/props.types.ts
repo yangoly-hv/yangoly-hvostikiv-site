@@ -62,6 +62,7 @@ export interface IBurgerMenuProps {
 
 export interface IHeroProps {
   translation: IHeroTranslation;
+  lang: Locale;
 }
 
 export interface IChangeLifeProps {

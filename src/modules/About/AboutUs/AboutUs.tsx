@@ -11,6 +11,8 @@ import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
 import { generalSlideUp } from "@/shared/utils";
 import Image from "next/image";
+import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
+import { listVariants } from "@/shared/components/Animations/animationVariants";
 
 const aboutImages = [
   {
@@ -47,6 +49,7 @@ const AboutUs = ({
 }: {
   translation: IInformationBlockTranslation;
 }) => {
+  const { modalTitle } = translation;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = useCallback(() => setIsModalOpen(true), []);
   const handleCloseModal = useCallback(() => setIsModalOpen(false), []);
@@ -58,11 +61,6 @@ const AboutUs = ({
   const handleSubmit = (data: unknown) => {
     console.log("Submited:", data);
   };
-
-  const modalTitle =
-    lang === "uk"
-      ? "Щоб стати нашим партнером, залиште ваші контактні дані"
-      : "To become our partner, leave your contact details";
 
   return (
     <div className="xl:grid xl:grid-cols-2 pb-[40px]">
@@ -80,14 +78,14 @@ const AboutUs = ({
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <motion.div variants={generalSlideUp} custom={0.2}>
+          <motion.div variants={generalSlideUp} custom={0.8}>
             <Button
               className="w-full"
               onClick={handleOpenModal}
               text={translation.links![0].text}
             />
           </motion.div>
-          <motion.div variants={generalSlideUp} custom={0.4}>
+          <motion.div variants={generalSlideUp} custom={1}>
             <Button
               className="w-full"
               variant="outline"
@@ -96,20 +94,16 @@ const AboutUs = ({
           </motion.div>
         </motion.div>
       </InfoBlock>
-      <motion.div
+      <AnimatedWrapper
+        as="div"
+        animation={listVariants({ staggerChildren: 0.5, delayChildren: 0.4 })}
         className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 xl:hidden"
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
       >
         {aboutMobImages.map((image, index) => (
-          <motion.div
+          <AnimatedWrapper
+            as="div"
             key={index}
-            initial="hidden"
-            whileInView="visible"
             viewport={{ once: true }}
-            variants={generalSlideUp}
-            custom={0.2 + index * 0.2}
             className="relative w-full aspect-[328/268] rounded-[16px] overflow-hidden"
           >
             <Image
@@ -120,9 +114,9 @@ const AboutUs = ({
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover rounded-[16px]"
             />
-          </motion.div>
+          </AnimatedWrapper>
         ))}
-      </motion.div>
+      </AnimatedWrapper>
       <Modal
         modalClassName="xl:max-w-[535px]"
         isOpen={isModalOpen}
