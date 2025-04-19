@@ -92,9 +92,10 @@ export interface IAngelsListProps {
 }
 
 export interface IDonateProps {
-  makeContribution: string;
   lang: Locale;
   donateModalTranslataion: IDonateModalTranslation;
+  className?: string;
+  buttonText: string;
 }
 
 export interface IAboutProps {

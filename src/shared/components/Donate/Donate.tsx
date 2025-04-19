@@ -7,9 +7,10 @@ import Button from "@/shared/components/Button/Button";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 
 export default function Donate({
-  makeContribution,
   donateModalTranslataion,
   lang,
+  buttonText,
+  className = "",
 }: IDonateProps) {
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
 
@@ -19,11 +20,11 @@ export default function Donate({
 
   return (
     <>
-      <AnimatedWrapper animation={fadeInAnimation({ y: 30 })}>
+      <AnimatedWrapper animation={fadeInAnimation({ y: 30, delay: 0.4 })}>
         <Button
           onClick={() => setIsDonateModalOpen(true)}
-          text={makeContribution}
-          className="w-full md:w-[297px] lg:w-[397px] xl:w-[607px] xl:h-[67px]"
+          text={buttonText}
+          className={className}
         ></Button>
       </AnimatedWrapper>
       <DonateModal
