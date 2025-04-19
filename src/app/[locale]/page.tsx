@@ -17,6 +17,7 @@ export default async function Home({ params }: PageParams) {
     changeLife,
     angels,
     about,
+    monthlyGoalSection,
     workResults,
     partners,
     contacts,
@@ -34,7 +35,11 @@ export default async function Home({ params }: PageParams) {
         donateModalTranslataion={donateModal}
       />
       <About translation={about} />
-      <MonthlyGoalSection donateModalTranslataion={donateModal} lang={locale} />
+      <MonthlyGoalSection
+        translation={monthlyGoalSection}
+        donateModalTranslataion={donateModal}
+        lang={locale}
+      />
       <SupportFundraising lang={locale} />
       <div className="container mx-auto px-4 pt-[160px] pb-[80px] xl:py-[120px] xl:px-10">
         <Partners translation={partners} />

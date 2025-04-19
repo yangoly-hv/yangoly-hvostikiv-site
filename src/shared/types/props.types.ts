@@ -15,6 +15,7 @@ import {
   IReporting,
   ITails,
   IAngelsTranslation,
+  IMonthlyGoalSectionTranslation,
 } from "./dictionary.types";
 import * as yup from "yup";
 import Link from "next/link";
@@ -286,6 +287,7 @@ export interface IThankYouModalProps {
 }
 
 export interface IMonthlyGoalSectionProps {
+  translation: IMonthlyGoalSectionTranslation;
   lang: Locale;
   donateModalTranslataion: IDonateModalTranslation;
 }
