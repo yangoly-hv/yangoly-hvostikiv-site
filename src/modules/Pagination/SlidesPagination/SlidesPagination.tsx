@@ -9,7 +9,7 @@ const SlidesPagination = ({
   className = "",
 }: ISlidesPaginationProps) => {
   const isPrev = direction === "prev";
-  const buttonClass = `w-[50px] h-[50px] bg-[#34AD5D] flex justify-center items-center rounded-[16px]  ${
+  const buttonClass = `w-[50px] h-[50px] bg-green flex justify-center items-center rounded-[16px]  ${
     isPrev ? "" : "rotate-180"
   } ${
     disabled

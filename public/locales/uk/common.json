@@ -135,6 +135,11 @@
       ]
     }
   },
+  "monthlyGoalSection": {
+    "generalGoal": "Загальна мета: {{goal}} грн для матеріалів та будівництва.",
+    "result": "Зібрано: {{current}} грн з {{goal}} грн",
+    "supportFundrasing": "Підтримати Збір"
+  },
   "workResults": [
     {
       "count": "1 000+",

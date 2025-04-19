@@ -135,6 +135,11 @@
       ]
     }
   },
+  "monthlyGoalSection": {
+    "generalGoal": "Total goal: {{goal}} UAH for materials and construction.",
+    "result": "Raised: {{current}} UAH out of {{goal}} UAH",
+    "supportFundrasing": "Support the fundraiser"
+  },
   "workResults": [
     {
       "count": "1,000+",

@@ -3,7 +3,7 @@ import { fadeInAnimation } from "@/shared/components/Animations/animationVariant
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AngelsList from "./AngelsList";
 import { IAngelsMobProps } from "@/shared/types";
-import Donate from "./Donate";
+import Donate from "../../shared/components/Donate/Donate";
 
 export default function AngelsMob({
   translation,
@@ -49,9 +49,10 @@ export default function AngelsMob({
       <div className="flex flex-col gap-y-10 container px-4 xl:px-10 mx-auto">
         <AngelsList lang={lang} translation={translation} />
         <Donate
-          makeContribution={makeContribution}
+          buttonText={makeContribution}
           lang={lang}
           donateModalTranslataion={donateModalTranslataion}
+          className="w-full md:w-[297px] lg:w-[397px] xl:w-[607px] xl:h-[67px]"
         />
       </div>
     </div>

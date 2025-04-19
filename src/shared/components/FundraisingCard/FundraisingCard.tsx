@@ -49,6 +49,7 @@ const FundraisingCard = ({
         className="w-full mt-[20px]"
         text={buttonText}
         onClick={onClick}
+        variant="secondary"
       />
     </div>
   );

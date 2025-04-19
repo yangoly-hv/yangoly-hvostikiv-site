@@ -292,7 +292,7 @@ export default function CharityEventPage() {
                 >
                   <Button
                     onClick={() => setIsPartnerModalOpen(true)}
-                    className="border-white text-white hover:text-[#34AD5D] hover:bg-white"
+                    className="border-white text-white hover:text-green hover:bg-white"
                     variant="outline"
                     text={localTranslation.buttons[1]}
                   />

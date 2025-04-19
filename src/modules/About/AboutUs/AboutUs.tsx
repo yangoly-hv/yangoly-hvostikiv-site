@@ -71,7 +71,7 @@ const AboutUs = ({
       </div>
       <InfoBlock
         titleClassName="xl:mb-[48px]"
-        className="py-[40px] px-[30px]  rounded-[20px] flex flex-col h-full  justify-center xl:px-[50px] 2xl:px-[93px] xl:py-[108px]"
+        className="py-[40px] px-[30px]  rounded-[20px] flex flex-col h-full  justify-center laptop:px-[75px] xl:py-[74px]"
         translation={translation}
       >
         <motion.div
