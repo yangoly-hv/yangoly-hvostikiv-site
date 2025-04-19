@@ -62,6 +62,12 @@ export interface IAboutTranslation {
   aboutOwner: IInformationBlockTranslation;
 }
 
+export interface IMonthlyGoalSectionTranslation {
+  generalGoal: string;
+  result: string;
+  supportFundrasing: string;
+}
+
 export interface IWorkResult {
   count: string;
   action: string;

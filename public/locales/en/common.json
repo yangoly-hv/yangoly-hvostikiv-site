@@ -75,10 +75,10 @@
       "paragraphs": [
         {
           "segments": [
-            { "text": "Charitable Foundation ", "bold": false },
-            { "text": "\"Angels of Tails\"", "bold": true },
+            { "text": "The charitable foundation ", "bold": false },
+            { "text": "\"Tail Angels\"", "bold": true },
             {
-              "text": " helps stray animals in frontline territories, where preserving their lives is an extremely challenging task due to constant danger. Animals usually remain alone during military actions, suffering from hunger and cold. The foundation's task is to provide animals with medicines, food and vaccinations, as well as give them a chance for rescue and hope for a dignified life.",
+              "text": " was founded on 31.10.2023 by the Nikonchuk family: Oleh and Yevheniia. The foundation helps homeless animals affected by the war and those in frontline areas using the family’s own funds. Due to the constant danger, ensuring their survival is an extremely difficult task. Animals are often left alone with the war, suffering from hunger, cold, disease, and human aggression. The foundation’s mission is to provide animals with medicine, food, vaccinations, sterilization, and most importantly — a chance for rescue and hope for a dignified life.",
               "bold": false
             }
           ]
@@ -87,7 +87,7 @@
           "segments": [
             { "text": "Our mission", "bold": true },
             {
-              "text": " is to break through people's indifference towards animals. People must stop treating animals as things. This is what humanity is all about. An animal's life should be valuable to humans! Animals deserve love and security just as much as humans do!",
+              "text": " is to break through people’s indifference and irresponsibility towards animals. People must stop treating animals as objects. This is what humanity truly means. An animal’s life should be valuable to a human! An animal deserves love and safety just as much as a human does!",
               "bold": false
             }
           ]
@@ -99,12 +99,12 @@
       ]
     },
     "aboutOwner": {
-      "title": "About the Foundation Founder",
+      "title": "ABOUT THE CO-FOUNDERS OF THE FOUNDATION",
       "paragraphs": [
         {
           "segments": [
             {
-              "text": "Eugenia Nikonchuk has been actively involved in charity and animal protection for 10 years. She dedicated half of her life to sports, working as a fitness trainer, and later switched to helping homeless animals. Her activities began with rescuing a dog in 2022, and since then, Eugenia has become an active participant in public movements aimed at helping animals in frontline zones. She founded the \"Angels of Tails\" foundation to organize assistance and extend it to a larger number of animals.",
+              "text": "The founders of the foundation are the Nikonchuk family. Oleh Nikonchuk is the founder of the IT companies 'Versiya' and 'Navionika', which exclusively represent Garmin, Simrad, Lowrance, B&G, Deeper, and Navico in Ukraine. Evheniia Nikonchuk is a two-time bodybuilding champion of Ukraine, vice-champion of the European fitness tournament FITPARADE. She dedicated 10 years to sports, worked as a fitness trainer, and conducted seminars on nutrition and training.",
               "bold": false
             }
           ]
@@ -112,21 +112,34 @@
         {
           "segments": [
             {
-              "text": "Her mission is to convey to people that ",
+              "text": "\"Since childhood, I've always loved animals and dreamed of having a dog, but I was never allowed to have one,\" says Evheniia. Only at the age of 33 did she get her duo: Elsa, a husky, and Boom, a small mixed-breed dog she found on the roadside. \"Animals teach us compassion and attentiveness to the weak. In charity, humanity grows,\" Evheniia says.",
               "bold": false
-            },
+            }
+          ]
+        },
+        {
+          "segments": [
             {
-              "text": "animals are part of Ukraine",
-              "bold": true
-            },
+              "text": "Since the start of the full-scale war, Evheniia’s husband has supported the military, while she has focused on animals — the most vulnerable and overlooked group. With family funds, over 5 tons of food and hundreds of medicines, vaccines, and treatments have been sent. But as the number of strays keeps growing, especially near the frontlines, the idea of the 'Tail Angels' Foundation was born — to expand help and unite caring people.",
+              "bold": false
+            }
+          ]
+        },
+        {
+          "segments": [
             {
-              "text": " and they are full-fledged members! Taking care of stray animals is our shared responsibility to become more accountable for our actions. Become an Angel for Tails, protect and help animals who don't have a home and family!",
+              "text": "\"My mission as a co-founder is to show that animals are part of Ukraine — they are our family. We must be more caring, not only to our pets but also to those without one,\" says Evheniia.",
               "bold": false
             }
           ]
         }
       ]
     }
+  },
+  "monthlyGoalSection": {
+    "generalGoal": "Total goal: {{goal}} UAH for materials and construction.",
+    "result": "Raised: {{current}} UAH out of {{goal}} UAH",
+    "supportFundrasing": "Support the fundraiser"
   },
   "workResults": [
     {

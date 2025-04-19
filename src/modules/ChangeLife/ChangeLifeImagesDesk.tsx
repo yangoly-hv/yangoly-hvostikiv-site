@@ -18,8 +18,8 @@ export default function ChangeLifeImagesDesk() {
         />
       </AnimatedWrapper>
       <AnimatedWrapper
-        className="hidden md:block absolute -z-10 md:bottom-0 md:right-[-300px] lg:right-[-90px] xl:right-[-60px] desk:right-0 
-  aspect-[577/196] md:h-[409px] xl:h-[529px] desk:h-[649px]"
+        className="hidden md:block absolute -z-10 md:bottom-0 md:right-[-300px] lg:right-[-90px] xl:right-[-100px] desk:right-0 
+  aspect-[577/196] md:h-[409px] xl:h-[549px] desk:h-[649px]"
       >
         <Image
           src="/images/home/changeLife/greenEllipseDesk.svg"

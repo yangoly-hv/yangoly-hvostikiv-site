@@ -115,12 +115,7 @@ export const UniversalForm = ({
           </div>
         ))}
 
-        <Button
-          variant="secondary"
-          className="w-full py-3"
-          text={submitText}
-          type="submit"
-        />
+        <Button className="w-full py-3" text={submitText} type="submit" />
       </form>
     </div>
   );

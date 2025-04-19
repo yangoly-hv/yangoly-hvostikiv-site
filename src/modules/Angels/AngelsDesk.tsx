@@ -3,7 +3,7 @@ import { IAngelsDeskProps } from "@/shared/types";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AngelsList from "./AngelsList";
-import Donate from "./Donate";
+import Donate from "../../shared/components/Donate/Donate";
 
 export default function AngelsDesk({
   translation,
@@ -57,9 +57,10 @@ export default function AngelsDesk({
             />
           </AnimatedWrapper>
           <Donate
-            makeContribution={makeContribution}
+            buttonText={makeContribution}
             lang={lang}
             donateModalTranslataion={donateModalTranslataion}
+            className="w-full md:w-[297px] lg:w-[397px] xl:w-[607px] xl:h-[67px]"
           />
         </div>
         <AngelsList lang={lang} translation={translation} />
