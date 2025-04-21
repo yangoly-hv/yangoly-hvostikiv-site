@@ -20,7 +20,7 @@ const FundraisingCard = ({
   return (
     <div
       className={clsx(
-        "card-shadow py-[32px] px-[20px] bg-[#FCFCFC] rounded-[20px]",
+        "flex flex-col justify-between card-shadow py-[32px] px-[20px] bg-[#FCFCFC] rounded-[20px]",
         className
       )}
     >
