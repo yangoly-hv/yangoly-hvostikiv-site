@@ -1,26 +1,34 @@
-"use client";
+import * as motion from "motion/react-client";
 import AchievementItem from "@/shared/components/AchievementItem/AchievementItem";
 import { IWorkResult } from "@/shared/types";
-import { motion } from "framer-motion";
-import { generalSlideUp } from "@/shared/utils";
 
 const WorkResults = ({ translation }: { translation: IWorkResult[] }) => {
   return (
-    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-[#140A01] ">
+    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-[#140A01]">
       <motion.ul
-        className="flex gap-[54px] flex-col md:flex-row"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true }}
+        viewport={{ once: true, amount: 0.2 }}
+        className="flex gap-[54px] flex-col md:flex-row"
       >
-        {translation.map((item: IWorkResult, index) => (
+        {translation.map((item: IWorkResult, index: number) => (
           <motion.li
             key={index}
-            variants={generalSlideUp}
-            custom={index * 0.2}
             initial="hidden"
-            viewport={{ once: true }}
             whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.6,
+                  ease: "easeOut",
+                  delay: 0.2 + index * 0.2,
+                },
+              },
+            }}
           >
             <AchievementItem count={item.count} action={item.action} />
           </motion.li>

@@ -1,8 +1,7 @@
-"use client";
 import { IImageGalleryProps } from "@/shared/types";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { generalSlideUp } from "@/shared/utils";
+import { fadeInAnimation } from "../Animations/animationVariants";
+import AnimatedWrapper from "../Animations/AnimationWrapper";
 
 const ImageGallery = ({
   images,
@@ -12,13 +11,10 @@ const ImageGallery = ({
   if (variant === "splitLayout") {
     return (
       <div className={`grid grid-cols-2 gap-4 xl:gap-5 ${className} h-full`}>
-        <motion.div
+        <AnimatedWrapper
           className="relative w-full h-full"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={generalSlideUp}
-          custom={0.2}
+          animation={fadeInAnimation({ y: 30, delay: 0.2 })}
+          viewport={{ once: true, amount: 0.2 }}
         >
           <div className="absolute inset-0">
             <Image
@@ -30,15 +26,12 @@ const ImageGallery = ({
               priority
             />
           </div>
-        </motion.div>
+        </AnimatedWrapper>
         <div className="flex flex-col gap-4 xl:gap-5 h-full">
-          <motion.div
+          <AnimatedWrapper
             className="relative w-full flex-1"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={generalSlideUp}
-            custom={0.4}
+            animation={fadeInAnimation({ y: 30, delay: 0.4 })}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <Image
               src={images[1].src}
@@ -47,15 +40,12 @@ const ImageGallery = ({
               className="object-cover rounded-lg xl:rounded-[16px]"
               sizes="(max-width: 1280px) 50vw, 33vw"
             />
-          </motion.div>
+          </AnimatedWrapper>
           {images[2] && (
-            <motion.div
+            <AnimatedWrapper
               className="relative w-full flex-1"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={generalSlideUp}
-              custom={0.6}
+              animation={fadeInAnimation({ y: 30, delay: 0.6 })}
+              viewport={{ once: true, amount: 0.2 }}
             >
               <Image
                 src={images[2].src}
@@ -64,24 +54,22 @@ const ImageGallery = ({
                 className="object-cover rounded-lg xl:rounded-[16px]"
                 sizes="(max-width: 1280px) 50vw, 33vw"
               />
-            </motion.div>
+            </AnimatedWrapper>
           )}
         </div>
       </div>
     );
   }
+
   if (variant === "fourGrid") {
     return (
       <div className={`grid grid-cols-2 gap-4 ${className}`}>
         {images.slice(0, 4).map((image, index) => (
-          <motion.div
+          <AnimatedWrapper
             key={index}
             className="relative w-full aspect-square"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={generalSlideUp}
-            custom={0.2 + index * 0.2}
+            animation={fadeInAnimation({ y: 30, delay: 0.2 + index * 0.2 })}
+            viewport={{ once: true, amount: 0.2 }}
           >
             <Image
               src={image.src}
@@ -90,7 +78,7 @@ const ImageGallery = ({
               className="object-cover rounded-lg"
               sizes="(max-width: 1280px) 50vw, 33vw"
             />
-          </motion.div>
+          </AnimatedWrapper>
         ))}
       </div>
     );

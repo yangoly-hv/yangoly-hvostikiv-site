@@ -1,21 +1,12 @@
-"use client";
-import Button from "@/shared/components/Button/Button";
-import { IHeroProps, Locale } from "@/shared/types";
-import { motion } from "framer-motion";
-import { fadeIn, slideUp, generalSlideUp } from "@/shared/utils";
-import { useState } from "react";
-import DonateModal from "@/shared/components/DonateModal/DonateModal";
-import { usePathname } from "next/navigation";
+import * as motion from "motion/react-client";
+import { IHeroProps } from "@/shared/types";
+import DonateAction from "@/shared/components/DonateAction/DonateAction";
 import Image from "next/image";
 
-const Hero = ({ translation }: IHeroProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const pathName = usePathname();
-  const lang = pathName.split("/")[1] as Locale;
+const Hero = ({ translation, lang }: IHeroProps) => {
   const { title, subtitle, text, button } = translation;
-
   return (
-    <section className="relative  pt-[381px] xl:pt-[497px] xl:pb-[43px] pb-[38px] overflow-hidden">
+    <section className="relative pt-[381px] xl:pt-[497px] xl:pb-[43px] pb-[38px] overflow-hidden">
       <div className="absolute inset-0 w-full h-full">
         <Image
           src="/images/hero-bg-desk.webp"
@@ -43,8 +34,14 @@ const Hero = ({ translation }: IHeroProps) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={slideUp}
-          custom={0.2}
+          variants={{
+            hidden: { opacity: 0, y: 20 },
+            visible: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.6, delay: 0.2 },
+            },
+          }}
         >
           {subtitle}
         </motion.h2>
@@ -53,8 +50,10 @@ const Hero = ({ translation }: IHeroProps) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          variants={fadeIn}
-          custom={0.5}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { duration: 0.6, delay: 0.5 } },
+          }}
         >
           {title}
         </motion.h1>
@@ -66,25 +65,36 @@ const Hero = ({ translation }: IHeroProps) => {
         >
           <motion.p
             className="text-white mt-[14px] text-center leading-[122%] text-[16px] px-[10px] xl:text-[20px] xl:max-w-[432px] xl:text-left"
-            variants={generalSlideUp}
-            custom={0.8}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, delay: 0.8 },
+              },
+            }}
           >
             {text}
           </motion.p>
-          <motion.div variants={generalSlideUp} custom={1.0}>
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              className="mt-6 bg-orange text-dark"
-              text={button}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, delay: 1.0 },
+              },
+            }}
+          >
+            <DonateAction
+              variant="primary"
+              color="text-dark bg-orange"
+              lang={lang}
+              buttonText={button}
             />
           </motion.div>
         </motion.div>
       </div>
-      <DonateModal
-        lang={lang}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </section>
   );
 };

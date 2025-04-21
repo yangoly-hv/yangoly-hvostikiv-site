@@ -30,7 +30,6 @@ const translations = {
 
 const SupportFundraising = ({ lang }: { lang: Locale }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const t = translations[lang] || translations.uk;
 
   const handleCardClick = () => {
@@ -38,7 +37,7 @@ const SupportFundraising = ({ lang }: { lang: Locale }) => {
   };
 
   return (
-    <section className="container mx-auto px-4 xl:px-10 bg-orange-bg">
+    <section className="container mx-auto pt-[80px] px-4 xl:px-10 bg-orange-bg">
       <h2 className="text-black text-[24px] font-extrabold uppercase xl:text-[32px] leading-[130%] text-center mb-8">
         {t.title}
       </h2>
@@ -92,4 +91,4 @@ const SupportFundraising = ({ lang }: { lang: Locale }) => {
   );
 };
 
-export default React.memo(SupportFundraising);
+export default SupportFundraising;

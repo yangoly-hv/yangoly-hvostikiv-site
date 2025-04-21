@@ -49,6 +49,7 @@ export interface IInformationBlockTranslation {
   title: string;
   paragraphs: IParagraph[];
   links?: ILink[];
+  modalTitle?: string;
 }
 
 export interface IAboutOwnerTranslation {
