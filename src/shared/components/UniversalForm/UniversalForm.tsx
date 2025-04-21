@@ -45,7 +45,13 @@ export const UniversalForm = ({
     };
 
     if (field.type === "textarea") {
-      return <textarea {...commonProps} rows={3} />;
+      return (
+        <textarea
+          {...commonProps}
+          className={cn(commonProps.className, "resize-none")}
+          rows={3}
+        />
+      );
     }
 
     if (field.type === "tel" && field.mask) {
@@ -76,10 +82,10 @@ export const UniversalForm = ({
         onSubmit={handleSubmit((data) => {
           if (onSubmit) onSubmit(data);
         })}
-        className="space-y-4"
+        className="space-y-1"
       >
         {fields.map((field) => (
-          <div key={field.name} className="space-y-1">
+          <div key={field.name} className="">
             <label className="block text-[16px] lg:text-[18px] leading-[130%] text-[#18181B]">
               {field.label}
               {field.required && (
@@ -95,15 +101,17 @@ export const UniversalForm = ({
                   {field.icon}
                 </div>
               )}
-
               {renderField(field)}
             </div>
 
-            {errors[field.name] && (
-              <p className="text-sm text-red-500">
-                {String(errors[field.name]?.message)}
-              </p>
-            )}
+            <p
+              className={cn(
+                "text-sm leading-[20px] transition-opacity duration-200",
+                errors[field.name] ? "text-red-500 opacity-100" : "opacity-0"
+              )}
+            >
+              {String(errors[field.name]?.message || " ")}
+            </p>
           </div>
         ))}
 

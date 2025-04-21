@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { fadeIn, slideUp, generalSlideUp } from "@/shared/utils";
+import * as motion from "motion/react-client";
 
 const EventsGrid = ({ images }: { images: string[] }) => {
   return (
@@ -9,11 +8,17 @@ const EventsGrid = ({ images }: { images: string[] }) => {
         {/* Перший стовпчик */}
         <div className="flex flex-col gap-5">
           <motion.div
-            variants={slideUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={0.2}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, delay: 0.2 },
+              },
+            }}
           >
             <Image
               src={images[0]}
@@ -24,12 +29,19 @@ const EventsGrid = ({ images }: { images: string[] }) => {
               className="rounded-[8px] object-cover"
             />
           </motion.div>
+
           <motion.div
-            variants={slideUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={0.4}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.6, delay: 0.4 },
+              },
+            }}
           >
             <Image
               src={images[1]}
@@ -45,11 +57,17 @@ const EventsGrid = ({ images }: { images: string[] }) => {
         {/* Другий стовпчик */}
         <div className="flex flex-col gap-5">
           <motion.div
-            variants={generalSlideUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={0.6}
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.7, delay: 0.6 },
+              },
+            }}
           >
             <Image
               src={images[2]}
@@ -60,12 +78,19 @@ const EventsGrid = ({ images }: { images: string[] }) => {
               className="rounded-[8px]"
             />
           </motion.div>
+
           <motion.div
-            variants={generalSlideUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={0.8}
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.7, delay: 0.8 },
+              },
+            }}
           >
             <Image
               src={images[3]}
@@ -81,19 +106,24 @@ const EventsGrid = ({ images }: { images: string[] }) => {
         {/* Третій стовпчик */}
         <div className="flex">
           <motion.div
-            variants={fadeIn}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={1.0}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: { duration: 0.8, delay: 1.0 },
+              },
+            }}
+            className="relative w-full h-full "
           >
             <Image
               src={images[4]}
               alt="Event 4"
-              layout="responsive"
-              width={706}
-              height={484}
+              fill
               className="rounded-[8px] object-cover"
+              sizes="(min-width: 1280px) 706px, 100vw"
             />
           </motion.div>
         </div>
