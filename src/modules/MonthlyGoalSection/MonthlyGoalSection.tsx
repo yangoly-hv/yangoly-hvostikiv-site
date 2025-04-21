@@ -20,11 +20,35 @@ const MonthlyGoalSection = ({
     .replace("{{current}}", current.toLocaleString("uk-UA"));
 
   return (
-    <section className="mb-[124px] xl:mb-[200px] py-6 bg-white md:bg-transparent">
+    <section className="relative mb-[124px] xl:mb-[200px] py-6 bg-white md:bg-transparent overflow-hidden">
+      <AnimatedWrapper
+        animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
+        className="md:hidden absolute top-[-18px] left-[calc(50%-205px)] w-[429px] h-[630px]"
+      >
+        <Image
+          src="/images/home/monthlyGoal/housesMob.svg"
+          alt="houses"
+          width="429"
+          height="630"
+          className="w-full h-full object-cover"
+        />
+      </AnimatedWrapper>
       <div className="container px-4 xl:px-10 mx-auto">
-        <div className="md:flex justify-between rounded-[8px] overflow-hidden bg-white">
-          <div className="md:flex flex-col justify-between md:w-1/2 md:p-10 xl:py-[89px] xl:px-[81px]  rounded-[8px]">
-            <div>
+        <div className="relative md:flex justify-between rounded-[8px] md:bg-white overflow-hidden">
+          <AnimatedWrapper
+            animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
+            className="hidden md:block absolute top-[-26px] left-[-18px] md:w-[382px] lg:w-[502px] xl:w-[622px] laptop:w-[642px] desk:w-[802px] aspect-[642/583] h-auto"
+          >
+            <Image
+              src="/images/home/monthlyGoal/housesDesk.svg"
+              alt="houses"
+              width="642"
+              height="583"
+              className="w-full h-full object-cover"
+            />
+          </AnimatedWrapper>
+          <div className="md:flex flex-col justify-between md:w-1/2 md:p-10 xl:py-[89px] xl:px-[81px] rounded-[8px]">
+            <div className="lg:max-w-[348px] xl:max-w-[555px]">
               <AnimatedWrapper
                 as="h2"
                 animation={fadeInAnimation({ y: 30 })}
@@ -67,7 +91,7 @@ const MonthlyGoalSection = ({
               <Donate
                 lang={lang}
                 donateModalTranslataion={donateModalTranslataion}
-                className="w-full mb-3 desk:mb-8 xl:h-[67px]"
+                className="w-full lg:max-w-[348px] xl:max-w-[555px] mb-3 desk:mb-8 xl:h-[67px]"
                 buttonText={supportFundrasing}
               />
               <AnimatedWrapper
