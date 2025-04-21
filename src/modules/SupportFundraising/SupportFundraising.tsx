@@ -1,12 +1,9 @@
 "use client";
-import React, { useRef, useCallback, useState } from "react";
+import React, { useState } from "react";
 import { Locale } from "@/shared/types";
 import FundraisingCard from "@/shared/components/FundraisingCard/FundraisingCard";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import SlidesPagination from "../Pagination/SlidesPagination/SlidesPagination";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { slideUp, generalSlideUp } from "@/shared/utils";
@@ -36,31 +33,9 @@ const SupportFundraising = ({ lang }: { lang: Locale }) => {
 
   const t = translations[lang] || translations.uk;
 
-  // const handleCardClick = useCallback(() => {
-  //   console.log(`click`);
-  //   setIsModalOpen(true);
-  // }, []);
   const handleCardClick = () => {
-    console.log(`click`);
     setIsModalOpen(true);
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const swiperRef = useRef<any>(null);
-  const [isPrevDisabled, setIsPrevDisabled] = useState(true);
-  const [isNextDisabled, setIsNextDisabled] = useState(false);
-
-  const handlePrev = useCallback(() => {
-    if (swiperRef.current) {
-      swiperRef.current.slidePrev();
-    }
-  }, []);
-
-  const handleNext = useCallback(() => {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext();
-    }
-  }, []);
 
   return (
     <section className="container mx-auto px-4 xl:px-10 bg-orange-bg">
@@ -75,28 +50,12 @@ const SupportFundraising = ({ lang }: { lang: Locale }) => {
         variants={slideUp}
         custom={0.2}
       >
-        <Swiper
-          className="flex flex-row"
-          spaceBetween={10}
-          slidesPerView={1}
-          breakpoints={{
-            360: { slidesPerView: 1 },
-            640: { slidesPerView: 2 },
-            1366: { slidesPerView: 3 },
-          }}
-          modules={[Pagination]}
-          onSlideChange={(swiper) => {
-            setIsPrevDisabled(swiper.isBeginning);
-            setIsNextDisabled(swiper.isEnd);
-          }}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-            setIsPrevDisabled(swiper.isBeginning);
-            setIsNextDisabled(swiper.isEnd);
-          }}
-        >
-          {t.cardTitles.map((title, index) => (
-            <SwiperSlide key={index}>
+        <ul className="flex flex-col gap-5 md:flex-row">
+          {t.cardTitles.slice(0, 3).map((title, index) => (
+            <li
+              key={index}
+              className="w-full md:w-[calc(33%-13.3px)] min-h-full"
+            >
               <FundraisingCard
                 goal={t.goal}
                 image={t.image}
@@ -106,34 +65,21 @@ const SupportFundraising = ({ lang }: { lang: Locale }) => {
                 currency={t.currency}
                 buttonText={t.buttonText}
                 onClick={handleCardClick}
+                className="min-h-full"
               />
-            </SwiperSlide>
+            </li>
           ))}
-        </Swiper>
+        </ul>
       </motion.div>
 
       <motion.div
-        className={clsx(
-          "mt-4 flex justify-center gap-6",
-          isPrevDisabled && isNextDisabled && "hidden"
-        )}
+        className={clsx("mt-4 flex justify-center gap-6")}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={generalSlideUp}
         custom={0.4}
-      >
-        <SlidesPagination
-          direction="prev"
-          onClick={handlePrev}
-          disabled={isPrevDisabled}
-        />
-        <SlidesPagination
-          direction="next"
-          onClick={handleNext}
-          disabled={isNextDisabled}
-        />
-      </motion.div>
+      ></motion.div>
 
       {isModalOpen && (
         <DonateModal
