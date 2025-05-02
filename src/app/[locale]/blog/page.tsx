@@ -41,7 +41,7 @@ export async function generateMetadata({
 
 export default async function BlogPage({ params }: PageParams) {
   const { locale } = await params;
-  const { blog, contacts } = await getDictionary(locale);
+  const { blog } = await getDictionary(locale);
 
   const data = await getAllBlogItems(locale);
 
@@ -52,7 +52,7 @@ export default async function BlogPage({ params }: PageParams) {
   return (
     <>
       <Blog data={data} translation={blog} />
-      <Contacts translation={contacts} lang={locale} />
+      <Contacts />
     </>
   );
 }

@@ -1,16 +1,19 @@
 import Image from "next/image";
-import { IAngelsDeskProps } from "@/shared/types";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AngelsList from "./AngelsList";
 import Donate from "../../shared/components/Donate/Donate";
+import { getTranslations } from "next-intl/server";
+import clsx from "clsx";
 
-export default function AngelsDesk({
-  translation,
-  lang,
-  donateModalTranslataion,
-}: IAngelsDeskProps) {
-  const { title, makeContribution } = translation;
+export default async function AngelsDesk({
+  title,
+  withCircle,
+}: {
+  title?: string;
+  withCircle?: boolean;
+}) {
+  const t = await getTranslations("Angels");
 
   return (
     <div className="hidden md:block container px-4 xl:px-10 mx-auto">
@@ -41,7 +44,7 @@ export default function AngelsDesk({
             animation={fadeInAnimation({ y: 30 })}
             className="max-w-[201px] xl:max-w-[258px] laptop:max-w-[301px] ml-auto mb-[269px] xl:mb-[217px] font-arial text-[14px] xl:text-[24px] leading-[157%] xl:leading-[142%] uppercase"
           >
-            {title}
+            {title ? title : t("title")}
           </AnimatedWrapper>
           <AnimatedWrapper
             animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
@@ -53,17 +56,18 @@ export default function AngelsDesk({
               alt="background"
               width="359"
               height="250"
-              className="w-full h-full object-cover"
+              className={clsx(
+                "w-full h-full object-cover",
+                !withCircle && "hidden"
+              )}
             />
           </AnimatedWrapper>
           <Donate
-            buttonText={makeContribution}
-            lang={lang}
-            donateModalTranslataion={donateModalTranslataion}
+            buttonText={t("makeContribution")}
             className="w-full md:w-[297px] lg:w-[397px] xl:w-[607px] xl:h-[67px]"
           />
         </div>
-        <AngelsList lang={lang} translation={translation} />
+        <AngelsList />
       </div>
     </div>
   );

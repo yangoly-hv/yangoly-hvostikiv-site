@@ -7,6 +7,7 @@ import { ButtonVariant, Locale } from "@/shared/types";
 import clsx from "clsx";
 import { useState } from "react";
 import getContactFormConfig from "@/shared/formsConfigs/contactForm";
+import { useTranslations } from "next-intl";
 
 interface IContactFormActionProps {
   lang: Locale;
@@ -25,7 +26,7 @@ const ContactFormAction = ({
 }: IContactFormActionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const contactConfig = getContactFormConfig(lang);
-
+  const t = useTranslations("ContactModal");
   const handleSubmit = (data: unknown) => {
     console.log("Submited:", data);
   };
@@ -41,12 +42,12 @@ const ContactFormAction = ({
         text={buttonText}
       />
       <Modal
-        modalClassName="xl:max-w-[535px]"
+        modalClassName="xl:max-w-[535px] "
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       >
         <h2 className="text-[24px] font-arial font-black mb-5 leading-[130%] text-[#1D1D1D] text-center mt-10">
-          {modalTitle}
+          {modalTitle ? modalTitle : t("title")}
         </h2>
 
         <UniversalForm

@@ -56,3 +56,31 @@ export const listItemVariants = {
     transition: { duration: 0.3, ease: "easeOut" },
   },
 };
+
+export const listItemVariantSecond = {
+  hidden: { opacity: 0, y: 0 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: "easeOut" },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    scale: 0.95,
+    transition: { duration: 0.3, ease: "easeOut" },
+  },
+};
+
+export const containerVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      staggerChildren: 0.3,
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};

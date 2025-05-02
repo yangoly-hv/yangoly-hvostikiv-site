@@ -1,0 +1,263 @@
+{
+  "VolunteeringPage": {
+    "title": "Together we change the world with good deeds",
+    "helpTitle": "Become a volunteer at the 'Angels of Tails' Foundation",
+    "helpSubtitle": "Want to help animals and be part of a big good cause? Join the volunteer team of our foundation! We are looking for active, caring people ready to support us in various directions.",
+    "formCard": {
+      "title": "Want to become part of the team?",
+      "text": "Fill out the form below – and we’ll get in touch with you!",
+      "buttonText": "Fill out the form",
+      "imagePath": "/images/volounteering/card5.webp",
+      "bg": "#DDF8BC"
+    },
+    "helpsList": [
+      {
+        "title": "Volunteer at charity events",
+        "paragraphs": [
+          "Interacting with guests: telling them about the foundation, our mission, and achievements",
+          "Escorting people and dogs to photo zones, play areas, and contests",
+          "Distributing gifts, flyers, and helping with venue decoration",
+          "Photo and video documentation of events, shooting short videos, basic editing",
+          "Hosting at locations: photo zone, lottery, contests. Actively engaging guests and guiding them further"
+        ],
+        "imagePath": "/images/volounteering/card1.webp",
+        "imagePathDesk": "/images/volounteering/card1-desk.webp",
+        "bg": "#FFD699"
+      },
+      {
+        "title": "Assistant to the Foundation Director (volunteer position)",
+        "paragraphs": [
+          "Assisting with organizational tasks and work planning",
+          "Working with Google Docs: spreadsheets, lists, forms",
+          "Preparing thank-you notes for donors and partners (based on templates)",
+          "Coordinating volunteers and event participants, maintaining simple lists"
+        ],
+        "imagePath": "/images/volounteering/card2.webp",
+        "imagePathDesk": "/images/volounteering/card2.webp",
+        "bg": "#F4E1C1"
+      },
+      {
+        "title": "Creative support",
+        "paragraphs": [
+          "Designing layouts for flyers, thank-you cards, and posters",
+          "Photo or video editing, creating short social media videos",
+          "Generating ideas for upcoming events, photo zone setups, contests (props, decor, creative solutions)"
+        ],
+        "imagePath": "/images/volounteering/card3.webp",
+        "imagePathDesk": "/images/volounteering/card3.webp",
+        "bg": "#D6E6D5"
+      },
+      {
+        "title": "PR and communications",
+        "paragraphs": [
+          "Finding new partners and donors",
+          "Communicating with businesses, shopping centers, bloggers, and media",
+          "Connecting with show business: actors, musicians, hosts, influencers",
+          "Engaging TV channels and broadcasters to support with media coverage",
+          "Negotiating joint campaigns, fundraising, and collaborations",
+          "Sending request letters (based on templates) and maintaining communication"
+        ],
+        "imagePath": "/images/volounteering/card4.webp",
+        "imagePathDesk": "/images/volounteering/card4.webp",
+        "bg": "#DFD8EC"
+      }
+    ],
+    "whatGet": {
+      "title": "What Does a Volunteer of the 'Tail Angels' Foundation Receive?",
+      "subtitle": "By becoming an angel for those who cannot ask for help, you open new opportunities for yourself as well. Together with the 'Tail Angels' team, we create positive change — with love, care, and inspiration.",
+      "paragraphs": [
+        "Official recognition — thank-you notes, volunteer certificate, recommendations.",
+        "Real impact — you personally help save animals’ lives.",
+        "Participation in large-scale events — our volunteers join events we organize, as well as city, national, and major themed festivals by invitation of partners and organizers.",
+        "Professional growth — new skills, career prospects, and development.",
+        "Community and inspiration — connections, emotions, and pride in meaningful work."
+      ]
+    }
+  },
+  "Angels": {
+    "title": "They’ve already become Angels for the furry ones. Join the light!",
+    "makeContribution": "Make a contribution",
+    "hrn": "hrn",
+    "donor": "Donor",
+    "sum": "Contribution amount"
+  },
+  "DonateModal": {
+    "fundraisingTitle": "Our monthly goal",
+    "subtitle": "Current fundraising",
+    "goal": "Goal",
+    "currency": "UAH",
+    "donateAmountSection": {
+      "title": "Top-up amount",
+      "anotherAmount": "Other amount",
+      "inputPlaceholder": "Optional",
+      "inputLabel": "Your name or comment",
+      "firstCheckboxLabel": "I want to be the first to know about charity events",
+      "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
+      "cardButton": "Pay by card",
+      "submitError": "Please confirm that you have read the public offer agreement"
+    }
+  },
+  "ThankYouModal": {
+    "title": "Thank you!",
+    "message": "Tails thank you for your donation",
+    "buttonText": "Got it"
+  },
+  "Contacts": {
+    "title": "Contacts",
+    "subtitle": "To get in touch with us, please leave your contact details"
+  },
+  "Partnership": {
+    "title": "Partnership to Save Animals from War",
+    "heroTitle": "Your Contribution - A Chance for a New Life",
+    "heroSubtitle": "Become an Angel and join our partnership to create a safe future for animals together.",
+    "heroButton": "Become a Partner"
+  },
+  "ContactModal": {
+    "title": "To become our partner, please leave your contact details"
+  },
+  "PartnersList": {
+    "title": "Our partners - our heroes!",
+    "list": [
+      {
+        "title": "Pesyky Fest",
+        "image": {
+          "imagePath": "/images/partners/pesiki-fest.png",
+          "widthMob": 101,
+          "heightMob": 87,
+          "widthDesk": 203,
+          "heightDesk": 176,
+          "bg": "#7030A0"
+        },
+        "text": "The largest festival for dogs and their owners in Kyiv! Fun, competitions, lectures, and an atmosphere full of love for our four-legged friends.",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      },
+      {
+        "title": "Obolon Administration",
+        "image": {
+          "imagePath": "/images/partners/obolon.png",
+          "widthMob": 73,
+          "heightMob": 91,
+          "widthDesk": 177,
+          "heightDesk": 237
+        },
+        "text": "A governmental institution supporting social, cultural, and charitable initiatives for community development.",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      },
+      {
+        "title": "Obolon Department of Culture",
+        "image": {
+          "imagePath": "/images/partners/kultura.png",
+          "widthMob": 261,
+          "heightMob": 91,
+          "widthDesk": 588,
+          "heightDesk": 217
+        },
+        "text": "A subdivision implementing cultural projects and supporting creative community initiatives.",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      },
+      {
+        "title": "ArtZavod Platforma",
+        "image": {
+          "imagePath": "/images/partners/artzavod.png",
+          "widthMob": 176,
+          "heightMob": 81,
+          "widthDesk": 244,
+          "heightDesk": 112
+        },
+        "text": "A creative space in Ukraine where art, culture, and initiatives support animal welfare.",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      },
+      {
+        "title": "Habiohika",
+        "image": {
+          "imagePath": "/images/partners/habiohika.png",
+          "widthMob": 239,
+          "heightMob": 35,
+          "widthDesk": 392,
+          "heightDesk": 47
+        },
+        "text": "An innovative company developing safety technologies and supporting animal aid initiatives.",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      },
+      {
+        "title": "Brit",
+        "image": {
+          "imagePath": "/images/partners/brit.png",
+          "widthMob": 203,
+          "heightMob": 69,
+          "widthDesk": 470,
+          "heightDesk": 162
+        },
+        "text": "A well-known pet food brand that supports rescue initiatives and responsible pet care.",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      },
+      {
+        "title": "PRACTIK",
+        "image": {
+          "imagePath": "/images/partners/practik.png",
+          "widthMob": 73,
+          "heightMob": 91,
+          "widthDesk": 175,
+          "heightDesk": 217
+        },
+        "text": "A Ukrainian pet food brand that supports rescue initiatives and the health of your beloved pets.",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      }
+    ]
+  },
+  "PartnersSupport": {
+    "titleMob": "Animal support means a new life!",
+    "titleDesk": "Your support gives animals a chance for a new life. Join us!",
+    "partnersButton": "Become a partner",
+    "documentsButton": "Our founding documents",
+    "firstPart": {
+      "title": "How you can help:",
+      "list": [
+        {
+          "imgPath": "/images/partners/support/1.png",
+          "text": "Financial support – food, medicine, treatments, vaccines, sterilization, kennel construction, etc."
+        },
+        {
+          "imgPath": "/images/partners/support/2.png",
+          "text": "Material assistance – providing food, medical supplies, animal care items, and other necessary resources."
+        },
+        {
+          "imgPath": "/images/partners/support/3.png",
+          "text": "Volunteering – active involvement of employees and volunteers in charity events and animal support activities."
+        },
+        {
+          "imgPath": "/images/partners/support/4.png",
+          "text": "Informational support – spreading awareness about the foundation's work and attracting new partners and donors."
+        }
+      ]
+    },
+    "secondPart": {
+      "title": "How it benefits you:",
+      "list": [
+        {
+          "imgPath": "/images/partners/support/5.png",
+          "text": "Social responsibility – building a positive image for your business and demonstrating civic engagement."
+        },
+        {
+          "imgPath": "/images/partners/support/6.png",
+          "text": "Informational support and PR – partner promotion, free publicity, and public acknowledgements."
+        },
+        {
+          "imgPath": "/images/partners/support/7.png",
+          "text": "Transparency and reporting – regular reports on how funds are used."
+        },
+        {
+          "imgPath": "/images/partners/support/8.png",
+          "text": "Outdoor promotion at events – showcasing your products and direct engagement with the audience."
+        }
+      ]
+    }
+  }
+}

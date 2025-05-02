@@ -3,7 +3,7 @@ import { IHeroProps } from "@/shared/types";
 import DonateAction from "@/shared/components/DonateAction/DonateAction";
 import Image from "next/image";
 
-const Hero = ({ translation, lang }: IHeroProps) => {
+const Hero = ({ translation }: IHeroProps) => {
   const { title, subtitle, text, button } = translation;
   return (
     <section className="relative pt-[381px] xl:pt-[497px] xl:pb-[43px] pb-[38px] overflow-hidden">
@@ -89,7 +89,6 @@ const Hero = ({ translation, lang }: IHeroProps) => {
             <DonateAction
               variant="primary"
               color="text-dark bg-orange"
-              lang={lang}
               buttonText={button}
             />
           </motion.div>

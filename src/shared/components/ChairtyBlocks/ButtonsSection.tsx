@@ -66,7 +66,6 @@ const ButtonsSection = ({
                 className="w-full md:w-auto"
               >
                 <DonateAction
-                  lang={lang}
                   buttonText={buttons[0]}
                   variant="secondary"
                 />

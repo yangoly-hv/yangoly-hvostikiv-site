@@ -15,25 +15,19 @@ export default async function Home({ params }: PageParams) {
   const {
     hero,
     changeLife,
-    angels,
     about,
     monthlyGoalSection,
     workResults,
     partners,
-    contacts,
     donateModal,
   } = await getDictionary(locale);
 
   return (
     <>
-      <Hero lang={locale} translation={hero} />
+      <Hero translation={hero} />
       <WorkResults translation={workResults} />
       <ChangeLife translation={changeLife} />
-      <Angels
-        translation={angels}
-        lang={locale}
-        donateModalTranslataion={donateModal}
-      />
+      <Angels />
       <About translation={about} />
       <MonthlyGoalSection
         translation={monthlyGoalSection}
@@ -44,7 +38,7 @@ export default async function Home({ params }: PageParams) {
       <div className="container mx-auto px-4 pt-[160px] pb-[80px] xl:py-[120px] xl:px-10">
         <Partners translation={partners} />
       </div>
-      <Contacts translation={contacts} lang={locale} />
+      <Contacts />
     </>
   );
 }

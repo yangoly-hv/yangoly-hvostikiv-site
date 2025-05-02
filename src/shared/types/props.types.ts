@@ -4,8 +4,6 @@ import {
   IAboutTranslation,
   IBlog,
   IChangeLifeTranslation,
-  IContactsTranslation,
-  IDonateAmountSectionTranslation,
   IDonateModalTranslation,
   IHeroTranslation,
   IInformationBlockTranslation,
@@ -63,38 +61,19 @@ export interface IBurgerMenuProps {
 
 export interface IHeroProps {
   translation: IHeroTranslation;
-  lang: Locale;
 }
 
 export interface IChangeLifeProps {
   translation: IChangeLifeTranslation;
 }
 
-export interface IAngelsProps {
-  translation: IAngelsTranslation;
-  lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
-}
-
 export interface IAngelsMobProps {
-  translation: IAngelsTranslation;
-  lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
-}
-export interface IAngelsDeskProps {
-  translation: IAngelsTranslation;
-  lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
-}
-
-export interface IAngelsListProps {
-  translation: IAngelsTranslation;
-  lang: Locale;
+  translation?: IAngelsTranslation;
+  lang?: Locale;
+  donateModalTranslataion?: IDonateModalTranslation;
 }
 
 export interface IDonateProps {
-  lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
   className?: string;
   buttonText: string;
 }
@@ -172,11 +151,6 @@ export interface IFormConfig {
   className?: string;
 }
 
-export interface IContactsProps {
-  lang: Locale;
-  translation: IContactsTranslation;
-}
-
 export interface ISvgIconProps extends React.SVGProps<SVGSVGElement> {
   variant?: "primary" | "secondary";
   color?: string;
@@ -251,14 +225,6 @@ export interface IPaymentButtonProps
 export interface IDonateModalProps {
   isOpen: boolean;
   onClose: () => void;
-  translation?: IDonateModalTranslation;
-  lang: Locale;
-}
-
-export interface IAmountSectionProps {
-  translation: IDonateAmountSectionTranslation;
-  currency: string;
-  lang: Locale;
 }
 
 export interface IToastProps {
@@ -282,9 +248,9 @@ export interface ICardPaymentFormData {
 export interface IThankYouModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
-  message: string;
-  buttonText: string;
+  title?: string;
+  message?: string;
+  buttonText?: string;
   onButtonClick?: () => void;
 }
 
@@ -442,4 +408,55 @@ export interface IReportItem {
 
 export interface IReportProps {
   report: IReportItem;
+}
+
+export interface IHelpVolonteeringTranslation {
+  title: string;
+  paragraphs?: string[];
+  text?: string;
+  imagePath: string;
+  imagePathDesk?: string;
+  bg: string;
+  buttonText?: string;
+}
+
+export interface IAngelsProps extends ComponentProps<"section"> {
+  title?: string;
+  withCircle?: boolean;
+}
+
+export interface IPartnerItem {
+  title: string;
+  image: {
+    imagePath: string;
+    widthMob: number;
+    heightMob: number;
+    widthDesk: number;
+    heightDesk: number;
+    bg?: string;
+  };
+  text: string;
+  buttonText: string;
+  buttonLink: string;
+}
+
+export interface IPartnersSupport {
+  title: string;
+  list: {
+    imgPath: string;
+    text: string;
+  }[];
+}
+
+export interface IWhatWeHaveItem {
+  title: string;
+  text: string;
+  imgPath: string;
+  bgPath: string;
+}
+
+export interface IVolunteeringCardProps extends ComponentProps<"li"> {
+  index: number;
+  item: IHelpVolonteeringTranslation;
+  className?: string;
 }

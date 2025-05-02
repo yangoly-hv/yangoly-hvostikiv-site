@@ -38,7 +38,7 @@ const Hero = ({ title }: { title: string }) => {
             transition: { duration: 0.6, ease: "easeOut", delay: 0.2 },
           },
         }}
-        className="text-dark text-[24px] leading-[130%] font-black uppercase font-arial text-center mt-[80px]"
+        className="text-dark text-[24px] lg:text-[32px] leading-[130%] font-black uppercase font-arial text-center mt-[80px]"
       >
         {title}
       </motion.h2>

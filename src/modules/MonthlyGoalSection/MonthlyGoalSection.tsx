@@ -8,7 +8,6 @@ import Donate from "@/shared/components/Donate/Donate";
 const MonthlyGoalSection = ({
   translation,
   lang,
-  donateModalTranslataion,
 }: IMonthlyGoalSectionProps) => {
   const monthlyFundrasingLocalized = monthlyFundrasing[lang];
   const { title, description, image, goal, current } =
@@ -89,8 +88,6 @@ const MonthlyGoalSection = ({
             </div>
             <div>
               <Donate
-                lang={lang}
-                donateModalTranslataion={donateModalTranslataion}
                 className="w-full lg:max-w-[348px] xl:max-w-[555px] mb-3 desk:mb-8 xl:h-[67px]"
                 buttonText={supportFundrasing}
               />

@@ -4,9 +4,8 @@ import ImageSlider from "../ImageSlider/ImageSlider";
 import Button from "../Button/Button";
 import AdoptModal from "../AdoptModal/AdoptModal";
 import DonateModal from "../DonateModal/DonateModal";
-import { ITailInfoProps } from "@/shared/types";
 import { motion } from "framer-motion";
-import { fadeIn, generalSlideUp } from "@/shared/utils";
+import { fadeIn } from "@/shared/utils";
 
 //@ts-expect-error
 const TailInfo = ({ tail, locale, translation }) => {
@@ -24,21 +23,23 @@ const TailInfo = ({ tail, locale, translation }) => {
   };
 
   const needsSterilization = tail.categories.find(
-      //@ts-expect-error
+    //@ts-expect-error
     (category) => category === "needs-sterilization"
   );
 
   return (
     <div className="flex flex-col items-center lg:flex-row gap-y-7 lg:gap-y-0 lg:bg-white">
-        {Boolean(tail?.images?.length) && <motion.div
-        variants={fadeIn}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        custom={0}
-      >
-        <ImageSlider images={tail.images} />
-      </motion.div>}
+      {Boolean(tail?.images?.length) && (
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          custom={0}
+        >
+          <ImageSlider images={tail.images} />
+        </motion.div>
+      )}
       <div className="flex flex-col justify-center w-full max-w-[706px] lg:max-w-full p-6 lg:px-[76px] bg-white rounded-[12px] lg:rounded-none">
         <motion.h2
           variants={fadeIn}
@@ -51,7 +52,10 @@ const TailInfo = ({ tail, locale, translation }) => {
           {tail.name}
         </motion.h2>
 
-        <div className="flex flex-col gap-4" dangerouslySetInnerHTML={{ __html: tail.mainText }}>
+        <div
+          className="flex flex-col gap-4"
+          dangerouslySetInnerHTML={{ __html: tail.mainText }}
+        >
           {/*{tail.description.map((descr, index) => (*/}
           {/*  <motion.p*/}
           {/*    variants={generalSlideUp}*/}
@@ -67,20 +71,22 @@ const TailInfo = ({ tail, locale, translation }) => {
           {/*))}*/}
         </div>
         <div className="flex flex-col mt-7 lg:mt-8 gap-2">
-            {tail.categories.includes("needs-family") && <motion.div
-            variants={fadeIn}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            custom={0.8}
-          >
-            <Button
-              onClick={() => setIsAdoptModalOpen(true)}
-              text={adoptButton}
-              fullWidth
-              className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0"
-            />
-          </motion.div>}
+          {tail.categories.includes("needs-family") && (
+            <motion.div
+              variants={fadeIn}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              custom={0.8}
+            >
+              <Button
+                onClick={() => setIsAdoptModalOpen(true)}
+                text={adoptButton}
+                fullWidth
+                className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0"
+              />
+            </motion.div>
+          )}
           <motion.div
             variants={fadeIn}
             initial="hidden"
@@ -106,7 +112,6 @@ const TailInfo = ({ tail, locale, translation }) => {
       <DonateModal
         isOpen={isDonateModalOpen}
         onClose={handleDoanteModalClose}
-        lang={locale}
       />
     </div>
   );

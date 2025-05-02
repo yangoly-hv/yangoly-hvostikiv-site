@@ -82,7 +82,6 @@ const SupportFundraising = ({ lang }: { lang: Locale }) => {
 
       {isModalOpen && (
         <DonateModal
-          lang={lang}
           onClose={() => setIsModalOpen(false)}
           isOpen={isModalOpen}
         />

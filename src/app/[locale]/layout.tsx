@@ -12,7 +12,8 @@ export async function generateMetadata({
   const { locale } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv-site.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://yangoly-hvostikiv-site.vercel.app";
 
   return {
     title: metadata.title,
@@ -53,20 +54,18 @@ export default async function LocaleLayout({
   const { header, footerNav, donateModal } = await getDictionary(locale);
 
   return (
-    <div className="relative">
+    <div className="flex flex-col min-h-screen">
       <Header
         lang={locale}
         translation={header}
         donateModalTranslataion={donateModal}
       />
-      <div className="flex flex-col min-h-[100%]">
-        <main
-          className={`${raleway.variable} bg-orange-bg h-full flex-1 w-full overflow-y-hidden overflow-x-hidden font-raleway`}
-        >
-          {children}
-        </main>
-        <Footer translation={footerNav} />
-      </div>
+      <main
+        className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway`}
+      >
+        {children}
+      </main>
+      <Footer translation={footerNav} />
     </div>
   );
 }

@@ -7,8 +7,6 @@ import Button from "@/shared/components/Button/Button";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 
 export default function Donate({
-  donateModalTranslataion,
-  lang,
   buttonText,
   className = "",
 }: IDonateProps) {
@@ -30,8 +28,6 @@ export default function Donate({
       <DonateModal
         isOpen={isDonateModalOpen}
         onClose={handleCloseModal}
-        translation={donateModalTranslataion}
-        lang={lang}
       />
     </>
   );
