@@ -4,27 +4,16 @@ import { CloseIcon } from "../../../../public/images/icons";
 import FundraisingGoal from "@/modules/FundraisingGoal/FundraisingGoal";
 import DonateAmountSection from "./DonateAmountSection/DonateAmountSection";
 import { IDonateModalProps } from "@/shared/types";
-import { getDictionary } from "@/shared/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLockBodyScroll } from "@/shared/hooks/useLockBodyScroll";
+import { useTranslations } from "next-intl";
 
-const DonateModal = ({
-  isOpen,
-  onClose,
-  translation,
-  lang,
-}: IDonateModalProps) => {
-  const [localTranslation, setLocalTranslation] = useState(translation);
+const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
+  const t = useTranslations("DonateModal");
+
   const [showModal, setShowModal] = useState(isOpen);
 
   useLockBodyScroll(isOpen);
-  useEffect(() => {
-    if (!translation) {
-      getDictionary(lang).then(({ donateModal }) =>
-        setLocalTranslation(donateModal)
-      );
-    }
-  }, [lang, translation]);
 
   useEffect(() => {
     if (isOpen) {
@@ -42,11 +31,6 @@ const DonateModal = ({
     },
     [onClose]
   );
-
-  if (!localTranslation) return null;
-
-  const { fundraisingTitle, subtitle, currency, goal, donateAmountSection } =
-    localTranslation;
 
   return (
     <AnimatePresence>
@@ -78,9 +62,9 @@ const DonateModal = ({
               <FundraisingGoal
                 className=" xl:hidden"
                 imageVariant="small"
-                fundraisingTitle={fundraisingTitle}
-                goal={goal}
-                currency={currency}
+                fundraisingTitle={t("fundraisingTitle")}
+                goal={t("goal")}
+                currency={t("currency")}
                 totalAmount={30000}
                 currentAmount={10000}
                 styles={{
@@ -94,12 +78,12 @@ const DonateModal = ({
               <div className="hidden xl:block xl:w-1/2 my-auto ">
                 <FundraisingGoal
                   imageVariant="big"
-                  fundraisingTitle={fundraisingTitle}
-                  goal={goal}
-                  currency={currency}
+                  fundraisingTitle={t("fundraisingTitle")}
+                  goal={t("goal")}
+                  currency={t("currency")}
                   totalAmount={30000}
                   currentAmount={10000}
-                  subtitle={subtitle}
+                  subtitle={t("subtitle")}
                   styles={{
                     titleClassName:
                       "!text-[36px] font-arial font-black uppercase max-w-[325px] text-center mx-auto",
@@ -119,9 +103,6 @@ const DonateModal = ({
                   </button>
                 </div>
                 <DonateAmountSection
-                  lang={lang}
-                  currency={currency}
-                  translation={donateAmountSection}
                 />
               </div>
             </div>

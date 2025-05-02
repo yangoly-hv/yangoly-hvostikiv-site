@@ -11,8 +11,6 @@ import { motion, AnimatePresence } from "framer-motion";
 const BurgerMenu = ({
   translation,
   isOpen,
-  donateModalTranslataion,
-  lang,
   onClose,
 }: IBurgerMenuProps) => {
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
@@ -49,8 +47,6 @@ const BurgerMenu = ({
               </div>
             </div>
             <DonateModal
-              lang={lang}
-              translation={donateModalTranslataion}
               isOpen={isDonateModalOpen}
               onClose={() => setIsDonateModalOpen(false)}
             />

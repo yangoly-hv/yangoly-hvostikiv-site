@@ -2,11 +2,10 @@
 
 import Button from "@/shared/components/Button/Button";
 import DonateModal from "@/shared/components/DonateModal/DonateModal";
-import { ButtonVariant, Locale } from "@/shared/types";
+import { ButtonVariant } from "@/shared/types";
 import clsx from "clsx";
 import { useState } from "react";
 interface IDonateActionProps {
-  lang: Locale;
   buttonText: string;
   color?: string;
   variant?: ButtonVariant;
@@ -15,7 +14,6 @@ interface IDonateActionProps {
 const DonateAction = ({
   variant = "secondary",
   color,
-  lang,
   buttonText,
 }: IDonateActionProps) => {
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
@@ -34,7 +32,6 @@ const DonateAction = ({
       <DonateModal
         isOpen={isDonateModalOpen}
         onClose={() => setIsDonateModalOpen(false)}
-        lang={lang}
       />
     </>
   );

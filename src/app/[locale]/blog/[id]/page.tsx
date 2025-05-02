@@ -6,16 +6,17 @@ import { PageParams } from "@/shared/types";
 
 // import {extractFirstParagraphText} from "@/shared/utils/functions";
 
-import {getBlogItemById} from "@/shared/api/blog";
-import type {Metadata} from "next";
+import { getBlogItemById } from "@/shared/api/blog";
+import type { Metadata } from "next";
 
 export async function generateMetadata({
-                                         params,
-                                       }: PageParams): Promise<Metadata> {
+  params,
+}: PageParams): Promise<Metadata> {
   const { locale, id } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv-site.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://yangoly-hvostikiv-site.vercel.app";
 
   return {
     title: metadata.blog.title,
@@ -68,7 +69,7 @@ export async function generateMetadata({
 
 export default async function ArticlePage({ params }: PageParams) {
   const { id, locale } = await params;
-  const { contacts, blog } = await getDictionary(locale);
+  const { blog } = await getDictionary(locale);
 
   // const article = newsList[locale].find((newsItem) => newsItem.id === id);
 
@@ -81,7 +82,7 @@ export default async function ArticlePage({ params }: PageParams) {
   return (
     <>
       <BlogArticle article={data} translation={blog} />
-      <Contacts translation={contacts} lang={locale} />
+      <Contacts />
     </>
   );
 }

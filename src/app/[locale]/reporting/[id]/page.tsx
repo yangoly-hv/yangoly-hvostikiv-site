@@ -4,22 +4,25 @@ import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
 // import { reportingList } from "../constants";
 
-import {getReportById} from "@/shared/api/reports";
-import type {Metadata} from "next";
+import { getReportById } from "@/shared/api/reports";
+import type { Metadata } from "next";
 
-import {extractFirstParagraphText} from "@/shared/utils/functions";
+import { extractFirstParagraphText } from "@/shared/utils/functions";
 
 export async function generateMetadata({
-                                         params,
-                                       }: PageParams): Promise<Metadata> {
+  params,
+}: PageParams): Promise<Metadata> {
   const { locale, id } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv-site.vercel.app";
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    "https://yangoly-hvostikiv-site.vercel.app";
 
   const data = await getReportById(id, locale);
   const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
-  const description = `${metadata.reporting.description} | ${extractFirstParagraphText(data.description)}`;
+  const description = `${
+    metadata.reporting.description
+  } | ${extractFirstParagraphText(data.description)}`;
 
   return {
     title,
@@ -48,7 +51,7 @@ export async function generateMetadata({
 
 export default async function ReportPage({ params }: PageParams) {
   const { id, locale } = await params;
-  const { contacts, blog } = await getDictionary(locale);
+  const { blog } = await getDictionary(locale);
 
   // const report = reportingList[locale].find(
   //   (reportItem) => reportItem.id === id
@@ -63,7 +66,7 @@ export default async function ReportPage({ params }: PageParams) {
   return (
     <>
       <Report report={data} translation={blog} />
-      <Contacts translation={contacts} lang={locale} />
+      <Contacts />
     </>
   );
 }

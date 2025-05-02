@@ -3,14 +3,14 @@ import {
   listVariants,
   fadeInAnimation,
 } from "@/shared/components/Animations/animationVariants";
-import { IAngelsListProps } from "@/shared/types";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AnimatedListItem from "@/shared/components/Animations/AnimatedListItem";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Locale } from "@/shared/types";
 
-export default function AngelsList({ lang, translation }: IAngelsListProps) {
-  if (!donorsList || !donorsList[lang] || !donorsList[lang].length) return null;
-
-  const { hrn, donor, sum } = translation;
+export default async function AngelsList() {
+  const t = await getTranslations("Angels");
+  const lang = (await getLocale()) as Locale;
 
   const formatSum = (value: number): string => {
     return new Intl.NumberFormat("uk-UA", {
@@ -30,8 +30,8 @@ export default function AngelsList({ lang, translation }: IAngelsListProps) {
       xl:leading-[81%]"
       >
         <p>#</p>
-        <p>{donor}</p>
-        <p>{sum}</p>
+        <p>{t("donor")}</p>
+        <p>{t("sum")}</p>
       </AnimatedWrapper>
       <AnimatedWrapper
         as="ul"
@@ -46,7 +46,7 @@ export default function AngelsList({ lang, translation }: IAngelsListProps) {
             <p>{idx + 1}</p>
             <p>{donor?.name}</p>
             <p className="text-right">
-              {formatSum(donor?.sum)}&nbsp;{hrn}
+              {formatSum(donor?.sum)}&nbsp;{t("hrn")}
             </p>
           </AnimatedListItem>
         ))}

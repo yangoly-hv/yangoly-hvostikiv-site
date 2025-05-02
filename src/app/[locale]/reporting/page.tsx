@@ -41,7 +41,7 @@ export async function generateMetadata({
 
 export default async function ReportingPage({ params }: PageParams) {
   const { locale } = await params;
-  const { contacts, reporting } = await getDictionary(locale);
+  const { reporting } = await getDictionary(locale);
 
   const data = await getAllReports(locale);
 
@@ -52,7 +52,7 @@ export default async function ReportingPage({ params }: PageParams) {
   return (
     <>
       <Reporting data={data} translation={reporting} lang={locale} />
-      <Contacts translation={contacts} lang={locale} />
+      <Contacts />
     </>
   );
 }

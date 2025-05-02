@@ -87,11 +87,7 @@ export default function SterilizationPage() {
           </div>
         </div>
       </div>
-      <DonateModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        lang={lang}
-      />
+      <DonateModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 }

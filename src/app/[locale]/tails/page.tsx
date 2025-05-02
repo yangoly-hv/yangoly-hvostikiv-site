@@ -40,7 +40,7 @@ export async function generateMetadata({
 
 export default async function TailsPage({ params }: PageParams) {
   const { locale } = await params;
-  const { contacts, tails } = await getDictionary(locale);
+  const { tails } = await getDictionary(locale);
   const data = await getAllAnimals(locale);
 
   if (!data) {
@@ -50,7 +50,7 @@ export default async function TailsPage({ params }: PageParams) {
   return (
     <>
       <Tails data={data} translation={tails} lang={locale} />
-      <Contacts translation={contacts} lang={locale} />
+      <Contacts />
     </>
   );
 }

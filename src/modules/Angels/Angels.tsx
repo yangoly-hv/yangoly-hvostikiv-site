@@ -1,24 +1,16 @@
-import { IAngelsProps } from "@/shared/types";
 import AngelsMob from "./AngelsMob";
 import AngelsDesk from "./AngelsDesk";
+import { IAngelsProps } from "@/shared/types";
 
-export default function Angels({
-  translation,
-  lang,
-  donateModalTranslataion,
+export default async function Angels({
+  title,
+  withCircle = true,
+  ...props
 }: IAngelsProps) {
   return (
-    <section className="mb-[100px] xl:mb-[120px]">
-      <AngelsMob
-        translation={translation}
-        lang={lang}
-        donateModalTranslataion={donateModalTranslataion}
-      />
-      <AngelsDesk
-        translation={translation}
-        lang={lang}
-        donateModalTranslataion={donateModalTranslataion}
-      />
+    <section className="mb-[100px] xl:mb-[120px]" {...props}>
+      <AngelsMob title={title} />
+      <AngelsDesk withCircle={withCircle} title={title} />
     </section>
   );
 }
