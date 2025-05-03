@@ -1,10 +1,10 @@
 import * as motion from "motion/react-client";
-import { IHeroProps } from "@/shared/types";
 import DonateAction from "@/shared/components/DonateAction/DonateAction";
 import Image from "next/image";
+import { getTranslations } from "next-intl/server";
 
-const Hero = ({ translation }: IHeroProps) => {
-  const { title, subtitle, text, button } = translation;
+const Hero = async () => {
+  const t = await getTranslations("Hero");
   return (
     <section className="relative pt-[381px] xl:pt-[497px] xl:pb-[43px] pb-[38px] overflow-hidden">
       <div className="absolute inset-0 w-full h-full">
@@ -43,7 +43,7 @@ const Hero = ({ translation }: IHeroProps) => {
             },
           }}
         >
-          {subtitle}
+          {t("subtitle")}
         </motion.h2>
         <motion.h1
           className="text-white text-center font-arial uppercase mt-[12px] leading-[122%] font-black text-[40px] xl:text-[118px] xl:font-extrabold"
@@ -55,7 +55,7 @@ const Hero = ({ translation }: IHeroProps) => {
             visible: { opacity: 1, transition: { duration: 0.6, delay: 0.5 } },
           }}
         >
-          {title}
+          {t("title")}
         </motion.h1>
         <motion.div
           className="flex flex-col items-center max-w-[300px] xl:flex-row xl:max-w-full xl:w-full xl:justify-between xl:px-[73px] xl:mt-[48px]"
@@ -74,7 +74,7 @@ const Hero = ({ translation }: IHeroProps) => {
               },
             }}
           >
-            {text}
+            {t("text")}
           </motion.p>
           <motion.div
             variants={{
@@ -87,9 +87,10 @@ const Hero = ({ translation }: IHeroProps) => {
             }}
           >
             <DonateAction
+              className="px-[62px]"
               variant="primary"
               color="text-dark bg-orange"
-              buttonText={button}
+              buttonText={t("button")}
             />
           </motion.div>
         </motion.div>

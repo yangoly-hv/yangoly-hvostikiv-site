@@ -2,10 +2,9 @@ import * as motion from "motion/react-client";
 import Image from "next/image";
 import VolunteeringCardMobile from "./VolunteeringCardMobile";
 import clsx from "clsx";
-import { IHelpVolonteeringTranslation, Locale } from "@/shared/types";
+import { IHelpVolonteeringTranslation } from "@/shared/types";
 import VolunteeringCardDesk from "./VolunteeringCardDesk";
 import ContactFormAction from "../ContactFormAction/ContactFormAction";
-import { getLocale } from "next-intl/server";
 
 interface IVounteeringCardListProps {
   helpsList: IHelpVolonteeringTranslation[];
@@ -16,7 +15,6 @@ const VounteeringCardList = async ({
   formCard,
   helpsList,
 }: IVounteeringCardListProps) => {
-  const locale = (await getLocale()) as Locale;
   return (
     <>
       <ul className="grid xl:hidden grid-cols-1 md:grid-cols-2 mt-[18px] gap-5 pt-[18px] pb-[100px]  xl:grid-rows-6">
@@ -56,7 +54,6 @@ const VounteeringCardList = async ({
             </p>
             <div className="flex justify-center items-center">
               <ContactFormAction
-                lang={locale}
                 buttonText={formCard.buttonText ? formCard.buttonText : ""}
                 className="mt-6 w-full h-[52px] max-w-[253px] "
               />
@@ -103,7 +100,6 @@ const VounteeringCardList = async ({
               </p>
               <div className="flex justify-center items-center">
                 <ContactFormAction
-                  lang={locale}
                   buttonText={formCard.buttonText ? formCard.buttonText : ""}
                   className="mt-6 w-full h-[52px] max-w-[253px] z-[2] "
                 />

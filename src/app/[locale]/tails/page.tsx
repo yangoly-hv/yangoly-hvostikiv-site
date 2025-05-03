@@ -4,6 +4,8 @@ import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
 import type { Metadata } from "next";
 import { getAllAnimals } from "@/shared/api/animals";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 
 export async function generateMetadata({
   params,
@@ -49,8 +51,10 @@ export default async function TailsPage({ params }: PageParams) {
 
   return (
     <>
-      <Tails data={data} translation={tails} lang={locale} />
-      <Contacts />
+      <Suspense fallback={<Loading />}>
+        <Tails data={data} translation={tails} lang={locale} />
+        <Contacts />
+      </Suspense>
     </>
   );
 }

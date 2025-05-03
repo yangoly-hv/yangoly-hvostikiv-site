@@ -1,7 +1,6 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
 import ContactFormAction from "../ContactFormAction/ContactFormAction";
-import { Locale } from "@/shared/types";
 import Image from "next/image";
 import {
   containerVariants,
@@ -10,7 +9,6 @@ import {
 } from "../Animations/animationVariants";
 
 const PartnershipHeroDesk = async () => {
-  const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Partnership");
 
   return (
@@ -72,7 +70,6 @@ const PartnershipHeroDesk = async () => {
 
           <motion.div className="z-100" variants={listItemVariants}>
             <ContactFormAction
-              lang={locale}
               buttonText={t("heroButton")}
               variant="primary"
               className="w-[400px] xl:w-[451px] h-[67px] mt-[120px]"

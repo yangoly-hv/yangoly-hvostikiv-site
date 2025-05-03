@@ -1,8 +1,12 @@
 import * as motion from "motion/react-client";
 import AchievementItem from "@/shared/components/AchievementItem/AchievementItem";
 import { IWorkResult } from "@/shared/types";
+import { getTranslations } from "next-intl/server";
 
-const WorkResults = ({ translation }: { translation: IWorkResult[] }) => {
+const WorkResults = async () => {
+  const t = await getTranslations("");
+  const translation = (await t.raw("WorkResults")) as IWorkResult[];
+
   return (
     <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-[#140A01]">
       <motion.ul

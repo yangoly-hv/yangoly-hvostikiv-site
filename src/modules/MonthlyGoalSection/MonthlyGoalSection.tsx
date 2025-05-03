@@ -4,15 +4,16 @@ import { IMonthlyGoalSectionProps } from "@/shared/types";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import Donate from "@/shared/components/Donate/Donate";
+import { getTranslations } from "next-intl/server";
 
-const MonthlyGoalSection = ({
-  translation,
-  lang,
-}: IMonthlyGoalSectionProps) => {
+const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
   const monthlyFundrasingLocalized = monthlyFundrasing[lang];
   const { title, description, image, goal, current } =
     monthlyFundrasingLocalized;
-  const { generalGoal, result, supportFundrasing } = translation;
+  const t = await getTranslations("");
+  const { generalGoal, result, supportFundrasing } = await t.raw(
+    "MonthlyGoalSection"
+  );
 
   const formattedResult = result
     .replace("{{goal}}", goal.toLocaleString("uk-UA"))

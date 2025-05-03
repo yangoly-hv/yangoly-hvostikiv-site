@@ -8,6 +8,8 @@ import { PageParams } from "@/shared/types";
 
 import { getBlogItemById } from "@/shared/api/blog";
 import type { Metadata } from "next";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 
 export async function generateMetadata({
   params,
@@ -81,8 +83,10 @@ export default async function ArticlePage({ params }: PageParams) {
 
   return (
     <>
-      <BlogArticle article={data} translation={blog} />
-      <Contacts />
+      <Suspense fallback={<Loading />}>
+        <BlogArticle article={data} translation={blog} />
+        <Contacts />
+      </Suspense>
     </>
   );
 }

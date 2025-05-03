@@ -1,12 +1,15 @@
 import Image from "next/image";
-import { IAboutProps } from "@/shared/types";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AboutUs from "./AboutUs/AboutUs";
 import AboutOwner from "./AboutOwner/AboutOwner";
+import { getTranslations } from "next-intl/server";
 
-const About = ({ translation }: IAboutProps) => {
-  const { aboutUs, aboutOwner } = translation;
+const About = async () => {
+  const t = await getTranslations("About");
+  const aboutUs = await t.raw("aboutUs");
+  const aboutOwner = await t.raw("aboutOwner");
+  // const { aboutUs, aboutOwner } = translation;
 
   return (
     <section id="about" className="mb-[100px]">

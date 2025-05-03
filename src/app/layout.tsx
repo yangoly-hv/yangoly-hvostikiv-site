@@ -13,7 +13,10 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          {children}
+          <div id="modal-root" />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

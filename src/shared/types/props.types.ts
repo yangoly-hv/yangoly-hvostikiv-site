@@ -3,17 +3,12 @@ import { dictionaries } from "../utils/getDictionary";
 import {
   IAboutTranslation,
   IBlog,
-  IChangeLifeTranslation,
   IDonateModalTranslation,
-  IHeroTranslation,
   IInformationBlockTranslation,
-  INavigationItem,
-  IPartenrsTranslation,
   IPartnershipTranslation,
   IReporting,
   ITails,
   IAngelsTranslation,
-  IMonthlyGoalSectionTranslation,
 } from "./dictionary.types";
 import * as yup from "yup";
 import Link from "next/link";
@@ -40,31 +35,13 @@ export type LocaleLayoutProps = {
 };
 
 export interface IHeaderProps {
-  translation: {
-    navigation: INavigationItem[];
-    donateButton: string;
-  };
-  donateModalTranslataion: IDonateModalTranslation;
   lang: Locale;
 }
 
 export interface IBurgerMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  translation: {
-    navigation: INavigationItem[];
-    donateButton: string;
-  };
-  donateModalTranslataion: IDonateModalTranslation;
   lang: Locale;
-}
-
-export interface IHeroProps {
-  translation: IHeroTranslation;
-}
-
-export interface IChangeLifeProps {
-  translation: IChangeLifeTranslation;
 }
 
 export interface IAngelsMobProps {
@@ -128,7 +105,6 @@ export interface ICardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface IPartnersProps
   extends React.HtmlHTMLAttributes<HTMLTableSectionElement> {
-  translation: IPartenrsTranslation;
   withTitle?: boolean;
 }
 
@@ -255,9 +231,7 @@ export interface IThankYouModalProps {
 }
 
 export interface IMonthlyGoalSectionProps {
-  translation: IMonthlyGoalSectionTranslation;
   lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
 }
 
 export interface IAnimatedSectionProps {
@@ -459,4 +433,11 @@ export interface IVolunteeringCardProps extends ComponentProps<"li"> {
   index: number;
   item: IHelpVolonteeringTranslation;
   className?: string;
+}
+export interface IHelpAnimalsListItem {
+  title: string;
+  subtitle: string;
+  titleIcon: string;
+  buttonText: string;
+  paragraphs: { text: string; textMob: string; icon: string }[];
 }

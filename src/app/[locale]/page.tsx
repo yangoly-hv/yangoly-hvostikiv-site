@@ -8,35 +8,21 @@ import Partners from "@/modules/Partners/Partners";
 import SupportFundraising from "@/modules/SupportFundraising/SupportFundraising";
 import WorkResults from "@/modules/WorkResults/WorkResults";
 import { PageParams } from "@/shared/types";
-import { getDictionary } from "@/shared/utils";
 
 export default async function Home({ params }: PageParams) {
   const { locale } = await params;
-  const {
-    hero,
-    changeLife,
-    about,
-    monthlyGoalSection,
-    workResults,
-    partners,
-    donateModal,
-  } = await getDictionary(locale);
 
   return (
     <>
-      <Hero translation={hero} />
-      <WorkResults translation={workResults} />
-      <ChangeLife translation={changeLife} />
+      <Hero />
+      <WorkResults />
+      <ChangeLife />
       <Angels />
-      <About translation={about} />
-      <MonthlyGoalSection
-        translation={monthlyGoalSection}
-        donateModalTranslataion={donateModal}
-        lang={locale}
-      />
+      <About />
+      <MonthlyGoalSection lang={locale} />
       <SupportFundraising lang={locale} />
       <div className="container mx-auto px-4 pt-[160px] pb-[80px] xl:py-[120px] xl:px-10">
-        <Partners translation={partners} />
+        <Partners />
       </div>
       <Contacts />
     </>
