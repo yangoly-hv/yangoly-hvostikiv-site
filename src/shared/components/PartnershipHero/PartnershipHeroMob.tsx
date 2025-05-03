@@ -1,11 +1,9 @@
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 import ContactFormAction from "../ContactFormAction/ContactFormAction";
-import { Locale } from "@/shared/types";
 
 const PartnershipHeroMob = async () => {
-  const locale = (await getLocale()) as Locale;
   const t = await getTranslations("Partnership");
 
   return (
@@ -108,7 +106,6 @@ const PartnershipHeroMob = async () => {
         className="flex justify-center items-center"
       >
         <ContactFormAction
-          lang={locale}
           buttonText={t("heroButton")}
           variant="primary"
           className="max-w-[328px] mt-[37px]"

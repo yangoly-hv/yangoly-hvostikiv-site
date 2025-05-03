@@ -7,6 +7,8 @@ import { PageParams } from "@/shared/types";
 import { getAnimalById, getAllAnimals } from "@/shared/api/animals";
 import type { Metadata } from "next";
 import { extractFirstParagraphText } from "@/shared/utils/functions";
+import { Suspense } from "react";
+import Loading from '@/app/loading';
 
 export async function generateMetadata({
   params,
@@ -65,13 +67,15 @@ export default async function TailPage({ params }: PageParams) {
 
   return (
     <>
-      <Tail
-        translation={translation}
-        locale={locale}
-        tail={data}
-        randomTails={randomTails}
-      />
-      <Contacts />
+      <Suspense fallback={<Loading />}>
+        <Tail
+          translation={translation}
+          locale={locale}
+          tail={data}
+          randomTails={randomTails}
+        />
+        <Contacts />
+      </Suspense>
     </>
   );
 }

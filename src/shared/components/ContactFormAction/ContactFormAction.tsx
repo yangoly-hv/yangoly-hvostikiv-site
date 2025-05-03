@@ -7,10 +7,9 @@ import { ButtonVariant, Locale } from "@/shared/types";
 import clsx from "clsx";
 import { useState } from "react";
 import getContactFormConfig from "@/shared/formsConfigs/contactForm";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 interface IContactFormActionProps {
-  lang: Locale;
   buttonText: string;
   variant?: ButtonVariant;
   modalTitle?: string;
@@ -19,13 +18,13 @@ interface IContactFormActionProps {
 
 const ContactFormAction = ({
   variant = "primary",
-  lang,
   buttonText,
   modalTitle,
   className,
 }: IContactFormActionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const contactConfig = getContactFormConfig(lang);
+  const locale = useLocale() as Locale;
+  const contactConfig = getContactFormConfig(locale);
   const t = useTranslations("ContactModal");
   const handleSubmit = (data: unknown) => {
     console.log("Submited:", data);

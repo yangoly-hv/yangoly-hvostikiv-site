@@ -1,6 +1,7 @@
 import * as motion from "motion/react-client";
 import Image from "next/image";
 import { IPartnersProps } from "@/shared/types";
+import { getTranslations } from "next-intl/server";
 
 const partners = [
   {
@@ -14,12 +15,8 @@ const partners = [
   { src: "/images/partners/brit.png", alt: "Brit Logo", width: 180 },
 ];
 
-const Partners = ({
-  translation,
-  withTitle = true,
-  ...props
-}: IPartnersProps) => {
-  const { title } = translation;
+const Partners = async ({ withTitle = true, ...props }: IPartnersProps) => {
+  const t = await getTranslations("Partners");
 
   return (
     <section {...props}>
@@ -38,7 +35,7 @@ const Partners = ({
           }}
           className="text-[24px] xl:text-[32px] text-dark font-arial font-black uppercase leading-[130%] text-center mb-8"
         >
-          {title}
+          {t("title")}
         </motion.h2>
       )}
 

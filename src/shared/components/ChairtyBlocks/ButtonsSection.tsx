@@ -2,18 +2,15 @@ import Image from "next/image";
 import * as motion from "motion/react-client";
 import DonateAction from "@/shared/components/DonateAction/DonateAction";
 import ContactFormAction from "@/shared/components/ContactFormAction/ContactFormAction";
-import { Locale } from "@/shared/types";
 
 interface IBenefitsProps {
   botParagraphs: string[];
   buttons: string[];
-  lang: Locale;
   contactFormTitle: string;
 }
 
 const ButtonsSection = ({
   botParagraphs,
-  lang,
   buttons,
   contactFormTitle,
 }: IBenefitsProps) => {
@@ -65,10 +62,7 @@ const ButtonsSection = ({
                 }}
                 className="w-full md:w-auto"
               >
-                <DonateAction
-                  buttonText={buttons[0]}
-                  variant="secondary"
-                />
+                <DonateAction buttonText={buttons[0]} variant="secondary" />
               </motion.div>
 
               <motion.div
@@ -86,7 +80,6 @@ const ButtonsSection = ({
                 className="w-full md:w-auto"
               >
                 <ContactFormAction
-                  lang={lang}
                   buttonText={buttons[1]}
                   variant="outline"
                   modalTitle={contactFormTitle}

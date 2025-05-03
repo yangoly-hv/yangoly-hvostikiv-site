@@ -7,6 +7,7 @@ import GallerySlider from "../../../shared/components/ChairtyBlocks/GallerySlide
 import { getTranslations } from "next-intl/server";
 import WhatWeHaveInEvents from "@/shared/components/WhatWeHaveInEvents/WhatWeHaveInEvents";
 import EventsDonateSection from "@/shared/components/ChairtyBlocks/EventsDonateSection";
+import HelpAnimalsSection from "@/shared/components/HelpAnimalsSection/HelpAnimalsSection";
 
 const slides = [
   "/images/chairty5.jpg",
@@ -30,23 +31,24 @@ export default async function CharityEventPage() {
 
   return (
     <section className="bg-orange-bg">
-      {/* Гіро секція */}
       <Hero title={t("title")} />
-      {/* 4 абзаци */}
       <Paragraphs
         mobTitle={t("missionTitleMob")}
         deskTitle={t("missionTitleDesk")}
         paragraphs={paragraphs}
       />
-      {/* Місія заходів */}
       <Mission
         missionTitle={t("missionTitle")}
         missionParagraph={t("missionText")}
       />
       <WhatWeHaveInEvents />
-      {/* Переваги заходів */}
       <Benefits />
-      <EventsDonateSection />
+      <EventsDonateSection
+        title={t("donate.title")}
+        text={t("donate.text")}
+        buttonText={t("donate.buttonText")}
+      />
+      <HelpAnimalsSection />
       <GallerySlider slides={slides} />
       <Contacts />
     </section>

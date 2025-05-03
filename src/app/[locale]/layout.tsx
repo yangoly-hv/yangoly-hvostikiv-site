@@ -48,24 +48,16 @@ const raleway = Raleway({
 
 export default async function LocaleLayout({
   children,
-  params,
 }: Readonly<LocaleLayoutProps>) {
-  const { locale } = await params;
-  const { header, footerNav, donateModal } = await getDictionary(locale);
-
   return (
     <div className="flex flex-col min-h-screen">
-      <Header
-        lang={locale}
-        translation={header}
-        donateModalTranslataion={donateModal}
-      />
+      <Header />
       <main
         className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway`}
       >
         {children}
       </main>
-      <Footer translation={footerNav} />
+      <Footer />
     </div>
   );
 }

@@ -1,15 +1,12 @@
-import { IPartnersSupport, Locale } from "@/shared/types";
+import { IPartnersSupport } from "@/shared/types";
 import * as motion from "motion/react-client";
-import { getLocale, getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 import SupportListBlock from "./SupportListBlock";
 import ContactFormAction from "../ContactFormAction/ContactFormAction";
 import Button from "../Button/Button";
 
-
-
 const PartnersSupport = async () => {
   const t = await getTranslations("PartnersSupport");
-  const locale = (await getLocale()) as Locale;
 
   const firstPart = (await t.raw("firstPart")) as IPartnersSupport;
   const secondPart = (await t.raw("secondPart")) as IPartnersSupport;
@@ -53,7 +50,7 @@ const PartnersSupport = async () => {
             }}
             className="lg:hidden mt-3"
           >
-            <ContactFormAction lang={locale} buttonText={t("partnersButton")} />
+            <ContactFormAction buttonText={t("partnersButton")} />
           </motion.div>
         </div>
 
@@ -86,7 +83,7 @@ const PartnersSupport = async () => {
         }}
         className="w-[601px] h-[61px] mt-[33px] hidden xl:block mx-auto"
       >
-        <ContactFormAction lang={locale} buttonText={t("partnersButton")} />
+        <ContactFormAction buttonText={t("partnersButton")} />
       </motion.div>
     </section>
   );
