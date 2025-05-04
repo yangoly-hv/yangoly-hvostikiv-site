@@ -8,6 +8,41 @@ import { getTranslations } from "next-intl/server";
 import WhatWeHaveInEvents from "@/shared/components/WhatWeHaveInEvents/WhatWeHaveInEvents";
 import EventsDonateSection from "@/shared/components/ChairtyBlocks/EventsDonateSection";
 import HelpAnimalsSection from "@/shared/components/HelpAnimalsSection/HelpAnimalsSection";
+import { PageParams, IMetadata } from "@/shared/types";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: PageParams): Promise<Metadata> {
+  const t = await getTranslations("Metadata");
+  const metadata = (await t.raw("charityEvents")) as IMetadata;
+  const { locale } = await params;
+  const baseUrl =
+    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
+  return {
+    title: metadata.title,
+    description: metadata.description,
+    keywords: metadata.keywords,
+    icons: {
+      icon: "/favicon.ico",
+    },
+    openGraph: {
+      title: metadata.title,
+      description: metadata.description,
+      url: `${baseUrl}/${locale}/blog`,
+      type: "website",
+      locale: locale,
+      images: [
+        {
+          url: "/images/about/about-us-desk3.jpg",
+          width: 1200,
+          height: 630,
+          alt: metadata.title,
+        },
+      ],
+    },
+  };
+}
 
 const slides = [
   "/images/chairty5.jpg",

@@ -19,7 +19,7 @@ const PartnersList = async () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.2 }}
-        className="px-4 container mx-auto xl:px-[40px] uppercase text-center font-arial leading-[130%] text-[24px] xl:text-[44px] mb-[40px] xl:mb-[64px]"
+        className="px-4 container mx-auto xl:px-[40px] uppercase text-center font-arial leading-[130%] text-[24px] lg:text-[44px] mb-[40px] xl:mb-[64px]"
       >
         {t("title")}
       </motion.h2>

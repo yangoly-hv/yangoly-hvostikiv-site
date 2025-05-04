@@ -41,14 +41,14 @@ const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
       {showModal && (
         <motion.div
           onClick={handleBackdropClick}
-          className="fixed inset-0 flex  items-start justify-center bg-black/50 z-[9999]"
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-[9999]" // Змінено з items-start на items-center
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className="w-[92%] xl:w-[78%] h-[calc(100svh-81px)] xl:h-[90%] relative bg-white xl:bg-[#FFF7E5] rounded-[12px] xl:rounded-[40px] overflow-auto scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-2 xl:mt-10"
+            className="w-[92%] xl:w-[78%] max-h-[90vh] xl:max-h-[90vh] relative bg-white xl:bg-[#FFF7E5] rounded-[12px] xl:rounded-[40px] overflow-auto scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-2 xl:mt-10"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}
@@ -62,7 +62,7 @@ const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
                 <CloseIcon variant="secondary" className="w-6 h-6" />
               </button>
             </div>
-            <div className="xl:flex xl:justify-between w-full h-full">
+            <div className="xl:flex xl:justify-between w-full">
               <FundraisingGoal
                 className="xl:hidden"
                 imageVariant="small"
@@ -97,7 +97,7 @@ const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
                   }}
                 />
               </div>
-              <div className="xl:w-1/2 xl:bg-white xl:pt-0 p-[20px]  xl:rounded-l-[40px]">
+              <div className="bg-white xl:w-1/2 xl:pt-0 p-[20px] xl:rounded-l-[40px] flex flex-col">
                 <div className="sticky hidden xl:flex top-0 left-0 right-0 bg-white z-10 px-2 py-2 justify-end">
                   <button
                     onClick={onClose}

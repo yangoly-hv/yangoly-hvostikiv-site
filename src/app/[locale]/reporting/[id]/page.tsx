@@ -8,6 +8,7 @@ import { getReportById } from "@/shared/api/reports";
 import type { Metadata } from "next";
 
 import { extractFirstParagraphText } from "@/shared/utils/functions";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -51,7 +52,9 @@ export async function generateMetadata({
 
 export default async function ReportPage({ params }: PageParams) {
   const { id, locale } = await params;
-  const { blog } = await getDictionary(locale);
+  const t = await getTranslations("");
+  const blog = await t.raw("Blog");
+  // const { blog } = await getDictionary(locale);
 
   // const report = reportingList[locale].find(
   //   (reportItem) => reportItem.id === id

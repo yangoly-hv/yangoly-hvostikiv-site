@@ -76,12 +76,12 @@ const DonateAmountSection = () => {
 
   return (
     <>
-      <div className="flex relative flex-col items-center gap-6">
-        <div className="mt-6 border border-[#FF9332] max-w-[350px] xl:max-w-[544px] p-3 xl:p-8 w-full">
-          <p className="text-center text-[20px] font-black font-arial text-dark uppercase leading-[130%] mb-4">
+      <div className="flex relative flex-col items-center gap-4 py-4">
+        <div className="border border-[#FF9332] max-w-[350px] xl:max-w-[544px] p-3 xl:p-6 w-full">
+          <p className="text-center text-[20px] font-black font-arial text-dark uppercase leading-[130%] mb-2">
             {translation.title}
           </p>
-          <p className="text-center text-[24px] xl:text-[32px] leading-[130%] text-[#52525B] mb-4">
+          <p className="text-center text-[24px] xl:text-[32px] leading-[130%] text-[#52525B] mb-2">
             {formatAmount(currentAmount)} {t("currency")}
           </p>
           <div className="grid grid-cols-3 gap-2 max-w-[400px] xl:max-w-[544px] mx-auto">
@@ -108,7 +108,6 @@ const DonateAmountSection = () => {
             </div>
           </div>
         </div>
-
         <div className="w-full max-w-[350px] xl:max-w-[544px]">
           <TextInput
             value={comment}
@@ -117,7 +116,7 @@ const DonateAmountSection = () => {
             label={translation.inputLabel}
           />
 
-          <div className="space-y-4 mb-6">
+          <div className="space-y-3 mb-4">
             <CheckBox
               label={translation.firstCheckboxLabel}
               checked={wantNotifications}
@@ -132,7 +131,7 @@ const DonateAmountSection = () => {
             />
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2 mb-2">
             <PaymentButton paymentType="monoPay" onClick={handlePayment} />
             <PaymentButton paymentType="googlePay" onClick={handlePayment} />
           </div>

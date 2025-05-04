@@ -21,6 +21,12 @@ export interface ILanguage {
   icon: React.ReactNode;
 }
 
+export interface IMetadata {
+  title: string;
+  description: string;
+  keywords: string;
+}
+
 export interface ILanguages {
   [key: string]: ILanguage;
 }

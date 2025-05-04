@@ -10,6 +10,7 @@ import { getBlogItemById } from "@/shared/api/blog";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -71,7 +72,9 @@ export async function generateMetadata({
 
 export default async function ArticlePage({ params }: PageParams) {
   const { id, locale } = await params;
-  const { blog } = await getDictionary(locale);
+  const t = await getTranslations("");
+  const blog = await t.raw("Blog");
+  // const { blog } = await getDictionary(locale);
 
   // const article = newsList[locale].find((newsItem) => newsItem.id === id);
 

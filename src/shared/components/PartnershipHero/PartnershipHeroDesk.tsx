@@ -72,25 +72,28 @@ const PartnershipHeroDesk = async () => {
             <ContactFormAction
               buttonText={t("heroButton")}
               variant="primary"
-              className="w-[400px] xl:w-[451px] h-[67px] mt-[120px]"
+              className="w-[400px] xl:w-[451px] h-[67px] mt-[120px] lg:text-[18px]"
             />
           </motion.div>
         </motion.div>
 
-        <motion.div variants={listItemVariantSecond} className="relative ">
+        <motion.div
+          variants={listItemVariantSecond}
+          className="relative z-[2] "
+        >
           <Image
             src="/images/partners/ellipse-desk.png"
             alt="Ellipse"
             width={1535}
             height={1128}
-            className="h-full max-h-[608px]"
+            className="h-full max-h-[608px] rounded-r-[8px]"
           />
           <Image
             src="/images/partners/dogs-desk.webp"
             alt="Dogs"
-            width={1180}
-            height={798}
-            className="h-full absolute bottom-[-105px] right-[-20px] xl:bottom-[-120px] xl:right-[-35px]"
+            width={1011}
+            height={783}
+            className="aspect-ratio-[1011/783] absolute bottom-[-75px] tabxl:bottom-[-85px]  right-[0px] xl:bottom-[-107px] laptop:bottom-[-125px] 2xl:bottom-[-130px] desk:bottom-[-142px] z-[1]"
           />
         </motion.div>
       </motion.div>

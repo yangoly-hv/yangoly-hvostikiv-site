@@ -598,5 +598,54 @@
         }
       ]
     }
+  },
+  "Filters": {
+    "allTails": "All tails",
+    "needsSterilization": "Needs sterilization",
+    "needsFamily": "Needs a family",
+    "adopted": "Adopted"
+  },
+  "Metadata": {
+    "title": "Angels of Tails | Charity Foundation",
+    "description": "Charitable foundation helping stray animals",
+    "keywords": "charity foundation, animal help, stray animals, pet rescue",
+    "blog": {
+      "title": "Charity Foundation Angels of Tails | Our blog",
+      "description": "Blog of the Angels of Tails charity foundation",
+      "keywords": "charity foundation, animal help, stray animals, pet rescue, blog"
+    },
+    "tails": {
+      "title": "Charity Foundation Angels of Tails | Need help",
+      "description": "Tails in need of help and cared for by the Tails Angels charity foundation",
+      "keywords": "charity foundation, animal help, stray animals, pet rescue, our tails"
+    },
+    "reporting": {
+      "title": "Charity Foundation Angels of Tails | Financial reporting",
+      "description": "Financial statements of the Angels of Tails charity foundation",
+      "keywords": "charity foundation, animal help, stray animals, pet rescue, financial reporting"
+    },
+    "partnership": {
+      "title": "Tail Angels Charity Foundation | Partnership",
+      "description": "Information for partners who wish to support the Tail Angels charity foundation",
+      "keywords": "charity foundation, animal aid, partnership, cooperation"
+    },
+    "volunteering": {
+      "title": "Tail Angels Charity Foundation | Volunteering",
+      "description": "How to become a volunteer for Tail Angels and help animals",
+      "keywords": "charity foundation, animal aid, volunteering, volunteers"
+    },
+    "charityEvents": {
+      "title": "Tail Angels Charity Foundation | Charity Events",
+      "description": "Learn about Tail Angels charity events and how to get involved",
+      "keywords": "charity foundation, animal aid, charity events, activities"
+    }
+  },
+  "Blog": {
+    "title": "News of our foundation",
+    "timeToRead": " min read",
+    "detailsButton": "More details"
+  },
+  "Reporting": {
+    "title": "Financial reporting"
   }
 }
