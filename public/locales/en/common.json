@@ -18,15 +18,5 @@
       "description": "Financial statements of the Angels of Tails charity foundation",
       "keywords": "charity foundation, animal help, stray animals, pet rescue, financial reporting"
     }
-  },
-  "tails": {
-    "detailsButton": "More details",
-    "allTails": "All tails",
-    "adoptButton": "Take into the family",
-    "oneTimeHelpButton": "One-time assistance",
-    "adoptDescription": "To take the tail into the family, please contact its guardian at this number",
-    "name": "Anatoly",
-    "connectButton": "Connect",
-    "sterilize": "Sterilize"
   }
 }

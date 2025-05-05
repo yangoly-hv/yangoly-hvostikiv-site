@@ -8,7 +8,8 @@ import { getAnimalById, getAllAnimals } from "@/shared/api/animals";
 import type { Metadata } from "next";
 import { extractFirstParagraphText } from "@/shared/utils/functions";
 import { Suspense } from "react";
-import Loading from '@/app/loading';
+import Loading from "@/app/loading";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -53,7 +54,7 @@ export default async function TailPage({ params }: PageParams) {
   const { id, locale } = await params;
   // const tail = tails[locale].find((tail) => tail.id === id);
   // const tail = tails[locale].find((tail) => tail.id === "tail-1");
-  const { tails: translation } = await getDictionary(locale);
+  const translation = (await getTranslations("")).raw("Tails");
 
   const data = await getAnimalById(id, locale);
   const allData = await getAllAnimals(locale);

@@ -6,6 +6,7 @@ import type { Metadata } from "next";
 import { getAllAnimals } from "@/shared/api/animals";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -42,7 +43,8 @@ export async function generateMetadata({
 
 export default async function TailsPage({ params }: PageParams) {
   const { locale } = await params;
-  const { tails } = await getDictionary(locale);
+  const tails = (await getTranslations("")).raw("Tails");
+
   const data = await getAllAnimals(locale);
 
   if (!data) {
