@@ -75,13 +75,27 @@ const PartnershipHeroMob = async () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut", delay: 0.3 }}
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center text-[12px] leading-[130%]"
+          className="text-center text-[12px] leading-[130%] w-[301px]"
         >
           {t("heroSubtitle")}
         </motion.p>
       </div>
-
-      <motion.div
+      <div className="relative aspsect-[573/140px] min-h-[140px] mt-[37px] ">
+        <Image
+          src="/images/partners/ellipse.png"
+          className="aspsect-[573/140px] min-h-[140px]"
+          alt="Ellipse"
+          fill
+        />
+        <Image
+          className="absolute bottom-[-53px] w-[273px] h-[259px] aspect-[273/259] left-1/2 -translate-x-1/2"
+          src="/images/partners/dogs-mob.webp"
+          alt="Dogs"
+          width={408}
+          height={276}
+        />
+      </div>
+      {/* <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
@@ -90,13 +104,13 @@ const PartnershipHeroMob = async () => {
       >
         <Image src="/images/partners/ellipse.png" alt="Ellipse" fill />
         <Image
-          className="absolute bottom-[-55px] w-[408px] h-[276px] left-1/2 -translate-x-1/2"
+          className="absolute bottom-[-55px] w-[273px] h-[259px] aspect-[273/259] left-1/2 -translate-x-1/2"
           src="/images/partners/dogs-mob.webp"
           alt="Dogs"
           width={408}
           height={276}
         />
-      </motion.div>
+      </motion.div> */}
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}

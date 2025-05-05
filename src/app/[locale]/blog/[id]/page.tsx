@@ -74,8 +74,6 @@ export default async function ArticlePage({ params }: PageParams) {
   const { id, locale } = await params;
   const t = await getTranslations("");
   const blog = await t.raw("Blog");
-  // const { blog } = await getDictionary(locale);
-
   // const article = newsList[locale].find((newsItem) => newsItem.id === id);
 
   const data = await getBlogItemById(id, locale);

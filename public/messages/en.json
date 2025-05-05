@@ -647,5 +647,15 @@
   },
   "Reporting": {
     "title": "Financial reporting"
+  },
+  "Tails": {
+    "detailsButton": "More details",
+    "allTails": "All tails",
+    "adoptButton": "Take into the family",
+    "oneTimeHelpButton": "One-time assistance",
+    "adoptDescription": "To take the tail into the family, please contact its guardian at this number",
+    "name": "Anatoly",
+    "connectButton": "Connect",
+    "sterilize": "Sterilize"
   }
 }
