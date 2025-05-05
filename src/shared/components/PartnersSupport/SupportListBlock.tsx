@@ -14,7 +14,7 @@ const SupportListBlock = ({ data }: { data: IPartnersSupport }) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.2 }}
-        className="text-[18px] leading-[130%] font-bold mb-2 xl:text-[32px]"
+        className="text-[18px] leading-[130%] font-bold mb-2 lg:text-[32px]"
       >
         {data.title}
       </motion.h3>
@@ -37,10 +37,10 @@ const SupportListBlock = ({ data }: { data: IPartnersSupport }) => {
                 alt="Support Icon"
                 width={44}
                 height={44}
-                className="w-[32px] h-[32px] xl:w-[44px] xl:h-[44px]"
+                className="w-[32px] h-[32px] lg:w-[44px] lg:h-[44px]"
               />
             )}
-            <p className="text-[14px] xl:text-[18px] leading-[130%]">
+            <p className="text-[14px] lg:text-[18px] leading-[130%]">
               {item.text}
             </p>
           </motion.li>

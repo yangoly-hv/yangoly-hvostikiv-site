@@ -1,7 +1,6 @@
 import * as motion from "motion/react-client";
 import Image from "next/image";
 import VolunteeringCardMobile from "./VolunteeringCardMobile";
-import clsx from "clsx";
 import { IHelpVolonteeringTranslation } from "@/shared/types";
 import VolunteeringCardDesk from "./VolunteeringCardDesk";
 import ContactFormAction from "../ContactFormAction/ContactFormAction";
@@ -20,17 +19,7 @@ const VounteeringCardList = async ({
       <ul className="grid xl:hidden grid-cols-1 md:grid-cols-2 mt-[18px] gap-5 pt-[18px] pb-[100px]  xl:grid-rows-6">
         {helpsList.map((item, index) => {
           return (
-            <VolunteeringCardMobile
-              className={clsx(
-                index === 0 && "xl:row-span-3",
-                index === 3 && "xl:row-span-3 xl:col-start-1 xl:row-start-4",
-                index === 2 && "xl:row-span-2 xl:col-start-2 xl:row-start-1",
-                index === 1 && "xl:row-span-2 xl:col-start-2 xl:row-start-3"
-              )}
-              index={index}
-              key={index}
-              item={item}
-            />
+            <VolunteeringCardMobile index={index} key={index} item={item} />
           );
         })}
         <motion.li
@@ -70,16 +59,42 @@ const VounteeringCardList = async ({
         </motion.li>
       </ul>
       {/* DESKTOP */}
+      <div className=" grid-cols-2 gap-6 pt-[32px] pb-[100px] hidden xl:grid">
+        {/* Перший стовпчик */}
+        <div className="flex flex-col gap-6">
+          <div className="h-full flex-grow">
+            <VolunteeringCardDesk
+              item={helpsList[0]}
+              index={0}
+              className="h-full flex flex-col"
+            />
+          </div>
+          <div className="h-full flex-grow">
+            <VolunteeringCardDesk
+              item={helpsList[3]}
+              index={3}
+              className="h-full flex flex-col"
+            />
+          </div>
+        </div>
 
-      <div className=" gap-6 h-full hidden xl:flex pt-[32px] pb-[100px]">
-        <ul className="flex flex-col gap-6 w-[50%] h-full">
-          <VolunteeringCardDesk item={helpsList[0]} index={0} />
-          <VolunteeringCardDesk item={helpsList[3]} index={3} />
-        </ul>
-        <ul className="flex flex-col gap-6 w-[50%] h-full">
-          <VolunteeringCardDesk item={helpsList[2]} index={2} />
-          <VolunteeringCardDesk item={helpsList[1]} index={1} />
-          <motion.li
+        {/* Другий стовпчик */}
+        <div className="flex flex-col gap-6">
+          <div className="h-[calc(100%/3)]">
+            <VolunteeringCardDesk
+              item={helpsList[2]}
+              index={2}
+              className="h-full"
+            />
+          </div>
+          <div className="h-[calc(100%/3)]">
+            <VolunteeringCardDesk
+              item={helpsList[1]}
+              index={1}
+              className="h-full"
+            />
+          </div>
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{
@@ -89,7 +104,7 @@ const VounteeringCardList = async ({
             }}
             viewport={{ once: true, amount: 0.2 }}
             style={{ backgroundColor: formCard.bg }}
-            className="pt-[23px] rounded-[8px] relative min-h-[257px] xl:row-span-2 xl:col-start-2 xl:row-start-5 "
+            className="pt-[23px] rounded-[8px] relative h-[calc(100%/3)]"
           >
             <div className="px-6">
               <h3 className="font-arial text-center text-[24px] tracking-[-0.225px] leading-[141%]">
@@ -101,7 +116,7 @@ const VounteeringCardList = async ({
               <div className="flex justify-center items-center">
                 <ContactFormAction
                   buttonText={formCard.buttonText ? formCard.buttonText : ""}
-                  className="mt-6 w-full h-[52px] max-w-[253px] z-[2] "
+                  className="mt-6 w-full h-[52px] max-w-[253px] z-[2]"
                 />
               </div>
 
@@ -113,8 +128,8 @@ const VounteeringCardList = async ({
                 className="object-bottom w-[282px] h-[282px] absolute bottom-0 left-1/2 -translate-x-1/2 z-[1]"
               />
             </div>
-          </motion.li>
-        </ul>
+          </motion.div>
+        </div>
       </div>
     </>
   );

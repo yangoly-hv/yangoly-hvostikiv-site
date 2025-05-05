@@ -5,6 +5,7 @@ import { PageParams } from "@/shared/types";
 
 import { getAllReports } from "@/shared/api/reports";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params,
@@ -41,7 +42,9 @@ export async function generateMetadata({
 
 export default async function ReportingPage({ params }: PageParams) {
   const { locale } = await params;
-  const { reporting } = await getDictionary(locale);
+  const t = await getTranslations("");
+  const reporting = await t.raw("Reporting");
+  // const { reporting } = await getDictionary(locale);
 
   const data = await getAllReports(locale);
 

@@ -22,7 +22,7 @@ const PartnersSupport = async () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.2 }}
-        className="xl:hidden uppercase text-center font-arial leading-[130%] text-[24px] mb-[58px] "
+        className="lg:hidden uppercase text-center font-arial leading-[130%] text-[24px] mb-[58px] "
       >
         {t("titleMob")}
       </motion.h2>
@@ -31,7 +31,7 @@ const PartnersSupport = async () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.2 }}
-        className="hidden xl:block uppercase text-center font-arial leading-[130%] font-black text-[44px] mb-[125px] "
+        className="hidden lg:block uppercase text-center font-arial leading-[130%] font-black text-[44px] mb-[125px] "
       >
         {t("titleDesk")}
       </motion.h2>
@@ -81,9 +81,12 @@ const PartnersSupport = async () => {
           ease: "easeOut",
           delay: delayAfterList + 0.3,
         }}
-        className="w-[601px] h-[61px] mt-[33px] hidden xl:block mx-auto"
+        className="w-[601px] h-[61px] mt-[33px] hidden lg:block mx-auto"
       >
-        <ContactFormAction buttonText={t("partnersButton")} />
+        <ContactFormAction
+          className="text-[18px] h-[61px]"
+          buttonText={t("partnersButton")}
+        />
       </motion.div>
     </section>
   );

@@ -64,15 +64,15 @@ const WhatVolunteerGetMobile = ({
         variants={listItemVariants}
         className="mt-[-180px]"
       >
-        <div className="relative h-[294px] mx-auto w-full sm:h-[320px] md:h-[420px]">
+        <div className="relative  mx-auto max-w-[524px]  h-[294px] ">
           <Image
             src="/images/volounteering/dogs-mob.webp"
-            className=" md:bottom-[20px] absolute z-[2]"
+            className=" md:bottom-[20px]  absolute z-[2]"
             fill
             alt="Dogs"
           />
         </div>
-        <div className="relative mt-[-140px] h-[105px] w-full sm:h-[185px] sm:mt-[-180px] md:h-[220px] md:mt-[-300px]">
+        <div className="relative mt-[-140px] h-[105px] w-full ">
           <Image
             src="/images/volounteering/ellipse-mob.png"
             fill

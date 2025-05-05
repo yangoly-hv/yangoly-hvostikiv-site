@@ -14,7 +14,7 @@ const PartnershipHero = async () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mt-[60px] mb-[48px] font-arial text-[24px] xl:text-[44px] leading-[130%] uppercase"
+          className="text-center mt-[60px] mb-[48px] font-arial text-[24px] lg:text-[44px] leading-[130%] uppercase"
         >
           {t("title")}
         </motion.h1>

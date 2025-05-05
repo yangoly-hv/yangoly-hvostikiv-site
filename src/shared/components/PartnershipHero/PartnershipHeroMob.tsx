@@ -108,7 +108,7 @@ const PartnershipHeroMob = async () => {
         <ContactFormAction
           buttonText={t("heroButton")}
           variant="primary"
-          className="max-w-[328px] mt-[37px]"
+          className="max-w-[328px] mt-[37px] h-[42px]"
         />
       </motion.div>
     </motion.div>

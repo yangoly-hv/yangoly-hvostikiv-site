@@ -1,10 +1,4 @@
 {
-  "filters": {
-    "allTails": "All tails",
-    "needsSterilization": "Needs sterilization",
-    "needsFamily": "Needs a family",
-    "adopted": "Adopted"
-  },
   "metadata": {
     "title": "Angels of Tails | Charity Foundation",
     "description": "Charitable foundation helping stray animals",
@@ -25,11 +19,6 @@
       "keywords": "charity foundation, animal help, stray animals, pet rescue, financial reporting"
     }
   },
-  "blog": {
-    "title": "News of our foundation",
-    "timeToRead": " min read",
-    "detailsButton": "More details"
-  },
   "tails": {
     "detailsButton": "More details",
     "allTails": "All tails",
@@ -39,8 +28,5 @@
     "name": "Anatoly",
     "connectButton": "Connect",
     "sterilize": "Sterilize"
-  },
-  "reporting": {
-    "title": "Financial reporting"
   }
 }
