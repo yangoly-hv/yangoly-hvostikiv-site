@@ -24,7 +24,7 @@ const Hero = ({ title }: { title: string }) => {
             transition: { duration: 0.6, delay: 0.2 },
           },
         }}
-        className="xl:hidden"
+        className="lg:hidden"
       >
         <EventsSlider images={heroImages} />
       </motion.div>

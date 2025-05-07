@@ -5,7 +5,8 @@ import HelpSection from "@/shared/components/HelpSection/HelpSection";
 import WhatVolunteerGet from "@/shared/components/WhatVolunteerGet/WhatVolunteerGet";
 import { IMetadata, PageParams } from "@/shared/types";
 import { Metadata } from "next";
-
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
@@ -43,7 +44,7 @@ export default async function VolunteeringPage() {
   const t = await getTranslations("VolunteeringPage");
 
   return (
-    <section>
+    <Suspense fallback={<Loading />}>
       <div className="container px-4 xl:px-[40px] mx-auto">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -61,6 +62,6 @@ export default async function VolunteeringPage() {
       </div>
       <WhatVolunteerGet />
       <Contacts />
-    </section>
+    </Suspense>
   );
 }

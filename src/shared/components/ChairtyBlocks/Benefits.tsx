@@ -10,7 +10,7 @@ const Benefits = async () => {
   const secondList = list.slice(3);
 
   return (
-    <div className="bg-[#140A01] lg:py-[48px] pt-[25px] pb-[43px]">
+    <div className="bg-green lg:py-[48px] pt-[25px] pb-[43px]">
       <div className="container  mx-auto px-4   lg:px-[40px] xl:px-[187px] ">
         <div className="lg:hidden relative aspect-[328/286] max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
           <Image src="/images/events/benefits-mob.webp" alt="Pet" fill />

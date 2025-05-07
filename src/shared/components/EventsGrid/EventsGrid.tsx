@@ -3,7 +3,7 @@ import * as motion from "motion/react-client";
 
 const EventsGrid = ({ images }: { images: string[] }) => {
   return (
-    <div className="hidden xl:block">
+    <div className="hidden lg:block">
       <div className="grid grid-cols-[2.92fr_2.82fr_5.92fr] gap-5">
         {/* Перший стовпчик */}
         <div className="flex flex-col gap-5">

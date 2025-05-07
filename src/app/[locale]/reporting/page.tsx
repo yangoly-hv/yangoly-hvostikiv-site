@@ -6,6 +6,8 @@ import { PageParams } from "@/shared/types";
 import { getAllReports } from "@/shared/api/reports";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 
 export async function generateMetadata({
   params,
@@ -54,8 +56,10 @@ export default async function ReportingPage({ params }: PageParams) {
 
   return (
     <>
-      <Reporting data={data} translation={reporting} lang={locale} />
-      <Contacts />
+      <Suspense fallback={<Loading />}>
+        <Reporting data={data} translation={reporting} lang={locale} />
+        <Contacts />
+      </Suspense>
     </>
   );
 }

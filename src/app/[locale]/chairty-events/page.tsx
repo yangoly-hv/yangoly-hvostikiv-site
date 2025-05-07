@@ -10,6 +10,8 @@ import EventsDonateSection from "@/shared/components/ChairtyBlocks/EventsDonateS
 import HelpAnimalsSection from "@/shared/components/HelpAnimalsSection/HelpAnimalsSection";
 import { PageParams, IMetadata } from "@/shared/types";
 import { Metadata } from "next";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 
 export async function generateMetadata({
   params,
@@ -65,27 +67,29 @@ export default async function CharityEventPage() {
   const paragraphs = await t.raw("paragraphs");
 
   return (
-    <section className="bg-orange-bg">
-      <Hero title={t("title")} />
-      <Paragraphs
-        mobTitle={t("missionTitleMob")}
-        deskTitle={t("missionTitleDesk")}
-        paragraphs={paragraphs}
-      />
-      <Mission
-        missionTitle={t("missionTitle")}
-        missionParagraph={t("missionText")}
-      />
-      <WhatWeHaveInEvents />
-      <Benefits />
-      <EventsDonateSection
-        title={t("donate.title")}
-        text={t("donate.text")}
-        buttonText={t("donate.buttonText")}
-      />
-      <HelpAnimalsSection />
-      <GallerySlider slides={slides} />
-      <Contacts />
-    </section>
+    <Suspense fallback={<Loading />}>
+      <section className="bg-orange-bg">
+        <Hero title={t("title")} />
+        <Paragraphs
+          mobTitle={t("missionTitleMob")}
+          deskTitle={t("missionTitleDesk")}
+          paragraphs={paragraphs}
+        />
+        <Mission
+          missionTitle={t("missionTitle")}
+          missionParagraph={t("missionText")}
+        />
+        <WhatWeHaveInEvents />
+        <Benefits />
+        <EventsDonateSection
+          title={t("donate.title")}
+          text={t("donate.text")}
+          buttonText={t("donate.buttonText")}
+        />
+        <HelpAnimalsSection />
+        <GallerySlider slides={slides} />
+        <Contacts />
+      </section>
+    </Suspense>
   );
 }

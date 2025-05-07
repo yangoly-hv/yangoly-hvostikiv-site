@@ -63,8 +63,8 @@ const AboutUs = ({
   };
 
   return (
-    <div className="xl:grid xl:grid-cols-2 pb-[40px]">
-      <div className="hidden xl:block">
+    <div className="lg:grid lg:grid-cols-2 pb-[40px]">
+      <div className="hidden lg:block">
         <ImageGallery images={aboutImages} className="" variant="splitLayout" />
       </div>
       <InfoBlock
@@ -97,22 +97,24 @@ const AboutUs = ({
       <AnimatedWrapper
         as="div"
         animation={listVariants({ staggerChildren: 0.5, delayChildren: 0.4 })}
-        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 xl:hidden"
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 lg:hidden"
       >
         {aboutMobImages.map((image, index) => (
           <AnimatedWrapper
             as="div"
             key={index}
             viewport={{ once: true }}
-            className="relative w-full aspect-[328/268] rounded-[16px] overflow-hidden"
+            className={`relative w-full aspect-[328/268] rounded-[16px] overflow-hidden ${
+              index === 0 ? "md:row-span-2 md:h-full" : "md:row-span-1"
+            }`}
           >
             <Image
               src={image.src}
               alt={image.alt}
               fill
               quality={75}
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover rounded-[16px]"
+              sizes="(max-width: 1024px) 100vw 50vw"
+              className=" object-center rounded-[16px]"
             />
           </AnimatedWrapper>
         ))}
