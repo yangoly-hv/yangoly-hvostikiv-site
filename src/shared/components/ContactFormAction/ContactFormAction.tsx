@@ -45,7 +45,7 @@ const ContactFormAction = ({
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       >
-        <h2 className="text-[24px] font-arial font-black mb-5 leading-[130%] text-[#1D1D1D] text-center mt-10">
+        <h2 className="text-[20px] lg:text-[24px] font-arial font-black mb-5 leading-[130%] text-[#1D1D1D] text-center mt-10">
           {modalTitle ? modalTitle : t("title")}
         </h2>
 

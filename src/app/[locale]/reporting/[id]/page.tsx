@@ -9,6 +9,8 @@ import type { Metadata } from "next";
 
 import { extractFirstParagraphText } from "@/shared/utils/functions";
 import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 
 export async function generateMetadata({
   params,
@@ -21,9 +23,8 @@ export async function generateMetadata({
 
   const data = await getReportById(id, locale);
   const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
-  const description = `${
-    metadata.reporting.description
-  } | ${extractFirstParagraphText(data.description)}`;
+  const description = `${metadata.reporting.description
+    } | ${extractFirstParagraphText(data.description)}`;
 
   return {
     title,
@@ -68,8 +69,10 @@ export default async function ReportPage({ params }: PageParams) {
 
   return (
     <>
-      <Report report={data} translation={blog} />
-      <Contacts />
+      <Suspense fallback={<Loading />}>
+        <Report report={data} translation={blog} />
+        <Contacts />
+      </Suspense>
     </>
   );
 }

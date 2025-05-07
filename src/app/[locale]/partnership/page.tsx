@@ -8,6 +8,8 @@ import Contacts from "@/modules/Contacts/Contacts";
 import { Metadata } from "next";
 import { IMetadata, PageParams } from "@/shared/types";
 import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
 
 export async function generateMetadata({
   params,
@@ -44,28 +46,30 @@ export async function generateMetadata({
 export default async function ParnershipPage() {
   return (
     <>
-      <PartnershipHero />
-      <PartnersList />
-      <PartnersSupport />
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{
-          duration: 1,
-          ease: "easeOut",
-        }}
-        className="relative  aspect-[360/155] mt-[50px]"
-      >
-        <Image src="/images/partners/support/bg.png" alt="bg" fill />
-        <Image
-          src="/images/partners/support/dogs.png"
-          alt="bg"
-          fill
-          className="xl:px-[160px]"
-        />
-      </motion.div>
-      <Contacts />
+      <Suspense fallback={<Loading />}>
+        <PartnershipHero />
+        <PartnersList />
+        <PartnersSupport />
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{
+            duration: 1,
+            ease: "easeOut",
+          }}
+          className="relative  aspect-[360/155] mt-[50px]"
+        >
+          <Image src="/images/partners/support/bg.png" alt="bg" fill />
+          <Image
+            src="/images/partners/support/dogs.png"
+            alt="bg"
+            fill
+            className="xl:px-[160px]"
+          />
+        </motion.div>
+        <Contacts />
+      </Suspense>
     </>
   );
 }

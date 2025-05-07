@@ -41,20 +41,19 @@ const VounteeringCardList = async ({
             <p className="mt-3 text-[18px] font-medium leading-[133%] text-center">
               {formCard.text}
             </p>
-            <div className="flex justify-center items-center">
-              <ContactFormAction
-                buttonText={formCard.buttonText ? formCard.buttonText : ""}
-                className="mt-6 w-full h-[52px] max-w-[253px] "
-              />
-            </div>
-
             <Image
               src={formCard.imagePath}
               alt="Volunteering"
               width={282}
               height={282}
-              className="object-bottom w-[282px] h-[282px] absolute bottom-0 left-1/2 -translate-x-1/2"
+              className="object-bottom w-[282px] h-[282px] absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
             />
+            <div className="flex justify-center items-center relative z-10">
+              <ContactFormAction
+                buttonText={formCard.buttonText ? formCard.buttonText : ""}
+                className="mt-6 w-full h-[52px] max-w-[253px]"
+              />
+            </div>
           </div>
         </motion.li>
       </ul>
