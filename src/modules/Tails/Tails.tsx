@@ -19,7 +19,7 @@ import {getTailData} from "@/shared/utils/functions";
 export default function Tails({ data, translation, lang }) {
     // const [items, setItems] = useState([]);
     //@ts-expect-error
-    const items = useMemo(() => data.map(item => getTailData(item, lang)), [data, getTailData]);
+  const items = useMemo(() => data.map(item => getTailData(item, lang)), [data, getTailData]);
   const router = useRouter();
   const searchParams = useSearchParams();
   const [filter, setFilter] = useState(searchParams.get("filter") || "all");
@@ -27,23 +27,6 @@ export default function Tails({ data, translation, lang }) {
     parseInt(searchParams.get("page") || "1", 10)
   );
   const itemsPerPage = useItemsPerPage();
-
-    // useEffect(() => {
-    //     const fetchAnimals = async()=> {
-    //         try {
-    //             const data = await getAllAnimals(lang);
-    //             //@ts-expect-error
-    //             const transformData = data.map(item => getTailData(item, lang));
-    //             setItems(transformData);
-    //         }
-    //         catch (error) {
-    //             //@ts-expect-error
-    //             console.log(error.message);
-    //         }
-    //     }
-    //
-    //     fetchAnimals();
-    // }, []);
 
   useEffect(() => {
     setFilter(searchParams.get("filter") || "all");

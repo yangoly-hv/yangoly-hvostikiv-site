@@ -1,37 +1,28 @@
 "use client";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
+import ReactDOM from "react-dom";
 import { CloseIcon } from "../../../../public/images/icons";
 import FundraisingGoal from "@/modules/FundraisingGoal/FundraisingGoal";
 import DonateAmountSection from "./DonateAmountSection/DonateAmountSection";
 import { IDonateModalProps } from "@/shared/types";
-import { getDictionary } from "@/shared/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLockBodyScroll } from "@/shared/hooks/useLockBodyScroll";
+import { useTranslations } from "next-intl";
 
-const DonateModal = ({
-  isOpen,
-  onClose,
-  translation,
-  lang,
-}: IDonateModalProps) => {
-  const [localTranslation, setLocalTranslation] = useState(translation);
+const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
+  const t = useTranslations("DonateModal");
+  const [mounted, setMounted] = useState(false);
   const [showModal, setShowModal] = useState(isOpen);
 
   useLockBodyScroll(isOpen);
-  useEffect(() => {
-    if (!translation) {
-      getDictionary(lang).then(({ donateModal }) =>
-        setLocalTranslation(donateModal)
-      );
-    }
-  }, [lang, translation]);
 
   useEffect(() => {
-    if (isOpen) {
-      setShowModal(true);
-    } else {
-      setShowModal(false);
-    }
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  useEffect(() => {
+    setShowModal(isOpen);
   }, [isOpen]);
 
   const handleBackdropClick = useCallback(
@@ -43,24 +34,21 @@ const DonateModal = ({
     [onClose]
   );
 
-  if (!localTranslation) return null;
+  if (!mounted) return null;
 
-  const { fundraisingTitle, subtitle, currency, goal, donateAmountSection } =
-    localTranslation;
-
-  return (
+  const modalContent = (
     <AnimatePresence>
       {showModal && (
         <motion.div
           onClick={handleBackdropClick}
-          className="fixed inset-0 top-[65px] xl:top-[130px] flex items-start justify-center bg-black/50 z-[1000]"
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-[9999]" // Змінено з items-start на items-center
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
         >
           <motion.div
-            className="w-[92%] xl:w-[78%] h-[calc(100svh-81px)] xl:h-[90%] relative bg-white   xl:bg-[#FFF7E5] rounded-[12px] xl:rounded-[40px] overflow-auto scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden  mt-2 xl:mt-10"
+            className="w-[92%] xl:w-[78%] max-h-[90vh] xl:max-h-[90vh] relative bg-white xl:bg-[#FFF7E5] rounded-[12px] xl:rounded-[40px] overflow-auto scrollbar-none [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden mt-2 xl:mt-10"
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0.8 }}
@@ -69,18 +57,18 @@ const DonateModal = ({
             <div className="sticky xl:hidden top-0 left-0 right-0 bg-white z-[10000] px-6 py-4 flex justify-end">
               <button
                 onClick={onClose}
-                className=" hover:bg-gray-100 rounded-full"
+                className="hover:bg-gray-100 rounded-full"
               >
                 <CloseIcon variant="secondary" className="w-6 h-6" />
               </button>
             </div>
             <div className="xl:flex xl:justify-between w-full">
               <FundraisingGoal
-                className=" xl:hidden"
+                className="xl:hidden"
                 imageVariant="small"
-                fundraisingTitle={fundraisingTitle}
-                goal={goal}
-                currency={currency}
+                fundraisingTitle={t("fundraisingTitle")}
+                goal={t("goal")}
+                currency={t("currency")}
                 totalAmount={30000}
                 currentAmount={10000}
                 styles={{
@@ -91,15 +79,15 @@ const DonateModal = ({
                     "text-[14px] no-ligatures text-[#012A0F]",
                 }}
               />
-              <div className="hidden xl:block xl:w-1/2 my-auto ">
+              <div className="hidden xl:block xl:w-1/2 my-auto">
                 <FundraisingGoal
                   imageVariant="big"
-                  fundraisingTitle={fundraisingTitle}
-                  goal={goal}
-                  currency={currency}
+                  fundraisingTitle={t("fundraisingTitle")}
+                  goal={t("goal")}
+                  currency={t("currency")}
                   totalAmount={30000}
                   currentAmount={10000}
-                  subtitle={subtitle}
+                  subtitle={t("subtitle")}
                   styles={{
                     titleClassName:
                       "!text-[36px] font-arial font-black uppercase max-w-[325px] text-center mx-auto",
@@ -109,8 +97,8 @@ const DonateModal = ({
                   }}
                 />
               </div>
-              <div className="xl:w-1/2 xl:bg-white xl:pt-0 p-[20px]  xl:rounded-l-[40px]">
-                <div className="sticky hidden xl:flex  top-0 left-0 right-0 bg-white z-10 px-2 py-2  justify-end ">
+              <div className="bg-white xl:w-1/2 xl:pt-0 p-[20px] xl:rounded-l-[40px] flex flex-col">
+                <div className="sticky hidden xl:flex top-0 left-0 right-0 bg-white z-10 px-2 py-2 justify-end">
                   <button
                     onClick={onClose}
                     className="p-2 hover:bg-gray-100 rounded-full"
@@ -118,17 +106,18 @@ const DonateModal = ({
                     <CloseIcon variant="secondary" className="w-6 h-6" />
                   </button>
                 </div>
-                <DonateAmountSection
-                  lang={lang}
-                  currency={currency}
-                  translation={donateAmountSection}
-                />
+                <DonateAmountSection />
               </div>
             </div>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
+  );
+
+  return ReactDOM.createPortal(
+    modalContent,
+    document.getElementById("modal-root")!
   );
 };
 

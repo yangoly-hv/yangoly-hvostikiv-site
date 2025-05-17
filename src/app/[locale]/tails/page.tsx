@@ -4,6 +4,12 @@ import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
 import type { Metadata } from "next";
 import { getAllAnimals } from "@/shared/api/animals";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
+import { getTranslations } from "next-intl/server";
+
+import client from "@/shared/lib/sanity";
+import {allTailsQuery} from "@/shared/lib/queries";
 
 export async function generateMetadata({
   params,
@@ -40,8 +46,12 @@ export async function generateMetadata({
 
 export default async function TailsPage({ params }: PageParams) {
   const { locale } = await params;
-  const { contacts, tails } = await getDictionary(locale);
-  const data = await getAllAnimals(locale);
+  const tails = (await getTranslations("")).raw("Tails");
+
+  // const data = await getAllAnimals(locale);
+  const data = await client.fetch(allTailsQuery, {
+    lang: locale,
+  });
 
   if (!data) {
     return null;
@@ -49,8 +59,10 @@ export default async function TailsPage({ params }: PageParams) {
 
   return (
     <>
-      <Tails data={data} translation={tails} lang={locale} />
-      <Contacts translation={contacts} lang={locale} />
+      <Suspense fallback={<Loading />}>
+        <Tails data={data} translation={tails} lang={locale} />
+        <Contacts />
+      </Suspense>
     </>
   );
 }

@@ -4,6 +4,7 @@ import { CloseIcon } from "../../../../../public/images/icons";
 import Image from "next/image";
 import { IThankYouModalProps } from "@/shared/types";
 import { useCallback } from "react";
+import { useTranslations } from "next-intl";
 
 const ThankYouModal = ({
   isOpen,
@@ -13,6 +14,7 @@ const ThankYouModal = ({
   buttonText,
   onButtonClick,
 }: IThankYouModalProps) => {
+  const t = useTranslations("ThankYouModal");
   const handleButtonClick = useCallback(() => {
     onButtonClick?.();
     onClose();
@@ -36,18 +38,20 @@ const ThankYouModal = ({
             width={35}
             height={32}
           />
-          <h2 className="text-2xl font-bold text-center mb-[20px]">{title}</h2>
+          <h2 className="text-2xl font-bold text-center mb-[20px]">
+            {title ? title : t("title")}
+          </h2>
         </div>
         <div className="w-full h-[1px] bg-gray-300"></div>
         <div className="px-[20px]">
           <p className="text-start text-[#000] py-[10px]   text-[18px] mb-6">
-            {message}
+            {message ? message : t("message")}
           </p>
 
           <div className="flex justify-end">
             <Button
               onClick={handleButtonClick}
-              text={buttonText}
+              text={buttonText ? buttonText : t("buttonText")}
               variant="secondary"
               className="py-2"
             />

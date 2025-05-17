@@ -39,8 +39,8 @@ module.exports = {
     }
 
     if (
-      path.includes("/[locale]/blog/[id]") ||
-      path.includes("/[locale]/tails/[id]")
+      path.includes("/[locale]/blog/[slug]") ||
+      path.includes("/[locale]/tails/[slug]")
     ) {
       return {
         ...baseConfig,

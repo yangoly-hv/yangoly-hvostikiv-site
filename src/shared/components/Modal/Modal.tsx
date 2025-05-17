@@ -29,7 +29,7 @@ const Modal = ({
         <motion.div
           onClick={handleBackdropClick}
           className={cn(
-            "fixed inset-0 flex items-center top-[65px] xl:top-[130px] justify-center bg-black/50 z-[1000]",
+            "fixed inset-0 flex items-center justify-center bg-black/50 z-[1000]",
             className
           )}
           initial={{ opacity: 0 }}

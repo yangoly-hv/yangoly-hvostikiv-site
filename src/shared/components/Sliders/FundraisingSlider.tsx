@@ -24,7 +24,7 @@ interface Props {
   };
 }
 
-const FundraisingSlider = ({ lang, t }: Props) => {
+const FundraisingSlider = ({ t }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const swiperRef = useRef<any>(null);
@@ -113,7 +113,6 @@ const FundraisingSlider = ({ lang, t }: Props) => {
 
       {isModalOpen && (
         <DonateModal
-          lang={lang}
           onClose={() => setIsModalOpen(false)}
           isOpen={isModalOpen}
         />

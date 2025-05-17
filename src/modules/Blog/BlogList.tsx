@@ -26,21 +26,6 @@ export default function BlogList({ data, translation }) {
     parseInt(searchParams.get("page") || "1", 10)
   );
 
-  // useEffect(() => {
-  //   const fetchItems = async()=> {
-  //     try {
-  //       const data = await getAllBlogItems(lang);
-  //       const transformData = data.map(getBlogItemData);
-  //       setItems(transformData);
-  //     }
-  //     catch(error) {
-  //       console.log(error)
-  //     }
-  //   }
-  //
-  //   fetchItems();
-  // }, []);
-
   useEffect(() => {
     setCurrentPage(parseInt(searchParams.get("page") || "1", 10));
   }, [searchParams]);

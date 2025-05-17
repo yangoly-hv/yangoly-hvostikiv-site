@@ -15,7 +15,7 @@ interface IFirstBlockProps {
   };
 }
 
-const FirstBlock = ({ buttonText, lang, t }: IFirstBlockProps) => {
+const FirstBlock = ({ buttonText, t }: IFirstBlockProps) => {
   return (
     <motion.div
       className="bg-white p-5 rounded-t-[16px] xl:w-1/2 xl:pt-[40px] xl:ml-[50px] xl:rounded-t-[16px] xl:rounded-b-none xl:self-stretch"
@@ -87,7 +87,7 @@ const FirstBlock = ({ buttonText, lang, t }: IFirstBlockProps) => {
           },
         }}
       >
-        <DonateAction buttonText={buttonText} lang={lang} />
+        <DonateAction buttonText={buttonText} />
       </motion.div>
     </motion.div>
   );

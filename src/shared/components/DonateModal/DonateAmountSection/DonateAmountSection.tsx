@@ -6,15 +6,23 @@ import { formatAmount } from "@/shared/utils";
 import TextInput from "../../TextInput/TextInput";
 import CheckBox from "../../CheckBox/CheckBox";
 import PaymentButton from "../PaymentButton/PaymentButton";
-import { IAmountSectionProps } from "@/shared/types";
 import Toast from "../../Toast/Toast";
 import ThankYouModal from "../ThankYouModal/ThankYouModal";
+import { useTranslations } from "next-intl";
 
-const DonateAmountSection = ({
-  translation,
-  currency,
-  lang,
-}: IAmountSectionProps) => {
+const DonateAmountSection = () => {
+  const t = useTranslations("DonateModal");
+
+  const translation = {
+    title: t("donateAmountSection.title"),
+    anotherAmount: t("donateAmountSection.anotherAmount"),
+    inputPlaceholder: t("donateAmountSection.inputPlaceholder"),
+    inputLabel: t("donateAmountSection.inputLabel"),
+    firstCheckboxLabel: t("donateAmountSection.firstCheckboxLabel"),
+    secondCheckboxLabel: t("donateAmountSection.secondCheckboxLabel"),
+    submitError: t("donateAmountSection.submitError"),
+  };
+
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [comment, setComment] = useState("");
@@ -25,16 +33,6 @@ const DonateAmountSection = ({
   const [isThankYouModalOpen, setIsThankYouModalOpen] = useState(false);
 
   const predefinedAmounts = [200, 500, 1000];
-
-  const {
-    title,
-    anotherAmount,
-    inputPlaceholder,
-    inputLabel,
-    firstCheckboxLabel,
-    secondCheckboxLabel,
-    submitError,
-  } = translation;
 
   useEffect(() => {
     if (isAgreed) {
@@ -72,22 +70,24 @@ const DonateAmountSection = ({
       wantNotifications,
       isAgreed,
     });
+
+    setIsThankYouModalOpen(true);
   }, [isAgreed, currentAmount, comment, wantNotifications]);
 
   return (
     <>
-      <div className="flex relative flex-col items-center gap-6">
-        <div className="mt-6 border border-[#FF9332] max-w-[350px] xl:max-w-[544px] p-3 xl:p-8 w-full">
-          <p className="text-center text-[20px] font-black font-arial text-dark uppercase leading-[130%] mb-4">
-            {title}
+      <div className="flex relative flex-col items-center gap-4 py-4">
+        <div className="border border-[#FF9332] max-w-[350px] xl:max-w-[544px] p-3 xl:p-6 w-full">
+          <p className="text-center text-[20px] font-black font-arial text-dark uppercase leading-[130%] mb-2">
+            {translation.title}
           </p>
-          <p className="text-center text-[24px] xl:text-[32px] leading-[130%] text-[#52525B] mb-4">
-            {formatAmount(currentAmount)} {currency}
+          <p className="text-center text-[24px] xl:text-[32px] leading-[130%] text-[#52525B] mb-2">
+            {formatAmount(currentAmount)} {t("currency")}
           </p>
           <div className="grid grid-cols-3 gap-2 max-w-[400px] xl:max-w-[544px] mx-auto">
             {predefinedAmounts.map((amount) => (
               <AmountCard
-                currency={currency}
+                currency={t("currency")}
                 key={amount}
                 amount={amount}
                 formattedAmount={formatAmount(amount)}
@@ -97,8 +97,8 @@ const DonateAmountSection = ({
             ))}
             <div className="col-start-1">
               <CustomAmountCard
-                anotherAmount={anotherAmount}
-                currency={currency}
+                anotherAmount={translation.anotherAmount}
+                currency={t("currency")}
                 value={customAmount}
                 formatAmount={formatAmount}
                 isSelected={selectedAmount === null && customAmount !== ""}
@@ -108,23 +108,22 @@ const DonateAmountSection = ({
             </div>
           </div>
         </div>
-
         <div className="w-full max-w-[350px] xl:max-w-[544px]">
           <TextInput
             value={comment}
             onChange={setComment}
-            placeholder={inputPlaceholder}
-            label={inputLabel}
+            placeholder={translation.inputPlaceholder}
+            label={translation.inputLabel}
           />
 
-          <div className="space-y-4 mb-6">
+          <div className="space-y-3 mb-4">
             <CheckBox
-              label={firstCheckboxLabel}
+              label={translation.firstCheckboxLabel}
               checked={wantNotifications}
               onChange={(checked) => setWantNotifications(checked)}
             />
             <CheckBox
-              label={secondCheckboxLabel}
+              label={translation.secondCheckboxLabel}
               checked={isAgreed}
               onChange={(checked) => setIsAgreed(checked)}
               error={agreementError}
@@ -132,26 +131,21 @@ const DonateAmountSection = ({
             />
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2 mb-2">
             <PaymentButton paymentType="monoPay" onClick={handlePayment} />
             <PaymentButton paymentType="googlePay" onClick={handlePayment} />
           </div>
         </div>
       </div>
+
       <ThankYouModal
         isOpen={isThankYouModalOpen}
         onClose={() => setIsThankYouModalOpen(false)}
-        message={
-          lang === "en"
-            ? "Tails thank you for your donation"
-            : "Хвостики дякують за ваш донат"
-        }
-        buttonText={lang === "en" ? "Got it" : "Зрозуміло"}
-        title={lang === "en" ? "Thank you!" : "Дякуємо!"}
       />
+
       {isToastVisible && (
         <Toast
-          message={submitError}
+          message={translation.submitError}
           isVisible={isToastVisible}
           onClose={() => setIsToastVisible(false)}
         />

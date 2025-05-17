@@ -36,6 +36,7 @@ const config: Config = {
       fontFamily: {
         raleway: ["var(--font-raleway)", "serif"],
         arial: ["Arial Black", "serif"],
+        ranga: ["Ranga", "cursive"],
       },
       animation: {
         marquee: "marquee 40s linear infinite",

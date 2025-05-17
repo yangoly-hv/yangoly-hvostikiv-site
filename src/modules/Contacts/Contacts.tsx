@@ -1,11 +1,13 @@
-import { IContactsProps } from "@/shared/types";
 import { EmailIcon, PhoneIcon } from "../../../public/images/icons";
 import Image from "next/image";
 import * as motion from "motion/react-client";
 import ContactForm from "./ContactForm";
+import { getLocale, getTranslations } from "next-intl/server";
+import { Locale } from "@/shared/types";
 
-const Contacts = ({ lang, translation }: IContactsProps) => {
-  const { title, subtitle } = translation;
+const Contacts = async () => {
+  const lang = (await getLocale()) as Locale;
+  const t = await getTranslations("Contacts");
 
   return (
     <section id="contacts" className="relative h-[923px] lg:h-[634px] bg-green">
@@ -26,7 +28,7 @@ const Contacts = ({ lang, translation }: IContactsProps) => {
               }}
               className="mb-3 font-arial font-black text-[24px] lg:text-[32px] text-white leading-[130%] uppercase text-center lg:text-left"
             >
-              {title}
+              {t("title")}
             </motion.h2>
 
             <motion.p
@@ -43,7 +45,7 @@ const Contacts = ({ lang, translation }: IContactsProps) => {
               }}
               className="mb-10 lg:mb-12 text-[16px] lg:text-[20px] text-white leading-[130%] text-center lg:text-left"
             >
-              {subtitle}
+              {t("subtitle")}
             </motion.p>
 
             <div className="flex flex-col gap-4">

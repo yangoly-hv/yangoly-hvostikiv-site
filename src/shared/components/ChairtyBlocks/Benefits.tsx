@@ -1,65 +1,21 @@
-import Image from "next/image";
 import * as motion from "motion/react-client";
+import { getTranslations } from "next-intl/server";
+import BenefitItem from "./BenefitItem";
+import Image from "next/image";
 
-interface IBenefitsProps {
-  benefitsTitle: string;
-  benefitsParagraphs: string[];
-}
+const Benefits = async () => {
+  const t = await getTranslations("ChairtyEvents.benefits");
+  const list = (await t.raw("list")) as string[];
+  const firstList = list.slice(0, 3);
+  const secondList = list.slice(3);
 
-const Benefits = ({ benefitsTitle, benefitsParagraphs }: IBenefitsProps) => {
   return (
-    <div className="bg-[#140A01] py-[70px]">
-      <div className="container mx-auto px-4 xl:px-[40px] xl:pl-[100px] laptop:pl-[114px] md:flex md:gap-[40px] xl:flex-row-reverse xl:gap-[130px]">
-        {/* Мобільне зображення */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.6, ease: "easeOut", delay: 0.2 },
-            },
-          }}
-        >
-          <Image
-            src="/images/events/benefits-mob.jpg"
-            alt="Event"
-            width={328}
-            height={286}
-            className="object-cover flex mx-auto rounded-[8px] xl:hidden"
-            quality={75}
-          />
-        </motion.div>
-
-        {/* Десктопне зображення */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.6, ease: "easeOut", delay: 0.2 },
-            },
-          }}
-        >
-          <Image
-            src="/images/events/benefits-desk.jpg"
-            alt="Event"
-            width={747}
-            height={286}
-            className="object-cover hidden mx-auto rounded-[8px] xl:flex"
-            quality={75}
-          />
-        </motion.div>
-
+    <div className="bg-green lg:py-[48px] pt-[25px] pb-[43px]">
+      <div className="container  mx-auto px-4   lg:px-[40px] xl:px-[187px] ">
+        <div className="lg:hidden relative aspect-[328/286] max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
+          <Image src="/images/events/benefits-mob.webp" alt="Pet" fill />
+        </div>
         <div>
-          {/* Заголовок */}
           <motion.h2
             initial="hidden"
             whileInView="visible"
@@ -72,48 +28,65 @@ const Benefits = ({ benefitsTitle, benefitsParagraphs }: IBenefitsProps) => {
                 transition: { duration: 0.5, ease: "easeOut", delay: 0.4 },
               },
             }}
-            className="text-[24px] font-arial font-black uppercase text-white mt-[40px] md:mt-0"
+            className="text-[24px] lg:text-[32px] text-center font-arial lg:leading-[45%] lg:normal-case font-black uppercase text-white mt-[40px] lg:mt-0"
           >
-            {benefitsTitle}
+            {t("title")}
           </motion.h2>
 
           {/* Список переваг */}
-          <ul className="mt-6 flex flex-col gap-4">
-            {benefitsParagraphs.map((paragraph, index) => (
-              <motion.li
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: {
-                      duration: 0.5,
-                      ease: "easeOut",
-                      delay: 0.6 + index * 0.2,
-                    },
-                  },
-                }}
-                className="flex gap-4"
-              >
-                <Image
-                  src="/images/paw.marker-mob.png"
-                  alt="Paw"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8"
-                />
-                <p className="text-[18px] text-white leading-[130%]">
-                  {paragraph}
-                </p>
-              </motion.li>
-            ))}
-          </ul>
+          <div className="lg:flex lg:mt-[86px] lg:gap-[70px] xl:gap-[140px]">
+            <ul className="mt-6 flex flex-col gap-4">
+              {firstList.map((text, i) => (
+                <BenefitItem key={i} text={text} index={i} />
+              ))}
+            </ul>
+
+            <ul className="mt-6 flex flex-col gap-4">
+              {secondList.map((text, i) => (
+                <BenefitItem key={i + 3} text={text} index={i + 3} />
+              ))}
+            </ul>
+          </div>
+
+          <motion.h3
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.5, ease: "easeOut", delay: 1.8 },
+              },
+            }}
+            className="text-[14px] lg:text-[20px] max-w-[701px] text-center  leading-[130%]  font-bold  text-white mt-[40px] lg:mt-[70px] mx-auto"
+          >
+            {t("subtitle")}
+          </motion.h3>
         </div>
       </div>
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0, y: 20 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.5, ease: "easeOut", delay: 0.4 },
+          },
+        }}
+        className="relative aspect-[1512/465] max-h-[465px] w-full mt-[70px] hidden lg:block"
+      >
+        <Image
+          src="/images/events/benefits-desk1.webp"
+          alt="Pet"
+          fill
+          quality={100}
+        />
+      </motion.div>
     </div>
   );
 };

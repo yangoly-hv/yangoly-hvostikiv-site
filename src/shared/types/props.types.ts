@@ -3,19 +3,12 @@ import { dictionaries } from "../utils/getDictionary";
 import {
   IAboutTranslation,
   IBlog,
-  IChangeLifeTranslation,
-  IContactsTranslation,
-  IDonateAmountSectionTranslation,
   IDonateModalTranslation,
-  IHeroTranslation,
   IInformationBlockTranslation,
-  INavigationItem,
-  IPartenrsTranslation,
   IPartnershipTranslation,
   IReporting,
   ITails,
   IAngelsTranslation,
-  IMonthlyGoalSectionTranslation,
 } from "./dictionary.types";
 import * as yup from "yup";
 import Link from "next/link";
@@ -28,12 +21,18 @@ export interface ILanguage {
   icon: React.ReactNode;
 }
 
+export interface IMetadata {
+  title: string;
+  description: string;
+  keywords: string;
+}
+
 export interface ILanguages {
   [key: string]: ILanguage;
 }
 
 export type PageParams = {
-  params: Promise<{ locale: Locale; id?: string }>;
+  params: Promise<{ locale: Locale; id?: string, slug?: string }>;
   searchParams?: Promise<{ [key: string]: string | undefined }>;
 };
 export type LocaleLayoutProps = {
@@ -42,59 +41,22 @@ export type LocaleLayoutProps = {
 };
 
 export interface IHeaderProps {
-  translation: {
-    navigation: INavigationItem[];
-    donateButton: string;
-  };
-  donateModalTranslataion: IDonateModalTranslation;
   lang: Locale;
 }
 
 export interface IBurgerMenuProps {
   isOpen: boolean;
   onClose: () => void;
-  translation: {
-    navigation: INavigationItem[];
-    donateButton: string;
-  };
-  donateModalTranslataion: IDonateModalTranslation;
   lang: Locale;
-}
-
-export interface IHeroProps {
-  translation: IHeroTranslation;
-  lang: Locale;
-}
-
-export interface IChangeLifeProps {
-  translation: IChangeLifeTranslation;
-}
-
-export interface IAngelsProps {
-  translation: IAngelsTranslation;
-  lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
 }
 
 export interface IAngelsMobProps {
-  translation: IAngelsTranslation;
-  lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
-}
-export interface IAngelsDeskProps {
-  translation: IAngelsTranslation;
-  lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
-}
-
-export interface IAngelsListProps {
-  translation: IAngelsTranslation;
-  lang: Locale;
+  translation?: IAngelsTranslation;
+  lang?: Locale;
+  donateModalTranslataion?: IDonateModalTranslation;
 }
 
 export interface IDonateProps {
-  lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
   className?: string;
   buttonText: string;
 }
@@ -149,7 +111,6 @@ export interface ICardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export interface IPartnersProps
   extends React.HtmlHTMLAttributes<HTMLTableSectionElement> {
-  translation: IPartenrsTranslation;
   withTitle?: boolean;
 }
 
@@ -170,11 +131,6 @@ export interface IFormConfig {
   submitText: string;
   onSubmit?: (data: Record<string, string>) => void;
   className?: string;
-}
-
-export interface IContactsProps {
-  lang: Locale;
-  translation: IContactsTranslation;
 }
 
 export interface ISvgIconProps extends React.SVGProps<SVGSVGElement> {
@@ -251,14 +207,6 @@ export interface IPaymentButtonProps
 export interface IDonateModalProps {
   isOpen: boolean;
   onClose: () => void;
-  translation?: IDonateModalTranslation;
-  lang: Locale;
-}
-
-export interface IAmountSectionProps {
-  translation: IDonateAmountSectionTranslation;
-  currency: string;
-  lang: Locale;
 }
 
 export interface IToastProps {
@@ -282,16 +230,14 @@ export interface ICardPaymentFormData {
 export interface IThankYouModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
-  message: string;
-  buttonText: string;
+  title?: string;
+  message?: string;
+  buttonText?: string;
   onButtonClick?: () => void;
 }
 
 export interface IMonthlyGoalSectionProps {
-  translation: IMonthlyGoalSectionTranslation;
   lang: Locale;
-  donateModalTranslataion: IDonateModalTranslation;
 }
 
 export interface IAnimatedSectionProps {
@@ -343,6 +289,7 @@ export interface IBlogProps {
 
 export interface INewsItem {
   id: string;
+  slug?: string;
   date: string;
   title: string;
   description: string;
@@ -442,4 +389,62 @@ export interface IReportItem {
 
 export interface IReportProps {
   report: IReportItem;
+}
+
+export interface IHelpVolonteeringTranslation {
+  title: string;
+  paragraphs?: string[];
+  text?: string;
+  imagePath: string;
+  imagePathDesk?: string;
+  bg: string;
+  buttonText?: string;
+}
+
+export interface IAngelsProps extends ComponentProps<"section"> {
+  title?: string;
+  withCircle?: boolean;
+}
+
+export interface IPartnerItem {
+  title: string;
+  image: {
+    imagePath: string;
+    widthMob: number;
+    heightMob: number;
+    widthDesk: number;
+    heightDesk: number;
+    bg?: string;
+  };
+  text: string;
+  buttonText: string;
+  buttonLink: string;
+}
+
+export interface IPartnersSupport {
+  title: string;
+  list: {
+    imgPath: string;
+    text: string;
+  }[];
+}
+
+export interface IWhatWeHaveItem {
+  title: string;
+  text: string;
+  imgPath: string;
+  bgPath: string;
+}
+
+export interface IVolunteeringCardProps extends ComponentProps<"li"> {
+  index: number;
+  item: IHelpVolonteeringTranslation;
+  className?: string;
+}
+export interface IHelpAnimalsListItem {
+  title: string;
+  subtitle: string;
+  titleIcon: string;
+  buttonText: string;
+  paragraphs: { text: string; textMob: string; icon: string }[];
 }

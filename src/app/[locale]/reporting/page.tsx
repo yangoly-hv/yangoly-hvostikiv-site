@@ -3,8 +3,14 @@ import Reporting from "@/modules/Reporting/Reporting";
 import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
 
-import { getAllReports } from "@/shared/api/reports";
+// import { getAllReports } from "@/shared/api/reports";
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { Suspense } from "react";
+import Loading from "@/app/loading";
+
+import client from "@/shared/lib/sanity";
+import {allReportsQuery} from "@/shared/lib/queries";
 
 export async function generateMetadata({
   params,
@@ -41,9 +47,14 @@ export async function generateMetadata({
 
 export default async function ReportingPage({ params }: PageParams) {
   const { locale } = await params;
-  const { contacts, reporting } = await getDictionary(locale);
+  const t = await getTranslations("");
+  const reporting = await t.raw("Reporting");
+  // const { reporting } = await getDictionary(locale);
+  const reports = await client.fetch(allReportsQuery);
 
-  const data = await getAllReports(locale);
+  // const data = await getAllReports(locale);
+  //@ts-expect-error
+  const data = reports.map(({_id, slug, date}) => ({_id, slug, date: date[locale]}));
 
   if (!data) {
     return null;
@@ -51,8 +62,10 @@ export default async function ReportingPage({ params }: PageParams) {
 
   return (
     <>
-      <Reporting data={data} translation={reporting} lang={locale} />
-      <Contacts translation={contacts} lang={locale} />
+      <Suspense fallback={<Loading />}>
+        <Reporting data={data} translation={reporting} lang={locale} />
+        <Contacts />
+      </Suspense>
     </>
   );
 }

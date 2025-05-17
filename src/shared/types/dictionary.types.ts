@@ -1,26 +1,12 @@
 export interface INavigationItem {
   name: string;
-  href: string | { pathname: string; query?: Record<string, string | number> };
-  dropdown?: {
-    name: string;
-    href:
-      | string
-      | { pathname: string; query?: Record<string, string | number> };
-  }[];
+  href: string;
 }
 
-export interface IHeroTranslation {
-  title: string;
-  subtitle: string;
-  text: string;
-  button: string;
-}
-
-export interface IChangeLifeTranslation {
-  title: string;
-  description: string;
-  becomePartner: string;
-  joinVolunteers: string;
+export interface IContacts {
+  phone: string;
+  email: string;
+  address: string;
 }
 
 export interface IAngelsTranslation {
