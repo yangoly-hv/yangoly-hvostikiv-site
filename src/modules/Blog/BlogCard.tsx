@@ -5,13 +5,14 @@ import Button from "@/shared/components/Button/Button";
 import { IBlogCardProps } from "@/shared/types";
 import { motion } from "framer-motion";
 import { fadeIn, slideUp } from "@/shared/utils";
+import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
 export default function BlogCard({
   blogItem,
   className = "",
   translation,
 }: IBlogCardProps) {
-  const { mainPhoto, date, title, description, id } = blogItem;
+  const { mainPhoto, date, title, description, slug } = blogItem;
   const { detailsButton } = translation;
 
   return (
@@ -25,7 +26,7 @@ export default function BlogCard({
         viewport={{ once: true }}
         custom={0}
       >
-        <Link href={`/blog/${id}`} className="block mb-[26px]">
+        <Link href={`/blog/${slug}`} className="block mb-[26px]">
           <div className="relative w-full h-[246px] desk:h-[323px] aspect-[295/246] rounded-[11.25px]">
             <Image
               src={mainPhoto}
@@ -54,7 +55,7 @@ export default function BlogCard({
         viewport={{ once: true }}
         custom={0.4}
       >
-        <Link href={`/blog/${id}`}>
+        <Link href={`/blog/${slug}`}>
           <h2
             className="mb-3 text-dark text-[20px] font-semibold leading-[26px] line-clamp-2 focus-visible:text-primary-gray xl:hover:text-primary-gray
             transition duration-300 ease-out"
@@ -71,7 +72,7 @@ export default function BlogCard({
         custom={0.6}
         className="mb-5 text-dark font-normal text-[14px] leading-[18.2px] line-clamp-4"
       >
-        {description}
+        <PortableTextRenderer value={description} />
       </motion.p>
       <motion.div
         variants={fadeIn}
@@ -80,7 +81,7 @@ export default function BlogCard({
         viewport={{ once: true }}
         custom={0.8}
       >
-        <Link href={`/blog/${id}`}>
+        <Link href={`/blog/${slug}`}>
           <Button text={detailsButton} fullWidth />
         </Link>
       </motion.div>

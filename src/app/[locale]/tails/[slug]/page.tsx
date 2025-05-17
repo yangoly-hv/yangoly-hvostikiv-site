@@ -11,19 +11,27 @@ import { Suspense } from "react";
 import Loading from "@/app/loading";
 import { getTranslations } from "next-intl/server";
 
+import client from "@/shared/lib/sanity";
+import {allTailsQuery, tailBySlugQuery} from "@/shared/lib/queries";
+
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const { locale, id } = await params;
+  const { locale, slug } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
 
-  const data = await getAnimalById(id, locale);
+  const data = await client.fetch(tailBySlugQuery, {
+    slug,
+    lang: locale,
+  });
+
+  // const data = await getAnimalById(id, locale);
   const title = `${metadata.tails.title} | ${data.name}`;
   const description = `${
     metadata.tails.description
-  } | ${extractFirstParagraphText(data.description)}`;
+  } | ${data.description[0].children[0].text}`;
 
   return {
     title,
@@ -35,12 +43,12 @@ export async function generateMetadata({
     openGraph: {
       title,
       description,
-      url: `${baseUrl}/${locale}/tails/${id}`,
+      url: `${baseUrl}/${locale}/tails/${slug}`,
       type: "website",
       locale,
       images: [
         {
-          url: data.images[0].url,
+          url: data.mainImage,
           width: 1200,
           height: 630,
           alt: title,
@@ -51,21 +59,29 @@ export async function generateMetadata({
 }
 
 export default async function TailPage({ params }: PageParams) {
-  const { id, locale } = await params;
+  const { slug, locale } = await params;
   // const tail = tails[locale].find((tail) => tail.id === id);
   // const tail = tails[locale].find((tail) => tail.id === "tail-1");
   const translation = (await getTranslations("")).raw("Tails");
 
-  const data = await getAnimalById(id, locale);
-  const allData = await getAllAnimals(locale);
+  // const data = await getAnimalById(id, locale);
+  const data = await client.fetch(tailBySlugQuery, {
+    slug,
+    lang: locale,
+  });
 
+  // const allData = await getAllAnimals(locale);
+
+  const allData = await client.fetch(allTailsQuery, {
+    lang: locale,
+  });
   if (!data) {
     return null;
   }
   //@ts-expect-error
-  const otherTails = allData.filter((item) => item.id !== data.id);
+  const otherTails = allData.filter((item) => item.slug !== data.slug);
   const randomTails = otherTails.sort(() => 0.5 - Math.random()).slice(0, 4);
-
+  
   return (
     <>
       <Suspense fallback={<Loading />}>

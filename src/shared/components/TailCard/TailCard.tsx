@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 import { ITailItem, ITails } from "@/shared/types";
 import { motion } from "framer-motion";
 import { fadeIn, slideUp } from "@/shared/utils";
+import PortableTextRender from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
 interface ITailCardProps extends ComponentProps<"div"> {
   tail: ITailItem;
@@ -13,7 +14,8 @@ interface ITailCardProps extends ComponentProps<"div"> {
 
 const TailCard = ({ tail, translation }: ITailCardProps) => {
   const { detailsButton } = translation;
-  const { name, image, description, sex, sterilized, id } = tail;
+  //@ts-expect-error
+  const { name, image, description, sex, sterilized, slug } = tail;
 
   return (
     <div className="max-w-[343px] desk:max-w-[436px] min-h-full py-8 px-4 lg:px-6 rounded-[20px] bg-[#FCFCFC] shadow-blogCard">
@@ -24,7 +26,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
         viewport={{ once: true }}
         custom={0}
       >
-        <Link href={`/tails/${id}`}>
+        <Link href={`/tails/${slug}`}>
           <div className="relative w-full h-[246px] desk:h-[323px] mb-[26px] aspect-[296/246] rounded-[16px]">
             <Image
               src={image}
@@ -44,7 +46,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
         viewport={{ once: true }}
         custom={0.2}
       >
-        <Link href={`/tails/${id}`}>
+        <Link href={`/tails/${slug}`}>
           <h2
             className="mb-3 text-black text-[20px] font-semibold leading-[130%] line-clamp-1 focus-visible:text-primary-gray xl:hover:text-primary-gray
             transition duration-300 ease-out"
@@ -78,7 +80,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
         custom={0.6}
         className="min-h-[73px] text-dark mb-5 text-[14px] leading-[130%] line-clamp-4"
       >
-        {description[0]}
+          <PortableTextRender value={description} />
       </motion.p>
 
       <motion.div
@@ -89,7 +91,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
         custom={0.8}
         className="block mt-auto h-[47px]"
       >
-        <Link href={`/tails/${id}`}>
+        <Link href={`/tails/${slug}`}>
           <Button text={detailsButton} fullWidth />
         </Link>
       </motion.div>

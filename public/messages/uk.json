@@ -1,6 +1,6 @@
 {
   "Header": {
-    "donateButton": "Разова допомога",
+    "donateButton": "Одноразова допомога",
     "navigation": [
       {
         "name": "Головна",
@@ -655,6 +655,7 @@
     "allTails": "Всі хвостики",
     "adoptButton": "Взяти в родину",
     "oneTimeHelpButton": "Разова допомога",
+    "becomeGuardianButton": "Стати опікуном",
     "adoptDescription": "Щоб взяти в родину хвостика, будь ласка, зв’яжіться з його опікуном за цим номером",
     "name": "Анатолій",
     "connectButton": "Зв'язатися",

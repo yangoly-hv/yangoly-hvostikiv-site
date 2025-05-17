@@ -32,7 +32,7 @@ export interface ILanguages {
 }
 
 export type PageParams = {
-  params: Promise<{ locale: Locale; id?: string }>;
+  params: Promise<{ locale: Locale; id?: string, slug?: string }>;
   searchParams?: Promise<{ [key: string]: string | undefined }>;
 };
 export type LocaleLayoutProps = {
@@ -289,6 +289,7 @@ export interface IBlogProps {
 
 export interface INewsItem {
   id: string;
+  slug?: string;
   date: string;
   title: string;
   description: string;

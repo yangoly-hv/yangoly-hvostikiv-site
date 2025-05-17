@@ -12,10 +12,13 @@ import { Suspense } from "react";
 import Loading from "@/app/loading";
 import { getTranslations } from "next-intl/server";
 
+import client from "@/shared/lib/sanity";
+import {postBySlugQuery} from "@/shared/lib/queries";
+
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const { locale, id } = await params;
+  const { locale, slug } = await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
@@ -31,7 +34,7 @@ export async function generateMetadata({
     openGraph: {
       title: metadata.blog.title,
       description: metadata.blog.description,
-      url: `${baseUrl}/${locale}/blog/${id}`,
+      url: `${baseUrl}/${locale}/blog/${slug}`,
       type: "website",
       locale: locale,
       images: [
@@ -46,37 +49,17 @@ export async function generateMetadata({
   };
 }
 
-/*
-    // title: `${metadata.blog.title} | ${data.title}`,
-    // description: `${metadata.blog.description} | ${extractFirstParagraphText(data.description)}`,
-    // keywords: metadata.blog.keywords,
-    // icons: {
-    //   icon: "/favicon.ico",
-    // },
-    // openGraph: {
-    //   title: `${metadata.blog.title} | ${data.title}`,
-    //   description: `${metadata.blog.description} | ${extractFirstParagraphText(data.description)}`,
-    //   url: `${baseUrl}/${locale}/blog/${id}`,
-    //   type: "website",
-    //   locale,
-    //   images: [
-    //     {
-    //       url: data.mainPhoto.url,
-    //       width: 1200,
-    //       height: 630,
-    //       alt: `${metadata.blog.title} | ${data.title}`,
-    //     },
-    //   ],
-    // },
-* */
-
 export default async function ArticlePage({ params }: PageParams) {
-  const { id, locale } = await params;
+  const { slug, locale } = await params;
   const t = await getTranslations("");
   const blog = await t.raw("Blog");
+  const data = await client.fetch(postBySlugQuery, {
+    lang: locale,
+    slug,
+  })
   // const article = newsList[locale].find((newsItem) => newsItem.id === id);
 
-  const data = await getBlogItemById(id, locale);
+  // const data = await getBlogItemById(id, locale);
 
   if (!data) {
     return null;

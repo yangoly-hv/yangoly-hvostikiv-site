@@ -8,6 +8,9 @@ import { Suspense } from "react";
 import Loading from "@/app/loading";
 import { getTranslations } from "next-intl/server";
 
+import client from "@/shared/lib/sanity";
+import {allPostsQuery} from "@/shared/lib/queries";
+
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
@@ -46,7 +49,10 @@ export default async function BlogPage({ params }: PageParams) {
   const blog = await t.raw("Blog");
   const { locale } = await params;
 
-  const data = await getAllBlogItems(locale);
+  // const data = await getAllBlogItems(locale);
+  const data = await client.fetch(allPostsQuery, {
+    lang: locale,
+  })
 
   if (!data) {
     return null;

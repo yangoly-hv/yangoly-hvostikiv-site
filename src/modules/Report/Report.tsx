@@ -5,14 +5,15 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { fadeIn, slideUp } from "@/shared/utils";
 
-import {getReportData} from "@/shared/utils/functions";
+// import {getReportData} from "@/shared/utils/functions";
 import Button from "@/shared/components/Button/Button";
+import PortableTextRender from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
 //@ts-expect-error
 export default function Report({ translation, report }) {
-    const transformData = getReportData(report);
-  const { date, title, description, mainPart, mainPhoto, secondaryPhoto, link } =
-      transformData;
+    // const transformData = getReportData(report);
+  const { date, title, description, additionalInfo, mainImage, secondaryImage, link } =
+      report;
 
   return (
     <section className="mx-auto container pt-[60px] xl:pt-12 pb-[100px] xl:pb-[148px] px-4 xl:px-10">
@@ -41,9 +42,9 @@ export default function Report({ translation, report }) {
               <div
 
                   className="mb-7 text-[14px] lg:text-[18px] font-light leading-[130%]"
-                  dangerouslySetInnerHTML={{__html: description}}
+                  // dangerouslySetInnerHTML={{__html: description}}
               >
-                  {/*{description}*/}
+                  <PortableTextRender value={description} />
               </div>
               <motion.p
                   variants={slideUp}
@@ -62,7 +63,7 @@ export default function Report({ translation, report }) {
                   </Link>
               </motion.p>
           </div>
-          {mainPhoto && <motion.div
+          {mainImage && <motion.div
               variants={slideUp}
               initial="hidden"
               whileInView="visible"
@@ -71,7 +72,7 @@ export default function Report({ translation, report }) {
               className="relative w-full lg:w-[40.8%] max-w-[585px] h-[383px] mx-auto lg:mx-0"
           >
           <Image
-            src={mainPhoto}
+            src={mainImage}
             alt={title}
             fill
             className="object-cover object-center rounded-[18.05px]"
@@ -79,7 +80,10 @@ export default function Report({ translation, report }) {
           />
         </motion.div>}
       </div>
-      <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]" dangerouslySetInnerHTML={{ __html: mainPart }}>
+      <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]"
+           // dangerouslySetInnerHTML={{ __html: mainPart }}
+      >
+          <PortableTextRender value={additionalInfo} />
         {/*{mainPart.map((item, idx) => (*/}
         {/*  <motion.p*/}
         {/*    key={idx}*/}
@@ -93,7 +97,7 @@ export default function Report({ translation, report }) {
         {/*  </motion.p>*/}
         {/*))}*/}
       </div>
-        {secondaryPhoto && <motion.div
+        {secondaryImage && <motion.div
         variants={slideUp}
         initial="hidden"
         whileInView="visible"
@@ -102,7 +106,7 @@ export default function Report({ translation, report }) {
         className="relative w-full max-w-[585px] lg:max-w-full aspect-[328/189] lg:aspect-[1429/455] mx-auto lg:mx-0"
       >
         <Image
-          src={secondaryPhoto}
+          src={secondaryImage}
           alt={title}
           fill
           className="rounded-[18.05px] object-cover object-center"

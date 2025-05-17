@@ -8,6 +8,9 @@ import { Suspense } from "react";
 import Loading from "@/app/loading";
 import { getTranslations } from "next-intl/server";
 
+import client from "@/shared/lib/sanity";
+import {allTailsQuery} from "@/shared/lib/queries";
+
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
@@ -45,7 +48,10 @@ export default async function TailsPage({ params }: PageParams) {
   const { locale } = await params;
   const tails = (await getTranslations("")).raw("Tails");
 
-  const data = await getAllAnimals(locale);
+  // const data = await getAllAnimals(locale);
+  const data = await client.fetch(allTailsQuery, {
+    lang: locale,
+  });
 
   if (!data) {
     return null;

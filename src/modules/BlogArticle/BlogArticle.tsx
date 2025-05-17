@@ -6,6 +6,7 @@ import ClockIcon from "../../../public/images/icons/ClockIcon";
 import { IBlogArticleProps } from "@/shared/types";
 import { motion } from "framer-motion";
 import { fadeIn, slideUp, generalSlideUp } from "@/shared/utils";
+import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
 import {getBlogItemData} from "@/shared/utils/functions";
 
@@ -41,7 +42,7 @@ export default function BlogArticle({article, translation}: IBlogArticleProps) {
             custom={0.2}
             className="mb-7 text-[14px] lg:text-[18px] font-light leading-[130%]"
           >
-            {description}
+            <PortableTextRenderer value={description} />
           </motion.p>
           <motion.div
             variants={slideUp}
@@ -75,7 +76,7 @@ export default function BlogArticle({article, translation}: IBlogArticleProps) {
           />
         </motion.div>}
       </div>
-      {mainPart && <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]" dangerouslySetInnerHTML={{ __html: mainPart }} />}
+      {mainPart && <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]"><PortableTextRenderer value={mainPart} /></div>}
       {/*  {mainPart.lists.map((list, idx) => (*/}
       {/*    <Fragment key={idx}>*/}
       {/*      <motion.h2*/}

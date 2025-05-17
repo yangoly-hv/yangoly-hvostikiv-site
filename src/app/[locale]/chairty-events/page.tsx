@@ -13,14 +13,19 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
 
+import client from "@/shared/lib/sanity";
+import {eventsQuery} from "@/shared/lib/queries";
+
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
   const t = await getTranslations("Metadata");
   const metadata = (await t.raw("charityEvents")) as IMetadata;
   const { locale } = await params;
+
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
+
   return {
     title: metadata.title,
     description: metadata.description,
@@ -46,33 +51,36 @@ export async function generateMetadata({
   };
 }
 
-const slides = [
-  "/images/chairty5.jpg",
-  "/images/partners1.jpg",
-  "/images/partners2.jpg",
-  "/images/partners3.jpg",
-  "/images/partners4.jpg",
-  "/images/partners1.jpg",
-  "/images/partners2.jpg",
-  "/images/partners3.jpg",
-  "/images/partners4.jpg",
-  "/images/partners1.jpg",
-  "/images/partners2.jpg",
-  "/images/partners3.jpg",
-  "/images/partners4.jpg",
-];
+// const slides = [
+//   "/images/chairty5.jpg",
+//   "/images/partners1.jpg",
+//   "/images/partners2.jpg",
+//   "/images/partners3.jpg",
+//   "/images/partners4.jpg",
+//   "/images/partners1.jpg",
+//   "/images/partners2.jpg",
+//   "/images/partners3.jpg",
+//   "/images/partners4.jpg",
+//   "/images/partners1.jpg",
+//   "/images/partners2.jpg",
+//   "/images/partners3.jpg",
+//   "/images/partners4.jpg",
+// ];
 
-export default async function CharityEventPage() {
+export default async function CharityEventPage({params}: PageParams) {
   const t = await getTranslations("ChairtyEvents");
   const paragraphs = await t.raw("paragraphs");
+  const { locale } = await params;
+  const {title, images} = await client.fetch(eventsQuery);
+  const pageTitle = title[locale];
 
   return (
     <Suspense fallback={<Loading />}>
       <section className="bg-orange-bg">
         <Hero title={t("title")} />
         <Paragraphs
-          mobTitle={t("missionTitleMob")}
-          deskTitle={t("missionTitleDesk")}
+          mobTitle={pageTitle}
+          deskTitle={pageTitle}
           paragraphs={paragraphs}
         />
         <Mission
@@ -87,7 +95,7 @@ export default async function CharityEventPage() {
           buttonText={t("donate.buttonText")}
         />
         <HelpAnimalsSection />
-        <GallerySlider slides={slides} />
+        <GallerySlider slides={images} />
         <Contacts />
       </section>
     </Suspense>

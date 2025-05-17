@@ -14,6 +14,16 @@ const nextConfig: NextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "**",
       },
+      {
+        protocol: "http",
+        hostname: "cdn.sanity.io",
+        pathname: "**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.sanity.io",
+        pathname: "**",
+      },
     ],
   },
   eslint: {

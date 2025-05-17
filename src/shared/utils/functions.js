@@ -59,28 +59,42 @@ export const getSexTranslation = (sex, locale) => {
 
 export const getDateFromISO = (date) => new Date(date).toLocaleDateString("ru-RU");
 
-export const getTailData = ({documentId, sex, images, name, description, needs_family, needs_sterilization}, lang) => ({
-    id: documentId,
-    image: images.length ? images[0]?.url : "",
-    //@ts-expect-error
-    images: images.map(img => img?.url),
+// export const getTailData = ({documentId, sex, images, name, description, needs_family, needs_sterilization}, lang) => ({
+//     id: documentId,
+//     image: images.length ? images[0]?.url : "",
+//     //@ts-expect-error
+//     images: images.map(img => img?.url),
+//     name,
+//     sex: getSexTranslation(sex, lang),
+//     sterilized: getSterializedText({needs_sterilization, sex, locale: lang}),
+//     categories: getAnimalCategories({needs_sterilization, needs_family}),
+//     description: extractParagraphs(description),
+//     mainText: description,
+// });
+
+export const getTailData = ({_id, slug, mainImage, images, sex, name, description, needs_family, needs_sterilization}, lang) => ({
+    id: _id,
+    image: mainImage,
+    slug: slug,
+    images: [mainImage, ...images],
     name,
     sex: getSexTranslation(sex, lang),
     sterilized: getSterializedText({needs_sterilization, sex, locale: lang}),
     categories: getAnimalCategories({needs_sterilization, needs_family}),
-    description: extractParagraphs(description),
+    description: description,
     mainText: description,
 });
 
-export const getBlogItemData = ({documentId, createdAt, title, description, mainPhoto, secondaryPhoto, mainPart})=> ({
-    id: documentId,
+export const getBlogItemData = ({_id, slug, createdAt, title, description, additionalInfo, mainImage, secondaryImage})=> ({
+    id: _id,
+    slug,
     date: getDateFromISO(createdAt),
     title,
-    description: extractParagraphs(description),
+    description: description,
     mainText: description,
-    mainPhoto: mainPhoto?.url,
-    secondaryPhoto: secondaryPhoto?.url,
-    mainPart,
+    mainPhoto: mainImage,
+    secondaryPhoto: secondaryImage,
+    mainPart: additionalInfo,
 })
 
 export const getReportData = ({date, title, description, mainPhoto, secondaryPhoto, mainPart, link})=> ({
