@@ -64,7 +64,7 @@ const Hero = async () => {
           viewport={{ once: true }}
         >
           <motion.p
-            className="text-white mt-[14px] text-center leading-[122%] text-[16px] px-[10px] xl:text-[20px] xl:max-w-[432px] xl:text-left"
+            className="text-white mt-[14px] text-center leading-[122%] text-[16px]  xl:text-[20px] xl:max-w-[432px] xl:text-left"
             variants={{
               hidden: { opacity: 0, y: 20 },
               visible: {
@@ -87,7 +87,7 @@ const Hero = async () => {
             }}
           >
             <DonateAction
-              className="px-[62px]"
+              className="px-[62px] mt-[24px]"
               variant="primary"
               color="text-dark bg-orange"
               buttonText={t("button")}
