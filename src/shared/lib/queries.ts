@@ -45,7 +45,9 @@ export const tailBySlugQuery = `
     "description": description[$lang],
     sex,
     needs_sterilization,
+    sterilization_price,
     needs_family,
+    keeping_price,
     "mainImage": mainImage.asset->url,
     "images": images[].asset->url
     }

@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import axios from "axios";
-import CustomAmountCard from "../CustomAmountCard/CustomAmountCard";
-import AmountCard from "../AmountCard/AmountCard";
+// import CustomAmountCard from "../CustomAmountCard/CustomAmountCard";
+// import AmountCard from "../AmountCard/AmountCard";
 import { formatAmount } from "@/shared/utils";
 import TextInput from "../../TextInput/TextInput";
 import CheckBox from "../../CheckBox/CheckBox";
@@ -12,9 +12,9 @@ import Toast from "../../Toast/Toast";
 import ThankYouModal from "../ThankYouModal/ThankYouModal";
 import { useTranslations } from "next-intl";
 
-const predefinedAmounts = [200, 500, 1000];
+// const predefinedAmounts = [200, 500, 1000];
 
-const DonateAmountSection = () => {
+const DonateAmountSection = ({price}: {price: number}) => {
   const t = useTranslations("DonateModal");
   const formRef = useRef<HTMLFormElement>(null);
   const [paymentData, setPaymentData] = useState({
@@ -40,7 +40,7 @@ const DonateAmountSection = () => {
     submitError: t("donateAmountSection.submitError"),
   };
 
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+  const [selectedAmount, setSelectedAmount] = useState<number>(price);
   const [customAmount, setCustomAmount] = useState<string>("");
   const [comment, setComment] = useState("");
   const [isAgreed, setIsAgreed] = useState(false);
@@ -75,11 +75,11 @@ const DonateAmountSection = () => {
 
   const handleCustomAmountChange = useCallback((value: string) => {
     setCustomAmount(value);
-    setSelectedAmount(null);
+    //setSelectedAmount(null);
   }, []);
 
   const handleCustomAmountFocus = useCallback(() => {
-    setSelectedAmount(null);
+    //setSelectedAmount(null);
   }, []);
 
   const currentAmount =
@@ -112,29 +112,29 @@ const DonateAmountSection = () => {
           <p className="text-center text-[24px] xl:text-[32px] leading-[130%] text-[#52525B] mb-2">
             {formatAmount(currentAmount)} {t("currency")}
           </p>
-          <div className="grid grid-cols-3 gap-2 max-w-[400px] xl:max-w-[544px] mx-auto">
-            {predefinedAmounts.map((amount) => (
-              <AmountCard
-                currency={t("currency")}
-                key={amount}
-                amount={amount}
-                formattedAmount={formatAmount(amount)}
-                isSelected={selectedAmount === amount}
-                onClick={handleAmountSelect}
-              />
-            ))}
-            <div className="col-start-1">
-              <CustomAmountCard
-                anotherAmount={translation.anotherAmount}
-                currency={t("currency")}
-                value={customAmount}
-                formatAmount={formatAmount}
-                isSelected={selectedAmount === null && customAmount !== ""}
-                onChange={handleCustomAmountChange}
-                onFocus={handleCustomAmountFocus}
-              />
-            </div>
-          </div>
+          {/*<div className="grid grid-cols-3 gap-2 max-w-[400px] xl:max-w-[544px] mx-auto">*/}
+          {/*  {predefinedAmounts.map((amount) => (*/}
+          {/*    <AmountCard*/}
+          {/*      currency={t("currency")}*/}
+          {/*      key={amount}*/}
+          {/*      amount={amount}*/}
+          {/*      formattedAmount={formatAmount(amount)}*/}
+          {/*      isSelected={selectedAmount === amount}*/}
+          {/*      onClick={handleAmountSelect}*/}
+          {/*    />*/}
+          {/*  ))}*/}
+          {/*  <div className="col-start-1">*/}
+          {/*    <CustomAmountCard*/}
+          {/*      anotherAmount={translation.anotherAmount}*/}
+          {/*      currency={t("currency")}*/}
+          {/*      value={customAmount}*/}
+          {/*      formatAmount={formatAmount}*/}
+          {/*      isSelected={selectedAmount === null && customAmount !== ""}*/}
+          {/*      onChange={handleCustomAmountChange}*/}
+          {/*      onFocus={handleCustomAmountFocus}*/}
+          {/*    />*/}
+          {/*  </div>*/}
+          {/*</div>*/}
         </div>
         <div className="w-full max-w-[350px] xl:max-w-[544px]">
           <TextInput

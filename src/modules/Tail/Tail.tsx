@@ -15,10 +15,10 @@ export default function Tail({tail, locale, randomTails, translation}) {
   const transformTail = getTailData(tail, locale);
   //@ts-expect-error
   const transformRandomTails = randomTails.map(tail => getTailData(tail, locale))
-
   return (
     <section>
       <div className="mx-auto container pt-8 pb-5 px-4 xl:px-10">
+        {/*@ts-expect-error*/}
         <TailInfo tail={transformTail} locale={locale} translation={translation} />
       </div>
 

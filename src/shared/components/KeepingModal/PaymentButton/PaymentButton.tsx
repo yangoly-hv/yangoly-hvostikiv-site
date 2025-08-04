@@ -1,4 +1,3 @@
-import { useTranslations } from "next-intl";
 import { IPaymentButtonProps } from "@/shared/types";
 import { CardIcon, GoogleIcon } from "../../../../../public/images/icons";
 
@@ -8,13 +7,12 @@ const PaymentButton = ({
   text,
   ...props
 }: IPaymentButtonProps) => {
-  const t = useTranslations("DonateModal");
   const getButtonContent = () => {
     switch (paymentType) {
       case "monoPay":
         return (
           <div className="flex items-center justify-center gap-1">
-            <span>{t("donateAmountSection.donate")}</span>
+            <span>Зробити донат</span>
             {/*<span className="bg-white text-black px-1 rounded">Pay</span>*/}
           </div>
         );

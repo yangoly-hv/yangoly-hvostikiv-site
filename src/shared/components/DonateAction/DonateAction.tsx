@@ -4,6 +4,7 @@ import DonateModal from "@/shared/components/DonateModal/DonateModal";
 import { ButtonVariant } from "@/shared/types";
 import clsx from "clsx";
 import { useState } from "react";
+
 interface IDonateActionProps {
   buttonText: string;
   color?: string;

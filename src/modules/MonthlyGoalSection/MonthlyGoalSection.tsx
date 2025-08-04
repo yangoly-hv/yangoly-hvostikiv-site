@@ -95,7 +95,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
               <AnimatedWrapper
                 as="p"
                 animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-                className="text-[12px] xl:text-[18px] font-semibold text-center leading-[130%] uppercase"
+                className="text-[12px] xl:text-[18px] font-arial font-light text-center leading-[130%]"
               >
                 {formattedResult}
               </AnimatedWrapper>

@@ -81,7 +81,7 @@ export default async function TailPage({ params }: PageParams) {
   //@ts-expect-error
   const otherTails = allData.filter((item) => item.slug !== data.slug);
   const randomTails = otherTails.sort(() => 0.5 - Math.random()).slice(0, 4);
-  
+
   return (
     <>
       <Suspense fallback={<Loading />}>

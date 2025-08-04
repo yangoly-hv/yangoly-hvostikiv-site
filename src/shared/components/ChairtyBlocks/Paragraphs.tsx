@@ -9,8 +9,8 @@ interface ParagraphsProps {
 
 const Paragraphs = ({ paragraphs, mobTitle, deskTitle }: ParagraphsProps) => {
   return (
-    <div className="container flex flex-col justify-center items-center mx-auto px-4 xl:px-[40px]">
-      <div className="grid mt-[48px] pb-[100px] xl:pb-[148px] grid-cols-1 lg:grid-cols-3  xl:flex xl:gap-[87px] gap-[32px]">
+    <div className="container  mx-auto px-4 xl:px-[40px]">
+      <div className=" mt-[48px] pb-[100px] xl:pb-[48px] ">
         {paragraphs.map((paragraph, index) => (
           <motion.p
             key={index}
@@ -31,9 +31,6 @@ const Paragraphs = ({ paragraphs, mobTitle, deskTitle }: ParagraphsProps) => {
             }}
             className={clsx(
               "text-[18px] text-black leading-[130%] font-light",
-              index === 0 && "lg:max-w-[235px]",
-              index === 1 && "lg:max-w-[265px]",
-              index === 2 && "lg:max-w-[326px]"
             )}
             dangerouslySetInnerHTML={{ __html: paragraph }}
           />
@@ -53,7 +50,7 @@ const Paragraphs = ({ paragraphs, mobTitle, deskTitle }: ParagraphsProps) => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.2 }}
-        className="hidden lg:block max-w-[1039px] text-center font-arial  text-[32px]  leading-[130%] "
+        className="hidden lg:block max-w-[1039px] mx-auto text-center font-arial  text-[32px]  leading-[130%] "
       >
         {deskTitle}
       </motion.h2>

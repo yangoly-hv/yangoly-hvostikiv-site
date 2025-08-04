@@ -94,7 +94,7 @@
     },
     {
       "count": "5,000+",
-      "action": "Kilograms of food"
+      "action": "Kilograms of food send"
     },
     {
       "count": "4,000+",
@@ -266,8 +266,41 @@
     "sum": "Contribution amount"
   },
   "DonateModal": {
-    "fundraisingTitle": "Our monthly goal",
-    "subtitle": "Current fundraising",
+    "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
+    "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
+    "goal": "Goal",
+    "currency": "UAH",
+    "donateAmountSection": {
+      "title": "Top-up amount",
+      "anotherAmount": "Other amount",
+      "inputPlaceholder": "Optional",
+      "inputLabel": "Your name or comment",
+      "firstCheckboxLabel": "I want to be the first to know about charity events",
+      "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
+      "cardButton": "Pay by card",
+      "submitError": "Please confirm that you have read the public offer agreement",
+      "donate": "Donate"
+    }
+  },
+  "SterilizationModal": {
+    "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
+    "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
+    "goal": "Goal",
+    "currency": "UAH",
+    "donateAmountSection": {
+      "title": "Top-up amount",
+      "anotherAmount": "Other amount",
+      "inputPlaceholder": "Optional",
+      "inputLabel": "Your name or comment",
+      "firstCheckboxLabel": "I want to be the first to know about charity events",
+      "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
+      "cardButton": "Pay by card",
+      "submitError": "Please confirm that you have read the public offer agreement"
+    }
+  },
+  "KeepingModal": {
+    "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
+    "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
     "goal": "Goal",
     "currency": "UAH",
     "donateAmountSection": {

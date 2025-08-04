@@ -14,7 +14,7 @@ export default function Filter({ selectedFilter }: { selectedFilter: string }) {
 
   const filterOptions: IFilterOption[] = [
     { label: t("allTails"), value: "all" },
-    { label: t("needsSterilization"), value: "needs-sterilization" },
+    // { label: t("needsSterilization"), value: "needs-sterilization" },
     { label: t("needsFamily"), value: "needs-family" },
     { label: t("adopted"), value: "adopted" },
   ];

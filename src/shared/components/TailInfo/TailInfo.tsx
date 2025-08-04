@@ -4,14 +4,16 @@ import ImageSlider from "../ImageSlider/ImageSlider";
 import Button from "../Button/Button";
 import AdoptModal from "../AdoptModal/AdoptModal";
 import DonateModal from "../DonateModal/DonateModal";
+import KeepingModal from "@/shared/components/KeepingModal/KeepingModal";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/shared/utils";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
 //@ts-expect-error
-const TailInfo = ({ tail, locale, translation }) => {
+const TailInfo = ({ tail, translation }) => {
   const [isAdoptModalOpen, setIsAdoptModalOpen] = useState(false);
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
+  const [isKeepingModalOpen, setIsKeepingModalOpen] = useState(false);
 
   const { adoptButton, oneTimeHelpButton, becomeGuardianButton, sterilize } = translation;
 
@@ -19,14 +21,13 @@ const TailInfo = ({ tail, locale, translation }) => {
     setIsAdoptModalOpen(false);
   };
 
-  const handleDoanteModalClose = () => {
+  const handleDonateModalClose = () => {
     setIsDonateModalOpen(false);
   };
 
-  const needsSterilization = tail.categories.find(
-    //@ts-expect-error
-    (category) => category === "needs-sterilization"
-  );
+  const handleKeepingModalClose = () => {
+    setIsKeepingModalOpen(false);
+  };
 
   const needsFamily = tail.categories.find(
       //@ts-expect-error
@@ -94,21 +95,21 @@ const TailInfo = ({ tail, locale, translation }) => {
                 />
               </motion.div>
           )}
-          {needsSterilization && <motion.div
-              variants={fadeIn}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{once: true}}
-              custom={1.0}
-          >
-            <Button
-                onClick={() => setIsDonateModalOpen(true)}
-                variant="outline"
-                text={sterilize}
-                fullWidth
-                className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0"
-            />
-          </motion.div>}
+          {/*{needsSterilization && <motion.div*/}
+          {/*    variants={fadeIn}*/}
+          {/*    initial="hidden"*/}
+          {/*    whileInView="visible"*/}
+          {/*    viewport={{once: true}}*/}
+          {/*    custom={1.0}*/}
+          {/*>*/}
+          {/*  <Button*/}
+          {/*      onClick={() => setIsSterilizationModalOpen(true)}*/}
+          {/*      variant="outline"*/}
+          {/*      text={sterilize}*/}
+          {/*      fullWidth*/}
+          {/*      className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0"*/}
+          {/*  />*/}
+          {/*</motion.div>}*/}
           <motion.div
               variants={fadeIn}
               initial="hidden"
@@ -132,7 +133,7 @@ const TailInfo = ({ tail, locale, translation }) => {
               custom={1.0}
           >
             <Button
-                onClick={() => setIsDonateModalOpen(true)}
+                onClick={() => setIsKeepingModalOpen(true)}
                 variant="outline"
                 text={becomeGuardianButton}
                 fullWidth
@@ -148,7 +149,13 @@ const TailInfo = ({ tail, locale, translation }) => {
       />
       <DonateModal
           isOpen={isDonateModalOpen}
-          onClose={handleDoanteModalClose}
+          onClose={handleDonateModalClose}
+      />
+      <KeepingModal
+          //@ts-expect-error
+          price={tail.keeping_price}
+          isOpen={isKeepingModalOpen}
+          onClose={handleKeepingModalClose}
       />
     </div>
   );

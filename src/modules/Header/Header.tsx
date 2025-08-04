@@ -1,4 +1,5 @@
 "use client";
+
 import { useState } from "react";
 import { BurgerButtonIcon } from "../../../public/images/icons";
 import LanguageSwitcher from "@/shared/components/LanguageSwitcher/LanguageSwitcher";

@@ -72,12 +72,14 @@ export const getDateFromISO = (date) => new Date(date).toLocaleDateString("ru-RU
 //     mainText: description,
 // });
 
-export const getTailData = ({_id, slug, mainImage, images, sex, name, description, needs_family, needs_sterilization}, lang) => ({
+export const getTailData = ({_id, slug, mainImage, images, sex, name, description, sterilization_price, keeping_price, needs_family, needs_sterilization}, lang) => ({
     id: _id,
     image: mainImage,
     slug: slug,
     images: [mainImage, ...images],
     name,
+    sterilization_price,
+    keeping_price,
     sex: getSexTranslation(sex, lang),
     sterilized: getSterializedText({needs_sterilization, sex, locale: lang}),
     categories: getAnimalCategories({needs_sterilization, needs_family}),
