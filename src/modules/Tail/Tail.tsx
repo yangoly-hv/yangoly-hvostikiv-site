@@ -3,7 +3,7 @@ import Link from "next/link";
 import TailInfo from "@/shared/components/TailInfo/TailInfo";
 import RandomTailCards from "@/shared/components/RandomTailCards/RandomTailCards";
 import { ArrowDonwIcon } from "../../../public/images/icons";
-import { ITailProps } from "@/shared/types";
+// import { ITailProps } from "@/shared/types";
 import { motion } from "framer-motion";
 import { fadeIn, slideUp } from "@/shared/utils";
 
