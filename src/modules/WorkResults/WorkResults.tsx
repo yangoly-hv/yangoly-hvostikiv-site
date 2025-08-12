@@ -1,11 +1,23 @@
 import * as motion from "motion/react-client";
 import AchievementItem from "@/shared/components/AchievementItem/AchievementItem";
 import { IWorkResult } from "@/shared/types";
-import { getTranslations } from "next-intl/server";
+// import { getTranslations } from "next-intl/server";
 
-const WorkResults = async () => {
-  const t = await getTranslations("");
-  const translation = (await t.raw("WorkResults")) as IWorkResult[];
+import client from "@/shared/lib/sanity";
+import {topDotatorsQuery} from "@/shared/lib/queries";
+
+//@ts-expect-error
+const WorkResults = async ({locale}) => {
+  // const t = await getTranslations("");
+  // const translation = (await t.raw("WorkResults")) as IWorkResult[];
+
+    const data = await client.fetch(topDotatorsQuery, {
+        lang: locale,
+    });
+
+    if (!data) {
+        return null;
+    }
 
   return (
     <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-[#140A01]">
@@ -15,7 +27,7 @@ const WorkResults = async () => {
         viewport={{ once: true, amount: 0.2 }}
         className="flex gap-[54px] flex-col md:flex-row"
       >
-        {translation.map((item: IWorkResult, index: number) => (
+        {data.map((item: IWorkResult, index: number) => (
           <motion.li
             key={index}
             initial="hidden"
@@ -34,7 +46,7 @@ const WorkResults = async () => {
               },
             }}
           >
-            <AchievementItem count={item.count} action={item.action} />
+            <AchievementItem amount={item.amount} name={item.name} />
           </motion.li>
         ))}
       </motion.ul>

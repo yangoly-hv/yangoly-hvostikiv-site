@@ -63,6 +63,14 @@ export const allPostsQuery = `
   }
 `
 
+export const topDotatorsQuery = `
+  *[_type == "donator"]{
+    _id,
+    "name": name[$lang],
+    "amount": amount,
+  }
+`
+
 export const postBySlugQuery = `
     *[_type == "post" && slug.current == $slug][0]{
     _id,
