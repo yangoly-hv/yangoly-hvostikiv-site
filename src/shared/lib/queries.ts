@@ -64,7 +64,7 @@ export const allPostsQuery = `
 `
 
 export const topDotatorsQuery = `
-  *[_type == "donator"]{
+  *[_type == "donator"] | order(amount desc) [0...3] {
     _id,
     "name": name[$lang],
     "amount": amount,

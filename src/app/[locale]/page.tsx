@@ -15,10 +15,10 @@ export default async function Home({ params }: PageParams) {
   return (
     <>
       <Hero />
-      <WorkResults locale={locale} />
-        <MonthlyGoalSection lang={locale} />
-      <ChangeLife />
-      <Angels />
+      {/*<WorkResults locale={locale} />*/}
+      {/*  <MonthlyGoalSection lang={locale} />*/}
+      {/*<ChangeLife />*/}
+      {/*<Angels />*/}
         <SupportFundraising lang={locale} />
       <About />
       <div className="container mx-auto px-4 pt-[160px] pb-[80px] xl:py-[120px] xl:px-10">

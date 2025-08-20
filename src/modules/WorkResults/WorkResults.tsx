@@ -11,14 +11,12 @@ const WorkResults = async ({locale}) => {
   // const t = await getTranslations("");
   // const translation = (await t.raw("WorkResults")) as IWorkResult[];
 
-    const data = await client.fetch(topDotatorsQuery, {
-        lang: locale,
-    });
+    const data = [];
 
-    if (!data) {
-        return null;
-    }
-
+    // if (!data) {
+    //     return null;
+    // }
+    console.log(data)
   return (
     <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-[#140A01]">
       <motion.ul
