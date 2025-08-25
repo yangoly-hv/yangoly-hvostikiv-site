@@ -1,12 +1,12 @@
 import About from "@/modules/About/About";
-import Angels from "@/modules/Angels/Angels";
-import ChangeLife from "@/modules/ChangeLife/ChangeLife";
+// import Angels from "@/modules/Angels/Angels";
+// import ChangeLife from "@/modules/ChangeLife/ChangeLife";
 import Contacts from "@/modules/Contacts/Contacts";
 import Hero from "@/modules/Hero/Hero";
-import MonthlyGoalSection from "@/modules/MonthlyGoalSection/MonthlyGoalSection";
+// import MonthlyGoalSection from "@/modules/MonthlyGoalSection/MonthlyGoalSection";
 import Partners from "@/modules/Partners/Partners";
 import SupportFundraising from "@/modules/SupportFundraising/SupportFundraising";
-import WorkResults from "@/modules/WorkResults/WorkResults";
+// import WorkResults from "@/modules/WorkResults/WorkResults";
 import { PageParams } from "@/shared/types";
 
 export default async function Home({ params }: PageParams) {

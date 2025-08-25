@@ -3,20 +3,21 @@ import AchievementItem from "@/shared/components/AchievementItem/AchievementItem
 import { IWorkResult } from "@/shared/types";
 // import { getTranslations } from "next-intl/server";
 
-import client from "@/shared/lib/sanity";
-import {topDotatorsQuery} from "@/shared/lib/queries";
+// import client from "@/shared/lib/sanity";
+// import {topDotatorsQuery} from "@/shared/lib/queries";
 
 //@ts-expect-error
 const WorkResults = async ({locale}) => {
   // const t = await getTranslations("");
   // const translation = (await t.raw("WorkResults")) as IWorkResult[];
 
+    //@ts-expect-error
     const data = [];
 
     // if (!data) {
     //     return null;
     // }
-    console.log(data)
+
   return (
     <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-[#140A01]">
       <motion.ul
@@ -25,6 +26,7 @@ const WorkResults = async ({locale}) => {
         viewport={{ once: true, amount: 0.2 }}
         className="flex gap-[54px] flex-col md:flex-row"
       >
+        {/* @ts-expect-error */}
         {data.map((item: IWorkResult, index: number) => (
           <motion.li
             key={index}

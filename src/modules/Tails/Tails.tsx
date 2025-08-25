@@ -17,9 +17,9 @@ import { getTailData } from "@/shared/utils/functions";
 
 //@ts-expect-error
 export default function Tails({ data, translation, lang }) {
-  // const [items, setItems] = useState([]);
-  //@ts-expect-error
+
   const items = useMemo(
+      //@ts-expect-error
     () => data.map((item) => getTailData(item, lang)),
     [data, lang]
   );
@@ -35,12 +35,8 @@ export default function Tails({ data, translation, lang }) {
     setFilter(searchParams.get("filter") || "all");
     setCurrentPage(parseInt(searchParams.get("page") || "1", 10));
   }, [searchParams]);
-
-  const filteredTails =
-    filter === "all"
-      ? items
-      : //   @ts-expect-error
-        items.filter((tail) => tail.categories.includes(filter));
+  //@ts-expect-error
+  const filteredTails = filter === "all" ? items : items.filter((tail) => tail.categories.includes(filter));
 
   const totalPages = Math.ceil(filteredTails.length / itemsPerPage);
   const currentItems = filteredTails.slice(
