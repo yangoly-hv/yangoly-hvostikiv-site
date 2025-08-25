@@ -1,15 +1,21 @@
 "use client";
-import TailCard from "../TailCard/TailCard";
 import { useRandomCardsPerPage } from "@/shared/hooks/useRandomCardsPerPage";
+import TailCard from "../TailCard/TailCard";
 import { IRandomTailCardsProps } from "@/shared/types";
 
 const RandomTailCards = ({ tails, translation }: IRandomTailCardsProps) => {
   const itemsToShow = useRandomCardsPerPage();
+
   return (
-    <div className="flex justify-center">
-      <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 laptop:grid-cols-4 gap-5 mt-6 pb-[120px]">
+    <div className="w-full">
+      <ul className="w-full flex flex-wrap gap-5 mt-6 pb-[120px]">
         {tails.slice(0, itemsToShow).map((randomTail, index) => (
-          <TailCard key={index} tail={randomTail} translation={translation} />
+          <li
+            key={index}
+            className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33%-13.33px)] laptop:w-[calc(25%-15px)]"
+          >
+            <TailCard tail={randomTail} translation={translation} />
+          </li>
         ))}
       </ul>
     </div>
