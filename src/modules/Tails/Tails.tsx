@@ -11,15 +11,18 @@ import { ITailsProps } from "@/shared/types";
 import { motion } from "framer-motion";
 import { fadeIn, generalSlideUp } from "@/shared/utils";
 
-import {getTailData} from "@/shared/utils/functions";
+import { getTailData } from "@/shared/utils/functions";
 
 // import {getAllAnimals} from "@/shared/api/animals";
 
 //@ts-expect-error
 export default function Tails({ data, translation, lang }) {
-    // const [items, setItems] = useState([]);
-    //@ts-expect-error
-  const items = useMemo(() => data.map(item => getTailData(item, lang)), [data, getTailData]);
+  // const [items, setItems] = useState([]);
+  //@ts-expect-error
+  const items = useMemo(
+    () => data.map((item) => getTailData(item, lang)),
+    [data, getTailData]
+  );
   const router = useRouter();
   const searchParams = useSearchParams();
   const [filter, setFilter] = useState(searchParams.get("filter") || "all");
@@ -36,8 +39,8 @@ export default function Tails({ data, translation, lang }) {
   const filteredTails =
     filter === "all"
       ? items
-      //   @ts-expect-error
-      : items.filter((tail) => tail.categories.includes(filter));
+      : //   @ts-expect-error
+        items.filter((tail) => tail.categories.includes(filter));
 
   const totalPages = Math.ceil(filteredTails.length / itemsPerPage);
   const currentItems = filteredTails.slice(
@@ -65,7 +68,7 @@ export default function Tails({ data, translation, lang }) {
       </motion.div>
 
       <div className="flex justify-center">
-        <ul className="grid grid-cols-1 md:grid-cols-2 tabxl:grid-cols-3 laptop:grid-cols-4 gap-5 xl:gap-x-5 xl:gap-y-8 justify-items-center">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 laptop:grid-cols-4 gap-5 xl:gap-x-5 xl:gap-y-8 justify-items-center">
           {/*@ts-expect-error*/}
           {currentItems.map((tail, index) => (
             <motion.li
@@ -82,20 +85,22 @@ export default function Tails({ data, translation, lang }) {
         </ul>
       </div>
 
-        {totalPages > 1 && <motion.div
-        variants={fadeIn}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        custom={0.8}
-        className="flex justify-center mt-8 lg:mt-12"
-      >
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      </motion.div>}
+      {totalPages > 1 && (
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          custom={0.8}
+          className="flex justify-center mt-8 lg:mt-12"
+        >
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </motion.div>
+      )}
     </section>
   );
 }
