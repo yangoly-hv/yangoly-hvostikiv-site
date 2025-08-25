@@ -13,7 +13,7 @@ const PartnersListItem = ({ partner }: { partner: IPartnerItem }) => {
       initial="hidden"
       whileInView="visible"
       className={clsx(
-        "bg-white rounded-[8px] lg:min-h-[539px] flex flex-col h-full overflow-hidden "
+        "bg-white rounded-[8px] lg:min-h-[400px] flex flex-col h-full overflow-hidden "
       )}
     >
       <div
@@ -40,19 +40,13 @@ const PartnersListItem = ({ partner }: { partner: IPartnerItem }) => {
       </div>
 
       <div className="px-[18px] lg:px-[69px] flex flex-col flex-grow mt-4 pb-[20px]">
-        <div className="mb-auto">
+        <div>
           <h2 className="font-arial leading-[130%] text-center uppercase text-[20px] lg:text-[32px]">
             {partner.title}
           </h2>
           <p className="mt-3 text-[14px] leading-[130%] text-center lg:text-[18px]">
             {partner.text}
           </p>
-        </div>
-        <div className="flex justify-center mt-5">
-          {/* <Button
-            className="w-[278px] h-[42px] lg:w-[569px] lg:h-[67px] lg:text-[18px]"
-            text={partner.buttonText}
-          /> */}
         </div>
       </div>
     </motion.div>

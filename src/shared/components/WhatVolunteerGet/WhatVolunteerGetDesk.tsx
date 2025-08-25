@@ -69,16 +69,16 @@ const WhatVolunteerGetDesk = ({
           alt="Paws"
           width={900}
           height={175}
-          className="absolute right-[-40px] w-[700px] xl:w-[900px]  xl:right-[-100px] xl:bottom-[-40px] bottom-[-50px]"
+          className="absolute right-[-40px] w-[700px] xl:w-[900px]  xl:right-[-100px] 2xl:right-[-50px] 2xl:w-[1000px] 2xl:h-[185px] 2xl:bottom-[-50px] xl:bottom-[-40px] bottom-[-50px]"
         />
         <Image
           src="/images/volounteering/dogs-desk.webp"
           alt="Paws"
           width={1213}
           height={681}
-          className="absolute right-[20px] aspect-[1213/681] w-[700px] xl:h-[581px] xl:w-[1000px] xl:bottom-[-110px] xl:right-[-50px]  bottom-[-100px]"
+          className="absolute right-[20px] aspect-[1213/681] w-[700px] xl:h-[581px] xl:w-[1000px] 2xl:w-[1213px] 2xl:h-[681px] xl:bottom-[-110px] 2xl:bottom-[-150px] xl:right-[-50px] 2xl:right-[-50px]  bottom-[-100px]"
         />
-        <ul className="flex flex-col gap-6  max-w-[52%]">
+        <ul className="flex flex-col gap-6 max-w-[645px] 2xl:max-w-[675px]">
           {paragraphs.map((paragraph, index) => (
             <li
               className={clsx(

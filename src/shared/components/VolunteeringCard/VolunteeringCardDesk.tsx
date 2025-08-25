@@ -41,13 +41,16 @@ const VolunteeringCardDesk = ({
             index === 0 && "max-w-[420px]",
             index === 3 && "w-full max-w-[393px]",
             index === 2 && "w-full max-w-[446px]",
-            index === 1 && "w-full max-w-[363px]"
+            index === 1 && "w-full max-w-[353px]"
           )}
         >
           {item.paragraphs &&
             item.paragraphs.map((paragraph, index) => (
               <li
-                className="p-[10px] text-[18px] leading-[114%] tracking-[-0.225px]"
+                className={clsx(
+                  "p-[10px] text-[18px] leading-[114%] tracking-[-0.225px]",
+                  index === 3 && "max-w-[384px]"
+                )}
                 key={index}
               >
                 {paragraph}
