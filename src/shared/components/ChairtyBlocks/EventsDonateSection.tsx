@@ -34,7 +34,7 @@ const EventsDonateSection = async ({
         >
           <motion.h3
             variants={listItemVariants}
-            className="font-arial text-[24px] leading-[130%] text-center lg:text-[32px]"
+            className="font-arial text-[24px] max-w-[640px] lg:max-w-[450px] xl:max-w-[679px] leading-[130%] text-center lg:text-[32px]"
           >
             {title}
           </motion.h3>
@@ -47,7 +47,7 @@ const EventsDonateSection = async ({
           <motion.div className="w-full" variants={listItemVariants}>
             <DonateAction
               variant="primary"
-              className="mt-6 lg:text-[18px] lg:max-w-[620px] lg:mt-[32px] lg:h-[67px] lg:w-full"
+              className="mt-6 lg:text-[18px] lg:max-w-[400px] xl:max-w-[620px] lg:mt-[32px] lg:h-[67px] lg:w-full"
               buttonText={buttonText}
             />
           </motion.div>
@@ -57,14 +57,14 @@ const EventsDonateSection = async ({
           alt="Dog"
           width={604}
           height={403}
-          className="absolute bottom-0 hidden lg:block  lg:left-[-124px] xl:left-[-30px]"
+          className="absolute bottom-0 hidden lg:block  lg:left-[-50px] xl:left-[-30px]"
         />
         <Image
           src="/images/events/donate-dog-2.webp"
           alt="Dog"
           width={373}
           height={560}
-          className="absolute bottom-0 hidden lg:block  lg:right-[-100px] xl:right-[-30px]"
+          className="absolute bottom-0 hidden lg:block  lg:right-[-50px] xl:right-[-30px]"
         />
       </motion.div>
     </section>
