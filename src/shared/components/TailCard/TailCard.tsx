@@ -6,6 +6,7 @@ import { ITailItem, ITails } from "@/shared/types";
 import { motion } from "framer-motion";
 import { fadeIn, slideUp } from "@/shared/utils";
 import PortableTextRender from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
+import { PortableTextComponents } from "@portabletext/react";
 
 interface ITailCardProps extends ComponentProps<"div"> {
   tail: ITailItem;
@@ -17,8 +18,16 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
   //@ts-expect-error
   const { name, image, description, sex, sterilized, slug } = tail;
 
+  const portableTextComponents: PortableTextComponents = {
+    block: ({ children }) => (
+      <p className="min-h-[73px] text-dark mb-5 text-[14px] leading-[130%] line-clamp-4">
+        {children}
+      </p>
+    ),
+  };
+
   return (
-    <div className="flex flex-col justify-between w-full min-h-full h-full py-8 px-4 lg:px-6 rounded-[20px] bg-[#FCFCFC] shadow-blogCard">
+    <div className="flex flex-col justify-between min-h-full h-full py-8 px-4 lg:px-6 rounded-[20px] bg-[#FCFCFC] shadow-blogCard">
       <div>
         {" "}
         {image && (
@@ -73,16 +82,19 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
             {sterilized}
           </p>
         </motion.div>
-        <motion.p
+        <motion.div
           variants={fadeIn}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           custom={0.6}
-          className="min-h-[73px] text-dark mb-5 text-[14px] leading-[130%] line-clamp-4"
+          className=""
         >
-          <PortableTextRender value={description} />
-        </motion.p>
+          <PortableTextRender
+            value={description[0]}
+            components={portableTextComponents}
+          />
+        </motion.div>
       </div>
 
       <motion.div

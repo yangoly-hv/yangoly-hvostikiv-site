@@ -21,7 +21,7 @@ export default function Tails({ data, translation, lang }) {
   //@ts-expect-error
   const items = useMemo(
     () => data.map((item) => getTailData(item, lang)),
-    [data, getTailData]
+    [data, lang]
   );
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -68,7 +68,7 @@ export default function Tails({ data, translation, lang }) {
       </motion.div>
 
       <div className="flex justify-center">
-        <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 laptop:grid-cols-4 gap-5 xl:gap-x-5 xl:gap-y-8 justify-items-center">
+        <ul className="flex flex-wrap gap-5 xl:gap-x-5 xl:gap-y-8 w-full">
           {/*@ts-expect-error*/}
           {currentItems.map((tail, index) => (
             <motion.li
@@ -78,6 +78,7 @@ export default function Tails({ data, translation, lang }) {
               whileInView="visible"
               viewport={{ once: true }}
               custom={index * 0.2}
+              className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33%-13.33px)] laptop:w-[calc(25%-15px)]"
             >
               <TailCard tail={tail} translation={translation} />
             </motion.li>
