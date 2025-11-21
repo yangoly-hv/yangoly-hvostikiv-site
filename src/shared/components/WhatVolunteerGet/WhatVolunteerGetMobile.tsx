@@ -43,7 +43,7 @@ const WhatVolunteerGetMobile = ({
           variants={listItemVariants}
           className="bg-[#F4E1C1]  rounded-[8px] mt-[40px] "
         >
-          <ul className="flex flex-col gap-6 pt-[32px] px-[32px] pb-[130px]">
+          <ul className="flex flex-col gap-6 pt-[32px] px-[32px] pb-[200px]">
             {paragraphs.map((paragraph, index) => (
               <li key={index}>
                 <p className="text-[14px] leading-[130%] flex gap-[10px] items-center">
@@ -62,9 +62,9 @@ const WhatVolunteerGetMobile = ({
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={listItemVariants}
-        className="mt-[-180px]"
+        className="mt-[-250px]"
       >
-        <div className="relative  mx-auto max-w-[524px]  h-[294px] ">
+        <div className="relative  mx-auto max-w-[524px]  h-[350px] ">
           <Image
             src="/images/volounteering/dogs-mob.webp"
             className=" md:bottom-[20px]  absolute z-[2]"

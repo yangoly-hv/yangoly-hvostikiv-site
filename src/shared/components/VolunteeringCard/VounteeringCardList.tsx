@@ -79,14 +79,14 @@ const VounteeringCardList = async ({
 
         {/* Другий стовпчик */}
         <div className="flex flex-col gap-6">
-          <div className="h-[calc(100%/3)]">
+          <div className="flex-none">
             <VolunteeringCardDesk
               item={helpsList[2]}
               index={2}
               className="h-full"
             />
           </div>
-          <div className="h-[calc(100%/3)]">
+          <div className="flex-none">
             <VolunteeringCardDesk
               item={helpsList[1]}
               index={1}
@@ -103,9 +103,9 @@ const VounteeringCardList = async ({
             }}
             viewport={{ once: true, amount: 0.2 }}
             style={{ backgroundColor: formCard.bg }}
-            className="pt-[23px] rounded-[8px] relative h-[calc(100%/3)]"
+            className="pt-[23px] rounded-[8px] relative flex flex-col flex-grow min-h-0"
           >
-            <div className="px-6">
+            <div className="px-6 flex-1">
               <h3 className="font-arial text-center text-[24px] tracking-[-0.225px] leading-[141%]">
                 {formCard.title}
               </h3>
