@@ -84,21 +84,22 @@
   "Hero": {
     "title": "Angels of Tails",
     "subtitle": "Charity Fund",
-    "text": "Become an Angel for Tails with us! Help animals feel needed in this world",
+    "callToAction": "Become an Angel for Tails with us!",
+    "text": "Help animals feel needed in this world",
     "button": "Help a Tail"
   },
   "WorkResults": [
     {
-      "count": "1,000+",
-      "action": "Rescued tails"
+      "amount": "1,000+",
+      "name": "Rescued tails"
     },
     {
-      "count": "5,000+",
-      "action": "Kilograms of food send"
+      "amount": "5,000+",
+      "name": "Kilograms of food send"
     },
     {
-      "count": "4,000+",
-      "action": "Vaccines, treatments, canned food, etc."
+      "amount": "4,000+",
+      "name": "Vaccines, treatments, canned food, etc."
     }
   ],
   "ChangeLife": {

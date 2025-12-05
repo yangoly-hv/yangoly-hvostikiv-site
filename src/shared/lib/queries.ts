@@ -64,7 +64,7 @@ export const allPostsQuery = `
 `
 
 export const topDotatorsQuery = `
-  *[_type == "donator"] | order(amount desc) [0...3] {
+  *[_type == "donator"] | order(amount desc) [0...5] {
     _id,
     "name": name[$lang],
     "amount": amount,
@@ -82,3 +82,29 @@ export const postBySlugQuery = `
     "secondaryImage": secondaryImage.asset->url,
     }
 `
+export const perfomanceQuery = `*[_type == "perfomance"][0]{
+  tailsCount,
+  feedCount,
+  medCount
+}`
+
+export const mainCollectionQuery = `*[_type == "collection" && main == true]{
+ ...,
+  image{
+    ...,
+    "url": asset->url
+  }
+}`;
+
+export const aboutFoundationQuery = `*[_type == "aboutFoundation"][0]{
+  "title": title[$lang],
+  "description": description[$lang],
+  "images": images[].asset->url
+}`
+
+export const aboutFoundersQuery = `*[_type == "aboutFounders"][0]{
+  "title": title[$lang],
+  "description": description[$lang],
+  "image": image.asset->url,
+}`
+

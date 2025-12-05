@@ -56,7 +56,7 @@ export interface IMonthlyGoalSectionTranslation {
 
 export interface IWorkResult {
   name: string;
-  amount: number;
+  amount: string;
 }
 
 export interface IPartenrsTranslation {

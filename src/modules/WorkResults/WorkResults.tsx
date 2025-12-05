@@ -1,18 +1,21 @@
 import * as motion from "motion/react-client";
 import AchievementItem from "@/shared/components/AchievementItem/AchievementItem";
 import { IWorkResult } from "@/shared/types";
-// import { getTranslations } from "next-intl/server";
+import { getTranslations } from "next-intl/server";
 
-// import client from "@/shared/lib/sanity";
-// import {topDotatorsQuery} from "@/shared/lib/queries";
+import client from "@/shared/lib/sanity";
+import {perfomanceQuery} from "@/shared/lib/queries";
 
-//@ts-expect-error
-const WorkResults = async ({locale}) => {
-  // const t = await getTranslations("");
-  // const translation = (await t.raw("WorkResults")) as IWorkResult[];
 
-    //@ts-expect-error
-    const data = [];
+const  WorkResults = async () => {
+  const t = await getTranslations("");
+  const translation = (await t.raw("WorkResults")) as IWorkResult[];
+    const { tailsCount, feedCount, medCount } = await client.fetch(perfomanceQuery);
+    translation[0].amount = `${tailsCount}+`;
+    translation[1].amount = `${feedCount}+`;
+    translation[2].amount = `${medCount}+`;
+
+    // const data = [];
 
     // if (!data) {
     //     return null;
@@ -26,8 +29,7 @@ const WorkResults = async ({locale}) => {
         viewport={{ once: true, amount: 0.2 }}
         className="flex gap-[54px] flex-col md:flex-row"
       >
-        {/* @ts-expect-error */}
-        {data.map((item: IWorkResult, index: number) => (
+        {translation.map((item: IWorkResult, index: number) => (
           <motion.li
             key={index}
             initial="hidden"

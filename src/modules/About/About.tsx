@@ -1,14 +1,25 @@
-import Image from "next/image";
-import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
-import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
+// import Image from "next/image";
+// import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
+// import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AboutUs from "./AboutUs/AboutUs";
 import AboutOwner from "./AboutOwner/AboutOwner";
 import { getTranslations } from "next-intl/server";
 
-const About = async () => {
+import client from "@/shared/lib/sanity";
+import {aboutFoundationQuery, aboutFoundersQuery} from "@/shared/lib/queries";
+
+const About = async ({lang}: {lang: string}) => {
   const t = await getTranslations("About");
   const aboutUs = await t.raw("aboutUs");
   const aboutOwner = await t.raw("aboutOwner");
+
+  const about = await client.fetch(aboutFoundationQuery, {
+      lang,
+  });
+
+    const founders = await client.fetch(aboutFoundersQuery, {
+        lang,
+    });
 
   return (
     <section id="about" className="mb-[100px]">
@@ -25,9 +36,10 @@ const About = async () => {
         {/*    className="object-cover object-[center_22%]"*/}
         {/*  />*/}
         {/*</AnimatedWrapper>*/}
-
-        <AboutUs translation={aboutUs} />
-        <AboutOwner translation={aboutOwner} />
+        {/*  @ts-expect-error */}
+        <AboutUs about={about} translation={aboutUs} />
+        {/*  @ts-expect-error*/}
+        <AboutOwner founders={founders} translation={aboutOwner} />
       </div>
     </section>
   );

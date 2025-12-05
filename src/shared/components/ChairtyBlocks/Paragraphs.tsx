@@ -10,7 +10,7 @@ interface ParagraphsProps {
 const Paragraphs = ({ paragraphs, mobTitle, deskTitle }: ParagraphsProps) => {
   return (
     <div className="container  mx-auto px-4 xl:px-[40px]">
-      <div className=" mt-[48px] pb-[100px] xl:pb-[48px] ">
+      <div className="w-full lg:max-w-[606px] mx-auto mt-[48px] pb-[100px] xl:pb-[48px] ">
         {paragraphs.map((paragraph, index) => (
           <motion.p
             key={index}
@@ -30,7 +30,7 @@ const Paragraphs = ({ paragraphs, mobTitle, deskTitle }: ParagraphsProps) => {
               },
             }}
             className={clsx(
-              "text-[18px] text-black leading-[130%] font-light",
+              "text-[18px] text-black leading-[130%] font-light mb-[24px]",
             )}
             dangerouslySetInnerHTML={{ __html: paragraph }}
           />

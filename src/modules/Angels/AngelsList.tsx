@@ -1,4 +1,4 @@
-import { donorsList } from "./mockedData";
+// import { donorsList } from "./mockedData";
 import {
   listVariants,
   fadeInAnimation,
@@ -8,9 +8,31 @@ import AnimatedListItem from "@/shared/components/Animations/AnimatedListItem";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Locale } from "@/shared/types";
 
+import client from "@/shared/lib/sanity";
+import {topDotatorsQuery} from "@/shared/lib/queries";
+
+interface Props {
+    amount: number;
+    name: string;
+}
+
+interface Donor {
+    sum: number;
+    name: string;
+}
+
 export default async function AngelsList() {
   const t = await getTranslations("Angels");
   const lang = (await getLocale()) as Locale;
+
+    const data = await client.fetch(topDotatorsQuery, {
+        lang,
+    });
+
+    const donorsList = data.map((item: Props) => ({
+        sum: item.amount,
+        name: item.name,
+    }))
 
   const formatSum = (value: number): string => {
     return new Intl.NumberFormat("uk-UA", {
@@ -26,7 +48,7 @@ export default async function AngelsList() {
     <div className="md:w-[45.7%] desk:w-[37%] xl:mt-5">
       <AnimatedWrapper
         animation={fadeInAnimation({ y: 30 })}
-        className="grid grid-cols-[1fr_2.5fr_1.5fr] mb-6 py-3 border-b border-orange text-[16px] xl:text-[24px] font-semibold leading-[122%] 
+        className="grid grid-cols-[1fr_2.5fr_1.5fr] mb-6 py-3 border-b border-orange text-[16px] xl:text-[24px] font-semibold leading-[122%]
       xl:leading-[81%]"
       >
         <p>#</p>
@@ -38,7 +60,7 @@ export default async function AngelsList() {
         animation={listVariants({ staggerChildren: 0.5, delayChildren: 0.4 })}
         className="flex flex-col gap-y-6"
       >
-        {donorsList[lang].map((donor, idx) => (
+        {donorsList.map((donor: Donor, idx: number) => (
           <AnimatedListItem
             key={idx}
             className="grid grid-cols-[1fr_2.5fr_1.5fr] py-[11px] border-b border-orange text-[14px] xl:text-[20px] leading-[139%] xl:leading-[97%]"

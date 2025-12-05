@@ -22,7 +22,7 @@ export default function ChangeLifeImagesMob() {
         className="md:hidden absolute z-20 bottom-[120px] sm:bottom-[68px] left-[calc(50%-169px)] w-[338px] aspect-[1460/1040]"
       >
         <Image
-          src="/images/home/changeLife/dogs.webp"
+          src="/images/home/changeLife/dogs.png"
           alt="dogs"
           width={1460}
           height={1040}

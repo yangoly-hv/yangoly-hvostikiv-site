@@ -18,7 +18,7 @@ export default function ChangeLifeImagesDesk() {
         />
       </AnimatedWrapper>
       <AnimatedWrapper
-        className="hidden md:block absolute -z-10 md:bottom-0 md:right-[-300px] lg:right-[-90px] xl:right-[-100px] desk:right-0 
+        className="hidden md:block absolute -z-10 md:bottom-0 md:right-[-300px] lg:right-[-90px] xl:right-[-100px] desk:right-0
   aspect-[577/196] md:h-[409px] xl:h-[549px] desk:h-[649px]"
       >
         <Image
@@ -31,11 +31,11 @@ export default function ChangeLifeImagesDesk() {
       </AnimatedWrapper>
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9 })}
-        className="hidden md:block absolute z-20 md:bottom-[-12px] lg:bottom-[-30px] xl:bottom-[-38px] md:right-0 xl:right-[-30px] desk:right-10 md:w-[338px] 
+        className="hidden md:block absolute z-20 md:bottom-[-12px] lg:bottom-[-30px] xl:bottom-[-38px] md:right-0 xl:right-[-30px] desk:right-10 md:w-[338px]
     lg:w-[518px] xl:w-[763px] aspect-[1460/1040]"
       >
         <Image
-          src="/images/home/changeLife/dogs.webp"
+          src="/images/home/changeLife/dogs.png"
           alt="dogs"
           width={1460}
           height={1040}

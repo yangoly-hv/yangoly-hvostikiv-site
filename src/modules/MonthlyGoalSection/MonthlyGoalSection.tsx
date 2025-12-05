@@ -6,21 +6,33 @@ import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import Donate from "@/shared/components/Donate/Donate";
 import { getTranslations } from "next-intl/server";
 
+import client from "@/shared/lib/sanity";
+import {mainCollectionQuery} from "@/shared/lib/queries";
+
 const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
-  const monthlyFundrasingLocalized = monthlyFundrasing[lang];
-  const { title, description, image, goal, current } =
-    monthlyFundrasingLocalized;
+  // const monthlyFundrasingLocalized = monthlyFundrasing[lang];
+  // const {goal, current } =
+  //   monthlyFundrasingLocalized;
   const t = await getTranslations("");
   const { generalGoal, result, supportFundrasing } = await t.raw(
     "MonthlyGoalSection"
   );
+  const [data] = await client.fetch(mainCollectionQuery);
+  if(!data) return null;
+  // console.log(lang)
+  // console.log(data);
+  const title = data.title[lang];
+ const description = data.description[lang][0].children[0].text;
+  const image = data.image;
+  const goal = data.amount;
+  const current = data.amountCollected;
 
   const formattedResult = result
     .replace("{{goal}}", goal.toLocaleString("uk-UA"))
     .replace("{{current}}", current.toLocaleString("uk-UA"));
 
   return (
-    <section className="relative mb-[124px] xl:mb-[200px] py-6 bg-white md:bg-transparent overflow-hidden">
+    <section className="relative py-[120px] bg-white md:bg-transparent overflow-hidden">
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
         className="md:hidden absolute top-[-18px] left-[calc(50%-205px)] w-[429px] h-[630px]"
@@ -69,7 +81,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
               >
                 <Image
                   src={image?.url}
-                  alt={image?.alt}
+                  alt={title}
                   fill
                   sizes="100vw"
                   className="object-cover"

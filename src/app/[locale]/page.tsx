@@ -1,12 +1,12 @@
 import About from "@/modules/About/About";
-// import Angels from "@/modules/Angels/Angels";
-// import ChangeLife from "@/modules/ChangeLife/ChangeLife";
+import Angels from "@/modules/Angels/Angels";
+import ChangeLife from "@/modules/ChangeLife/ChangeLife";
 import Contacts from "@/modules/Contacts/Contacts";
 import Hero from "@/modules/Hero/Hero";
-// import MonthlyGoalSection from "@/modules/MonthlyGoalSection/MonthlyGoalSection";
+import MonthlyGoalSection from "@/modules/MonthlyGoalSection/MonthlyGoalSection";
 import Partners from "@/modules/Partners/Partners";
-import SupportFundraising from "@/modules/SupportFundraising/SupportFundraising";
-// import WorkResults from "@/modules/WorkResults/WorkResults";
+// import SupportFundraising from "@/modules/SupportFundraising/SupportFundraising";
+import WorkResults from "@/modules/WorkResults/WorkResults";
 import { PageParams } from "@/shared/types";
 
 export default async function Home({ params }: PageParams) {
@@ -15,12 +15,14 @@ export default async function Home({ params }: PageParams) {
   return (
     <>
       <Hero />
-      {/*<WorkResults locale={locale} />*/}
-      {/*  <MonthlyGoalSection lang={locale} />*/}
-      {/*<ChangeLife />*/}
-      {/*<Angels />*/}
-        <SupportFundraising lang={locale} />
-      <About />
+      <WorkResults />
+        <MonthlyGoalSection lang={locale} />
+        <Angels />
+
+      <ChangeLife />
+
+      {/*  <SupportFundraising lang={locale} />*/}
+      <About lang={locale} />
       <div className="container mx-auto px-4 pt-[160px] pb-[80px] xl:py-[120px] xl:px-10">
         <Partners />
       </div>

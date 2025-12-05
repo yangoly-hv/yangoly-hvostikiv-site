@@ -85,13 +85,27 @@ const DonateAmountSection = ({price}: {price: number}) => {
   const currentAmount =
     selectedAmount || (customAmount ? parseInt(customAmount) : 0);
 
-  const handlePayment = useCallback(() => {
-    if (!isAgreed) {
-      setAgreementError(true);
-      setIsToastVisible(true);
-      return;
-    }
-    formRef.current?.submit();
+  const handlePayment = async () => {
+    const {data} = await axios.post("/api/wayforpay/checkout", {
+      amount: currentAmount,
+      orderReference: `DONATE_${Date.now()}`,
+      productName: "Донат для фонду Янголи хвостиків",
+    });
+
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = "https://secure.wayforpay.com/pay";
+
+    Object.keys(data).forEach((key) => {
+      const input = document.createElement("input");
+      input.type = "hidden";
+      input.name = key;
+      input.value = Array.isArray(data[key]) ? data[key].join(";") : data[key];
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
     // console.log({
     //   amount: currentAmount,
     //   comment,
@@ -100,7 +114,7 @@ const DonateAmountSection = ({price}: {price: number}) => {
     // });
 
     // setIsThankYouModalOpen(true);
-  }, [isAgreed, currentAmount, comment, wantNotifications]);
+  };
 
   return (
     <>

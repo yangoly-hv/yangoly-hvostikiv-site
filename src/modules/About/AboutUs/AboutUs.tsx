@@ -14,42 +14,44 @@ import Image from "next/image";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import { listVariants } from "@/shared/components/Animations/animationVariants";
 
-const aboutImages = [
-  {
-    src: "/images/about/about-us-desk1.webp",
-    alt: "Owner with pets showing foundation logo",
-  },
-  {
-    src: "/images/about/about-us-desk2.webp",
-    alt: "Pet drawing with paw",
-  },
-  {
-    src: "/images/about/about-us-desk3.webp",
-    alt: "Team members with pets",
-  },
-];
-
-const aboutMobImages = [
-  {
-    src: "/images/about/about-us-mob1.webp",
-    alt: "Owner with pets showing foundation logo",
-  },
-  {
-    src: "/images/about/about-us-mob2.webp",
-    alt: "Owner with pets showing foundation logo",
-  },
-  {
-    src: "/images/about/about-us-mob3.webp",
-    alt: "Owner with pets showing foundation logo",
-  },
-];
+// const aboutImages = [
+//   {
+//     src: "/images/about/about-us-desk1.webp",
+//     alt: "Owner with pets showing foundation logo",
+//   },
+//   {
+//     src: "/images/about/about-us-desk2.webp",
+//     alt: "Pet drawing with paw",
+//   },
+//   {
+//     src: "/images/about/about-us-desk3.webp",
+//     alt: "Team members with pets",
+//   },
+// ];
+//
+// const aboutMobImages = [
+//   {
+//     src: "/images/about/about-us-mob1.webp",
+//     alt: "Owner with pets showing foundation logo",
+//   },
+//   {
+//     src: "/images/about/about-us-mob2.webp",
+//     alt: "Owner with pets showing foundation logo",
+//   },
+//   {
+//     src: "/images/about/about-us-mob3.webp",
+//     alt: "Owner with pets showing foundation logo",
+//   },
+// ];
 
 const AboutUs = ({
   translation,
+    // @ts-expect-error
+    about,
 }: {
   translation: IInformationBlockTranslation;
 }) => {
-  const { modalTitle } = translation;
+  // const { modalTitle } = translation;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = useCallback(() => setIsModalOpen(true), []);
   const handleCloseModal = useCallback(() => setIsModalOpen(false), []);
@@ -61,6 +63,12 @@ const AboutUs = ({
   const handleSubmit = (data: unknown) => {
     console.log("Submited:", data);
   };
+  const aboutImages = about.images.map((src: string) => ({
+    src,
+    alt: about.title
+  }));
+  //@ts-expect-error
+  const paragraphs = about.description.map(({children}) => ({segments: [{text: children[0].text, bold: false}]}));
 
   return (
     <div className="lg:grid lg:grid-cols-2 pb-[40px]">
@@ -70,7 +78,7 @@ const AboutUs = ({
       <InfoBlock
         titleClassName="xl:mb-[48px]"
         className="py-[40px] px-[30px]  rounded-[20px] flex flex-col h-full  justify-center laptop:px-[75px] xl:py-[74px]"
-        translation={translation}
+        translation={{title: about.title, paragraphs}}
       >
         <motion.div
           className="flex flex-col md:flex-row md:gap-4 mt-[24px] xl:mt-[32px] w-full gap-4 xl:flex-row"
@@ -99,7 +107,8 @@ const AboutUs = ({
         animation={listVariants({ staggerChildren: 0.5, delayChildren: 0.4 })}
         className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 lg:hidden"
       >
-        {aboutMobImages.map((image, index) => (
+        {/*@ts-expect-error*/}
+        {aboutImages.map((image, index) => (
           <AnimatedWrapper
             as="div"
             key={index}
@@ -125,7 +134,7 @@ const AboutUs = ({
         onClose={handleCloseModal}
       >
         <h2 className="text-[20px] xl:text-[24px] uppercase leading-[160%] font-arial mb-[20px] text-[#1D1D1D] text-center mt-10">
-          {modalTitle}
+          {about.title}
         </h2>
         <UniversalForm
           className="p-0"

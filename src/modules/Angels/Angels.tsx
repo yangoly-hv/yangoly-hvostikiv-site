@@ -1,7 +1,6 @@
 import AngelsMob from "./AngelsMob";
 import AngelsDesk from "./AngelsDesk";
 import { IAngelsProps } from "@/shared/types";
-
 export default async function Angels({
   title,
   withCircle = true,
