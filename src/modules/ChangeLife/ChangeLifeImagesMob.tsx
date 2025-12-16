@@ -19,14 +19,14 @@ export default function ChangeLifeImagesMob() {
       </AnimatedWrapper>
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-        className="md:hidden absolute z-20 bottom-[210px] sm:bottom-[68px] left-[calc(50%-180px)] w-[338px] aspect-[1460/1040]"
+        className="md:hidden absolute z-20 bottom-[160px] sm:bottom-[68px] left-[calc(50%-180px)] w-[338px] aspect-[1460/1040]"
       >
         <Image
           src="/images/home/changeLife/dogs-mobile.png"
           alt="dogs"
-          width={367}
+          width={267}
           height={189}
-          className="w-full h-full object-cover"
+          className="object-cover"
         />
       </AnimatedWrapper>
       <AnimatedWrapper
