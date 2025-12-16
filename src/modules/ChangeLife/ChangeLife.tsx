@@ -14,7 +14,7 @@ export default async function ChangeLife() {
     <section className="relative mt-[131px] mb-[100px] xl:my-[140px] bg-white md:bg-transparent overflow-hidden">
       <ChangeLifeImagesMob />
       <div className="container px-4 xl:px-10 mx-auto">
-        <div className="relative z-20 py-6 md:py-[89px] md:bg-white md:rounded-[8px] overflow-hidden">
+        <div className="relative z-20 py-6 md:py-[53px] md:bg-white md:rounded-[8px] overflow-hidden">
           <ChangeLifeImagesDesk />
           <div className="md:pl-[87px]">
             <AnimatedWrapper

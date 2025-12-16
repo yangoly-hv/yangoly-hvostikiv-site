@@ -5,35 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="540024fe-e1a4-4c54-80fa-150cebb8cf9c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/home/changeLife/dogs-mobile.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/two-dogs.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/modules/ChangeLife/ChangeLifeDonate.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/images/two-dogs.webp" beforeDir="false" afterPath="$PROJECT_DIR$/public/images/two-dogs-old.webp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/locales/en/common.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/locales/en/common.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/locales/uk/common.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/locales/uk/common.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/messages/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/messages/en.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/messages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/messages/uk.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/[locale]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/[locale]/reporting/[slug]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/reporting/[slug]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/[locale]/reporting/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/reporting/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/About/AboutUs/AboutUs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/About/AboutUs/AboutUs.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/modules/ChangeLife/ChangeLife.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/ChangeLife/ChangeLife.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/ChangeLife/ChangeLifeImagesMob.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/ChangeLife/ChangeLifeImagesMob.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Contacts/Contacts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Contacts/Contacts.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Report/Report.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Report/Report.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Reporting/ReportingList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Reporting/ReportingList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/components/Animations/animationVariants.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/components/Animations/animationVariants.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/components/BurgerMenu/BurgerMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/components/BurgerMenu/BurgerMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/components/DonateModal/DonateAmountSection/DonateAmountSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/components/DonateModal/DonateAmountSection/DonateAmountSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/components/DonateModal/PaymentButton/PaymentButton.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/components/DonateModal/PaymentButton/PaymentButton.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/layouts/.gitkeep" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/public-offer/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/layouts/AnimatedLayout/AnimatedLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/layouts/AnimatedLayout/AnimatedLayout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/queries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/queries.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/types/props.types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/types/props.types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,20 +37,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Projects/Янголи хвостиків/yangoly-hvostikiv-site/public/images",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "ts.external.directory.path": "C:\\Projects\\Янголи хвостиків\\yangoly-hvostikiv-site\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Projects/Янголи хвостиків/yangoly-hvostikiv-site/public/images&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Projects\\Янголи хвостиків\\yangoly-hvostikiv-site\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Projects\Янголи хвостиків\yangoly-hvostikiv-site\public\images" />
@@ -114,7 +88,8 @@
       <workItem from="1765129004398" duration="653000" />
       <workItem from="1765877981251" duration="2231000" />
       <workItem from="1765880635882" duration="8770000" />
-      <workItem from="1765894497043" duration="7710000" />
+      <workItem from="1765894497043" duration="8229000" />
+      <workItem from="1765912320732" duration="1537000" />
     </task>
     <servers />
   </component>

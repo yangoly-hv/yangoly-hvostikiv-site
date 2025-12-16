@@ -24,8 +24,8 @@ export default function ChangeLifeImagesMob() {
         <Image
           src="/images/home/changeLife/dogs-mobile.png"
           alt="dogs"
-          width={378}
-          height={196}
+          width={367}
+          height={189}
           className="w-full h-full object-cover"
         />
       </AnimatedWrapper>
