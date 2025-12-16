@@ -5,6 +5,7 @@ import Button from "@/shared/components/Button/Button";
 import ChangeLifeImagesMob from "./ChangeLifeImagesMob";
 import ChangeLifeImagesDesk from "./ChangeLifeImagesDesk";
 import { getTranslations } from "next-intl/server";
+import ChangeLifeDonate from "@/modules/ChangeLife/ChangeLifeDonate";
 
 export default async function ChangeLife() {
   const t = await getTranslations("ChangeLife");
@@ -32,7 +33,7 @@ export default async function ChangeLife() {
             </AnimatedWrapper>
             <AnimatedWrapper
               animation={fadeInAnimation({ y: 30, delay: 0.8 })}
-              className="md:w-[283px] lg:w-[323px] xl:w-[383px] laptop:w-[463px] desk:w-[523px] flex flex-col sm:flex-row gap-x-5 md:flex-col gap-y-3 xl:gap-y-6 "
+              className="pt-[70px] md:pt-0 md:w-[283px] lg:w-[323px] xl:w-[383px] laptop:w-[463px] desk:w-[523px] flex flex-col sm:flex-row gap-x-5 md:flex-col gap-y-3 xl:gap-y-6 "
             >
               <Link href="/partnership" className="block w-full">
                 <Button
@@ -47,6 +48,7 @@ export default async function ChangeLife() {
                   text={t("joinVolunteers")}
                 />
               </Link>
+              <ChangeLifeDonate text={t("oneTimeHelpButton")} />
             </AnimatedWrapper>
           </div>
         </div>

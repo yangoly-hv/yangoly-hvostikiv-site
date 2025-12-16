@@ -5,27 +5,33 @@ import { INavigationItem } from "@/shared/types";
 import { useTranslations } from "next-intl";
 import DonateAction from "../DonateAction/DonateAction";
 import { CloseIcon } from "../../../../public/images/icons";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, Variants  } from "framer-motion";
 
 interface IBurgerMenuopProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const menuVariants = {
+export const menuVariants: Variants = {
   hidden: {
-    x: "100%",
+    x: 300, // ширина меню
     opacity: 0,
   },
   visible: {
     x: 0,
     opacity: 1,
-    transition: { type: "tween", duration: 0.4 },
+    transition: {
+      type: "tween",
+      duration: 0.4,
+    },
   },
   exit: {
-    x: "100%",
+    x: 300,
     opacity: 0,
-    transition: { type: "tween", duration: 0.3 },
+    transition: {
+      type: "tween",
+      duration: 0.3,
+    },
   },
 };
 

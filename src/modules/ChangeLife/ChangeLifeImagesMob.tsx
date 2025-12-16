@@ -7,7 +7,7 @@ export default function ChangeLifeImagesMob() {
     <>
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-        className="md:hidden absolute z-10 bottom-[148px] sm:bottom-[96px] left-[calc(50%-288px)] h-[196px] w-[577px]"
+        className="md:hidden absolute z-10 bottom-[208px] sm:bottom-[96px] left-[calc(50%-288px)] h-[196px] w-[577px]"
       >
         <Image
           src="/images/home/changeLife/greenEllipse.webp"
@@ -19,13 +19,13 @@ export default function ChangeLifeImagesMob() {
       </AnimatedWrapper>
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-        className="md:hidden absolute z-20 bottom-[120px] sm:bottom-[68px] left-[calc(50%-169px)] w-[338px] aspect-[1460/1040]"
+        className="md:hidden absolute z-20 bottom-[210px] sm:bottom-[68px] left-[calc(50%-180px)] w-[338px] aspect-[1460/1040]"
       >
         <Image
-          src="/images/home/changeLife/dogs.png"
+          src="/images/home/changeLife/dogs-mobile.png"
           alt="dogs"
-          width={1460}
-          height={1040}
+          width={378}
+          height={196}
           className="w-full h-full object-cover"
         />
       </AnimatedWrapper>

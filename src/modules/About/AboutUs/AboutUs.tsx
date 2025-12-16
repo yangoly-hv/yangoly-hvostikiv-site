@@ -13,6 +13,7 @@ import { generalSlideUp } from "@/shared/utils";
 import Image from "next/image";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import { listVariants } from "@/shared/components/Animations/animationVariants";
+import Link from "next/link";
 
 // const aboutImages = [
 //   {
@@ -94,11 +95,13 @@ const AboutUs = ({
             />
           </motion.div>
           <motion.div variants={generalSlideUp} custom={1}>
+              <Link href="/reporting" className="block w-full">
             <Button
               className="w-full"
               variant="outline"
               text={translation.links![1].text}
             />
+              </Link>
           </motion.div>
         </motion.div>
       </InfoBlock>

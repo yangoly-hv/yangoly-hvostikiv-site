@@ -61,35 +61,35 @@ const Contacts = async () => {
                     transition: { duration: 0.5, delay: 0.4 },
                   },
                 }}
-                href="tel:+380930000000"
+                href="tel:+380992004080"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
               >
                 <PhoneIcon className="w-6 h-6" variant="secondary" />
-                38 093 000 00 00
+                38 099 200 40 80
               </motion.a>
 
-              <motion.a
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  hidden: { opacity: 0, y: 10 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5, delay: 0.5 },
-                  },
-                }}
-                href="tel:+380930000000"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
-              >
-                <PhoneIcon className="w-6 h-6" variant="secondary" />
-                38 093 000 00 00
-              </motion.a>
+              {/*<motion.a*/}
+              {/*  initial="hidden"*/}
+              {/*  whileInView="visible"*/}
+              {/*  viewport={{ once: true }}*/}
+              {/*  variants={{*/}
+              {/*    hidden: { opacity: 0, y: 10 },*/}
+              {/*    visible: {*/}
+              {/*      opacity: 1,*/}
+              {/*      y: 0,*/}
+              {/*      transition: { duration: 0.5, delay: 0.5 },*/}
+              {/*    },*/}
+              {/*  }}*/}
+              {/*  href="tel:+380930000000"*/}
+              {/*  target="_blank"*/}
+              {/*  rel="noopener noreferrer nofollow"*/}
+              {/*  className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"*/}
+              {/*>*/}
+              {/*  <PhoneIcon className="w-6 h-6" variant="secondary" />*/}
+              {/*  38 093 000 00 00*/}
+              {/*</motion.a>*/}
 
               <motion.a
                 initial="hidden"
@@ -119,12 +119,12 @@ const Contacts = async () => {
       </div>
 
       <Image
-        src="/images/two-dogs.webp"
+        src="/images/two-dogs.png"
         alt="Two dogs"
         width={682}
-        height={974}
+        height={1017}
         priority
-        className="hidden xl:block absolute bottom-0 right-[42%] z-10 w-[341px] h-auto"
+        className="hidden xl:block absolute bottom-0 right-[35%] z-10 w-[678px] h-auto"
       />
     </section>
   );

@@ -23,7 +23,7 @@ export default async function Home({ params }: PageParams) {
 
       {/*  <SupportFundraising lang={locale} />*/}
       <About lang={locale} />
-      <div className="container mx-auto px-4 pt-[160px] pb-[80px] xl:py-[120px] xl:px-10">
+      <div className="container mx-auto px-4 pb-[80px] xl:pb-[120px] xl:px-10">
         <Partners />
       </div>
       <Contacts />

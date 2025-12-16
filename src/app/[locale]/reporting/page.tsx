@@ -50,20 +50,18 @@ export default async function ReportingPage({ params }: PageParams) {
   const t = await getTranslations("");
   const reporting = await t.raw("Reporting");
   // const { reporting } = await getDictionary(locale);
-  const reports = await client.fetch(allReportsQuery);
+  const reports = await client.fetch(allReportsQuery, {
+    lang: locale
+  });
 
-  // const data = await getAllReports(locale);
-  //@ts-expect-error
-  const data = reports.map(({_id, slug, date}) => ({_id, slug, date: date[locale]}));
-
-  if (!data) {
+  if (!reports) {
     return null;
   }
 
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Reporting data={data} translation={reporting} lang={locale} />
+        <Reporting data={reports} translation={reporting} lang={locale} />
         <Contacts />
       </Suspense>
     </>

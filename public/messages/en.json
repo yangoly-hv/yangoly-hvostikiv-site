@@ -91,22 +91,23 @@
   "WorkResults": [
     {
       "amount": "1,000+",
-      "name": "Rescued tails"
+      "name": "Saved the tails"
     },
     {
       "amount": "5,000+",
-      "name": "Kilograms of food send"
+      "name": "Kilograms of feed were sent"
     },
     {
       "amount": "4,000+",
-      "name": "Vaccines, treatments, canned food, etc."
+      "name": "have had vaccines, treatments, etc."
     }
   ],
   "ChangeLife": {
     "title": "Together we change animals' lives!",
     "description": "Be an Angel — choose your path of kindness: partner or volunteer, and together we change animals' lives.",
     "becomePartner": "Become a partner",
-    "joinVolunteers": "Join the volunteers"
+    "joinVolunteers": "Join the volunteers",
+    "oneTimeHelpButton": "One-time assistance"
   },
   "About": {
     "aboutUs": {
@@ -183,6 +184,9 @@
   },
   "Partners": {
     "title": "Our partners"
+  },
+  "PublicOfferPage": {
+    "title": "PUBLIC OFFER for charitable donations"
   },
   "VolunteeringPage": {
     "title": "Together we change the world with good deeds",
@@ -667,6 +671,11 @@
       "title": "Tail Angels Charity Foundation | Volunteering",
       "description": "How to become a volunteer for Tail Angels and help animals",
       "keywords": "charity foundation, animal aid, volunteering, volunteers"
+    },
+    "publicOffer": {
+      "title": "Tail Angels Charity Foundation | Public Offer Agreement",
+      "description": "Public Offer Agreement Tail Angels Charity Foundation",
+      "keywords": "charity foundation, Public Offer Agreement"
     },
     "charityEvents": {
       "title": "Tail Angels Charity Foundation | Charity Events",

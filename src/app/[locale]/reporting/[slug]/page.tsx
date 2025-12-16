@@ -33,7 +33,7 @@ export async function generateMetadata({
 
   const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
   const description = `${metadata.reporting.description
-    } | ${data.description[0].children[0].text}`;
+    } | ${data.title} | ${data.date}`;
 
   return {
     title,
@@ -44,13 +44,13 @@ export async function generateMetadata({
     },
     openGraph: {
       title,
-      description,
+      description: `${data.tilte}`,
       url: `${baseUrl}/${locale}/reporting/${slug}`,
       type: "website",
       locale: locale,
       images: [
         {
-          url: data.mainImage.url,
+          url: data.images[0].url,
           width: 1200,
           height: 630,
           alt: title,
@@ -79,7 +79,7 @@ export default async function ReportPage({ params }: PageParams) {
   if (!data) {
     return null;
   }
-
+  console.log(data);
   return (
     <>
       <Suspense fallback={<Loading />}>

@@ -1,7 +1,8 @@
 import { IAnimatedSectionProps } from "@/shared/types";
 import * as motion from "motion/react-client";
+import { MotionProps  } from "framer-motion";
 
-export const animations = {
+export const animations: Record<string, MotionProps> = {
   fadeIn: {
     initial: { opacity: 0 },
     whileInView: { opacity: 1 },
@@ -33,7 +34,6 @@ export const animations = {
     transition: { duration: 0.7 },
   },
 };
-
 const AnimatedLayout = ({
   children,
   initial,

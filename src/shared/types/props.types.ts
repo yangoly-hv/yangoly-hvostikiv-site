@@ -1,4 +1,4 @@
-import { ComponentProps } from "react";
+import { ComponentProps, ReactNode } from "react";
 import { dictionaries } from "../utils/getDictionary";
 import {
   IAboutTranslation,
@@ -12,6 +12,7 @@ import {
 } from "./dictionary.types";
 import * as yup from "yup";
 import Link from "next/link";
+import { Transition, Target } from "framer-motion";
 
 export type Locale = keyof typeof dictionaries;
 export type ButtonVariant = "primary" | "secondary" | "orange" | "outline";
@@ -191,7 +192,7 @@ export interface ITextInputProps
 
 export interface ICheckBoxProps
   extends Omit<ComponentProps<"input">, "onChange" | "type"> {
-  label: string;
+  label: ReactNode;
   onChange: (checked: boolean) => void;
   error?: boolean;
 }
@@ -242,25 +243,9 @@ export interface IMonthlyGoalSectionProps {
 
 export interface IAnimatedSectionProps {
   children: React.ReactNode;
-  initial?: {
-    opacity?: number;
-    x?: number;
-    y?: number;
-    scale?: number;
-    rotate?: number;
-  };
-  whileInView?: {
-    opacity?: number;
-    x?: number;
-    y?: number;
-    scale?: number;
-    rotate?: number;
-  };
-  transition?: {
-    duration?: number;
-    delay?: number;
-    ease?: string | number[];
-  };
+  initial?: Target;
+  whileInView?: Target;
+  transition?: Transition;
   amount?: number;
 }
 

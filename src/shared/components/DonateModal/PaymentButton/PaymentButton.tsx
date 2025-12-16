@@ -55,7 +55,7 @@ const PaymentButton = ({
   return (
     <button
       type="button"
-      className={`w-full rounded-[36px] transition-all ${getButtonHeight()} ${getButtonStyles()} ${className}`}
+      className={`w-full rounded-[36px] transition-all disabled:opacity-40 disabled:cursor-not-allowed ${getButtonHeight()} ${getButtonStyles()} ${className}`}
       {...props}
     >
       {getButtonContent()}

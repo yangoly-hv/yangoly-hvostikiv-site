@@ -4,22 +4,23 @@ export const eventsQuery = `
     "images": images[].asset->url
   }
 `
-export const allReportsQuery = `*[_type == "report"] | order(publishedAt desc) {
+export const allReportsQuery = `*[_type == "reports"] | order(publishedAt desc) {
   _id,
+  "date": date[$lang],
   "slug": slug.current,
-  date,
 }`
 
 export const reportBySlugQuery = `
-  *[_type == "report" && slug.current == $slug][0]{
-    "title": title[$lang],
-    "slug": slug.current,
-    "date": date[$lang],
-    link,
-    "description": description[$lang],
-    "additionalInfo": additionalInfo[$lang],
-    "mainImage": mainImage.asset->url,
-    "secondaryImage": secondaryImage.asset->url
+  *[_type == "reports" && slug.current == $slug][0]{
+  _id,
+  "title": title[$lang],
+  "date": date[$lang],
+  "slug": slug.current,
+  "images": images[].asset->url,
+  "foodDescription": foodDescription[$lang],
+  "houseDescription": houseDescription[$lang],
+  "therapyDescription": therapyDescription[$lang],
+  "otherDescription": otherDescription[$lang],
   }
 `
 

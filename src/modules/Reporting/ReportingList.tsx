@@ -51,7 +51,7 @@ export default function ReportingList({ data }: IReportingListProps) {
             className="py-[22px] px-[26px] rounded-[32px] bg-white text-[20px] lg:text-[24px] leading-[120%]"
           >
             <Link
-              href={`/reporting`}
+              href={`/reporting/${item?.slug}`}
               className="group flex items-center justify-between w-full"
             >
               <motion.span
