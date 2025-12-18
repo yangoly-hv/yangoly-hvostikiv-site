@@ -3,7 +3,7 @@ import Paragraphs from "../../../shared/components/ChairtyBlocks/Paragraphs";
 import Benefits from "../../../shared/components/ChairtyBlocks/Benefits";
 import Mission from "../../../shared/components/ChairtyBlocks/Mission";
 import Contacts from "@/modules/Contacts/Contacts";
-import GallerySlider from "../../../shared/components/ChairtyBlocks/GallerySlider";
+// import GallerySlider from "../../../shared/components/ChairtyBlocks/GallerySlider";
 import { getTranslations } from "next-intl/server";
 import WhatWeHaveInEvents from "@/shared/components/WhatWeHaveInEvents/WhatWeHaveInEvents";
 import EventsDonateSection from "@/shared/components/ChairtyBlocks/EventsDonateSection";
@@ -95,7 +95,7 @@ export default async function CharityEventPage({ params }: PageParams) {
           buttonText={t("donate.buttonText")}
         />
         <HelpAnimalsSection />
-        <GallerySlider slides={images} />
+        {/*<GallerySlider slides={images} />*/}
         <Contacts />
       </section>
     </Suspense>

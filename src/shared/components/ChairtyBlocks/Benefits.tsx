@@ -13,7 +13,7 @@ const Benefits = async () => {
     <div className="bg-[#18181B] lg:py-[48px] pt-[25px] pb-[43px]">
       <div className="container  mx-auto px-4   lg:px-[40px] xl:px-[187px] ">
         <div className="lg:hidden relative aspect-[328/286] max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
-          <Image src="/images/events/benefits-mob.webp" alt="Pet" fill />
+          <Image src="/images/events/benefits-desk1.jpg" className="w-full h-full object-cover" alt="Pet" fill />
         </div>
         <div>
           <motion.h2

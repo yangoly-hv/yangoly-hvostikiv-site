@@ -74,9 +74,9 @@ const WhatVolunteerGetDesk = ({
         <Image
           src="/images/volounteering/dogs-desk.webp"
           alt="Paws"
-          width={1213}
+          width={1052}
           height={681}
-          className="absolute right-[20px] aspect-[1213/681] w-[700px] xl:h-[581px] xl:w-[1000px] 2xl:w-[1213px] 2xl:h-[681px] xl:bottom-[-110px] 2xl:bottom-[-150px] xl:right-[-50px] 2xl:right-[-50px]  bottom-[-100px]"
+          className="absolute right-[20px] aspect-[1052/681] w-[700px] xl:w-[897px] xl:h-[581px] 2xl:w-[1052px] 2xl:h-[681px] xl:bottom-[-110px] 2xl:bottom-[-150px] xl:right-[-50px] 2xl:right-[-50px]  bottom-[-100px]"
         />
         <ul className="flex flex-col gap-6 max-w-[645px] 2xl:max-w-[675px]">
           {paragraphs.map((paragraph, index) => (
