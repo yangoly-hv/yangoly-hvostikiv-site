@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="540024fe-e1a4-4c54-80fa-150cebb8cf9c" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/messages/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/messages/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/messages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/messages/uk.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/[locale]/chairty-events/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/[locale]/chairty-events/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/components/ChairtyBlocks/Benefits.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/components/ChairtyBlocks/Benefits.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/components/WhatVolunteerGet/WhatVolunteerGetDesk.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/components/WhatVolunteerGet/WhatVolunteerGetDesk.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/modules/About/AboutUs/AboutUs.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/About/AboutUs/AboutUs.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/lib/queries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/queries.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +90,8 @@
       <workItem from="1765880635882" duration="8770000" />
       <workItem from="1765894497043" duration="8229000" />
       <workItem from="1765912320732" duration="3724000" />
-      <workItem from="1765997037019" duration="5130000" />
+      <workItem from="1765997037019" duration="5565000" />
+      <workItem from="1766058474789" duration="1884000" />
     </task>
     <servers />
   </component>

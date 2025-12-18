@@ -100,7 +100,8 @@ export const mainCollectionQuery = `*[_type == "collection" && main == true]{
 export const aboutFoundationQuery = `*[_type == "aboutFoundation"][0]{
   "title": title[$lang],
   "description": description[$lang],
-  "images": images[].asset->url
+  "imagesDesktop": imagesDesktop[].asset->url,
+  "imagesMobile": imagesMobile[].asset->url,
 }`
 
 export const aboutFoundersQuery = `*[_type == "aboutFounders"][0]{

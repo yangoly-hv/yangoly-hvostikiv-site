@@ -15,6 +15,8 @@ import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import { listVariants } from "@/shared/components/Animations/animationVariants";
 import Link from "next/link";
 
+import {useWindowWidth} from "@/shared/hooks/useWindowWidth";
+
 // const aboutImages = [
 //   {
 //     src: "/images/about/about-us-desk1.webp",
@@ -53,6 +55,8 @@ const AboutUs = ({
   translation: IInformationBlockTranslation;
 }) => {
   // const { modalTitle } = translation;
+    const windowWidth = useWindowWidth();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleOpenModal = useCallback(() => setIsModalOpen(true), []);
   const handleCloseModal = useCallback(() => setIsModalOpen(false), []);
@@ -64,10 +68,21 @@ const AboutUs = ({
   const handleSubmit = (data: unknown) => {
     console.log("Submited:", data);
   };
-  const aboutImages = about.images.map((src: string) => ({
-    src,
-    alt: about.title
-  }));
+
+    let aboutImages = [];
+  if(windowWidth < 768) {
+       aboutImages = about.imagesMobile.map((src: string) => ({
+          src,
+          alt: about.title
+      }));
+  }
+  else {
+      aboutImages = about.imagesDesktop.map((src: string) => ({
+          src,
+          alt: about.title
+      }));
+  }
+    console.log(aboutImages)
   //@ts-expect-error
   const paragraphs = about.description.map(({children}) => ({segments: [{text: children[0].text, bold: false}]}));
 
