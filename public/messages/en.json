@@ -1,4 +1,33 @@
 {
+  "DonationForm": {
+    "tabs": {
+      "once": "One-time donation",
+      "monthly": "Monthly donation"
+    },
+    "descriptions": {
+      "once": "You can give rescued animals a chance for a new life right now.",
+      "monthly": "Together we save animals from frontline territories. Every donation means warmth, food, and safety."
+    },
+    "onceItems": {
+      "150": "1 day of full nutrition for a puppy",
+      "250": "A new warm bedding for the shelter",
+      "500": "Transportation of an animal from a dangerous area",
+      "1000": "Surgery or complex medical treatment",
+      "2500": "One month of life for a rescued pet"
+    },
+    "monthlyItems": {
+      "250": "20 portions of dog food",
+      "500": "Vaccination and parasite treatment",
+      "1000": "Weekly supply of food and medicine for 2 dogs",
+      "1500": "Transportation and care for 2 pets",
+      "2500": "Full care for one dog for a month"
+    },
+    "customAmount": {
+      "placeholder": "Enter amount",
+      "label": "Custom amount"
+    },
+    "submit": "BECOME A PARTNER"
+  },
   "Header": {
     "donateButton": "One-time assistance",
     "navigation": [
@@ -99,7 +128,11 @@
     },
     {
       "amount": "4,000+",
-      "name": "have had vaccines, treatments, etc."
+      "name": "have had vaccines"
+    },
+    {
+      "amount": "4,000+",
+      "name": "have had treatments"
     }
   ],
   "ChangeLife": {
@@ -287,9 +320,42 @@
       "donate": "Donate"
     }
   },
+  "FundraiserModal": {
+    "fundraisingTitle": "Thank you, Angel, for helping in the fundraiser",
+    "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
+    "goal": "Goal",
+    "currency": "UAH",
+    "donateAmountSection": {
+      "title": "Top-up amount",
+      "anotherAmount": "Other amount",
+      "inputPlaceholder": "Optional",
+      "inputLabel": "Your name or comment",
+      "firstCheckboxLabel": "I want to be the first to know about charity events",
+      "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
+      "cardButton": "Pay by card",
+      "submitError": "Please confirm that you have read the public offer agreement",
+      "donate": "Donate"
+    }
+  },
   "SterilizationModal": {
     "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
     "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
+    "goal": "Goal",
+    "currency": "UAH",
+    "donateAmountSection": {
+      "title": "Top-up amount",
+      "anotherAmount": "Other amount",
+      "inputPlaceholder": "Optional",
+      "inputLabel": "Your name or comment",
+      "firstCheckboxLabel": "I want to be the first to know about charity events",
+      "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
+      "cardButton": "Pay by card",
+      "submitError": "Please confirm that you have read the public offer agreement"
+    }
+  },
+  "OnceKeepModal": {
+    "fundraisingTitle": "Thank you, Angel, for helping with the tail",
+    "subtitle": "Thanks to your help, the tail will get a chance!",
     "goal": "Goal",
     "currency": "UAH",
     "donateAmountSection": {
@@ -326,7 +392,7 @@
   },
   "Contacts": {
     "title": "Contacts",
-    "subtitle": "To get in touch with us, please leave your contact details"
+    "subtitle": "If you have any questions - leave your contacts. We will contact you soon."
   },
   "Partnership": {
     "title": "Partnership to Save Animals from War",
@@ -335,7 +401,7 @@
     "heroButton": "Become a Partner"
   },
   "ContactModal": {
-    "title": "To become our partner, please leave your contact details"
+    "title": "To become our volunteer, please leave your contact details"
   },
   "PartnersList": {
     "title": "Our partners - our heroes!",

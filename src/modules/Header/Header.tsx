@@ -28,7 +28,6 @@ const Header = () => {
             color="text-dark bg-orange"
             buttonText={t("donateButton")}
           />
-
           <button className={"ml-[auto]"} onClick={() => setIsMenuOpen(true)}>
             <BurgerButtonIcon />
           </button>

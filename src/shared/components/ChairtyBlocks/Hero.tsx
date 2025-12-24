@@ -2,14 +2,14 @@ import EventsGrid from "@/shared/components/EventsGrid/EventsGrid";
 import EventsSlider from "@/shared/components/EventsSlider/EventsSlider";
 import * as motion from "motion/react-client";
 
-const heroImages = [
-  "/images/events/hero/img1.webp",
-  "/images/events/hero/img3.webp",
-  "/images/events/hero/img2.webp",
-  "/images/events/hero/img4.webp",
-  "/images/events/hero/img5.webp",
-];
-const Hero = ({ title }: { title: string }) => {
+// const heroImages = [
+//   "/images/events/hero/img1.webp",
+//   "/images/events/hero/img3.webp",
+//   "/images/events/hero/img2.webp",
+//   "/images/events/hero/img4.webp",
+//   "/images/events/hero/img5.webp",
+// ];
+const Hero = ({ images, title }: { title: string, images: string[] }) => {
   return (
     <div className="container mx-auto px-4 xl:px-[40px] pt-[60px]">
       <motion.div
@@ -26,9 +26,9 @@ const Hero = ({ title }: { title: string }) => {
         }}
         className="lg:hidden"
       >
-        <EventsSlider images={heroImages} />
+        <EventsSlider images={images} />
       </motion.div>
-      <EventsGrid images={heroImages} />
+      <EventsGrid images={images} />
 
       <motion.h2
         initial="hidden"

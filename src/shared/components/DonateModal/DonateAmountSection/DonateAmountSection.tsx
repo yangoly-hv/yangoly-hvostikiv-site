@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import CustomAmountCard from "../CustomAmountCard/CustomAmountCard";
 import AmountCard from "../AmountCard/AmountCard";
@@ -50,20 +50,6 @@ const PublicOfferLink = ({text}: {text: string})=> {
 
 const DonateAmountSection = () => {
   const t = useTranslations("DonateModal");
-
-  const formRef = useRef<HTMLFormElement>(null);
-  const [paymentData, setPaymentData] = useState({
-    orderReference: 'ORDER-123456',
-    orderDate: Math.floor(Date.now() / 1000),
-    amount: '100.00',
-    currency: 'UAH',
-    productName: `Donate to the fund's work`,
-    productCount: '1',
-    productPrice: '100.00',
-    merchantAccount: "",
-    merchantDomainName: "",
-    signature: "",
-  });
 
   const translation = {
     title: t("donateAmountSection.title"),
@@ -128,21 +114,6 @@ const DonateAmountSection = () => {
 
     document.body.appendChild(form);
     form.submit();
-
-    // if (!isAgreed) {
-    //   setAgreementError(true);
-    //   setIsToastVisible(true);
-    //   return;
-    // }
-    // formRef.current?.submit();
-    // console.log({
-    //   amount: currentAmount,
-    //   comment,
-    //   wantNotifications,
-    //   isAgreed,
-    // });
-
-    // setIsThankYouModalOpen(true);
   };
 
   return (
@@ -204,24 +175,6 @@ const DonateAmountSection = () => {
 
           <div className="space-y-2 mb-2">
             <PaymentButton disabled={!isAgreed} paymentType="monoPay" onClick={handlePayment}/>
-            <form
-                ref={formRef}
-                method="POST"
-                action="https://secure.wayforpay.com/pay"
-                style={{display: 'none'}}
-            >
-              <input type="hidden" name="merchantAccount" value={paymentData.merchantAccount}/>
-              <input type="hidden" name="merchantDomainName" value={paymentData.merchantDomainName}/>
-              <input type="hidden" name="orderReference" value={paymentData.orderReference}/>
-              <input type="hidden" name="orderDate" value={paymentData.orderDate}/>
-              <input type="hidden" name="amount" value={paymentData.amount}/>
-              <input type="hidden" name="currency" value={paymentData.currency}/>
-              <input type="hidden" name="productName[]" value={paymentData.productName}/>
-              <input type="hidden" name="productCount[]" value={paymentData.productCount}/>
-              <input type="hidden" name="productPrice[]" value={paymentData.productPrice}/>
-              <input type="hidden" name="merchantSignature" value={paymentData.signature}/>
-              {/* Добавьте другие поля, если нужно */}
-            </form>
             {/*<PaymentButton paymentType="googlePay" onClick={handlePayment} />*/}
           </div>
         </div>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { monthlyFundrasing } from "./mockedData";
+// import { monthlyFundrasing } from "./mockedData";
 import { IMonthlyGoalSectionProps } from "@/shared/types";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";

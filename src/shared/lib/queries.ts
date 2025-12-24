@@ -86,7 +86,8 @@ export const postBySlugQuery = `
 export const perfomanceQuery = `*[_type == "perfomance"][0]{
   tailsCount,
   feedCount,
-  medCount
+  vaccinesCount,
+  treatmentsCount,
 }`
 
 export const mainCollectionQuery = `*[_type == "collection" && main == true]{

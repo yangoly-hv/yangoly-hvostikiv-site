@@ -10,10 +10,10 @@ const Contacts = async () => {
   const t = await getTranslations("Contacts");
 
   return (
-    <section id="contacts" className="relative h-[923px] lg:h-[634px] bg-green">
-      <div className="container relative z-10 px-4 xl:px-10 top-[124px] lg:top-[113px] mx-auto">
+    <section id="contacts" className="relative h-[800px] lg:h-[634px] bg-green">
+      <div className="container relative z-10 px-4 xl:px-10 top-[60px] lg:top-[113px] mx-auto">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
-          <div className="flex flex-col items-center lg:items-start lg:max-w-[406px]">
+          <div className="flex flex-col items-center lg:items-start lg:max-w-[340px]">
             <motion.h2
               initial="hidden"
               whileInView="visible"
@@ -117,9 +117,16 @@ const Contacts = async () => {
           <ContactForm lang={lang} />
         </div>
       </div>
-
+        <Image
+            src="/images/contacts-union.png"
+            alt="Two dogs"
+            width={274}
+            height={373}
+            priority
+            className="hidden xl:block absolute bottom-0 right-[58%] z-8 w-[274px] h-auto"
+        />
       <Image
-        src="/images/two-dogs.png"
+        src="/images/contacts-dog.png"
         alt="Two dogs"
         width={682}
         height={1017}

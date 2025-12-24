@@ -16,7 +16,7 @@ export default function ChangeLifeDonate({text}) {
                 variant="outline"
                 text={text}
                 fullWidth
-                className="w-full xl:h-[67px]"
+                className="w-full xl:h-[67px] bg-inherit text-dark border-dark hover:text-white hover:bg-dark"
             />
             <DonateModal
                 isOpen={isDonateModalOpen}
