@@ -6,14 +6,16 @@ import { useTranslations } from 'next-intl';
 import Image from "next/image";
 import clsx from 'clsx';
 
-import {onceImages} from "@/modules/Hero/Donation/donationIcons";
+import Button from "@/shared/components/Button/Button";
+
+import {onceImages, monthlyImages} from "@/modules/Hero/Donation/donationIcons";
 
 type Tab = 'once' | 'monthly';
 
 interface FormValues {
     amount: number | '';
 }
-
+// #4C7B671A
 const onceValues = [150, 250, 500, 1000, 2500];
 const monthlyValues = [250, 500, 1000, 1500, 2500];
 
@@ -31,6 +33,8 @@ export default function DonationForm() {
     const onSubmit = (data: FormValues) => {
         console.log({ type: tab, amount: data.amount });
     };
+
+    const icons = tab === "once" ? onceImages : monthlyImages;
 
     return (
         <div className="max-w-[660px] rounded-[8px] bg-white px-[16px] xl:px-[32px]  py-[32px] shadow-md">
@@ -71,17 +75,17 @@ export default function DonationForm() {
                             className={clsx(
                                 'flex items-center gap-3 rounded-[10px] px-[16px] py-[8px] text-left transition',
                                 amount === value
-                                    ? 'border-2 border-[#4C7B67] bg-[#4C7B6733]'
+                                    ? 'border-2 border-[#4C7B67] bg-[#4C7B67]/20'
                                     : 'border-[1.5px] border-[#828282]'
                             )}
                         >
-                            <div className={`flex justify-center items-center h-[56px] w-[56px] shrink-0 rounded-[4px] ${amount === value ? "bg-white" : "bg-[#4C7B671A]"}`}>
+                            <div className={`flex justify-center items-center h-[56px] w-[56px] shrink-0 rounded-[4px] ${amount === value ? "bg-white" : "bg-[rgba(76, 123, 103, 0.1)]"}`}>
                                 <Image
-                                    key={onceImages[idx].alt}
-                                    src={onceImages[idx].src}
-                                    alt={onceImages[idx].alt}
-                                    width={onceImages[idx].w}
-                                    height={onceImages[idx].h}
+                                    key={icons[idx].alt}
+                                    src={icons[idx].src}
+                                    alt={icons[idx].alt}
+                                    width={icons[idx].w}
+                                    height={icons[idx].h}
                                 />
                             </div>
 
@@ -101,13 +105,22 @@ export default function DonationForm() {
 
                     {/* Custom amount */}
                     <div className="flex items-start gap-3 rounded-[16px] border border-[#D1D1D1] p-4">
-                        <div className="h-10 w-10 shrink-0 rounded-[8px] bg-white" />
+                        <div
+                            className={`flex justify-center items-center h-[56px] w-[56px] shrink-0 rounded-[4px] bg-[rgba(76, 123, 103, 0.1)]`}>
+                            <Image
+                                key={icons[5].alt}
+                                src={icons[5].src}
+                                alt={icons[5].alt}
+                                width={icons[5].w}
+                                height={icons[5].h}
+                            />
+                        </div>
 
                         <div className="w-full">
                             <input
                                 type="number"
                                 placeholder={t('customAmount.placeholder')}
-                                className="w-full rounded-[12px] border border-[#4F7C65] px-3 py-2 text-sm focus:outline-none"
+                                className="w-full placeholder:text-[#4C7B67] placeholder:text-[14px] placeholder:leading-[130%] rounded-[8px] border border-[#4C7B67] px-3 py-1 text-sm bg-[#F5F5F5] focus:outline-none"
                                 {...register('amount')}
                             />
                             <div className="mt-2 text-sm">
@@ -116,13 +129,18 @@ export default function DonationForm() {
                         </div>
                     </div>
                 </div>
-
-                <button
-                    type="submit"
-                    className="mt-6 w-full rounded-[28px] bg-[#4C7B67] py-4 text-sm font-semibold text-white"
-                >
-                    {t('submit')}
-                </button>
+                <Button
+                    // onClick={() => setIsDonateModalOpen(true)}
+                    text={t('submit')}
+                    className="w-full mb-3 desk:mb-8 xl:h-[67px]"
+                    type="button"
+                ></Button>
+                {/*<button*/}
+                {/*    type="submit"*/}
+                {/*    className="mt-6 w-full rounded-[28px] bg-[#4C7B67] py-4 text-sm font-semibold text-white"*/}
+                {/*>*/}
+                {/*    {t('submit')}*/}
+                {/*</button>*/}
             </form>
         </div>
     );

@@ -5,8 +5,8 @@ import { Metadata } from "next";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
 
-import client from "@/shared/lib/sanity";
-import { eventsQuery } from "@/shared/lib/queries";
+// import client from "@/shared/lib/sanity";
+// import { eventsQuery } from "@/shared/lib/queries";
 
 export async function generateMetadata({
   params,
@@ -62,8 +62,8 @@ export async function generateMetadata({
 export default async function CharityEventPage({ params }: PageParams) {
   const t = await getTranslations("ChairtyEvents");
   // const paragraphs = await t.raw("paragraphs");
-  const { locale } = await params;
-  const { title, images } = await client.fetch(eventsQuery);
+  // const { locale } = await params;
+  // const { title, images } = await client.fetch(eventsQuery);
   // const pageTitle = title[locale];
 
   return (

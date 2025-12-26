@@ -7,10 +7,13 @@ export const onceImages = [
     { src: '/images/donation-form/syringe.svg', w: 56, h: 56, alt: "syringe" },
     { src: '/images/donation-form/collar.svg', w: 56, h: 56, alt: "collar" },
     { src: '/images/donation-form/other.svg', w: 56, h: 56, alt: "other" },
-    // { src: '/images/card-2.png', w: 420, h: 280 },
 ];
 
 export const monthlyImages = [
-    { src: '/images/donation-form/bone.svg', w: 49, h: 33 },
-    // { src: '/images/card-2.png', w: 420, h: 280 },
+    { src: '/images/donation-form/bath.svg', w: 56, h: 56, alt: "bath" },
+    { src: '/images/donation-form/syringe.svg', w: 56, h: 56, alt: "syringe" },
+    { src: '/images/donation-form/food.svg', w: 56, h: 56, alt: "food" },
+    { src: '/images/donation-form/shop.svg', w: 56, h: 56, alt: "shop" },
+    { src: '/images/donation-form/collar.svg', w: 56, h: 56, alt: "collar" },
+    { src: '/images/donation-form/other.svg', w: 56, h: 56, alt: "other" },
 ];
