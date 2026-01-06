@@ -26,7 +26,7 @@
       "placeholder": "Enter amount",
       "label": "Custom amount"
     },
-    "submit": "BECOME A PARTNER"
+    "submit": "MAKE DONATION"
   },
   "Header": {
     "donateButton": "One-time assistance",
@@ -105,7 +105,7 @@
       }
     ],
     "contacts": {
-      "phone": "+380 99 200 40 80",
+      "phone": "+38 097 200 24 00",
       "email": "angelsuaorg@gmail.com",
       "address": "4 Pavla Tychyny Avenue, Kyiv, 02098, Ukraine"
     }
@@ -132,7 +132,7 @@
     },
     {
       "amount": "4,000+",
-      "name": "have had treatments"
+      "name": "sterilized"
     }
   ],
   "ChangeLife": {
@@ -371,7 +371,7 @@
   },
   "KeepingModal": {
     "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
-    "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
+    "subtitle": "Thanks to your help, the ponytail will be well-groomed!",
     "goal": "Goal",
     "currency": "UAH",
     "donateAmountSection": {
@@ -575,9 +575,9 @@
           "bgPath": "/images/events/list/bg-2.png"
         },
         {
-          "title": "Contests and Games",
-          "text": "Exciting activities for the whole family, where everyone can have fun and enjoy positive emotions. Games and contests for kids, adults, and animals create a joyful and uniting atmosphere.",
-          "imgPath": "/images/events/list/img-3.webp",
+          "title": "Grooming from the V.O.G DOG salon chain",
+          "text": "A team of female groomers dye the tails' fur, apply glitter tattoos, glue on rhinestones, braid and extend pigtails, trim claws, comb hair, and much more.",
+          "imgPath": "/images/events/list/img-3-1.jpg",
           "bgPath": "/images/events/list/bg-3.png"
         },
         {
@@ -762,6 +762,7 @@
     "allTails": "All tails",
     "adoptButton": "Take into the family",
     "oneTimeHelpButton": "One-time assistance",
+    "becomeGuardianButton": "Become a guardian",
     "adoptDescription": "To take the tail into the family, please contact its guardian at this number",
     "name": "Anatoly",
     "connectButton": "Connect",

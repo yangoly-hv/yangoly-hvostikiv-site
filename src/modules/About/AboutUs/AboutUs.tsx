@@ -82,7 +82,7 @@ const AboutUs = ({
           alt: about.title
       }));
   }
-    console.log(aboutImages)
+
   //@ts-expect-error
   const paragraphs = about.description.map(({children}) => ({segments: [{text: children[0].text, bold: false}]}));
 

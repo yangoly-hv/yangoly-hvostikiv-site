@@ -61,35 +61,14 @@ const Contacts = async () => {
                     transition: { duration: 0.5, delay: 0.4 },
                   },
                 }}
-                href="tel:+380992004080"
+                href="tel:+380972002400"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
               >
                 <PhoneIcon className="w-6 h-6" variant="secondary" />
-                38 099 200 40 80
+                  38 097 200 24 00
               </motion.a>
-
-              {/*<motion.a*/}
-              {/*  initial="hidden"*/}
-              {/*  whileInView="visible"*/}
-              {/*  viewport={{ once: true }}*/}
-              {/*  variants={{*/}
-              {/*    hidden: { opacity: 0, y: 10 },*/}
-              {/*    visible: {*/}
-              {/*      opacity: 1,*/}
-              {/*      y: 0,*/}
-              {/*      transition: { duration: 0.5, delay: 0.5 },*/}
-              {/*    },*/}
-              {/*  }}*/}
-              {/*  href="tel:+380930000000"*/}
-              {/*  target="_blank"*/}
-              {/*  rel="noopener noreferrer nofollow"*/}
-              {/*  className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"*/}
-              {/*>*/}
-              {/*  <PhoneIcon className="w-6 h-6" variant="secondary" />*/}
-              {/*  38 093 000 00 00*/}
-              {/*</motion.a>*/}
 
               <motion.a
                 initial="hidden"
@@ -103,13 +82,13 @@ const Contacts = async () => {
                     transition: { duration: 0.5, delay: 0.6 },
                   },
                 }}
-                href="mailto:hvostiki@gmail.com"
+                href="mailto:angelsuaorg@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
               >
                 <EmailIcon className="w-6 h-6" variant="secondary" />
-                hvostiki@gmail.com
+                  angelsuaorg@gmail.com
               </motion.a>
             </div>
           </div>

@@ -31,15 +31,15 @@ const Hero = async () => {
         {/*/>*/}
       </div>
 
-        <div className="relative flex justify-center flex-wrap gap-[57px] z-10">
+        <div className="relative lg:py-[20px] xl:py-0 lg:pl-[20px] xl:pl-0 flex justify-center flex-wrap lg:flex-nowrap gap-[57px] z-10">
             <div className="order-2 md:order-1">
                 <DonationForm />
             </div>
 
-            <div className="order-1 md:order-2 max-w-[700px] xl:flex xl:content-between flex-wrap mt-[386px] xl:mt-0">
+            <div className="order-1 md:order-2 max-w-[700px] lg:max-w-[50%] xl:max-w-[700px] lg:flex lg:content-between flex-wrap mt-[386px] lg:mt-[20px] xl:mt-0">
                 <div>
                     <motion.h2
-                        className="text-center xl:text-left text-white font-arial text-[16px] font-black leading-[122%] uppercase xl:text-[36px] xl:font-extrabold"
+                        className="text-white font-black leading-[122%] uppercase text-center lg:text-left text-[16px] lg:text-[31px] xl:text-[36px] lg:font-extrabold"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{once: true}}
@@ -55,7 +55,7 @@ const Hero = async () => {
                         {t("subtitle")}
                     </motion.h2>
                     <motion.h1
-                        className="text-center xl:text-left text-white font-arial uppercase mt-[12px] leading-[122%] font-black text-[40px] xl:text-[100px] xl:font-extrabold"
+                        className="text-white font-black uppercase text-center leading-[122%] lg:text-left  mt-[12px] text-[40px] lg:text-[80px] xl:text-[100px] xl:font-extrabold"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{once: true}}
@@ -75,7 +75,7 @@ const Hero = async () => {
                         viewport={{once: true}}
                     >
                         <motion.p
-                            className="text-white text-center leading-[122%] text-[16px] xl:text-[32px] xl:max-w-[432px] xl:text-left"
+                            className="text-white text-center lg:text-left leading-[122%] text-[16px] lg:text-[32px] xl:max-w-[432px] "
                             variants={{
                                 hidden: {opacity: 0, y: 20},
                                 visible: {
@@ -95,7 +95,7 @@ const Hero = async () => {
                         viewport={{once: true}}
                     >
                         <motion.p
-                            className="text-white mt-[14px] text-center leading-[122%] text-[16px]  xl:text-[20px] xl:max-w-[432px] xl:text-left"
+                            className="text-white mt-[14px] mb-0 lg:mb-[20px] xl:mb-0 text-center leading-[122%] text-[16px]  lg:text-[20px] xl:max-w-[432px] lg:text-left"
                             variants={{
                                 hidden: {opacity: 0, y: 20},
                                 visible: {

@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "../../../../public/images/icons";
 import FundraisingGoal from "@/modules/FundraisingGoal/FundraisingGoal";

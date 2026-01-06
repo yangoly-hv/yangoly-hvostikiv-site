@@ -73,7 +73,7 @@ export default async function CharityEventPage({ params }: PageParams) {
   const { locale } = await params;
   const { title, images } = await client.fetch(eventsQuery);
   const pageTitle = title[locale];
-  console.log(images);
+
   return (
     <Suspense fallback={<Loading />}>
       <section className="bg-orange-bg">

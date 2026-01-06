@@ -115,6 +115,12 @@ export interface IPartnersProps
   withTitle?: boolean;
 }
 
+export interface ContactFormFields {
+  name: string;
+  phone: string;
+  message: string;
+}
+
 export interface IFormField {
   name: string;
   label: string;
@@ -130,6 +136,7 @@ export interface IFormConfig {
   title?: string;
   fields: IFormField[];
   submitText: string;
+  submiteddText: string;
   onSubmit?: (data: Record<string, string>) => void;
   className?: string;
 }

@@ -74,7 +74,7 @@ const Footer = async () => {
       >
         <motion.a
           variants={listItemVariants}
-          href="tel:+380992004080"
+          href="tel:+380972002400"
           className="flex items-center gap-2 text-[14px] font-medium text-white"
         >
           <PhoneIcon /> {contacts.phone}

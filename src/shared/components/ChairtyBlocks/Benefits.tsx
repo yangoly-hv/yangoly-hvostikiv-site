@@ -13,7 +13,7 @@ const Benefits = async () => {
     <div className="bg-[#18181B] lg:py-[48px] pt-[25px] pb-[43px]">
       <div className="container  mx-auto px-4   lg:px-[40px] xl:px-[187px] ">
         <div className="lg:hidden relative aspect-[328/286] max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
-          <Image src="/images/events/benefits-desk1.jpg" className="w-full h-full object-cover" alt="Pet" fill />
+          <Image src="/images/events/benefits-desk.jpg" className="w-full h-full object-cover" alt="Pet" fill />
         </div>
         <div>
           <motion.h2
@@ -78,13 +78,14 @@ const Benefits = async () => {
             transition: { duration: 0.5, ease: "easeOut", delay: 0.4 },
           },
         }}
-        className="relative aspect-[1512/465] max-h-[465px] w-full mt-[70px] hidden lg:block"
+        className="relative aspect-[2400/1601] max-h-[665px] w-full mt-[70px] hidden lg:block"
       >
         <Image
-          src="/images/events/benefits-desk1.jpg"
+          src="/images/events/benefits-desk.jpg"
           alt="Pet"
           fill
           quality={100}
+          className="object-cover"
         />
       </motion.div>
     </div>

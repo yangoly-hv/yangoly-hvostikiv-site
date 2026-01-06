@@ -59,7 +59,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
               className="w-full h-full object-cover"
             />
           </AnimatedWrapper>
-          <div className="md:flex flex-col justify-between md:w-1/2 md:p-10 xl:py-[89px] xl:px-[81px] rounded-[8px]">
+          <div className="md:flex flex-col justify-between md:w-1/2 md:p-10 xl:py-[89px] xl:px-[81px] rounded-[8px] z-10">
             <div className="lg:max-w-[348px] xl:max-w-[555px]">
               <AnimatedWrapper
                 as="h2"
