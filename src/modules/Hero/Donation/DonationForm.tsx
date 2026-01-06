@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import Button from "@/shared/components/Button/Button";
 
 import {onceImages, monthlyImages} from "@/modules/Hero/Donation/donationIcons";
+import axios from "axios";
 
 type Tab = 'once' | 'monthly';
 
@@ -30,9 +31,33 @@ export default function DonationForm() {
     const amount = watch('amount');
     const values = tab === 'once' ? onceValues : monthlyValues;
 
-    const onSubmit = (data: FormValues) => {
-        console.log({ type: tab, amount: data.amount });
+    const onSubmit = async () => {
+        const {data} = await axios.post("/api/wayforpay/checkout", {
+            amount,
+            orderReference: `DONATE_${Date.now()}`,
+            productName: "Донат для фонду Янголи хвостиків",
+        });
+
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "https://secure.wayforpay.com/pay";
+
+        Object.keys(data).forEach((key) => {
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = key;
+            input.value = Array.isArray(data[key]) ? data[key].join(";") : data[key];
+            form.appendChild(input);
+        });
+
+        document.body.appendChild(form);
+        form.submit();
     };
+
+    //
+    // const onSubmit = (data: FormValues) => {
+    //     console.log({ type: tab, amount: data.amount });
+    // };
 
     const icons = tab === "once" ? onceImages : monthlyImages;
 
@@ -131,6 +156,7 @@ export default function DonationForm() {
                 </div>
                 <Button
                     // onClick={() => setIsDonateModalOpen(true)}
+                    onClick={onSubmit}
                     text={t('submit')}
                     className="w-full mb-3 desk:mb-8 xl:h-[67px]"
                     type="button"
