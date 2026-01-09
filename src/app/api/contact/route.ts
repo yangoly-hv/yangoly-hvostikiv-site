@@ -10,11 +10,10 @@ export async function POST(req: Request) {
 
         /* ---------- EMAIL (RESEND) ---------- */
         await resend.emails.send({
-            from: "Contact Form <no-reply@angelsua.org>",
-            to: ["your@email.com"],
+            from: `Благодійний фонд "Янголи хвостіків" <no-reply@angelsua.org>`,
+            to: ["angelsuaorg@gmail.com"],
             subject: "Нове повідомлення з сайту",
             html: `
-        <h2>Нове повідомлення</h2>
         <p><b>Імʼя:</b> ${name}</p>
         <p><b>Телефон:</b> ${phone}</p>
         <p><b>Повідомлення:</b><br/>${message}</p>

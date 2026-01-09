@@ -15,7 +15,7 @@ const getContactFormConfig = (lang: Locale): IFormConfig => {
       requiredName: "Ім'я обов'язкове",
       requiredPhone: "Телефон обов'язковий",
       submitText: "ЗВ'ЯЖІТЬСЯ ЗІ МНОЮ",
-      submiteddText: "Дякуємо за ваше повідомлення. Ми зв'яжемося з вами якнайшвидше",
+      submiteddText: "Дякуємо за ваше повідомлення. Ми зв'яжемося з вами якнайшвидше!",
     },
     en: {
       name: "Your Name",
@@ -28,7 +28,7 @@ const getContactFormConfig = (lang: Locale): IFormConfig => {
       requiredName: "Name is required",
       requiredPhone: "Phone is required",
       submitText: "CONTACT ME",
-      submiteddText: "Thank you for your message. We will contact you as soon as possible.",
+      submiteddText: "Thank you for your message. We will contact you as soon as possible!",
     },
   };
 

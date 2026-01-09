@@ -17,7 +17,7 @@ interface FormValues {
     amount: number | '';
 }
 // #4C7B671A
-const onceValues = [150, 250, 500, 1000, 2500];
+const onceValues = [100, 250, 500, 1000, 2500];
 const monthlyValues = [250, 500, 1000, 1500, 2500];
 
 export default function DonationForm() {
@@ -25,7 +25,7 @@ export default function DonationForm() {
     const [tab, setTab] = useState<Tab>('once');
 
     const { register, setValue, watch, handleSubmit } = useForm<FormValues>({
-        defaultValues: { amount: tab === "once" ? 150 : 250 },
+        defaultValues: { amount: tab === "once" ? 100 : 250 },
     });
 
     const amount = watch('amount');
@@ -70,7 +70,7 @@ export default function DonationForm() {
                         key={key}
                         type="button"
                         onClick={() => {
-                            setValue("amount", tab === "once" ? 250 : 150);
+                            setValue("amount", tab === "once" ? 250 : 100);
                             setTab(key);
                         }}
                         className={clsx(
