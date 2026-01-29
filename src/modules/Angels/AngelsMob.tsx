@@ -7,6 +7,7 @@ import { getTranslations } from "next-intl/server";
 
 export default async function AngelsMob({ title }: { title?: string }) {
   const t = await getTranslations("Angels");
+  const tr = await getTranslations("DonateModal");
 
   return (
     <div className="md:hidden flex flex-col gap-y-10">
@@ -45,6 +46,7 @@ export default async function AngelsMob({ title }: { title?: string }) {
       <div className="flex flex-col gap-y-10 container px-4 xl:px-10 mx-auto">
         <AngelsList />
         <Donate
+            title={tr("fundraisingOneTimeTitle")}
           buttonText={t("makeContribution")}
           className="w-full md:w-[297px] lg:w-[397px] xl:w-[607px] xl:h-[67px]"
         />

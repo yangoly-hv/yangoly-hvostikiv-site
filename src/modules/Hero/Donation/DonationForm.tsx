@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import {useMemo, useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
@@ -10,6 +10,9 @@ import Button from "@/shared/components/Button/Button";
 
 import {onceImages, monthlyImages} from "@/modules/Hero/Donation/donationIcons";
 import axios from "axios";
+import {usePathname, useSearchParams} from "next/navigation";
+
+import donate from "@/shared/lib/donate";
 
 type Tab = 'once' | 'monthly';
 
@@ -24,6 +27,14 @@ export default function DonationForm() {
     const t = useTranslations('DonationForm');
     const [tab, setTab] = useState<Tab>('once');
 
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
+    const returnPath = useMemo(() => {
+        const query = searchParams.toString();
+        return query ? `${pathname}?${query}` : pathname;
+    }, [pathname, searchParams]);
+
     const { register, setValue, watch, handleSubmit } = useForm<FormValues>({
         defaultValues: { amount: tab === "once" ? 100 : 250 },
     });
@@ -32,26 +43,31 @@ export default function DonationForm() {
     const values = tab === 'once' ? onceValues : monthlyValues;
 
     const onSubmit = async () => {
-        const {data} = await axios.post("/api/wayforpay/checkout", {
-            amount,
-            orderReference: `DONATE_${Date.now()}`,
-            productName: "Донат для фонду Янголи хвостиків",
-        });
+        if(amount) {
+            await donate({amount, returnPath});
+        }
 
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = "https://secure.wayforpay.com/pay";
-
-        Object.keys(data).forEach((key) => {
-            const input = document.createElement("input");
-            input.type = "hidden";
-            input.name = key;
-            input.value = Array.isArray(data[key]) ? data[key].join(";") : data[key];
-            form.appendChild(input);
-        });
-
-        document.body.appendChild(form);
-        form.submit();
+        // const {data} = await axios.post("/api/wayforpay/checkout", {
+        //     amount,
+        //     orderReference: `DONATE_${Date.now()}`,
+        //     productName: "Донат для фонду Янголи хвостиків",
+        //     returnPath,
+        // });
+        //
+        // const form = document.createElement("form");
+        // form.method = "POST";
+        // form.action = "https://secure.wayforpay.com/pay";
+        //
+        // Object.keys(data).forEach((key) => {
+        //     const input = document.createElement("input");
+        //     input.type = "hidden";
+        //     input.name = key;
+        //     input.value = Array.isArray(data[key]) ? data[key].join(";") : data[key];
+        //     form.appendChild(input);
+        // });
+        //
+        // document.body.appendChild(form);
+        // form.submit();
     };
 
     //

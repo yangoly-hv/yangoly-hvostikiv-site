@@ -103,11 +103,12 @@ const AboutUs = ({
           viewport={{ once: true }}
         >
           <motion.div variants={generalSlideUp} custom={0.8}>
+              <Link href="/partnership" className="block w-full">
             <Button
               className="w-full"
-              onClick={handleOpenModal}
+              // onClick={handleOpenModal}
               text={translation.links![0].text}
-            />
+            /></Link>
           </motion.div>
           <motion.div variants={generalSlideUp} custom={1}>
               <Link href="/reporting" className="block w-full">

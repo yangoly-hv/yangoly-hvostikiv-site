@@ -213,7 +213,8 @@
   "MonthlyGoalSection": {
     "generalGoal": "Total goal: {{goal}} UAH for materials and construction.",
     "result": "Raised: {{current}} UAH out of {{goal}} UAH",
-    "supportFundrasing": "Support the fundraiser"
+    "supportFundrasing": "Support the fundraiser",
+    "support": "Support"
   },
   "Partners": {
     "title": "Our partners"
@@ -305,6 +306,7 @@
   },
   "DonateModal": {
     "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
+    "fundraisingOneTimeTitle": "Thank you, Angel, for helping our foundation work",
     "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
     "goal": "Goal",
     "currency": "UAH",
@@ -766,6 +768,7 @@
     "adoptDescription": "To take the tail into the family, please contact its guardian at this number",
     "name": "Anatoly",
     "connectButton": "Connect",
-    "sterilize": "Sterilize"
+    "sterilize": "Sterilize",
+    "supportText": "Thanks for helping tail!"
   }
 }

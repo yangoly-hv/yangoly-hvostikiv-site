@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import clsx from "clsx";
 import { motion } from "framer-motion";
 import { slideUp, generalSlideUp } from "@/shared/utils";
-import DonateModal from "@/shared/components/DonateModal/DonateModal";
+// import DonateModal from "@/shared/components/DonateModal/DonateModal";
 
 const translations = {
   uk: {
@@ -80,12 +80,12 @@ const SupportFundraising = ({ lang }: { lang: Locale }) => {
         custom={0.4}
       ></motion.div>
 
-      {isModalOpen && (
-        <DonateModal
-          onClose={() => setIsModalOpen(false)}
-          isOpen={isModalOpen}
-        />
-      )}
+      {/*{isModalOpen && (*/}
+      {/*  <DonateModal*/}
+      {/*    onClose={() => setIsModalOpen(false)}*/}
+      {/*    isOpen={isModalOpen}*/}
+      {/*  />*/}
+      {/*)}*/}
     </section>
   );
 };

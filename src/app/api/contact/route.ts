@@ -11,7 +11,8 @@ export async function POST(req: Request) {
         /* ---------- EMAIL (RESEND) ---------- */
         await resend.emails.send({
             from: `Благодійний фонд "Янголи хвостіків" <no-reply@angelsua.org>`,
-            to: ["angelsuaorg@gmail.com"],
+            // to: ["angelsuaorg@gmail.com"],
+            to: ["bogdan.lyamzin.d@gmail.com"],
             subject: "Нове повідомлення з сайту",
             html: `
         <p><b>Імʼя:</b> ${name}</p>

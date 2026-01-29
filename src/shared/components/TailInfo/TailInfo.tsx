@@ -3,17 +3,21 @@ import { useState } from "react";
 import ImageSlider from "../ImageSlider/ImageSlider";
 import Button from "../Button/Button";
 import AdoptModal from "../AdoptModal/AdoptModal";
-import DonateModal from "../DonateModal/DonateModal";
+// import DonateModal from "../DonateModal/DonateModal";
 import KeepingModal from "@/shared/components/KeepingModal/KeepingModal";
 import { motion } from "framer-motion";
 import { fadeIn } from "@/shared/utils";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
+
+import {useModal} from "@/providers/ModalProvider";
 
 //@ts-expect-error
 const TailInfo = ({ tail, translation }) => {
   const [isAdoptModalOpen, setIsAdoptModalOpen] = useState(false);
   const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
   const [isKeepingModalOpen, setIsKeepingModalOpen] = useState(false);
+
+  const {openDonateModal} = useModal();
 
   const { adoptButton, oneTimeHelpButton, becomeGuardianButton, sterilize } = translation;
 
@@ -33,6 +37,8 @@ const TailInfo = ({ tail, translation }) => {
       //@ts-expect-error
       (category) => category === "needs-family"
   );
+
+  const { supportText } = translation;
 
   return (
     <div className="flex flex-col items-center lg:flex-row gap-y-7 lg:gap-y-0 lg:bg-white">
@@ -118,7 +124,7 @@ const TailInfo = ({ tail, translation }) => {
               custom={1.0}
           >
             <Button
-                onClick={() => setIsDonateModalOpen(true)}
+                onClick={() => openDonateModal(supportText)}
                 variant="outline"
                 text={oneTimeHelpButton}
                 fullWidth
@@ -147,10 +153,10 @@ const TailInfo = ({ tail, translation }) => {
           onClose={handleAdoptModalClose}
           translation={translation}
       />
-      <DonateModal
-          isOpen={isDonateModalOpen}
-          onClose={handleDonateModalClose}
-      />
+      {/*<DonateModal*/}
+      {/*    isOpen={isDonateModalOpen}*/}
+      {/*    onClose={handleDonateModalClose}*/}
+      {/*/>*/}
       <KeepingModal
           //@ts-expect-error
           price={tail.keeping_price}

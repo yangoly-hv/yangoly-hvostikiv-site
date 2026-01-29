@@ -14,13 +14,12 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
   // const {goal, current } =
   //   monthlyFundrasingLocalized;
   const t = await getTranslations("");
-  const { generalGoal, result, supportFundrasing } = await t.raw(
+  const { generalGoal, result, supportFundrasing, support } = await t.raw(
     "MonthlyGoalSection"
   );
   const [data] = await client.fetch(mainCollectionQuery);
   if(!data) return null;
-  // console.log(lang)
-  // console.log(data);
+
   const title = data.title[lang];
  const description = data.description[lang][0].children[0].text;
   const image = data.image;
@@ -101,6 +100,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
             </div>
             <div>
               <Donate
+                  title={`${support} ${title}`}
                 className="w-full lg:max-w-[348px] xl:max-w-[555px] mb-3 desk:mb-8 xl:h-[67px]"
                 buttonText={supportFundrasing}
               />

@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import { motion } from "framer-motion";
 import { slideUp, generalSlideUp } from "@/shared/utils";
 import FundraisingCard from "@/shared/components/FundraisingCard/FundraisingCard";
-import DonateModal from "@/shared/components/DonateModal/DonateModal";
+// import DonateModal from "@/shared/components/DonateModal/DonateModal";
 import clsx from "clsx";
 import { Locale } from "@/shared/types";
 import SlidesPagination from "@/modules/Pagination/SlidesPagination/SlidesPagination";
@@ -111,12 +111,12 @@ const FundraisingSlider = ({ t }: Props) => {
         />
       </motion.div>
 
-      {isModalOpen && (
-        <DonateModal
-          onClose={() => setIsModalOpen(false)}
-          isOpen={isModalOpen}
-        />
-      )}
+      {/*{isModalOpen && (*/}
+      {/*  <DonateModal*/}
+      {/*    onClose={() => setIsModalOpen(false)}*/}
+      {/*    isOpen={isModalOpen}*/}
+      {/*  />*/}
+      {/*)}*/}
     </>
   );
 };

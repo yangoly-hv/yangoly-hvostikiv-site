@@ -14,13 +14,14 @@ export default async function AngelsDesk({
   withCircle?: boolean;
 }) {
   const t = await getTranslations("Angels");
+  const tr = await getTranslations("DonateModal");
 
   return (
     <div className="hidden md:block container px-4 xl:px-10 mx-auto">
       <div className="relative z-10 flex xl:gap-x-[38px] laptop:gap-x-[38px] desk:gap-x-[180px] px-[30px] pt-[56px] pb-6 bg-white rounded-[8px] overflow-hidden">
         <AnimatedWrapper
           animation={fadeInAnimation({ scale: 0.9, delay: 0.4 })}
-          className="absolute -z-10 md:top-[144px] lg:top-[54px] md:left-0 lg:left-[-8px] xl:top-0 xl:left-0 md:w-[292px] 
+          className="absolute -z-10 md:top-[144px] lg:top-[54px] md:left-0 lg:left-[-8px] xl:top-0 xl:left-0 md:w-[292px]
         lg:w-[372px] xl:w-[453px] aspect-[905/934]"
         >
           <Image
@@ -48,7 +49,7 @@ export default async function AngelsDesk({
           </AnimatedWrapper>
           <AnimatedWrapper
             animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-            className="absolute -z-20 md:top-[-46px] xl:top-[-56px] md:right-0 xl:right-[-60px] laptop:right-[-21px] w-[259px] 
+            className="absolute -z-20 md:top-[-46px] xl:top-[-56px] md:right-0 xl:right-[-60px] laptop:right-[-21px] w-[259px]
           xl:w-[359px] aspect-[359/250]"
           >
             <Image
@@ -63,6 +64,7 @@ export default async function AngelsDesk({
             />
           </AnimatedWrapper>
           <Donate
+              title={tr("fundraisingOneTimeTitle")}
             buttonText={t("makeContribution")}
             className="w-full md:w-[297px] lg:w-[397px] xl:w-[607px] xl:h-[67px]"
           />

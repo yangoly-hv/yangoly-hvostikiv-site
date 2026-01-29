@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "../../../../public/images/icons";
 import FundraisingGoal from "@/modules/FundraisingGoal/FundraisingGoal";
@@ -8,13 +8,16 @@ import { IDonateModalProps } from "@/shared/types";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLockBodyScroll } from "@/shared/hooks/useLockBodyScroll";
 import { useTranslations } from "next-intl";
+import {useWindowWidth} from "@/shared/hooks/useWindowWidth";
 
-const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
+const DonateModal = ({ title, isOpen, onClose }: IDonateModalProps) => {
   const t = useTranslations("DonateModal");
   const [mounted, setMounted] = useState(false);
   const [showModal, setShowModal] = useState(isOpen);
-
   useLockBodyScroll(isOpen);
+
+  const windowWidth = useWindowWidth();
+  const isMobile = useMemo(()=> windowWidth < 768, [windowWidth]);
 
   useEffect(() => {
     setMounted(true);
@@ -63,10 +66,10 @@ const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
               </button>
             </div>
             <div className="xl:flex xl:justify-between w-full">
-              <FundraisingGoal
+              {isMobile && <FundraisingGoal
                 className="xl:hidden"
                 imageVariant="small"
-                fundraisingTitle={t("fundraisingTitle")}
+                fundraisingTitle={title}
                 goal={t("goal")}
                 currency={t("currency")}
                 totalAmount={30000}
@@ -78,11 +81,11 @@ const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
                   currentAmountClassName:
                     "text-[14px] no-ligatures text-[#012A0F]",
                 }}
-              />
-              <div className="hidden xl:block xl:w-1/2 my-auto">
+              />}
+              {!isMobile && <div className="hidden xl:block xl:w-1/2 my-auto">
                 <FundraisingGoal
                   imageVariant="big"
-                  fundraisingTitle={t("fundraisingTitle")}
+                  fundraisingTitle={title}
                   goal={t("goal")}
                   currency={t("currency")}
                   totalAmount={30000}
@@ -96,7 +99,7 @@ const DonateModal = ({ isOpen, onClose }: IDonateModalProps) => {
                       "text-[14px] no-ligatures text-[#012A0F]",
                   }}
                 />
-              </div>
+              </div>}
               <div className="bg-white xl:w-1/2 xl:pt-0 p-[20px] xl:rounded-l-[40px] flex flex-col">
                 <div className="sticky hidden xl:flex top-0 left-0 right-0 bg-white z-10 px-2 py-2 justify-end">
                   <button

@@ -3,13 +3,23 @@ import { Raleway } from "next/font/google";
 import Header from "@/modules/Header/Header";
 import Footer from "@/modules/Footer/Footer";
 import { getDictionary } from "@/shared/utils";
-import { LocaleLayoutProps, PageParams } from "@/shared/types";
+import ModalProvider from "@/providers/ModalProvider";
+import { LocaleLayoutProps } from "@/shared/types";
+import PaymentReturnClient from "@/shared/components/PaymentReturnHandler/PaymentReturnClient";
 import "../globals.css";
 
-export async function generateMetadata({
+export type PageParams = {
+  params: {
+    locale: "uk" | "en";
+    id?: string;
+    slug?: string;
+  };
+};
+
+      export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const { locale } = await params;
+  const { locale } =  params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
@@ -50,14 +60,18 @@ export default async function LocaleLayout({
   children,
 }: Readonly<LocaleLayoutProps>) {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
-      <main
-        className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway`}
-      >
-        {children}
-      </main>
-      <Footer />
-    </div>
+      <ModalProvider>
+        <div className="flex flex-col min-h-screen">
+          <Header/>
+          <PaymentReturnClient />
+          <main
+              className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway`}
+          >
+            {children}
+          </main>
+          <Footer/>
+        </div>
+      </ModalProvider>
+
   );
 }

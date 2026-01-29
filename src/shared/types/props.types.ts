@@ -60,6 +60,7 @@ export interface IAngelsMobProps {
 export interface IDonateProps {
   className?: string;
   buttonText: string;
+  title: string;
 }
 
 export interface IAboutProps {
@@ -80,7 +81,7 @@ interface IFundraisingGoalStyleProps {
 }
 
 export interface IFundraisingGoalProps extends ComponentProps<"div"> {
-  fundraisingTitle: string;
+  fundraisingTitle: string | undefined;
   subtitle?: string;
   goal: string;
   currency: string;
@@ -213,6 +214,7 @@ export interface IPaymentButtonProps
 }
 
 export interface IDonateModalProps {
+  title?: string;
   isOpen: boolean;
   onClose: () => void;
 }

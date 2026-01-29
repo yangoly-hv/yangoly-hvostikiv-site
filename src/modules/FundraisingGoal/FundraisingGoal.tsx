@@ -1,20 +1,21 @@
 "use client";
-import ProgressBar from "@/shared/components/ProgressBar/ProgressBar";
+// import ProgressBar from "@/shared/components/ProgressBar/ProgressBar";
 import { IFundraisingGoalProps } from "@/shared/types";
 import { cn, formatAmount } from "@/shared/utils";
-import JarWithPaw from "./JarWithPaw/JarWithPaw";
+// import JarWithPaw from "./JarWithPaw/JarWithPaw";
 
 const FundraisingGoal = ({
   fundraisingTitle,
   subtitle,
-  goal,
-  currency,
-  totalAmount,
-  currentAmount,
+  // goal,
+  // currency,
+  // totalAmount,
+  // currentAmount,
   styles,
-  imageVariant,
+  // imageVariant,
   ...props
 }: IFundraisingGoalProps) => {
+  console.log(fundraisingTitle)
   return (
     <div className="px-4" {...props}>
       <h2
