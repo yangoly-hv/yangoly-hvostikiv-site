@@ -1,3 +1,4 @@
+import type { ReactElement } from "react";
 import { IInfoBlockProps } from "@/shared/types";
 import clsx from "clsx";
 import * as motion from "motion/react-client";
@@ -44,7 +45,7 @@ const InfoBlock = ({
         className="space-y-5"
       >
         {(() => {
-          const nodes: JSX.Element[] = [];
+          const nodes: ReactElement[] = [];
 
           for (let i = 0; i < contentBlocks.length; i++) {
             const block: any = contentBlocks[i];
