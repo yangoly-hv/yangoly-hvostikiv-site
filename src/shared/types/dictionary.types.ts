@@ -24,6 +24,8 @@ interface ISegment {
 
 interface IParagraph {
   segments: ISegment[];
+  style?: string;
+  listItem?: string;
 }
 
 interface ILink {

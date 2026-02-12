@@ -159,6 +159,12 @@ export interface ILogoProps extends ComponentProps<typeof Link> {
 
 export interface IInfoBlockProps extends ComponentProps<"div"> {
   translation: IInformationBlockTranslation;
+  /** Optional raw Portable Text-style blocks (e.g. from Sanity) */
+  blocks?: {
+    style?: string;
+    listItem?: string;
+    children?: { text: string; marks?: string[] }[];
+  }[];
   children?: React.ReactNode;
   titleClassName?: string;
 }

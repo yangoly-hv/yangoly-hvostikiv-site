@@ -4,13 +4,14 @@ import * as motion from "motion/react-client";
 
 const InfoBlock = ({
   translation,
+  blocks,
   children,
   className = "",
   titleClassName = "",
   ...props
 }: IInfoBlockProps) => {
-  const { paragraphs, title } = translation;
-
+  const { title } = translation;
+  const contentBlocks = blocks ?? [];
   return (
     <div className={`mx-auto bg-white ${className}`} {...props}>
       <motion.h2
@@ -40,35 +41,108 @@ const InfoBlock = ({
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="space-y-6"
+        className="space-y-5"
       >
-        {paragraphs.map((paragraph, index) => (
-          <motion.p
-            key={index}
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.6,
-                  ease: "easeOut",
-                  delay: 0.2 + index * 0.2,
-                },
-              },
-            }}
-            className="text-black text-[14px] md:text-[16px] xl:text-[18px] font-light leading-[130%]"
-          >
-            {paragraph.segments?.map((segment, segIndex) => (
-              <span
-                key={segIndex}
-                className={segment.bold ? "font-normal" : "font-normal"}
+        {(() => {
+          const nodes: JSX.Element[] = [];
+
+          for (let i = 0; i < contentBlocks.length; i++) {
+            const block: any = contentBlocks[i];
+
+            // Group consecutive bullet list items into one <ul>
+            if (block.listItem === "bullet") {
+              const listItems: any[] = [];
+              let j = i;
+
+              while (j < contentBlocks.length && contentBlocks[j].listItem === "bullet") {
+                listItems.push(contentBlocks[j]);
+                j++;
+              }
+
+              nodes.push(
+                <motion.ul
+                  key={block._key ?? `list-${i}`}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.6,
+                        ease: "easeOut",
+                        delay: 0.2 + i * 0.2,
+                      },
+                    },
+                  }}
+                  className="p-5 bg-orange-bright rounded-[20px] pl-6 space-y-[1lh]"
+                >
+                  {listItems.map((item) => (
+                    <li
+                      key={item._key}
+                      className="text-[14px] md:text-[16px] xl:text-[18px] leading-[130%] text-black font-light"
+                    >
+                      {item.children?.map((child: any) => {
+                        const isStrong = child.marks?.includes("strong");
+                        return (
+                          <span
+                            key={child._key}
+                            className={isStrong ? "font-arial" : "font-light"}
+                          >
+                            {child.text}
+                          </span>
+                        );
+                      })}
+                    </li>
+                  ))}
+                </motion.ul>
+              );
+
+              i = j - 1;
+              continue;
+            }
+
+            const isHeading = block.style === "h3";
+            const MotionTag = isHeading ? motion.h3 : motion.p;
+
+            nodes.push(
+              <MotionTag
+                key={block._key ?? i}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: {
+                    opacity: 1,
+                    y: 0,
+                    transition: {
+                      duration: 0.6,
+                      ease: "easeOut",
+                      delay: 0.2 + i * 0.2,
+                    },
+                  },
+                }}
+                className={clsx(
+                  "text-[14px] md:text-[16px] xl:text-[18px] leading-[130%] whitespace-pre-line",
+                  isHeading
+                    ? "text-[20px] xl:text-left uppercase font-extrabold text-center font-arial xl:text-[32px] text-[#140A01] leading-[130%]"
+                    : "font-light text-black"
+                )}
               >
-                {segment.text}
-              </span>
-            ))}
-          </motion.p>
-        ))}
+                {block.children?.map((child: any) => {
+                  const isStrong = child.marks?.includes("strong");
+                  return (
+                    <span
+                      key={child._key}
+                      className={isStrong ? "font-arial" : "font-light"}
+                    >
+                      {child.text}
+                    </span>
+                  );
+                })}
+              </MotionTag>
+            );
+          }
+
+          return nodes;
+        })()}
       </motion.div>
 
       {children && <>{children}</>}
