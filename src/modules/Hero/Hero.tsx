@@ -7,13 +7,13 @@ import { getTranslations } from "next-intl/server";
 const Hero = async () => {
   const t = await getTranslations("Hero");
   return (
-    <section className="relative xl:py-[141px] overflow-hidden">
-      <div className="absolute inset-0 w-full h-full">
+    <section className="relative md:pt-[300px] xl:py-[141px] overflow-hidden">
+      <div className="absolute inset-0 w-full h-full xl:left-0 xl:w-[115%]">
         <Image
           src="/images/hero-bg-desk.jpg"
           alt="Hero background"
           fill
-          className="hidden sm:flex object-cover w-full h-full lg:object-top"
+          className="hidden sm:flex object-cover w-full h-full lg:object-bottom xl:object-left-bottom"
           quality={75}
           priority
           sizes="100vw"
@@ -30,13 +30,13 @@ const Hero = async () => {
         {/*  sizes="100vw"*/}
         {/*/>*/}
       </div>
-        <div className="relative lg:py-[20px] xl:py-0 lg:pl-[20px] xl:pl-0 flex justify-center flex-wrap lg:flex-nowrap gap-[57px] z-10">
+        <div className="relative lg:py-[20px] xl:py-0 lg:pl-[20px] xl:pl-[40px] flex justify-center xl:justify-start xl:items-center flex-wrap lg:flex-nowrap gap-[57px] xl:gap-[40px] z-10">
             <div className="order-2 md:order-1">
                 <DonationForm />
             </div>
             <div className="order-1 md:order-2 max-w-[700px] lg:max-w-[50%] xl:max-w-[700px] lg:flex lg:content-between flex-wrap mt-[386px] lg:mt-[20px] xl:mt-0">
                     <motion.h1
-                        className="text-white font-black uppercase text-center leading-[122%] lg:text-left  mt-[12px] text-[32px] lg:text-[52px] xl:text-[64px] xl:font-extrabold"
+                        className="text-white font-arial uppercase text-center leading-[122%] lg:text-left mt-[12px] text-[32px] lg:text-[52px] xl:text-[64px] lg:mt-0"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{once: true}}
@@ -48,7 +48,7 @@ const Hero = async () => {
                         {t("title")}
                     </motion.h1>
                     <motion.div
-                        className="mx-auto xl:mx-0 max-w-[288px] mt-[14px] xl:mt-0 xl:max-w-full xl:w-full flex flex-col items-center xl:flex-row xl:justify-between"
+                        className="mx-auto xl:mx-0 max-w-[288px] mt-[14px] xl:max-w-full xl:w-full flex flex-col items-center xl:flex-row xl:justify-between lg:mt-[24px]"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{once: true}}

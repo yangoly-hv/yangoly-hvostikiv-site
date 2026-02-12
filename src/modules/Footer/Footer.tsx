@@ -16,7 +16,7 @@ const Footer = async () => {
   const navigation = (await t.raw("navigation")) as INavigationItem[];
   const contacts = (await t.raw("contacts")) as IContacts;
   return (
-    <footer className="bg-[#001808] py-10 px-4 flex flex-col items-center gap-6 xl:gap-8 xl:items-center">
+    <footer className="bg-orange-bg py-10 px-4 flex flex-col items-center gap-6 xl:gap-8 xl:items-center">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -26,7 +26,7 @@ const Footer = async () => {
           visible: { opacity: 1, transition: { duration: 0.6, delay: 0.2 } },
         }}
       >
-        <Logo href={"/"} className="w-[109px] h-[48px]" />
+        <Logo href={"/"} className="w-[109px] h-[48px]" variant="color" />
       </motion.div>
 
       <motion.nav
@@ -39,7 +39,7 @@ const Footer = async () => {
         {navigation.map((item, index) => (
           <motion.div key={index} variants={listItemVariants}>
             <Link
-              className="text-white text-[18px] leading-[120%] hover:text-primary-gray/95 transition-base"
+              className="text-dark text-[18px] leading-[120%] hover:text-primary-gray/95 transition-base"
               href={item.href}
             >
               {item.name}
@@ -64,7 +64,7 @@ const Footer = async () => {
           },
         }}
       >
-        <SocialsList iconClass="text-white" />
+        <SocialsList iconClass="text-dark" />
       </motion.div>
       <motion.div
         initial="hidden"
@@ -75,20 +75,20 @@ const Footer = async () => {
         <motion.a
           variants={listItemVariants}
           href="tel:+380972002400"
-          className="flex items-center gap-2 text-[14px] font-medium text-white"
+          className="flex items-center gap-2 text-[14px] font-medium text-dark"
         >
           <PhoneIcon /> {contacts.phone}
         </motion.a>
         <motion.a
           variants={listItemVariants}
           href="mailto:email@gmail.com"
-          className="flex items-center gap-2 text-[14px] font-medium text-white"
+          className="flex items-center gap-2 text-[14px] font-medium text-dark"
         >
           <EmailIcon /> {contacts.email}
         </motion.a>
         <motion.div
           variants={listItemVariants}
-          className="flex items-center gap-2 text-[14px] font-medium text-white"
+          className="flex items-center gap-2 text-[14px] font-medium text-dark"
         >
           <LocationIcon /> {contacts.address}
         </motion.div>

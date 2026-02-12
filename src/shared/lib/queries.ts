@@ -105,9 +105,3 @@ export const aboutFoundationQuery = `*[_type == "aboutFoundation"][0]{
   "imagesMobile": imagesMobile[].asset->url,
 }`
 
-export const aboutFoundersQuery = `*[_type == "aboutFounders"][0]{
-  "title": title[$lang],
-  "description": description[$lang],
-  "image": image.asset->url,
-}`
-

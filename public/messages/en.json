@@ -132,6 +132,37 @@
       "name": "sterilized"
     }
   ],
+  "ActivityDirections": {
+    "title": "AREAS OF\n ACTIVITY",
+    "items": [
+      "Provision of food",
+      "Veterinary support (sterilization, vaccination, treatments, medical care)",
+      "Restoration of enclosures"
+    ]
+  },
+  "ProblemsWeSolve": {
+    "title": "Problems we solve",
+    "block1": "Due to the full-scale war, many shelters were forced to evacuate from Donetsk region, losing their territories, infrastructure and enclosures.\n\nThey are starting from scratch in new locations and urgently need to restore basic conditions (quality enclosures), feed, and veterinary care.\n\nThe number of animals in such shelters is constantly growing due to the continuous evacuation of animals.",
+    "block2": "Due to overcrowded shelters, many animals cannot be evacuated from the frontline areas of Zaporizhzhia, Mykolaiv and Donetsk directions, and volunteers work in a constant shortage of resources.\n\nWe take on those critical requests that other foundations cannot cover: feed, vaccination and sterilization."
+  },
+  "WhatMakesUsDifferent": {
+    "title": "What makes us\n different",
+    "block1": "We support shelters evacuated from Donetsk region",
+    "block2": "We help animals that remain in frontline areas",
+    "block3": "We organize our own thematic charity events for dogs",
+    "block4": "We work with real, current needs of shelters and close those requests that other foundations cannot cover",
+    "block5": "We build a caring community through offline events"
+  },
+  "WhatChangesThanksToUs": {
+    "title": "What changes thanks to us",
+    "items": [
+      "Animal mortality decreases",
+      "Living conditions improve",
+      "Evacuated shelters are supported and restored",
+      "A community of caring people grows",
+      "Charity events become a tool for social unity"
+    ]
+  },
   "ChangeLife": {
     "title": "Together we change animals' lives!",
     "description": "Choose your path of goodness: become a partner or join the volunteers.",
@@ -167,43 +198,6 @@
       "links": [
         { "text": "Become a Partner", "href": "#" },
         { "text": "Organization Reports", "href": "#" }
-      ]
-    },
-    "aboutOwner": {
-      "title": "ABOUT THE CO-FOUNDERS OF THE FOUNDATION",
-      "paragraphs": [
-        {
-          "segments": [
-            {
-              "text": "The founders of the foundation are the Nikonchuk family. Oleh Nikonchuk is the founder of the IT companies 'Versiya' and 'Navionika', which exclusively represent Garmin, Simrad, Lowrance, B&G, Deeper, and Navico in Ukraine. Evheniia Nikonchuk is a two-time bodybuilding champion of Ukraine, vice-champion of the European fitness tournament FITPARADE. She dedicated 10 years to sports, worked as a fitness trainer, and conducted seminars on nutrition and training.",
-              "bold": false
-            }
-          ]
-        },
-        {
-          "segments": [
-            {
-              "text": "\"Since childhood, I've always loved animals and dreamed of having a dog, but I was never allowed to have one,\" says Evheniia. Only at the age of 33 did she get her duo: Elsa, a husky, and Boom, a small mixed-breed dog she found on the roadside. \"Animals teach us compassion and attentiveness to the weak. In charity, humanity grows,\" Evheniia says.",
-              "bold": false
-            }
-          ]
-        },
-        {
-          "segments": [
-            {
-              "text": "Since the start of the full-scale war, Evheniia’s husband has supported the military, while she has focused on animals — the most vulnerable and overlooked group. With family funds, over 5 tons of food and hundreds of medicines, vaccines, and treatments have been sent. But as the number of strays keeps growing, especially near the frontlines, the idea of the 'Tail Angels' Foundation was born — to expand help and unite caring people.",
-              "bold": false
-            }
-          ]
-        },
-        {
-          "segments": [
-            {
-              "text": "\"My mission as a co-founder is to show that animals are part of Ukraine — they are our family. We must be more caring, not only to our pets but also to those without one,\" says Evheniia.",
-              "bold": false
-            }
-          ]
-        }
       ]
     }
   },

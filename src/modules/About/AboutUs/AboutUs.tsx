@@ -68,23 +68,19 @@ const AboutUs = ({
   const handleSubmit = (data: unknown) => {
     console.log("Submited:", data);
   };
-
-    let aboutImages = [];
-  if(windowWidth < 768) {
-       aboutImages = about.imagesMobile.map((src: string) => ({
-          src,
-          alt: about.title
-      }));
+  // Responsive images from Sanity
+  let aboutImages = [];
+  if (windowWidth < 768) {
+    aboutImages = about.imagesMobile.map((src: string) => ({
+      src,
+      alt: about.title,
+    }));
+  } else {
+    aboutImages = about.imagesDesktop.map((src: string) => ({
+      src,
+      alt: about.title,
+    }));
   }
-  else {
-      aboutImages = about.imagesDesktop.map((src: string) => ({
-          src,
-          alt: about.title
-      }));
-  }
-
-  //@ts-expect-error
-  const paragraphs = about.description.map(({children}) => ({segments: [{text: children[0].text, bold: false}]}));
 
   return (
     <div className="lg:grid lg:grid-cols-2 pb-[40px]">
@@ -93,8 +89,9 @@ const AboutUs = ({
       </div>
       <InfoBlock
         titleClassName="xl:mb-[48px]"
-        className="py-[40px] px-[30px]  rounded-[20px] flex flex-col h-full  justify-center laptop:px-[75px] xl:py-[74px]"
-        translation={{title: about.title, paragraphs}}
+        className="p-[30px] rounded-[20px] flex flex-col h-full justify-center xl:p-[93px]"
+        translation={{ title: about.title, paragraphs: [] }}
+        blocks={about.description}
       >
         <motion.div
           className="flex flex-col md:flex-row md:gap-4 mt-[24px] xl:mt-[32px] w-full gap-4 xl:flex-row"

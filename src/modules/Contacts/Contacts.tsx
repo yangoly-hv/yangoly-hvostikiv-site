@@ -96,22 +96,24 @@ const Contacts = async () => {
           <ContactForm lang={lang} />
         </div>
       </div>
+      <div className="hidden xl:block absolute bottom-0 right-[35%] z-10 w-[678px] aspect-[678/571]">
         <Image
             src="/images/contacts-union.png"
             alt="Two dogs"
             width={274}
             height={373}
             priority
-            className="hidden xl:block absolute bottom-0 right-[58%] z-8 w-[274px] h-auto"
+            className="w-[274px] h-auto absolute bottom-0 left-[60px] -z-10"
         />
-      <Image
-        src="/images/contacts-dog.png"
-        alt="Two dogs"
-        width={682}
-        height={1017}
-        priority
-        className="hidden xl:block absolute bottom-0 right-[35%] z-10 w-[678px] h-auto"
-      />
+        <Image
+          src="/images/contacts-dog.png"
+          alt="Two dogs"
+          width={682}
+          height={571}
+          priority
+          className="w-[682px] h-auto absolute bottom-0 left-[10px]"
+        />
+      </div>
     </section>
   );
 };
