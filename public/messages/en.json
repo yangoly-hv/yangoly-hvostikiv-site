@@ -132,6 +132,14 @@
       "name": "sterilized"
     }
   ],
+  "ActivityDirections": {
+    "title": "AREAS OF ACTIVITY",
+    "items": [
+      "Provision of food",
+      "Veterinary support (sterilization, vaccination, treatments, medical care)",
+      "Restoration of enclosures"
+    ]
+  },
   "ChangeLife": {
     "title": "Together we change animals' lives!",
     "description": "Choose your path of goodness: become a partner or join the volunteers.",
