@@ -9,11 +9,10 @@
       "monthly": "Together we save animals from frontline territories. Every donation means warmth, food, and safety."
     },
     "onceItems": {
-      "100": "1 day of full nutrition for a puppy",
-      "250": "A new warm bedding for the shelter",
-      "500": "Transportation of an animal from a dangerous area",
-      "1000": "Surgery or complex medical treatment",
-      "2500": "One month of life for a rescued pet"
+      "100": "1 day of food for a puppy or kitten",
+      "200": "A vaccine for one tail",
+      "600": "A bag of food for a dog",
+      "1500": "Veterinary care for one animal"
     },
     "monthlyItems": {
       "250": "20 portions of dog food",
@@ -111,10 +110,8 @@
     }
   },
   "Hero": {
-    "title": "Angels of Tails",
-    "subtitle": "Charity Fund",
+    "title": "Help animals feel needed in this world",
     "callToAction": "Become an Angel for Tails with us!",
-    "text": "Help animals feel needed in this world",
     "button": "Help a Tail"
   },
   "WorkResults": [

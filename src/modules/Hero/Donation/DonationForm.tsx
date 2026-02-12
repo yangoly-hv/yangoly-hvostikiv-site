@@ -20,7 +20,7 @@ interface FormValues {
     amount: number | '';
 }
 // #4C7B671A
-const onceValues = [100, 250, 500, 1000, 2500];
+const onceValues = [100, 200, 600, 1500];
 const monthlyValues = [250, 500, 1000, 1500, 2500];
 
 export default function DonationForm() {
@@ -78,9 +78,9 @@ export default function DonationForm() {
     const icons = tab === "once" ? onceImages : monthlyImages;
 
     return (
-        <div className="max-w-[660px] rounded-[8px] bg-white px-[16px] xl:px-[32px]  py-[32px] shadow-md">
+        <div className="max-w-[524px] rounded-[8px] bg-white px-[16px] xl:p-[25px] py-[32px] shadow-md">
             {/* Tabs */}
-            <div className="mb-[24px] xl:mb-[32px] grid grid-cols-2 rounded-[10px] border-2 border-[#4C7B67]">
+            <div className="mb-[24px] xl:mb-[25px] grid grid-cols-2 rounded-[10px] border-2 border-[#4C7B67]">
                 {(['once', 'monthly'] as Tab[]).map((key) => (
                     <button
                         key={key}
@@ -90,7 +90,7 @@ export default function DonationForm() {
                             setTab(key);
                         }}
                         className={clsx(
-                            'rounded-[8px] py-2 px-4 xl:px-0 text-[16px] xl:text-[18px] transition',
+                            'rounded-[8px] py-2 px-4 xl:px-0 text-[16px] xl:text-[14px] transition',
                             tab === key
                                 ? 'bg-[#4C7B67] text-white font-semibold'
                                 : 'text-black'
@@ -102,12 +102,12 @@ export default function DonationForm() {
             </div>
 
             {/* Description */}
-            <p className="mb-[24px] xl:mb-[32px] text-center text-[16px] xl:text-[18px]">
+            <p className="mb-[24px] xl:mb-[25px] text-center text-[16px] xl:text-[14px]">
                 {t(`descriptions.${tab}`)}
             </p>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 xl:space-y-[25px]">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-[13px]">
                     {values.map((value, idx) => (
                         <button
                             key={value}
@@ -117,10 +117,10 @@ export default function DonationForm() {
                                 'flex items-center gap-3 rounded-[10px] px-[16px] py-[8px] text-left transition',
                                 amount === value
                                     ? 'border-2 border-[#4C7B67] bg-[#4C7B67]/20'
-                                    : 'border-[1.5px] border-[#828282]'
+                                    : 'border-2 border-[#828282]'
                             )}
                         >
-                            <div className={`flex justify-center items-center h-[56px] w-[56px] shrink-0 rounded-[4px] ${amount === value ? "bg-white" : "bg-[rgba(76, 123, 103, 0.1)]"}`}>
+                            <div className={`flex justify-center items-center h-[56px] w-[56px] lg:size-[45px] shrink-0 rounded-[4px] ${amount === value ? "bg-white" : "bg-[rgba(76, 123, 103, 0.1)]"}`}>
                                 <Image
                                     key={icons[idx].alt}
                                     src={icons[idx].src}
@@ -131,13 +131,13 @@ export default function DonationForm() {
                             </div>
 
                             <div>
-                                <div className="text-[24px] font-semibold leading-[130%]">
+                                <div className="text-[24px] lg:text-[19px] font-semibold leading-[130%]">
                                     {value} ₴
                                     {tab === 'monthly' && (
                                         <span> / міс</span>
                                     )}
                                 </div>
-                                <div className="mt-1 text-[14px] leading-[130%]">
+                                <div className="mt-1 text-[14px] lg:text-[11px] leading-[130%]">
                                     {t(`${tab}Items.${value}`)}
                                 </div>
                             </div>
@@ -174,7 +174,7 @@ export default function DonationForm() {
                     // onClick={() => setIsDonateModalOpen(true)}
                     onClick={onSubmit}
                     text={t('submit')}
-                    className="w-full mb-3 desk:mb-8 xl:h-[67px]"
+                    className="w-full mb-3 desk:mb-8 xl:h-[53px] lg:text-[14px]"
                     type="button"
                 ></Button>
                 {/*<button*/}

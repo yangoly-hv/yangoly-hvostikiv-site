@@ -23,7 +23,7 @@ const  WorkResults = async () => {
     // }
 
   return (
-    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-[#140A01]">
+    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-green">
       <motion.ul
         initial="hidden"
         whileInView="visible"

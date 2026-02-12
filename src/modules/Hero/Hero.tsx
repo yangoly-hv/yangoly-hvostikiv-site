@@ -30,32 +30,13 @@ const Hero = async () => {
         {/*  sizes="100vw"*/}
         {/*/>*/}
       </div>
-
         <div className="relative lg:py-[20px] xl:py-0 lg:pl-[20px] xl:pl-0 flex justify-center flex-wrap lg:flex-nowrap gap-[57px] z-10">
             <div className="order-2 md:order-1">
                 <DonationForm />
             </div>
-
             <div className="order-1 md:order-2 max-w-[700px] lg:max-w-[50%] xl:max-w-[700px] lg:flex lg:content-between flex-wrap mt-[386px] lg:mt-[20px] xl:mt-0">
-                <div>
-                    <motion.h2
-                        className="text-white font-black leading-[122%] uppercase text-center lg:text-left text-[16px] lg:text-[31px] xl:text-[36px] lg:font-extrabold"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{once: true}}
-                        variants={{
-                            hidden: {opacity: 0, y: 20},
-                            visible: {
-                                opacity: 1,
-                                y: 0,
-                                transition: {duration: 0.6, delay: 0.2},
-                            },
-                        }}
-                    >
-                        {t("subtitle")}
-                    </motion.h2>
                     <motion.h1
-                        className="text-white font-black uppercase text-center leading-[122%] lg:text-left  mt-[12px] text-[40px] lg:text-[80px] xl:text-[100px] xl:font-extrabold"
+                        className="text-white font-black uppercase text-center leading-[122%] lg:text-left  mt-[12px] text-[32px] lg:text-[52px] xl:text-[64px] xl:font-extrabold"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{once: true}}
@@ -66,8 +47,6 @@ const Hero = async () => {
                     >
                         {t("title")}
                     </motion.h1>
-                </div>
-                <div>
                     <motion.div
                         className="mx-auto xl:mx-0 max-w-[288px] mt-[14px] xl:mt-0 xl:max-w-full xl:w-full flex flex-col items-center xl:flex-row xl:justify-between"
                         initial="hidden"
@@ -88,30 +67,7 @@ const Hero = async () => {
                             {t("callToAction")}
                         </motion.p>
                     </motion.div>
-                    <motion.div
-                        className="mx-auto xl:mx-0 max-w-[288px] flex flex-col items-center xl:flex-row xl:max-w-full xl:w-full xl:justify-between"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{once: true}}
-                    >
-                        <motion.p
-                            className="text-white mt-[14px] mb-0 lg:mb-[20px] xl:mb-0 text-center leading-[122%] text-[16px]  lg:text-[20px] xl:max-w-[432px] lg:text-left"
-                            variants={{
-                                hidden: {opacity: 0, y: 20},
-                                visible: {
-                                    opacity: 1,
-                                    y: 0,
-                                    transition: {duration: 0.6, delay: 0.8},
-                                },
-                            }}
-                        >
-                            {t("text")}
-                        </motion.p>
-                    </motion.div>
-                </div>
-
             </div>
-
         </div>
     </section>
   );
