@@ -133,11 +133,34 @@
     }
   ],
   "ActivityDirections": {
-    "title": "AREAS OF ACTIVITY",
+    "title": "AREAS OF\n ACTIVITY",
     "items": [
       "Provision of food",
       "Veterinary support (sterilization, vaccination, treatments, medical care)",
       "Restoration of enclosures"
+    ]
+  },
+  "ProblemsWeSolve": {
+    "title": "Problems we solve",
+    "block1": "Due to the full-scale war, many shelters were forced to evacuate from Donetsk region, losing their territories, infrastructure and enclosures.\n\nThey are starting from scratch in new locations and urgently need to restore basic conditions (quality enclosures), feed, and veterinary care.\n\nThe number of animals in such shelters is constantly growing due to the continuous evacuation of animals.",
+    "block2": "Due to overcrowded shelters, many animals cannot be evacuated from the frontline areas of Zaporizhzhia, Mykolaiv and Donetsk directions, and volunteers work in a constant shortage of resources.\n\nWe take on those critical requests that other foundations cannot cover: feed, vaccination and sterilization."
+  },
+  "WhatMakesUsDifferent": {
+    "title": "What makes us different",
+    "block1": "We support shelters evacuated from Donetsk region",
+    "block2": "We help animals that remain in frontline areas",
+    "block3": "We organize our own thematic charity events for dogs",
+    "block4": "We work with real, current needs of shelters and close those requests that other foundations cannot cover",
+    "block5": "We build a caring community through offline events"
+  },
+  "WhatChangesThanksToUs": {
+    "title": "What changes thanks to us",
+    "items": [
+      "Animal mortality decreases",
+      "Living conditions improve",
+      "Evacuated shelters are supported and restored",
+      "A community of caring people grows",
+      "Charity events become a tool for social unity"
     ]
   },
   "ChangeLife": {
