@@ -434,6 +434,7 @@ export interface IWhatWeHaveItem {
   text: string;
   imgPath: string;
   bgPath: string;
+  bgColor: string;
 }
 
 export interface IVolunteeringCardProps extends ComponentProps<"li"> {

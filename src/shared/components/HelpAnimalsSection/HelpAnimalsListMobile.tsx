@@ -18,7 +18,7 @@ const HelpAnimalsListMobile = ({ list }: { list: IHelpAnimalsListItem[] }) => {
       {list.map((item, index) => (
         <motion.div
           variants={listItemVariants}
-          className="flex flex-col justify-between h-full rounded-[8px] border-[3px] border-[#EACCAA] py-6 px-[10px]"
+          className="flex flex-col justify-between h-full rounded-[8px] border-[3px] border-[#EACCAA] py-[21px] px-[7px]"
           key={index}
         >
           <div>
@@ -36,9 +36,9 @@ const HelpAnimalsListMobile = ({ list }: { list: IHelpAnimalsListItem[] }) => {
             <p className="text-[18px] leading-[130%] font-bold mt-[30px]">
               {item.subtitle}
             </p>
-            <ul className="mt-[5px] flex flex-col gap-4">
+            <ul className="mt-[15px] flex flex-col gap-4">
               {item.paragraphs.map((paragraph, index) => (
-                <li className="flex gap-4 items-center" key={index}>
+                <li className="flex gap-2 items-center" key={index}>
                   <Image
                     src={paragraph.icon}
                     alt={paragraph.text}
@@ -52,7 +52,7 @@ const HelpAnimalsListMobile = ({ list }: { list: IHelpAnimalsListItem[] }) => {
               ))}
             </ul>
           </div>
-          <div className="mt-auto pt-6">
+          <div className="mt-auto pt-[30px]">
             <ContactFormAction buttonText={item.buttonText} />
           </div>
         </motion.div>
