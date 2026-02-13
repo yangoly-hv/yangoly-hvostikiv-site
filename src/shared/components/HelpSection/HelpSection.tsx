@@ -25,7 +25,7 @@ const HelpSection = async () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
         viewport={{ once: true, amount: 0.2 }}
-        className="mt-4 xl:max-w-[818px] text-[18px] font-medium leading-[130%]"
+        className="mt-4 xl:max-w-[818px] text-[18px] font-medium leading-[130%] whitespace-pre-line"
       >
         {t("helpSubtitle")}
       </motion.p>

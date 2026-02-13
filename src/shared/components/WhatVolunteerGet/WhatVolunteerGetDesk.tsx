@@ -15,7 +15,16 @@ const WhatVolunteerGetDesk = ({
   paragraphs: string[];
 }) => {
   return (
-    <section className="mt-[40px] container px-4 xl:px-[40px] mx-auto hidden lg:block pb-[100px]">
+    <section className="relative pb-[120px] px-4 xl:px-[40px] mx-auto hidden lg:block">
+      <div className="absolute z-10 bottom-[30px] xl:bottom-[-60px] right-[-67px] w-[540px] h-[314px] xl:w-[900px] xl:h-[617px]">
+        <Image
+          src="/images/volounteering/animals.webp"
+          alt="Dogs"
+          fill
+          className="object-contain"
+          sizes="(max-width: 1024px) 50vw, 33vw"
+        />
+      </div>
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -41,7 +50,7 @@ const WhatVolunteerGetDesk = ({
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={listItemVariants}
-        className="bg-[#F4E1C1] rounded-[8px] mt-[45px] pl-[32px] pt-[68px] pb-[50px] relative"
+        className="relative rounded-[8px] overflow-hidden w-full bg-[#F4E1C1] mt-[45px] pl-[32px] pt-[68px] pb-[64px]"
       >
         <Image
           src="/images/volounteering/paw-1.png"
@@ -62,23 +71,9 @@ const WhatVolunteerGetDesk = ({
           alt="Paws"
           width={131}
           height={131}
-          className="absolute left-[230px] xl:left-[400px] bottom-0"
+          className="absolute left-[230px] lg:left-auto lg:right-[756px] bottom-0"
         />
-        <Image
-          src="/images/volounteering/ellipse-desk.png"
-          alt="Paws"
-          width={900}
-          height={175}
-          className="absolute right-[-40px] w-[700px] xl:w-[900px]  xl:right-[-100px] 2xl:right-[-50px] 2xl:w-[1000px] 2xl:h-[185px] 2xl:bottom-[-50px] xl:bottom-[-40px] bottom-[-50px]"
-        />
-        <Image
-          src="/images/volounteering/dogs-desk.webp"
-          alt="Paws"
-          width={1052}
-          height={681}
-          className="absolute right-[20px] aspect-[1052/681] w-[700px] xl:w-[897px] xl:h-[581px] 2xl:w-[1052px] 2xl:h-[681px] xl:bottom-[-110px] 2xl:bottom-[-150px] xl:right-[-50px] 2xl:right-[-50px]  bottom-[-100px]"
-        />
-        <ul className="flex flex-col gap-6 max-w-[645px] 2xl:max-w-[675px]">
+        <ul className="relative z-10 flex flex-col gap-6 max-w-[645px] 2xl:max-w-[675px]">
           {paragraphs.map((paragraph, index) => (
             <li
               className={clsx(
