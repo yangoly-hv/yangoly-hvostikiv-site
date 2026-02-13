@@ -1,3 +1,9 @@
+export function extractFirstParagraphText(html: string): string;
+
+export function extractTextFromHTML(htmlString: string): string;
+
+export function extractParagraphs(htmlString: string): string[];
+
 /** Input shape for getBlogItemData (legacy + new schema; createdAt/publishedAt optional). */
 export interface GetBlogItemDataInput {
   _id: string;
