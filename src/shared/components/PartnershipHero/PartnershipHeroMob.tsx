@@ -93,6 +93,8 @@ const PartnershipHeroMob = async () => {
           alt="Dogs"
           width={277}
           height={304}
+          priority
+          sizes="100vw"
         />
       </div>
       {/* <motion.div

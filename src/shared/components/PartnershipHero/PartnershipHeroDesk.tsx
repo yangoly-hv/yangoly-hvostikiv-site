@@ -94,6 +94,8 @@ const PartnershipHeroDesk = async () => {
             alt="Dogs"
             width={749}
             height={783}
+            priority
+            sizes="100vw"
             className="block z-10 aspect-ratio-[749/783] absolute bottom-[-100px] tabxl:bottom-[-114px]  right-[60px] xl:bottom-[-141px] laptop:bottom-[-125px] 2xl:bottom-[-142px] desk:bottom-[-142px]"
           />
           <HeartIcon

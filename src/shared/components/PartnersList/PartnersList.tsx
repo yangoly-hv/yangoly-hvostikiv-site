@@ -6,7 +6,6 @@ import {
   containerVariants,
   listItemVariants,
 } from "../Animations/animationVariants";
-import Image from "next/image";
 
 const PartnersList = async () => {
   const t = await getTranslations("PartnersList");

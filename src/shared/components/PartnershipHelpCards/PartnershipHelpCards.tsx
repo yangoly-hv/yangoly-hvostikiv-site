@@ -54,6 +54,7 @@ const PartnershipHelpCards = async () => {
                       alt=""
                       width={card.widthMob}
                       height={card.heightMob}
+                      sizes="100vw"
                       className="object-contain"
 
                     />
@@ -69,6 +70,7 @@ const PartnershipHelpCards = async () => {
                       alt=""
                       width={card.widthDesk}
                       height={card.heightDesk}
+                      sizes="50vw"
                       className="object-contain"
                     />
                   </div>
