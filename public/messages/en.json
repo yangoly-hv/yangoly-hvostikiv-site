@@ -544,46 +544,51 @@
   "ChairtyEvents": {
     "title": "Our Charity Events",
     "missionTitle": "The Mission of Our Events",
-    "missionText": "Using joy and entertainment to help animals in frontline areas",
-    "missionTitleMob": "Thanks to you, we held 4 events that changed animals’ lives!",
-    "missionTitleDesk": "Thanks to your support, we successfully held 4 events, making a positive impact on animals’ lives.",
+    "missionText": "All our charity events are held with the support of the Obolon District State Administration in Kyiv and the Obolon Department of Culture.",
+    "missionTitleMob": "We have held 7 events that are changing the lives of animals from the frontline.",
+    "missionTitleDesk": "We have held 7 events that are changing the lives of animals from the frontline.",
     "paragraphs": [
-      "Friends, let’s imagine — what emotions do charity foundations often evoke in us? Sadness, pain, despair... In these difficult times, we are overwhelmed with sorrow, worry, and stress.",
-      "Analyzing this, we decided to make charity fun.<br />It’s a chance to help animals not just through donations, but through participation in exciting events.",
-      "Unfortunately, during war it’s very hard to stay positive and joyful — we completely understand. That’s why fundraising is difficult. People are tired of donating, often walk past, indifferent, filled with disappointment and sadness."
+      "Our charity events are family events for people and dogs. All activities and zones are designed to make participation interesting for dogs, children and adults.",
+      "Imagine that we are taking you back to a carefree childhood for a few hours. Our charity events are a warm, family atmosphere where you can get away from urgent worries, feel like a child again and, together with your family and four-legged friends, immerse yourself in sincere children's emotions and become a little happier.",
+      "The first charity event of the foundation took place on August 20, 2024. It is thanks to such events that we manage to close relevant meetings, help animals in need and form a strong, responsible and caring community of people."
     ],
     "whatWeHave": {
       "title": "What’s at Our Charity Events?",
       "list": [
         {
-          "title": "Themed Photo Zone",
-          "text": "We create stylish decorations with costumes for dogs and their owners so guests can take bright photos. A professional photographer captures the best moments of your day.",
+          "title": "Themed Photo Zones and Animators",
+          "text": "We create atmospheric photo zones in Halloween, Christmas, Alice in Wonderland and other themes.\nFor guests with dogs we always have themed costumes.\nAnimators from Myata event agency add real holiday spirit to the event, and a professional photographer captures the best moments.",
           "imgPath": "/images/events/list/img-1.webp",
-          "bgPath": "/images/events/list/bg-1.png"
+          "bgPath": "/images/events/list/bg-1.png",
+          "bgColor": "#FFD699"
         },
         {
-          "title": "Win-Win Lottery",
-          "text": "For a donation, participants receive guaranteed gifts from our partners. A great opportunity to support the cause and receive a pleasant surprise!",
+          "title": "No-Lose Lottery",
+          "text": "For a donation each participant is guaranteed to receive gifts for their tails from our partners.",
           "imgPath": "/images/events/list/img-2.webp",
-          "bgPath": "/images/events/list/bg-2.png"
+          "bgPath": "/images/events/list/bg-2.png",
+          "bgColor": "#D6E6D5"
         },
         {
           "title": "Grooming from the V.O.G DOG salon chain",
           "text": "A team of female groomers dye the tails' fur, apply glitter tattoos, glue on rhinestones, braid and extend pigtails, trim claws, comb hair, and much more.",
-          "imgPath": "/images/events/list/img-3-1.jpg",
-          "bgPath": "/images/events/list/bg-3.png"
+          "imgPath": "/images/events/list/img-3.jpg",
+          "bgPath": "/images/events/list/bg-3.png",
+          "bgColor": "#DFD8EC"
         },
         {
-          "title": "Paintings with Paw and Hand Prints",
-          "text": "Unique souvenirs that will last a lifetime. These paintings will be a lasting reminder of a special day.",
+          "title": "Paw and Hand Prints",
+          "text": "For a donation guests and dogs leave prints with safe paints on canvases.",
           "imgPath": "/images/events/list/img-4.webp",
-          "bgPath": "/images/events/list/bg-4.png"
+          "bgPath": "/images/events/list/bg-4.png",
+          "bgColor": "#F4E1C1"
         },
         {
-          "title": "Educational Social Mission",
-          "text": "Raising awareness about stray animals and promoting responsible pet ownership.",
+          "title": "Tea Table",
+          "text": "For a voluntary donation guests can enjoy drinks and treats from our partners. We even have vegan sugar-free desserts.",
           "imgPath": "/images/events/list/img-5.webp",
-          "bgPath": "/images/events/list/bg-5.png"
+          "bgPath": "/images/events/list/bg-5.png",
+          "bgColor": "#DDF8BC"
         }
       ]
     },
