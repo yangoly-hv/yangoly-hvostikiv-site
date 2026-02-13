@@ -1,5 +1,6 @@
 import * as motion from "motion/react-client";
 import Image from "next/image";
+import { PawIcon } from "@/shared/components/Icons/PawIcon";
 import {
   containerVariants,
   listItemVariants,
@@ -16,7 +17,16 @@ const WhatVolunteerGetMobile = ({
 }) => {
   return (
     <div className="relative lg:hidden">
-      <section className="mt-[40px] container px-4 xl:px-[40px] mx-auto ">
+      <section className="relative mt-[40px] container pt-[40px] pb-[89px] mx-auto px-4 xl:px-[40px]">
+        <div className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 w-[540px] h-[267px]">
+          <Image
+            src="/images/volounteering/animals.webp"
+            alt="Dogs"
+            fill
+            className="object-contain"
+            sizes="(max-width: 768px) 100vw, 540px"
+          />
+        </div>
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -41,9 +51,12 @@ const WhatVolunteerGetMobile = ({
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={listItemVariants}
-          className="bg-[#F4E1C1]  rounded-[8px] mt-[40px] "
+          className="relative rounded-[8px] overflow-hidden w-full bg-[#F4E1C1] mt-[40px] px-[32px] pt-[32px] pb-[187px]"
         >
-          <ul className="flex flex-col gap-6 pt-[32px] px-[32px] pb-[200px]">
+          <PawIcon className="absolute top-[-17px] right-[-17px] w-[81px] h-[81px] text-[#BB9B53] rotate-[30deg] opacity-30" />
+          <PawIcon className="absolute top-[-17px] left-[-17px] w-[66px] h-[66px] text-[#BB9B53] rotate-[-44deg] opacity-30" />
+          <PawIcon className="absolute bottom-[77px] left-[-18px] w-[79px] h-[79px] text-[#BB9B53] rotate-[150deg] opacity-30" />
+          <ul className="relative z-10 flex flex-col gap-6">
             {paragraphs.map((paragraph, index) => (
               <li key={index}>
                 <p className="text-[14px] leading-[130%] flex gap-[10px] items-center">
@@ -57,31 +70,7 @@ const WhatVolunteerGetMobile = ({
           </ul>
         </motion.div>
       </section>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={listItemVariants}
-        className="mt-[-250px]"
-      >
-        <div className="relative  mx-auto max-w-[524px]  h-[350px] ">
-          <Image
-            src="/images/volounteering/dogs-mob.webp"
-            className=" md:bottom-[20px]  absolute z-[2]"
-            fill
-            alt="Dogs"
-          />
-        </div>
-        <div className="relative mt-[-140px] h-[105px] w-full ">
-          <Image
-            src="/images/volounteering/ellipse-mob.png"
-            fill
-            alt="Ellipse"
-            className=" z-[1]"
-          />
-        </div>
-      </motion.div>
-      <div className="h-[100px]"></div>
+      <div className="h-[100px]" />
     </div>
   );
 };

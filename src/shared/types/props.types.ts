@@ -394,7 +394,10 @@ export interface IReportProps {
 export interface IHelpVolonteeringTranslation {
   title: string;
   paragraphs?: string[];
+  /** Intro paragraph (first text block) */
   text?: string;
+  /** Label before the bullet list (second text block), e.g. "Що потрібно робити:" */
+  listLabel?: string;
   imagePath: string;
   imagePathDesk?: string;
   bg: string;

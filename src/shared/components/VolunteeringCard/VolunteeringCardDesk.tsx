@@ -28,16 +28,26 @@ const VolunteeringCardDesk = ({
       <div className="px-4 pl-[36px] z-[2]">
         <h3
           className={clsx(
-            "font-arial text-[32px] tracking-[-0.225px] leading-[141%]",
+            "mb-3 font-arial text-[32px] tracking-[-0.225px] leading-[141%] whitespace-pre-line",
             index === 0 && "w-full max-w-[420px] ",
             index === 1 && "w-full max-w-[561px] "
           )}
         >
           {item.title}
         </h3>
+        {item.text && (
+          <p className="mb-4 text-[18px] leading-[133%]">
+            {item.text}
+          </p>
+        )}
+        {item.listLabel && (
+          <p className="mb-2 text-[18px] leading-[133%] font-medium">
+            {item.listLabel}
+          </p>
+        )}
         <ul
           className={clsx(
-            "grid grid-cols-1  gap-1 list-disc ml-[20px]",
+            "grid grid-cols-1  gap-2 list-disc ml-[20px]",
             index === 0 && "max-w-[420px]",
             index === 3 && "w-full max-w-[393px]",
             index === 2 && "w-full max-w-[446px]",
@@ -48,7 +58,7 @@ const VolunteeringCardDesk = ({
             item.paragraphs.map((paragraph, index) => (
               <li
                 className={clsx(
-                  "p-[10px] text-[18px] leading-[114%] tracking-[-0.225px]",
+                  "px-[10px] text-[18px] leading-[114%] tracking-[-0.225px]",
                   index === 3 && "max-w-[384px]"
                 )}
                 key={index}
