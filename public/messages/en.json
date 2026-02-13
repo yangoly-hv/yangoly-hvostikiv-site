@@ -400,16 +400,15 @@
     "title": "Our partners - our heroes!",
     "list": [
       {
-        "title": "Pesyky Fest",
+        "title": "Obolon Department of Culture",
         "image": {
-          "imagePath": "/images/partners/pesiki-fest.png",
-          "widthMob": 101,
-          "heightMob": 87,
-          "widthDesk": 203,
-          "heightDesk": 176,
-          "bg": "#7030A0"
+          "imagePath": "/images/partners/kultura.png",
+          "widthMob": 261,
+          "heightMob": 91,
+          "widthDesk": 588,
+          "heightDesk": 217
         },
-        "text": "The largest festival for dogs and their owners in Kyiv! Fun, competitions, lectures, and an atmosphere full of love for our four-legged friends.",
+        "text": "",
         "buttonText": "Learn more",
         "buttonLink": ""
       },
@@ -422,20 +421,21 @@
           "widthDesk": 177,
           "heightDesk": 237
         },
-        "text": "A governmental institution supporting social, cultural, and charitable initiatives for community development.",
+        "text": "",
         "buttonText": "Learn more",
         "buttonLink": ""
       },
       {
-        "title": "Obolon Department of Culture",
+        "title": "Pesyky Fest",
         "image": {
-          "imagePath": "/images/partners/kultura.png",
-          "widthMob": 261,
-          "heightMob": 91,
-          "widthDesk": 588,
-          "heightDesk": 217
+          "imagePath": "/images/partners/pesiki-fest.png",
+          "widthMob": 101,
+          "heightMob": 87,
+          "widthDesk": 203,
+          "heightDesk": 176,
+          "bg": "#7030A0"
         },
-        "text": "A subdivision implementing cultural projects and supporting creative community initiatives.",
+        "text": "",
         "buttonText": "Learn more",
         "buttonLink": ""
       },
@@ -448,7 +448,7 @@
           "widthDesk": 244,
           "heightDesk": 112
         },
-        "text": "A creative space in Ukraine where art, culture, and initiatives support animal welfare.",
+        "text": "",
         "buttonText": "Learn more",
         "buttonLink": ""
       },
@@ -461,7 +461,7 @@
           "widthDesk": 392,
           "heightDesk": 47
         },
-        "text": "An innovative company developing safety technologies and supporting animal aid initiatives.",
+        "text": "",
         "buttonText": "Learn more",
         "buttonLink": ""
       },
@@ -474,7 +474,20 @@
           "widthDesk": 470,
           "heightDesk": 162
         },
-        "text": "A well-known pet food brand that supports rescue initiatives and responsible pet care.",
+        "text": "",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      },
+      {
+        "title": "Mayata event agency",
+        "image": {
+          "imagePath": "/images/partners/mayata.png",
+          "widthMob": 180,
+          "heightMob": 60,
+          "widthDesk": 240,
+          "heightDesk": 80
+        },
+        "text": "",
         "buttonText": "Learn more",
         "buttonLink": ""
       },
@@ -487,59 +500,106 @@
           "widthDesk": 175,
           "heightDesk": 217
         },
-        "text": "A Ukrainian pet food brand that supports rescue initiatives and the health of your beloved pets.",
+        "text": "",
+        "buttonText": "Learn more",
+        "buttonLink": ""
+      },
+      {
+        "title": "V.O.G DOG salon",
+        "image": {
+          "imagePath": "/images/partners/vog-dog.png",
+          "widthMob": 180,
+          "heightMob": 60,
+          "widthDesk": 240,
+          "heightDesk": 80
+        },
+        "text": "",
         "buttonText": "Learn more",
         "buttonLink": ""
       }
     ]
   },
-  "PartnersSupport": {
-    "titleMob": "Animal support means a new life!",
-    "titleDesk": "Your support gives animals a chance for a new life. Join us!",
-    "partnersButton": "Become a partner",
-    "documentsButton": "Our founding documents",
-    "firstPart": {
-      "title": "How you can help:",
-      "list": [
-        {
-          "imgPath": "/images/partners/support/1.png",
-          "text": "Financial support – food, medicine, treatments, vaccines, sterilization, kennel construction, etc."
-        },
-        {
-          "imgPath": "/images/partners/support/2.png",
-          "text": "Material assistance – providing food, medical supplies, animal care items, and other necessary resources."
-        },
-        {
-          "imgPath": "/images/partners/support/3.png",
-          "text": "Volunteering – active involvement of employees and volunteers in charity events and animal support activities."
-        },
-        {
-          "imgPath": "/images/partners/support/4.png",
-          "text": "Informational support – spreading awareness about the foundation's work and attracting new partners and donors."
-        }
-      ]
-    },
-    "secondPart": {
-      "title": "How it benefits you:",
-      "list": [
-        {
-          "imgPath": "/images/partners/support/5.png",
-          "text": "Social responsibility – building a positive image for your business and demonstrating civic engagement."
-        },
-        {
-          "imgPath": "/images/partners/support/6.png",
-          "text": "Informational support and PR – partner promotion, free publicity, and public acknowledgements."
-        },
-        {
-          "imgPath": "/images/partners/support/7.png",
-          "text": "Transparency and reporting – regular reports on how funds are used."
-        },
-        {
-          "imgPath": "/images/partners/support/8.png",
-          "text": "Outdoor promotion at events – showcasing your products and direct engagement with the audience."
-        }
-      ]
-    }
+  "PartnershipHelpCards": {
+    "title": "How you can help",
+    "cards": [
+      {
+        "title": "Financial support (targeted funds)",
+        "text": "Funds for the basic needs of animals: food, veterinary care, treatments, vaccination, sterilization, construction and equipping of enclosures, as well as other current needs of our shelter wards.",
+        "bgColor": "#FFD699",
+        "imgPath": "/images/partners/card-1.webp",
+        "widthMob": 644,
+        "heightMob": 644,
+        "widthDesk": 657,
+        "heightDesk": 657,
+        "topMob": 177,
+        "topDesk": 36,
+        "rightMob": -231,
+        "rightDesk": -256
+      },
+      {
+        "title": "Financial support for operational expenses",
+        "text": "Funds for salaries of the foundation team, advertising, communications and social media management, which allows the foundation to work steadily, attract new partners and scale help for animals.",
+        "bgColor": "#DFD8EC",
+        "imgPath": "/images/partners/card-2.webp",
+        "widthMob": 504,
+        "heightMob": 315,
+        "widthDesk": 595,
+        "heightDesk": 372,
+        "topMob": 133,
+        "topDesk": 0,
+        "rightMob": -11,
+        "rightDesk": -37
+      },
+      {
+        "title": "Resource assistance",
+        "text": "Providing feed, treatments, vaccines, veterinary drugs, pet supplies and other necessary resources for animals under the care of the foundation and partner shelters.",
+        "bgColor": "#D6E6D5",
+        "imgPath": "/images/partners/card-3.webp",
+        "widthMob": 681,
+        "heightMob": 681,
+        "widthDesk": 773,
+        "heightDesk": 773,
+        "topMob": 149,
+        "topDesk": -25,
+        "rightMob": -176,
+        "rightDesk": -215
+      },
+      {
+        "title": "Informational support",
+        "text": "Spreading information about the foundation's activities, PR support, information partnership, as well as attracting new partners and donors.",
+        "bgColor": "#DDF8BC",
+        "imgPath": "/images/partners/card-4.webp",
+        "widthMob": 463,
+        "heightMob": 463,
+        "widthDesk": 574,
+        "heightDesk": 574,
+        "topMob": 156,
+        "topDesk": 12,
+        "rightMob": -106,
+        "rightDesk": -126
+      }
+    ]
+  },
+  "PartnershipBenefitsForYou": {
+    "title": "How it benefits you",
+    "items": [
+      {
+        "title": "Social responsibility",
+        "text": "Building a positive business image and active civic stance through support of charitable initiatives"
+      },
+      {
+        "title": "Informational support and PR",
+        "text": "Promotion and increased brand recognition of the partner/sponsor among the target audience on the foundation's website and on social media: publications, stories, tags, joint materials, free informational promotion, public acknowledgements"
+      },
+      {
+        "title": "Transparency and reporting",
+        "text": "Regular reports on the use of funds and resources, confirmation of the real results of cooperation"
+      },
+      {
+        "title": "Outdoor promotion at events",
+        "text": "Placement of partner/sponsor logos, products and printed materials, opportunity to present the brand and direct contact with the target audience during charity events"
+      }
+    ]
   },
   "CharityEvents": {
     "title": "Our Charity Events",

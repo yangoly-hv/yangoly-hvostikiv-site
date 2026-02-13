@@ -1,9 +1,7 @@
-import * as motion from "motion/react-client";
-
 import PartnershipHero from "@/shared/components/PartnershipHero/PartnershipHero";
 import PartnersList from "@/shared/components/PartnersList/PartnersList";
-import PartnersSupport from "@/shared/components/PartnersSupport/PartnersSupport";
-import Image from "next/image";
+import PartnershipHelpCards from "@/shared/components/PartnershipHelpCards/PartnershipHelpCards";
+import PartnershipBenefitsForYou from "@/modules/PartnershipBenefitsForYou/PartnershipBenefitsForYou";
 import Contacts from "@/modules/Contacts/Contacts";
 import { Metadata } from "next";
 import { IMetadata, PageParams } from "@/shared/types";
@@ -48,28 +46,9 @@ export default async function ParnershipPage() {
     <>
       <Suspense fallback={<Loading />}>
         <PartnershipHero />
+        <PartnershipHelpCards />
+        <PartnershipBenefitsForYou />
         <PartnersList />
-        <PartnersSupport />
-        <div className="w-full relative">
-          <Image src="/images/partners/support/bg.png" alt="bg" fill />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: 1,
-              ease: "easeOut",
-            }}
-            className="relative aspect-[360/155] w-[360px] sm:w-[500px]  md:w-[650px] lg:w-[850px]  mt-[50px]  xl:w-[1190px] xl:aspect-[1190/515] mx-auto"
-          >
-            <Image
-              src="/images/partners/support/dogs.png"
-              alt="bg"
-              fill
-              className="object-contain"
-            />
-          </motion.div>
-        </div>
         <Contacts />
       </Suspense>
     </>

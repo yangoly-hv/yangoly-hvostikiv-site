@@ -2,10 +2,13 @@ import * as motion from "motion/react-client";
 import { IPartnerItem } from "@/shared/types";
 import clsx from "clsx";
 import Image from "next/image";
-// import Button from "../Button/Button";
 import { listItemVariants } from "../Animations/animationVariants";
+import { cn } from "@/shared/utils";
 
 const PartnersListItem = ({ partner }: { partner: IPartnerItem }) => {
+  const href = partner.buttonLink || "#";
+  const isExternal = href.startsWith("http");
+
   return (
     <motion.div
       variants={listItemVariants}
@@ -13,7 +16,7 @@ const PartnersListItem = ({ partner }: { partner: IPartnerItem }) => {
       initial="hidden"
       whileInView="visible"
       className={clsx(
-        "bg-white rounded-[8px] lg:min-h-[400px] flex flex-col h-full overflow-hidden "
+        "bg-white rounded-[8px] flex flex-col h-full overflow-hidden"
       )}
     >
       <div
@@ -39,15 +42,19 @@ const PartnersListItem = ({ partner }: { partner: IPartnerItem }) => {
         />
       </div>
 
-      <div className="px-[18px] lg:px-[69px] flex flex-col flex-grow mt-4 pb-[20px]">
-        <div>
-          <h2 className="font-arial leading-[130%] text-center uppercase text-[20px] lg:text-[32px]">
-            {partner.title}
-          </h2>
-          <p className="mt-3 text-[14px] leading-[130%] text-center lg:text-[18px]">
-            {partner.text}
-          </p>
-        </div>
+      <div className="px-[18px] lg:px-[24px] py-5 flex flex-col items-center justify-center">
+        <a
+          href={href}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noopener noreferrer" : undefined}
+          className={cn(
+            "uppercase py-3 px-6 rounded-[28px] text-[14px] xl:text-[18px] leading-[110%] font-bold",
+            "text-white bg-green hover:brightness-125 active:scale-95 transition-all duration-300",
+            "inline-block text-center w-full max-w-[240px]"
+          )}
+        >
+          {partner.buttonText}
+        </a>
       </div>
     </motion.div>
   );
