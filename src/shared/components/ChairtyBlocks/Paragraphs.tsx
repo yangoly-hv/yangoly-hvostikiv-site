@@ -12,7 +12,7 @@ interface ParagraphsProps {
 const Paragraphs = ({ title, paragraphs, mobTitle, deskTitle }: ParagraphsProps) => {
   return (
     <section className="pt-[120px] xl:pt-[56px]">
-      <div className="container mx-auto px-4 xl:px-[40px] max-w-[1432px] flex flex-col items-center gap-[20px] md:grid md:grid-cols-[minmax(0,698px)_minmax(0,734px)] md:items-stretch md:gap-0">
+      <div className="container mx-auto px-4 xl:px-[40px] max-w-[1560px] flex flex-col items-center gap-[20px] md:grid md:grid-cols-[minmax(0,698px)_minmax(0,734px)] md:items-stretch md:gap-0">
         <div className="relative w-full h-auto aspect-[328/232] max-w-[698px] md:aspect-auto md:min-h-[320px] min-w-[328px] md:w-full md:min-w-0">
           <Image src="/images/events/parag-image.webp"
             alt="Paragraphs BG"
@@ -76,7 +76,7 @@ const Paragraphs = ({ title, paragraphs, mobTitle, deskTitle }: ParagraphsProps)
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true, amount: 0.2 }}
-            className="hidden lg:block max-w-[1039px] mx-auto text-center font-arial  text-[28px]  leading-[130%] "
+            className="hidden lg:block max-w-[1039px] mx-auto font-arial  text-[28px]  leading-[130%] "
           >
             {deskTitle}
           </motion.h2>

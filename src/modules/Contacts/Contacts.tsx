@@ -11,7 +11,7 @@ const Contacts = async () => {
 
   return (
     <section id="contacts" className="relative h-[800px] lg:h-[634px] bg-green">
-      <div className="container relative z-10 px-4 xl:px-10 top-[60px] lg:top-[113px] mx-auto">
+      <div className="container relative z-10 px-4 xl:px-10 max-w-[1560px] top-[60px] lg:top-[113px] mx-auto">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
           <div className="flex flex-col items-center lg:items-start lg:max-w-[340px]">
             <motion.h2
