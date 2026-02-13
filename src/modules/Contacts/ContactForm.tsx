@@ -39,7 +39,7 @@ const ContactForm = ({ lang }: Props) => {
       whileInView="visible"
       viewport={{ once: true }}
       custom={0.8}
-      className="mt-[44px] max-w-[533px] w-full lg:w-[533px] lg:mt-0 mx-auto lg:mx-0"
+      className="mt-[44px] max-w-[533px] w-full lg:w-[433px] xl:w-[533px] lg:mt-0 mx-auto lg:mx-0"
     >
       {/*@ts-expect-error */}
       {!submiteddSuccess && <UniversalForm onSubmit={handleSubmit} {...contactConfig} />}
