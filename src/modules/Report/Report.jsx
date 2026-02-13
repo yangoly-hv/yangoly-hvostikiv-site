@@ -72,7 +72,7 @@ function buildTabsFromReport(report) {
 
 export default function Report({ translation, report }) {
     const { date, title, images } = report;
-    console.log(JSON.stringify(report.foodDescription, null, 2));
+
     const tabs = buildTabsFromReport(report);
 
     return (
