@@ -421,12 +421,19 @@ export interface IPartnerItem {
   buttonLink: string;
 }
 
-export interface IPartnersSupport {
+export interface IPartnershipHelpCard {
   title: string;
-  list: {
-    imgPath: string;
-    text: string;
-  }[];
+  text: string;
+  bgColor: string;
+  imgPath?: string;
+  widthMob: number;
+  heightMob: number;
+  widthDesk: number;
+  heightDesk: number;
+  topMob: number;
+  topDesk: number;
+  rightMob: number;
+  rightDesk: number;
 }
 
 export interface IWhatWeHaveItem {
