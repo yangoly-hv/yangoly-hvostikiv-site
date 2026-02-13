@@ -75,7 +75,11 @@ export default function BlogArticle({ article, translation }: IBlogArticleProps)
           />
         </motion.div>}
       </div>
-      {mainPart && <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]"><PortableTextRenderer value={mainPart} /></div>}
+      {mainPart ? (
+        <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]">
+          <PortableTextRenderer value={mainPart} />
+        </div>
+      ) : null}
       {/*  {mainPart.lists.map((list, idx) => (*/}
       {/*    <Fragment key={idx}>*/}
       {/*      <motion.h2*/}
