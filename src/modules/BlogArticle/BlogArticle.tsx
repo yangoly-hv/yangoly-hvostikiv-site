@@ -10,8 +10,7 @@ import PortableTextRenderer from "@/shared/components/PortableTextRenderer/Porta
 
 import {getBlogItemData} from "@/shared/utils/functions";
 
-export default function BlogArticle({article, translation}: IBlogArticleProps) {
-  //@ts-expect-error
+export default function BlogArticle({ article, translation }: IBlogArticleProps) {
   const transformData = getBlogItemData(article);
 
   const { title, description, mainPhoto, secondaryPhoto, mainPart } = transformData;

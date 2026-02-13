@@ -10,6 +10,7 @@ import {
   ITails,
   IAngelsTranslation,
 } from "./dictionary.types";
+import type { PostWithContent } from "./blog.types";
 import * as yup from "yup";
 import Link from "next/link";
 import { Transition, Target } from "framer-motion";
@@ -324,7 +325,8 @@ export interface IBlogListProps {
 }
 
 export interface IBlogArticleProps {
-  article: INewsItem;
+  /** Raw post from Sanity (legacy: transformed inside via getBlogItemData). */
+  article: PostWithContent;
   translation: IBlog;
 }
 

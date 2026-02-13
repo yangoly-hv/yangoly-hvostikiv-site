@@ -57,7 +57,11 @@ export const getSexTranslation = (sex, locale) => {
     return sex === "boy" ? "Хлопчик" : "Дівчина";
 }
 
-export const getDateFromISO = (date) => new Date(date).toLocaleDateString("ru-RU");
+export const getDateFromISO = (date) => {
+  if (date == null || date === "") return "";
+  const d = new Date(date);
+  return Number.isNaN(d.getTime()) ? "" : d.toLocaleDateString("ru-RU");
+};
 
 // export const getTailData = ({documentId, sex, images, name, description, needs_family, needs_sterilization}, lang) => ({
 //     id: documentId,
@@ -87,10 +91,10 @@ export const getTailData = ({_id, slug, mainImage, images, sex, name, descriptio
     mainText: description,
 });
 
-export const getBlogItemData = ({_id, slug, createdAt, title, description, additionalInfo, mainImage, secondaryImage})=> ({
+export const getBlogItemData = ({_id, slug, createdAt, publishedAt, title, description, additionalInfo, mainImage, secondaryImage})=> ({
     id: _id,
     slug,
-    date: getDateFromISO(createdAt),
+    date: getDateFromISO(publishedAt ?? createdAt),
     title,
     description: description,
     mainText: description,
