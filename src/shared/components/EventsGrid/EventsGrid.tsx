@@ -4,8 +4,8 @@ import * as motion from "motion/react-client";
 const EventsGrid = ({ images }: { images: string[] }) => {
   return (
     <div className="hidden lg:block">
-      <div className="grid grid-cols-[2.92fr_2.82fr_5.92fr] gap-5">
-        {/* Перший стовпчик */}
+      <div className="grid grid-cols-[2.92fr_2.82fr_5.92fr] gap-5 max-h-[484px]">
+        {/* Перший стовпчик: 228px + 236px + gap */}
         <div className="flex flex-col gap-5">
           <motion.div
             initial="hidden"
@@ -19,14 +19,14 @@ const EventsGrid = ({ images }: { images: string[] }) => {
                 transition: { duration: 0.6, delay: 0.2 },
               },
             }}
+            className="relative h-[228px] shrink-0 overflow-hidden rounded-[8px]"
           >
             <Image
               src={images[0]}
               alt="Event 1"
-              layout="responsive"
-              width={349}
-              height={228}
-              className="rounded-[8px] object-cover"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 349px, 100vw"
             />
           </motion.div>
 
@@ -42,19 +42,19 @@ const EventsGrid = ({ images }: { images: string[] }) => {
                 transition: { duration: 0.6, delay: 0.4 },
               },
             }}
+            className="relative h-[236px] shrink-0 overflow-hidden rounded-[8px]"
           >
             <Image
               src={images[1]}
               alt="Event 2"
-              layout="responsive"
-              width={349}
-              height={236}
-              className="rounded-[8px] object-cover"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 349px, 100vw"
             />
           </motion.div>
         </div>
 
-        {/* Другий стовпчик */}
+        {/* Другий стовпчик: 317px + 147px + gap */}
         <div className="flex flex-col gap-5">
           <motion.div
             initial="hidden"
@@ -68,14 +68,14 @@ const EventsGrid = ({ images }: { images: string[] }) => {
                 transition: { duration: 0.7, delay: 0.6 },
               },
             }}
+            className="relative h-[317px] shrink-0 overflow-hidden rounded-[8px]"
           >
             <Image
               src={images[2]}
               alt="Event 3"
-              layout="responsive"
-              width={337}
-              height={317}
-              className="rounded-[8px]"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 337px, 100vw"
             />
           </motion.div>
 
@@ -91,20 +91,20 @@ const EventsGrid = ({ images }: { images: string[] }) => {
                 transition: { duration: 0.7, delay: 0.8 },
               },
             }}
+            className="relative h-[147px] shrink-0 overflow-hidden rounded-[8px]"
           >
             <Image
               src={images[3]}
               alt=""
-              layout="responsive"
-              width={337}
-              height={147}
-              className="rounded-[8px] object-cover"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 337px, 100vw"
             />
           </motion.div>
         </div>
 
-        {/* Третій стовпчик */}
-        <div className="flex">
+        {/* Третій стовпчик: full height 484px */}
+        <div className="flex min-h-0">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -116,13 +116,13 @@ const EventsGrid = ({ images }: { images: string[] }) => {
                 transition: { duration: 0.8, delay: 1.0 },
               },
             }}
-            className="relative w-full h-full "
+            className="relative h-full min-h-[484px] w-full overflow-hidden rounded-[8px]"
           >
             <Image
               src={images[4]}
               alt="Event 4"
               fill
-              className="rounded-[8px] object-cover"
+              className="object-cover"
               sizes="(min-width: 1280px) 706px, 100vw"
             />
           </motion.div>
