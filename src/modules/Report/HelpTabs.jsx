@@ -27,6 +27,7 @@ export default function HelpTabs({ tabs }) {
 
                 {/* RIGHT: CONTENT */}
                 <div className="bg-white rounded-[10px] py-[32px] px-[20px] lg:px-[64px]">
+                    <p className="font-arial font-normal uppercase text-[24px] lg:text-[32px] mb-[16px] lg:mb-[32px]">{tabs.find(t => t.id === activeTab)?.title}</p>
                     {tabs.find(t => t.id === activeTab)?.content}
                 </div>
             </div>

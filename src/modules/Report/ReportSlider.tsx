@@ -30,9 +30,8 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
 
     return (
         <div className="relative
-    w-full
-    lg:w-[100vw]
-    lg:ml-[calc(50%_-_50vw)]">
+    w-[100vw]
+    ml-[calc(50%_-_50vw)]">
             <Swiper
                 spaceBetween={24}
                 slidesPerView={1}
@@ -64,6 +63,7 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
                             src={image}
                             alt={`Partner ${index + 1}`}
                             className="
+                            mx-auto
                 rounded-[8px] object-cover
                 w-[330px] h-[250px]
                 lg:w-[520px] lg:h-[400px]
@@ -80,8 +80,8 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
             {/* Pagination arrows */}
             <div
                 className={clsx(
-                    "mt-10 flex justify-center gap-6",
-                    "lg:absolute lg:top-0 lg:right-0 lg:mt-0",
+                    "mt-[24px] flex justify-center gap-[25px] lg:gap-[12px]",
+                    "lg:absolute lg:top-[-90px] lg:right-[40px] lg:mt-0",
                     isPrevDisabled && isNextDisabled && "hidden"
                 )}
             >

@@ -13,23 +13,22 @@ function HelpTabCard({title,
             className={`group w-full overflow-hidden rounded-2xl border-2 border-[#4C7B67] text-left transition`}
         >
             {/* TOP */}
-            <div className="flex gap-4 p-[20px] bg-white">
+            <div className="flex items-center gap-4 p-[20px] bg-white ">
                 {/* ICON */}
-                <div
-                    className="flex h-[97px] w-[97px] min-w-[97px] min-h-[97px] items-center justify-center rounded-xl bg-[#4C7B67]/10">
+
                     <Image
+                        width={97}
+                        height={97}
                         src={iconSrc}
-                        alt=""
-                        width={80}
-                        height={80}
-                        className="object-contain block"
-                        priority={false}
+                        alt={title}
+                        className="object-contain"
+
                     />
-                </div>
+
 
                 {/* TEXT */}
                 <div>
-                    <h3 className="mb-[12px] text-[24px] font-semibold">
+                    <h3 className="mb-[12px] text-[20px] lg:text-[24px] font-semibold">
                         {title}
                     </h3>
                     <p className="text-[14px] leading-[130%]">
@@ -40,13 +39,14 @@ function HelpTabCard({title,
 
             {/* CTA */}
             <div
-                className={`flex items-center justify-end gap-2 px-6 py-[7px] text-lg transition
+                className={`flex items-center justify-between gap-2 px-6 py-[1px] text-lg transition
           ${isActive
                     ? 'bg-[#4C7B67] text-white'
-                    : 'bg-[#4C7B67] text-white group-hover:bg-green-700'
+                    : 'bg-[#4C7B67] text-white group-hover:bg-[#4C7B67]/90'
                 }
         `}
             >
+                <span></span>
                 {cta}
                 <span className="transition group-hover:translate-x-1"> &gt; </span>
             </div>
