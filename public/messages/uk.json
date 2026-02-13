@@ -418,10 +418,10 @@
         "title": "Відділ культури Оболонь",
         "image": {
           "imagePath": "/images/partners/kultura.png",
-          "widthMob": 261,
-          "heightMob": 91,
-          "widthDesk": 588,
-          "heightDesk": 217
+          "widthMob": 271,
+          "heightMob": 100,
+          "widthDesk": 380,
+          "heightDesk": 140
         },
         "text": "",
         "buttonText": "Дізнатися більше",
@@ -431,10 +431,10 @@
         "title": "Оболонська адміністрація",
         "image": {
           "imagePath": "/images/partners/obolon.png",
-          "widthMob": 73,
-          "heightMob": 91,
-          "widthDesk": 177,
-          "heightDesk": 237
+          "widthMob": 90,
+          "heightMob": 120,
+          "widthDesk": 104,
+          "heightDesk": 140
         },
         "text": "",
         "buttonText": "Дізнатися більше",
@@ -444,10 +444,10 @@
         "title": "Песики Фест",
         "image": {
           "imagePath": "/images/partners/pesiki-fest.png",
-          "widthMob": 101,
-          "heightMob": 87,
-          "widthDesk": 203,
-          "heightDesk": 176,
+          "widthMob": 115,
+          "heightMob": 100,
+          "widthDesk": 139,
+          "heightDesk": 120,
           "bg": "#7030A0"
         },
         "text": "",
@@ -458,10 +458,10 @@
         "title": "ArtZavod Platforma",
         "image": {
           "imagePath": "/images/partners/artzavod.png",
-          "widthMob": 176,
-          "heightMob": 81,
-          "widthDesk": 244,
-          "heightDesk": 112
+          "widthMob": 218,
+          "heightMob": 100,
+          "widthDesk": 305,
+          "heightDesk": 140
         },
         "text": "",
         "buttonText": "Дізнатися більше",
@@ -471,10 +471,10 @@
         "title": "Habiohika",
         "image": {
           "imagePath": "/images/partners/habiohika.png",
-          "widthMob": 239,
-          "heightMob": 35,
-          "widthDesk": 392,
-          "heightDesk": 47
+          "widthMob": 245,
+          "heightMob": 30,
+          "widthDesk": 327,
+          "heightDesk": 40
         },
         "text": "",
         "buttonText": "Дізнатися більше",
@@ -484,10 +484,10 @@
         "title": "Brit",
         "image": {
           "imagePath": "/images/partners/brit.png",
-          "widthMob": 203,
-          "heightMob": 69,
-          "widthDesk": 470,
-          "heightDesk": 162
+          "widthMob": 232,
+          "heightMob": 80,
+          "widthDesk": 406,
+          "heightDesk": 140
         },
         "text": "",
         "buttonText": "Дізнатися більше",
@@ -496,11 +496,11 @@
       {
         "title": "Mayata event agency",
         "image": {
-          "imagePath": "/images/partners/mayata.png",
-          "widthMob": 180,
-          "heightMob": 60,
-          "widthDesk": 240,
-          "heightDesk": 80
+          "imagePath": "/images/partners/myata-event-agency.webp",
+          "widthMob": 196,
+          "heightMob": 100,
+          "widthDesk": 274,
+          "heightDesk": 140
         },
         "text": "",
         "buttonText": "Дізнатися більше",
@@ -510,10 +510,10 @@
         "title": "PRACTIK",
         "image": {
           "imagePath": "/images/partners/practik.png",
-          "widthMob": 73,
-          "heightMob": 91,
-          "widthDesk": 175,
-          "heightDesk": 217
+          "widthMob": 81,
+          "heightMob": 100,
+          "widthDesk": 113,
+          "heightDesk": 140
         },
         "text": "",
         "buttonText": "Дізнатися більше",
@@ -522,11 +522,11 @@
       {
         "title": "V.O.G DOG salon",
         "image": {
-          "imagePath": "/images/partners/vog-dog.png",
-          "widthMob": 180,
-          "heightMob": 60,
-          "widthDesk": 240,
-          "heightDesk": 80
+          "imagePath": "/images/partners/vog-dog-salon.webp",
+          "widthMob": 104,
+          "heightMob": 110,
+          "widthDesk": 133,
+          "heightDesk": 140
         },
         "text": "",
         "buttonText": "Дізнатися більше",

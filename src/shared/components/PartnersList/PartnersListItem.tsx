@@ -21,7 +21,7 @@ const PartnersListItem = ({ partner }: { partner: IPartnerItem }) => {
     >
       <div
         className={clsx(
-          "h-[123px] lg:h-[251px] flex items-center justify-center",
+          "h-[148px] lg:h-[188px] flex items-center justify-center",
           !partner.image.bg && "border-b border-solid border-[#EACCAA]"
         )}
         style={partner.image.bg ? { backgroundColor: partner.image.bg } : {}}
@@ -42,18 +42,18 @@ const PartnersListItem = ({ partner }: { partner: IPartnerItem }) => {
         />
       </div>
 
-      <div className="px-[18px] lg:px-[24px] py-5 flex flex-col items-center justify-center">
+      <div className="h-[82px] lg:h-[115px] px-[25px] lg:px-[32px] flex flex-col items-center justify-center">
         <a
           href={href}
           target={isExternal ? "_blank" : undefined}
-          rel={isExternal ? "noopener noreferrer" : undefined}
+          rel={isExternal ? "noopener noreferrer nofollow" : undefined}
           className={cn(
-            "uppercase py-3 px-6 rounded-[28px] text-[14px] xl:text-[18px] leading-[110%] font-bold",
+            "uppercase h-[42px] lg:h-[67px] flex items-center justify-center rounded-[28px] text-[14px] xl:text-[18px] leading-[110%] font-bold",
             "text-white bg-green hover:brightness-125 active:scale-95 transition-all duration-300",
-            "inline-block text-center w-full max-w-[240px]"
+            "block text-center w-full"
           )}
         >
-          {partner.buttonText}
+          <span className="inline-flex h-full min-w-0 items-center justify-center text-center">{partner.buttonText}</span>
         </a>
       </div>
     </motion.div>
