@@ -15,7 +15,7 @@ const WhatVolunteerGetDesk = ({
   paragraphs: string[];
 }) => {
   return (
-    <section className="relative mt-0 container pt-0 pb-[120px] px-4 xl:px-[40px] mx-auto hidden lg:block">
+    <section className="relative pb-[120px] px-4 xl:px-[40px] mx-auto hidden lg:block">
       <div className="absolute z-10 bottom-[30px] xl:bottom-[-60px] right-[-67px] w-[540px] h-[314px] xl:w-[900px] xl:h-[617px]">
         <Image
           src="/images/volounteering/animals.webp"

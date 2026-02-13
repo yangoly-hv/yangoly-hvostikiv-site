@@ -17,7 +17,7 @@ const WhatVolunteerGetMobile = ({
 }) => {
   return (
     <div className="relative lg:hidden">
-      <section className="relative mt-[40px] container pt-[40px] pb-[89px] mx-auto px-4 xl:px-[40px]">
+      <section className="relative container pb-[89px] mx-auto px-4 xl:px-[40px]">
         <div className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 w-[540px] h-[267px]">
           <Image
             src="/images/volounteering/animals.webp"
