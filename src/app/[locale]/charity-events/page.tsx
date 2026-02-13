@@ -68,7 +68,7 @@ export async function generateMetadata({
 // ];
 
 export default async function CharityEventPage({ params }: PageParams) {
-  const t = await getTranslations("ChairtyEvents");
+  const t = await getTranslations("CharityEvents");
   const paragraphs = await t.raw("paragraphs");
   const { locale } = await params;
   const { title, images } = await client.fetch(eventsQuery);
@@ -79,6 +79,7 @@ export default async function CharityEventPage({ params }: PageParams) {
       <section className="bg-orange-bg">
         <Hero images={images} title={t("title")} />
         <Paragraphs
+          title={t("title")}
           mobTitle={pageTitle}
           deskTitle={pageTitle}
           paragraphs={paragraphs}

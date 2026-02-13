@@ -4,7 +4,7 @@ import { getTranslations } from "next-intl/server";
 import WhatWeHaveList from "./WhatWeHaveList";
 
 const WhatWeHaveInEvents = async () => {
-  const t = await getTranslations("ChairtyEvents.whatWeHave");
+  const t = await getTranslations("CharityEvents.whatWeHave");
   const list = (await t.raw("list")) as IWhatWeHaveItem[];
 
   return (

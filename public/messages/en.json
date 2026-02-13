@@ -52,7 +52,7 @@
       },
       {
         "name": "Events",
-        "href": "/chairty-events"
+        "href": "/charity-events"
       },
       {
         "name": "Blog",
@@ -92,7 +92,7 @@
       },
       {
         "name": "Charity Events",
-        "href": "/chairty-events"
+        "href": "/charity-events"
       },
       {
         "name": "Reports",
@@ -541,7 +541,7 @@
       ]
     }
   },
-  "ChairtyEvents": {
+  "CharityEvents": {
     "title": "Our Charity Events",
     "missionTitle": "The Mission of Our Events",
     "missionText": "All our charity events are held with the support of the Obolon District State Administration in Kyiv and the Obolon Department of Culture.",
