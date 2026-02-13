@@ -27,6 +27,7 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
                 },
               }}
               className="w-full bg-white rounded-[8px] flex flex-col max-w-[420px]"
+              style={{ backgroundColor: item.bgColor }}
             >
               <div className="w-full aspect-[263/211] relative">
                 <Image
@@ -69,6 +70,7 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
               },
             }}
             className="w-full h-full bg-white rounded-[8px] flex"
+            style={{ backgroundColor: item.bgColor }}
           >
             {index % 2 === 0 ? (
               <>

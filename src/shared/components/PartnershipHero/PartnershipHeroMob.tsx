@@ -88,11 +88,13 @@ const PartnershipHeroMob = async () => {
           fill
         />
         <Image
-          className="absolute bottom-[-53px] w-[273px] h-[259px] aspect-[273/259] left-1/2 -translate-x-1/2"
-          src="/images/partners/dogs-mob.webp"
+          className="absolute bottom-[-58px] w-[277px] h-[304px] aspect-[277/304] left-1/2 -translate-x-1/2"
+          src="/images/partners/hero-mob.webp"
           alt="Dogs"
-          width={408}
-          height={276}
+          width={277}
+          height={304}
+          priority
+          sizes="100vw"
         />
       </div>
       {/* <motion.div

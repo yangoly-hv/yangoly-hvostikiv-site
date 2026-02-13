@@ -42,16 +42,18 @@ export default function BlogCard({
             </Link>
           </motion.div>
         )}
-        <motion.p
-          variants={fadeIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          custom={0.2}
-          className="mb-3 text-dark text-[16px] font-medium leading-[20.8px]"
-        >
-          {date}
-        </motion.p>
+        {date && (
+          <motion.p
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0.2}
+            className="mb-3 text-dark text-[16px] font-medium leading-[20.8px]"
+          >
+            {date}
+          </motion.p>
+        )}
         <motion.div
           variants={fadeIn}
           initial="hidden"

@@ -3,6 +3,8 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [75, 90, 100],
+    deviceSizes: [320, 768, 1024, 1280, 1536],
     remotePatterns: [
       {
         protocol: "http",

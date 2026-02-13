@@ -1,19 +1,16 @@
 import Contacts from "@/modules/Contacts/Contacts";
 import BlogArticle from "@/modules/BlogArticle/BlogArticle";
+import BlogArticleWithContent from "@/modules/BlogArticle/BlogArticleWithContent";
 import { getDictionary } from "@/shared/utils";
 import { PageParams } from "@/shared/types";
-// import { newsList } from "../constants";
-
-// import {extractFirstParagraphText} from "@/shared/utils/functions";
-
-import { getBlogItemById } from "@/shared/api/blog";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
 import { getTranslations } from "next-intl/server";
 
 import client from "@/shared/lib/sanity";
-import {postBySlugQuery} from "@/shared/lib/queries";
+import { postBySlugWithContentQuery } from "@/shared/lib/queries";
+import type { PostWithContent } from "@/shared/types/blog.types";
 
 export async function generateMetadata({
   params,
@@ -49,26 +46,39 @@ export async function generateMetadata({
   };
 }
 
+/** Detect new schema: post has content array with blocks. Legacy has additionalInfo/secondaryImage. */
+function hasContentBlocks(
+  data: { content?: unknown[] }
+): data is { content: unknown[] } {
+  return Array.isArray(data.content) && data.content.length > 0;
+}
+
 export default async function ArticlePage({ params }: PageParams) {
   const { slug, locale } = await params;
   const t = await getTranslations("");
   const blog = await t.raw("Blog");
-  const data = await client.fetch(postBySlugQuery, {
-    lang: locale,
-    slug,
-  })
-  // const article = newsList[locale].find((newsItem) => newsItem.id === id);
-
-  // const data = await getBlogItemById(id, locale);
+  const data = await client.fetch<PostWithContent | null>(
+    postBySlugWithContentQuery,
+    { lang: locale, slug }
+  );
 
   if (!data) {
     return null;
   }
+console.log(data);
+  const useNewSchema = hasContentBlocks(data);
 
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <BlogArticle article={data} translation={blog} />
+        {useNewSchema ? (
+          <BlogArticleWithContent
+            article={data}
+            translation={blog}
+          />
+        ) : (
+          <BlogArticle article={data} translation={blog} />
+        )}
         <Contacts />
       </Suspense>
     </>

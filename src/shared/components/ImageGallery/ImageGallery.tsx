@@ -21,7 +21,7 @@ const ImageGallery = ({
               src={images[0].src}
               alt={images[0].alt}
               fill
-              className="object-cover object-top rounded-lg xl:rounded-[16px]"
+              className="object-cover object-right rounded-lg xl:rounded-[16px]"
               sizes="(max-width: 1280px) 50vw, 33vw"
               priority
             />
@@ -29,7 +29,7 @@ const ImageGallery = ({
         </AnimatedWrapper>
         <div className="flex flex-col gap-4 xl:gap-5 h-full">
           <AnimatedWrapper
-            className="relative w-full flex-1"
+            className="relative w-full aspect-[329/331]"
             animation={fadeInAnimation({ y: 30, delay: 0.4 })}
             viewport={{ once: true, amount: 0.2 }}
           >

@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
 import ContactFormAction from "../ContactFormAction/ContactFormAction";
 import Image from "next/image";
+import { HeartIcon } from "../Icons/HeartIcon";
 import {
   containerVariants,
   listItemVariants,
@@ -89,11 +90,18 @@ const PartnershipHeroDesk = async () => {
             className="block h-full max-h-[608px] rounded-r-[8px]"
           />
           <Image
-            src="/images/partners/dogs-desk.webp"
+            src="/images/partners/hero-desk.webp"
             alt="Dogs"
-            width={1011}
+            width={749}
             height={783}
-            className="block aspect-ratio-[1011/783] absolute bottom-[-75px] tabxl:bottom-[-85px]  right-[0px] xl:bottom-[-107px] laptop:bottom-[-125px] 2xl:bottom-[-130px] desk:bottom-[-142px] z-[1]"
+            priority
+            sizes="100vw"
+            className="block z-10 aspect-ratio-[749/783] absolute bottom-[-100px] tabxl:bottom-[-114px]  right-[60px] xl:bottom-[-141px] laptop:bottom-[-125px] 2xl:bottom-[-142px] desk:bottom-[-142px]"
+          />
+          <HeartIcon
+            width={639}
+            height={494}
+            className="absolute lg:w-[419px] lg:h-[347px] xl:w-[519px] xl:h-[417px] 2xl:w-[639px] 2xl:h-[494px] right-[25px] bottom-[-55px] z-1"
           />
         </motion.div>
       </motion.div>

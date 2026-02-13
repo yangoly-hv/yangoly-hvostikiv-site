@@ -23,12 +23,12 @@ const  WorkResults = async () => {
     // }
 
   return (
-    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-[#140A01]">
+    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-green">
       <motion.ul
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="flex gap-[54px] flex-col md:flex-row"
+        className="flex gap-[54px] xl:gap-[110px] flex-col md:flex-row md:items-center"
       >
         {translation.map((item: IWorkResult, index: number) => (
           <motion.li

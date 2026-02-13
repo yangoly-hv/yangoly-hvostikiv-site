@@ -11,7 +11,7 @@ import * as motion from "motion/react-client";
 // ];
 const Hero = ({ images, title }: { title: string, images: string[] }) => {
   return (
-    <div className="container mx-auto px-4 xl:px-[40px] pt-[60px]">
+    <section className="container mx-auto px-4 xl:px-[40px] pt-[60px] xl:pt-[100px]">
       <motion.div
         initial="hidden"
         whileInView="visible"
@@ -30,23 +30,8 @@ const Hero = ({ images, title }: { title: string, images: string[] }) => {
       </motion.div>
       <EventsGrid images={images} />
 
-      <motion.h2
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={{
-          hidden: { opacity: 0, y: 20 },
-          visible: {
-            opacity: 1,
-            y: 0,
-            transition: { duration: 0.6, ease: "easeOut", delay: 0.4 },
-          },
-        }}
-        className="text-dark text-[24px] lg:text-[32px] leading-[130%] font-black uppercase font-arial text-center mt-[80px]"
-      >
-        {title}
-      </motion.h2>
-    </div>
+      <h1 className="sr-only">{title}</h1>
+    </section>
   );
 };
 

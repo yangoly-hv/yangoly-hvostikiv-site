@@ -10,6 +10,7 @@ import {
   ITails,
   IAngelsTranslation,
 } from "./dictionary.types";
+import type { PostWithContent } from "./blog.types";
 import * as yup from "yup";
 import Link from "next/link";
 import { Transition, Target } from "framer-motion";
@@ -159,6 +160,12 @@ export interface ILogoProps extends ComponentProps<typeof Link> {
 
 export interface IInfoBlockProps extends ComponentProps<"div"> {
   translation: IInformationBlockTranslation;
+  /** Optional raw Portable Text-style blocks (e.g. from Sanity) */
+  blocks?: {
+    style?: string;
+    listItem?: string;
+    children?: { text: string; marks?: string[] }[];
+  }[];
   children?: React.ReactNode;
   titleClassName?: string;
 }
@@ -318,7 +325,8 @@ export interface IBlogListProps {
 }
 
 export interface IBlogArticleProps {
-  article: INewsItem;
+  /** Raw post from Sanity (legacy: transformed inside via getBlogItemData). */
+  article: PostWithContent;
   translation: IBlog;
 }
 
@@ -388,7 +396,10 @@ export interface IReportProps {
 export interface IHelpVolonteeringTranslation {
   title: string;
   paragraphs?: string[];
+  /** Intro paragraph (first text block) */
   text?: string;
+  /** Label before the bullet list (second text block), e.g. "Що потрібно робити:" */
+  listLabel?: string;
   imagePath: string;
   imagePathDesk?: string;
   bg: string;
@@ -415,12 +426,19 @@ export interface IPartnerItem {
   buttonLink: string;
 }
 
-export interface IPartnersSupport {
+export interface IPartnershipHelpCard {
   title: string;
-  list: {
-    imgPath: string;
-    text: string;
-  }[];
+  text: string;
+  bgColor: string;
+  imgPath?: string;
+  widthMob: number;
+  heightMob: number;
+  widthDesk: number;
+  heightDesk: number;
+  topMob: number;
+  topDesk: number;
+  rightMob: number;
+  rightDesk: number;
 }
 
 export interface IWhatWeHaveItem {
@@ -428,6 +446,7 @@ export interface IWhatWeHaveItem {
   text: string;
   imgPath: string;
   bgPath: string;
+  bgColor: string;
 }
 
 export interface IVolunteeringCardProps extends ComponentProps<"li"> {
