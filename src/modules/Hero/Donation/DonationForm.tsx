@@ -78,7 +78,7 @@ export default function DonationForm() {
     const icons = tab === "once" ? onceImages : monthlyImages;
 
     return (
-        <div className="max-w-[524px] rounded-[8px] bg-white px-[16px] xl:p-[25px] py-[32px] shadow-md xl:max-h-[478px]">
+        <div className="max-w-[524px] rounded-[8px] bg-white px-[16px] pb-[25px] xl:p-[25px] py-[32px] shadow-md">
             {/* Tabs */}
             <div className="mb-[24px] xl:mb-[25px] grid grid-cols-2 rounded-[10px] border-2 border-[#4C7B67]">
                 {(['once', 'monthly'] as Tab[]).map((key) => (
@@ -137,7 +137,7 @@ export default function DonationForm() {
                                         <span> / міс</span>
                                     )}
                                 </div>
-                                <div className="mt-1 text-[14px] lg:text-[11px] leading-[130%]">
+                                <div className="mt-1 text-[14px] lg:text-[11px] leading-[130%] tracking-[-0.66px]">
                                     {t(`${tab}Items.${value}`)}
                                 </div>
                             </div>
@@ -145,7 +145,7 @@ export default function DonationForm() {
                     ))}
 
                     {/* Custom amount */}
-                    <div className="flex items-start xl:items-center gap-3 xl:gap-[19px] rounded-[16px] border border-[#D1D1D1] p-4 xl:py-0 lx:px-3 xl:h-[58px]">
+                    <div className="flex items-start xl:items-center gap-3 xl:gap-[19px] rounded-[16px] border border-[#D1D1D1] p-4 xl:py-0 xl:px-3 xl:min-h-[69px] min-h-0 self-stretch">
                         <div
                             className={`flex justify-center items-center h-[56px] w-[56px] xl:size-[45px] shrink-0 rounded-[4px] bg-[rgba(76, 123, 103, 0.1)]`}>
                             <Image
