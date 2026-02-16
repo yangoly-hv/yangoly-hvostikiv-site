@@ -79,7 +79,7 @@ export default async function ReportPage({ params }: PageParams) {
   if (!data) {
     return null;
   }
-  console.log(data);
+
   return (
     <>
       <Suspense fallback={<Loading />}>
