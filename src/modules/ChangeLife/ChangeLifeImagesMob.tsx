@@ -2,6 +2,17 @@ import Image from "next/image";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 
+const ellipseMaskStyle = {
+  maskImage: "url(/images/home/changeLife/greenEllipse.webp)",
+  WebkitMaskImage: "url(/images/home/changeLife/greenEllipse.webp)",
+  maskSize: "100% 100%",
+  WebkitMaskSize: "100% 100%",
+  maskPosition: "center",
+  WebkitMaskPosition: "center",
+  maskRepeat: "no-repeat",
+  WebkitMaskRepeat: "no-repeat",
+} as React.CSSProperties;
+
 export default function ChangeLifeImagesMob() {
   return (
     <>
@@ -17,17 +28,22 @@ export default function ChangeLifeImagesMob() {
           className="w-full h-full object-cover"
         />
       </AnimatedWrapper>
+      {/* Dogs clipped to ellipse: same size/position as ellipse, mask by ellipse image */}
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-        className="md:hidden absolute z-20 bottom-[160px] sm:bottom-[68px] left-[calc(50%-180px)] w-[338px] aspect-[1460/1040]"
+        className="md:hidden absolute z-20 bottom-[208px] sm:bottom-[96px] left-[calc(50%-288px)] h-[196px] w-[577px]"
       >
-        <Image
-          src="/images/home/changeLife/dogs-mobile.png"
-          alt="dogs"
-          width={267}
-          height={189}
-          className="object-cover"
-        />
+        <div className="relative h-full w-full" style={ellipseMaskStyle}>
+          <div className="absolute bottom-[-15px] sm:bottom-[-15px] left-[36px] w-[378px] aspect-[378/237]">
+            <Image
+              src="/images/home/changeLife/dogs-mobile.webp"
+              alt="dogs"
+              fill
+              className="object-cover"
+              sizes="338px"
+            />
+          </div>
+        </div>
       </AnimatedWrapper>
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
