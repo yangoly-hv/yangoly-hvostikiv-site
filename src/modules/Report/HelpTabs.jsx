@@ -52,7 +52,7 @@ export default function HelpTabs({ tabs }) {
 
                             {isOpen && (
                                 <div className="relative top-[-16px] lg:top-0 bg-white rounded-[10px] pt-[42px] pb-[24px] lg:py-[32px] px-[20px] lg:px-[64px]">
-                                    <p className="font-arial font-normal uppercase text-[24px] lg:text-[32px] mb-[16px] lg:mb-[32px]">{tabs.find(t => t.id === activeTab)?.title}</p>
+                                    <p className="font-arial font-normal uppercase text-[24px] lg:text-[32px] mb-[16px] lg:mb-[32px] leading-[130%]">{tabs.find(t => t.id === activeTab)?.title}</p>
                                     {tab.content}
                                 </div>
                             )}
