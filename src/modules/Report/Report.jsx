@@ -18,6 +18,7 @@ const TAB_CONFIG = [
             'У вересні фонд «Янголи Хвостиків» передав понад 250 кг корму для тварин. Ми зробили це спільно з партнерами й небайдужими людьми, що турбуються про хвостиків навіть на відстані.',
         cta: 'Детальніше про допомогу кормом',
         iconSrc: '/images/reports/food.svg',
+        shortField: 'shortFoodDescription',
         field: 'foodDescription',
     },
     {
@@ -27,6 +28,7 @@ const TAB_CONFIG = [
             'У вересні ми разом із небайдужими людьми закрили збір на 178 000 грн на будівництво котобудинку. Завдяки цим коштам 50 котиків, яких евакуювали з прифронтової зони, отримають теплий і безпечний дім.',
         cta: 'Детальніше про житло для хвостиків',
         iconSrc: '/images/reports/house.svg',
+        shortField: 'shortHouseDescription',
         field: 'houseDescription',
     },
     {
@@ -37,6 +39,7 @@ const TAB_CONFIG = [
  Це черговий крок до того, щоб кожен хвостик мав шанс на здорове й безпечне життя.`,
         cta: 'Детальніше про лікування',
         iconSrc: '/images/reports/drug.svg',
+        shortField: 'shortTherapyDescription',
         field: 'therapyDescription',
     },
     {
@@ -47,9 +50,44 @@ const TAB_CONFIG = [
  Це черговий крок до того, щоб кожен хвостик мав шанс на здорове й безпечне життя.`,
         cta: 'Детальніше про іншу допомогу',
         iconSrc: '/images/reports/other.svg',
+        shortField: 'shortOtherDescription',
         field: 'otherDescription',
     },
 ];
+
+const getPortableTextText = (value) =>
+    value
+        ?.map((block) =>
+            block.children?.map((child) => child.text || "").join("") || ""
+        )
+        .join(" ")
+        .replace(/\s+/g, " ")
+        .trim() || "";
+
+const truncateText = (text, max = 180) => {
+    if (!text) return "";
+    if (text.length <= max) return text;
+
+    const cut = text.slice(0, max);
+
+    // если есть законченная фраза — берём её
+    const sentenceMatch = cut.match(/^(.*[.!?…])(?=\s|$)/);
+    if (sentenceMatch && sentenceMatch[1]) return sentenceMatch[1];
+
+    // иначе режем по последнему слову
+    const lastSpace = cut.lastIndexOf(" ");
+    return (lastSpace > 0 ? cut.slice(0, lastSpace) : cut).trim() + "…";
+};
+
+export const getReportText = (report, tab) => {
+    const shortText = getPortableTextText(report?.[tab.shortField]);
+
+    if (shortText) return shortText;
+
+    const fullText = getPortableTextText(report?.[tab.field]);
+
+    return truncateText(fullText, 180);
+};
 
 function buildTabsFromReport(report) {
     return TAB_CONFIG
@@ -57,10 +95,9 @@ function buildTabsFromReport(report) {
         .map(tab => ({
             id: tab.id,
             title: tab.title,
-            description: tab.description,
+            description: getReportText(report, tab),
             iconSrc: tab.iconSrc,
             cta: tab.cta,
-            // ⬇️ ВАЖНО: здесь уже JSX
             content: (
                 <PortableText
                     value={report[tab.field]}

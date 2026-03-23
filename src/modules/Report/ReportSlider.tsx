@@ -40,7 +40,7 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
                         slidesPerView: 1,
                     },
                     1024: {
-                        slidesPerView: 4,
+                        slidesPerView: "auto",
                     },
                 }}
                 modules={[Pagination]}
@@ -57,7 +57,7 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
                 {images.map((image, index) => (
                     <SwiperSlide
                         key={index}
-                        className="flex justify-center"
+                        className="flex justify-center lg:!w-[520px]"
                     >
                         <Image
                             src={image}

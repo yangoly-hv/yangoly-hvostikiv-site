@@ -17,9 +17,13 @@ export const reportBySlugQuery = `
   "date": date[$lang],
   "slug": slug.current,
   "images": images[].asset->url,
+  "shortFoodDescription": shortFoodDescription[$lang],
   "foodDescription": foodDescription[$lang],
+  "shortHouseDescription": shortHouseDescription[$lang],
   "houseDescription": houseDescription[$lang],
+  "shortTherapyDescription": shortTherapyDescription[$lang],
   "therapyDescription": therapyDescription[$lang],
+  "shortOtherDescription": shortOtherDescription[$lang],
   "otherDescription": otherDescription[$lang],
   }
 `
