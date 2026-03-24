@@ -15,6 +15,9 @@ import Loading from "@/app/loading";
 import client from "@/shared/lib/sanity";
 import {reportBySlugQuery} from "@/shared/lib/queries";
 
+//@ts-expect-error
+import {formatReportMonthYear} from "@/shared/utils/functions";
+
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
@@ -79,6 +82,7 @@ export default async function ReportPage({ params }: PageParams) {
   if (!data) {
     return null;
   }
+  data.date = formatReportMonthYear(data.date, locale);
 
   return (
     <>

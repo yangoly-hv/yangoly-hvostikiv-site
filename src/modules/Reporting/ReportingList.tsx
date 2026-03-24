@@ -35,7 +35,7 @@ export default function ReportingList({ data }: IReportingListProps) {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
+  console.log(currentItems[0].date)
   return (
     <>
       <ul className="flex flex-col gap-y-6">

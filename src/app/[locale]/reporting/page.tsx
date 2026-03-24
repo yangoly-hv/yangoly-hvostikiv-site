@@ -12,6 +12,9 @@ import Loading from "@/app/loading";
 import client from "@/shared/lib/sanity";
 import {allReportsQuery} from "@/shared/lib/queries";
 
+//@ts-expect-error
+import {formatReportMonthYear} from "@/shared/utils/functions";
+
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
@@ -58,10 +61,13 @@ export default async function ReportingPage({ params }: PageParams) {
     return null;
   }
 
+  //@ts-expect-error
+  const prepareData = reports.map(item => ({...item, date: formatReportMonthYear(item.date, locale)}));
+
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Reporting data={reports} translation={reporting} lang={locale} />
+        <Reporting data={prepareData} translation={reporting} lang={locale} />
         <Contacts />
       </Suspense>
     </>

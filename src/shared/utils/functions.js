@@ -1,5 +1,28 @@
 import * as cheerio from 'cheerio';
 
+export function formatReportMonthYear(value, locale = 'ua') {
+    if (!value?.month || !value?.year) return ''
+
+    const date = new Date(value.year, value.month - 1, 1)
+
+    const localeMap = {
+        uk: 'uk-UA',
+        en: 'en-US',
+    }
+
+    let formatted = new Intl.DateTimeFormat(localeMap[locale], {
+        month: 'long',
+        year: 'numeric',
+    }).format(date)
+
+    if (locale === 'uk') {
+        formatted = formatted.replace(/\s?р\.?$/, '')
+    }
+
+    formatted = formatted.charAt(0).toUpperCase() + formatted.slice(1)
+
+    return formatted
+}
 export function extractFirstParagraphText(html) {
     const $ = cheerio.load(html);
     let text = $('p').first().text().trim();

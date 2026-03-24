@@ -18,7 +18,7 @@ export default function Reporting({ data, translation, lang }) {
         custom={0}
         className="mb-8 xl:mb-12 font-arial font-black text-center text-[24px] xl:text-[32px] leading-[31.2px] xl:leading-[41.6px] uppercase"
       >
-        {title}
+        {/*{title}*/}
       </motion.h1>
       {/*  @ts-expect-error*/}
       <ReportingList data={data} lang={lang} />

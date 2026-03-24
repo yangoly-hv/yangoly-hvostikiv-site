@@ -4,9 +4,9 @@ export const eventsQuery = `
     "images": images[].asset->url
   }
 `
-export const allReportsQuery = `*[_type == "reports"] | order(publishedAt desc) {
+export const allReportsQuery = `*[_type == "reports"] | order(date.year asc, date.month asc) {
   _id,
-  "date": date[$lang],
+  "date": date,
   "slug": slug.current,
 }`
 
@@ -14,7 +14,7 @@ export const reportBySlugQuery = `
   *[_type == "reports" && slug.current == $slug][0]{
   _id,
   "title": title[$lang],
-  "date": date[$lang],
+  "date": date,
   "slug": slug.current,
   "images": images[].asset->url,
   "shortFoodDescription": shortFoodDescription[$lang],
