@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import axios from "axios";
+// import axios from "axios";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -11,8 +11,8 @@ export async function POST(req: Request) {
         /* ---------- EMAIL (RESEND) ---------- */
         await resend.emails.send({
             from: `Благодійний фонд "Янголи хвостіків" <no-reply@angelsua.org>`,
-            // to: ["angelsuaorg@gmail.com"],
-            to: ["bogdan.lyamzin.d@gmail.com"],
+            to: ["angelsuaorg@gmail.com"],
+            // to: ["bogdan.lyamzin.d@gmail.com"],
             subject: "Нове повідомлення з сайту",
             html: `
         <p><b>Імʼя:</b> ${name}</p>
