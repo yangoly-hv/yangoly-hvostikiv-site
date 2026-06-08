@@ -10,17 +10,12 @@ import {perfomanceQuery} from "@/shared/lib/queries";
 const  WorkResults = async () => {
   const t = await getTranslations("");
   const translation = (await t.raw("WorkResults")) as IWorkResult[];
+
     const { tailsCount, feedCount, vaccinesCount, treatmentsCount } = await client.fetch(perfomanceQuery);
     translation[0].amount = `${tailsCount}+`;
     translation[1].amount = `${feedCount}+`;
     translation[2].amount = `${vaccinesCount}+`;
-    translation[2].amount = `${treatmentsCount}+`;
-
-    // const data = [];
-
-    // if (!data) {
-    //     return null;
-    // }
+    translation[3].amount = `${treatmentsCount}+`;
 
   return (
     <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-green">

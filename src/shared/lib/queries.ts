@@ -73,7 +73,7 @@ export const topDotatorsQuery = `
   *[_type == "donator"] | order(amount desc) [0...5] {
     _id,
     "name": name[$lang],
-    "amount": amount,
+    amount
   }
 `
 
