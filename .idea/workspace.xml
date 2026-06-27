@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="540024fe-e1a4-4c54-80fa-150cebb8cf9c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/messages/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/messages/en.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/messages/uk.json" beforeDir="false" afterPath="$PROJECT_DIR$/public/messages/uk.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Angels/Angels.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Angels/Angels.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/Partners/Partners.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/Partners/Partners.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modules/WorkResults/WorkResults.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/modules/WorkResults/WorkResults.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/queries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/queries.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/lib/sanity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/lib/sanity.ts" afterDir="false" />
-    </list>
+    <list default="true" id="540024fe-e1a4-4c54-80fa-150cebb8cf9c" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -133,7 +124,7 @@
       <workItem from="1778016139065" duration="1322000" />
       <workItem from="1778060974411" duration="595000" />
       <workItem from="1780919708919" duration="35000" />
-      <workItem from="1780919809955" duration="4311000" />
+      <workItem from="1780919809955" duration="5063000" />
     </task>
     <servers />
   </component>
