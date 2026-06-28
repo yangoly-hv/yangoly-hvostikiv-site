@@ -4,7 +4,7 @@ export const eventsQuery = `
     "images": images[].asset->url
   }
 `
-export const allReportsQuery = `*[_type == "reports"] | order(date.year asc, date.month asc) {
+export const allReportsQuery = `*[_type == "reports"] | order(date.year desc, date.month desc) {
   _id,
   "date": date,
   "slug": slug.current,
@@ -16,7 +16,7 @@ export const reportBySlugQuery = `
   "title": title[$lang],
   "date": date,
   "slug": slug.current,
-  "images": images[].asset->url,
+  "images": coalesce(images[].asset->url, []),
   "shortFoodDescription": shortFoodDescription[$lang],
   "foodDescription": foodDescription[$lang],
   "shortHouseDescription": shortHouseDescription[$lang],
@@ -38,6 +38,11 @@ export const allTailsQuery = `
     needs_sterilization,
     needs_family,
     "mainImage": mainImage.asset->url,
+    "mainImageForCrop": mainImage{
+      asset,
+      crop,
+      hotspot
+    },
     "images": images[].asset->url
   }
 `
@@ -54,6 +59,16 @@ export const tailBySlugQuery = `
     needs_family,
     keeping_price,
     "mainImage": mainImage.asset->url,
+    "mainImageForCrop": mainImage{
+      asset,
+      crop,
+      hotspot
+    },
+    "imagesForCrop": images[]{
+      asset,
+      crop,
+      hotspot
+    },
     "images": images[].asset->url
     }
 `

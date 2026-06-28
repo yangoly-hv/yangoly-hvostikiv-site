@@ -305,7 +305,9 @@ export interface INewsItem {
 export interface ITailItem {
   id: string;
   image: string;
+  cardImage?: unknown;
   images: string[];
+  galleryImages?: unknown[];
   name: string;
   description: string[];
   sex: string;

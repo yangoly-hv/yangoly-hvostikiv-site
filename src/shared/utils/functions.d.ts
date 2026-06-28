@@ -9,14 +9,16 @@ export interface GetTailDataInput {
   _id: string;
   slug: string;
   mainImage: string;
-  images: string[];
+  mainImageForCrop?: unknown;
+  images?: string[];
+  imagesForCrop?: unknown[];
   sex: string;
   name: string;
   description: unknown;
   sterilization_price?: number;
   keeping_price?: number;
   needs_family: boolean;
-  needs_sterilization: boolean;
+  needs_sterilization?: boolean;
 }
 
 export function getTailData(
@@ -25,8 +27,10 @@ export function getTailData(
 ): {
   id: string;
   image: string;
+  cardImage: unknown;
   slug: string;
   images: string[];
+  galleryImages: unknown[];
   name: string;
   sterilization_price?: number;
   keeping_price?: number;

@@ -50,7 +50,7 @@ const TailInfo = ({ tail, translation }) => {
           viewport={{ once: true }}
           custom={0}
         >
-          <ImageSlider images={tail.images} />
+          <ImageSlider images={tail.galleryImages || tail.images} />
         </motion.div>
       )}
       <div className="flex flex-col justify-center w-full max-w-[706px] lg:max-w-full p-6 lg:px-[76px] bg-white rounded-[12px] lg:rounded-none">

@@ -32,11 +32,23 @@ export async function generateMetadata({
     lang: locale,
   });
 
+  if (!data) {
+    return {
+      title: metadata.reporting.title,
+      description: metadata.reporting.description,
+      keywords: metadata.reporting.keywords,
+      icons: {
+        icon: "/favicon.ico",
+      },
+    };
+  }
+
   // const data = await getReportById(id, locale);
 
   const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
   const description = `${metadata.reporting.description
     } | ${data.title} | ${data.date}`;
+  const imageUrl = data.images?.[0] || "/images/about/about-us-desk3.jpg";
 
   return {
     title,
@@ -53,7 +65,7 @@ export async function generateMetadata({
       locale: locale,
       images: [
         {
-          url: data.images[0].url,
+          url: imageUrl,
           width: 1200,
           height: 630,
           alt: title,

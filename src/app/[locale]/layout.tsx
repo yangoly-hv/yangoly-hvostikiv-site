@@ -9,17 +9,17 @@ import PaymentReturnClient from "@/shared/components/PaymentReturnHandler/Paymen
 import "../globals.css";
 
 export type PageParams = {
-  params: {
+  params: Promise<{
     locale: "uk" | "en";
     id?: string;
     slug?: string;
-  };
+  }>;
 };
 
       export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const { locale } =  params;
+  const { locale } =  await params;
   const { metadata } = await getDictionary(locale);
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||

@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { fadeIn, slideUp } from "@/shared/utils";
 import PortableTextRender from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 import { PortableTextComponents } from "@portabletext/react";
+import { urlFor } from "@/shared/lib/sanityImage";
 
 interface ITailCardProps extends ComponentProps<"div"> {
   tail: ITailItem;
@@ -16,7 +17,18 @@ interface ITailCardProps extends ComponentProps<"div"> {
 const TailCard = ({ tail, translation }: ITailCardProps) => {
   const { detailsButton } = translation;
   //@ts-expect-error
-  const { name, image, description, sex, sterilized, slug } = tail;
+  const { name, image, cardImage, description, sex, sterilized, slug } = tail;
+  const cardImageSrc =
+    typeof cardImage === "string"
+      ? cardImage
+      : cardImage
+        ? urlFor(cardImage)
+            .width(592)
+            .height(492)
+            .fit("crop")
+            .auto("format")
+            .url()
+        : image;
 
   const portableTextComponents: PortableTextComponents = {
     block: ({ children }) => (
@@ -30,7 +42,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
     <div className="flex flex-col justify-between min-h-full h-full py-8 px-4 lg:px-6 rounded-[20px] bg-[#FCFCFC] shadow-blogCard">
       <div>
         {" "}
-        {image && (
+        {cardImageSrc && (
           <motion.div
             variants={slideUp}
             initial="hidden"
@@ -41,7 +53,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
             <Link href={`/tails/${slug}`}>
               <div className="relative w-full h-[246px] desk:h-[323px] mb-[26px] aspect-[296/246] rounded-[16px]">
                 <Image
-                  src={image}
+                  src={cardImageSrc}
                   alt="Photo"
                   fill
                   className="object-cover object-center rounded-[16px]"

@@ -10,6 +10,7 @@ import { extractFirstParagraphText } from "@/shared/utils/functions";
 import { Suspense } from "react";
 import Loading from "@/app/loading";
 import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 import client from "@/shared/lib/sanity";
 import {allTailsQuery, tailBySlugQuery} from "@/shared/lib/queries";
@@ -27,11 +28,22 @@ export async function generateMetadata({
     lang: locale,
   });
 
+  if (!data) {
+    return {
+      title: metadata.tails.title,
+      description: metadata.tails.description,
+      keywords: metadata.tails.keywords,
+      icons: {
+        icon: "/favicon.ico",
+      },
+    };
+  }
+
   // const data = await getAnimalById(id, locale);
   const title = `${metadata.tails.title} | ${data.name}`;
-  const description = `${
-    metadata.tails.description
-  } | ${data.description[0].children[0].text}`;
+  const firstDescription =
+    data.description?.[0]?.children?.[0]?.text ?? metadata.tails.description;
+  const description = `${metadata.tails.description} | ${firstDescription}`;
 
   return {
     title,
@@ -76,7 +88,7 @@ export default async function TailPage({ params }: PageParams) {
     lang: locale,
   });
   if (!data) {
-    return null;
+    notFound();
   }
   //@ts-expect-error
   const otherTails = allData.filter((item) => item.slug !== data.slug);

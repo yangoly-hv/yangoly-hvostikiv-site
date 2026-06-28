@@ -1,8 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-// import Pagination from "../Pagination/Pagination";
+import Pagination from "../Pagination/Pagination";
 import { ArrowDonwIcon } from "../../../public/images/icons";
 // import { reportingList } from "@/app/[locale]/reporting/constants";
 import { IReportingListProps } from "@/shared/types";
@@ -11,7 +11,7 @@ import { fadeIn, generalSlideUp } from "@/shared/utils";
 
 //@ts-expect-error
 export default function ReportingList({ data }: IReportingListProps) {
-  // const router = useRouter();
+  const router = useRouter();
   const searchParams = useSearchParams();
   const itemsPerPage = 12;
   const [currentPage, setCurrentPage] = useState(
@@ -22,20 +22,20 @@ export default function ReportingList({ data }: IReportingListProps) {
     setCurrentPage(parseInt(searchParams.get("page") || "1", 10));
   }, [searchParams]);
 
-  // const totalPages = Math.ceil(data.length / itemsPerPage);
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
-  // const handlePageChange = (page: number) => {
-  //   const params = new URLSearchParams(searchParams.toString());
-  //   params.set("page", page.toString());
-  //   router.push(`?${params.toString()}`);
-  //   setCurrentPage(page);
-  // };
+  const handlePageChange = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", page.toString());
+    router.push(`?${params.toString()}`);
+    setCurrentPage(page);
+  };
 
   const currentItems = data.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  console.log(currentItems[0].date)
+
   return (
     <>
       <ul className="flex flex-col gap-y-6">
@@ -77,20 +77,22 @@ export default function ReportingList({ data }: IReportingListProps) {
           </motion.li>
         ))}
       </ul>
-      {/*<motion.div*/}
-      {/*  variants={fadeIn}*/}
-      {/*  initial="hidden"*/}
-      {/*  whileInView="visible"*/}
-      {/*  viewport={{ once: true }}*/}
-      {/*  custom={0.8}*/}
-      {/*  className="w-fit mt-8 lg:mt-12 mx-auto"*/}
-      {/*>*/}
-      {/*  <Pagination*/}
-      {/*    currentPage={currentPage}*/}
-      {/*    totalPages={totalPages}*/}
-      {/*    onPageChange={handlePageChange}*/}
-      {/*  />*/}
-      {/*</motion.div>*/}
+      {totalPages > 1 && (
+        <motion.div
+          variants={fadeIn}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          custom={0.8}
+          className="w-fit mt-8 lg:mt-12 mx-auto"
+        >
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </motion.div>
+      )}
     </>
   );
 }

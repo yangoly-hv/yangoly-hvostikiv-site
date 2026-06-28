@@ -4,8 +4,27 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { CircleArrowIcon, CloseIcon } from "../../../../public/images/icons";
 import { cn } from "@/shared/utils";
+import { urlFor } from "@/shared/lib/sanityImage";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-const ImageSlider = ({ images }: { images: string[] }) => {
+type SliderImage = SanityImageSource;
+
+const getImageUrl = (image: SliderImage, width: number, height: number) =>
+  typeof image === "string"
+    ? image
+    : urlFor(image)
+        .width(width)
+        .height(height)
+        .fit("crop")
+        .auto("format")
+        .url();
+
+const getImageKey = (image: SliderImage, index: number) =>
+  typeof image === "string"
+    ? image
+    : `${(image as { asset?: { _ref?: string } }).asset?._ref || "image"}-${index}`;
+
+const ImageSlider = ({ images }: { images: SliderImage[] }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [thumbs, setThumbs] = useState(images.slice(0, 3));
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,9 +58,10 @@ const ImageSlider = ({ images }: { images: string[] }) => {
         <AnimatePresence mode="popLayout">
           {thumbs.map((image, index) => {
             const globalIndex = images.indexOf(image);
+            const imageUrl = getImageUrl(image, 202, 284);
             return (
               <motion.button
-                key={`${image}-${index}`}
+                key={getImageKey(image, index)}
                 layout
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
@@ -54,8 +74,8 @@ const ImageSlider = ({ images }: { images: string[] }) => {
                 onClick={() => handleThumbClick(globalIndex)}
               >
                 <Image
-                  src={image}
-                  alt={`Thumbnail ${image}`}
+                  src={imageUrl}
+                  alt={`Thumbnail ${globalIndex + 1}`}
                   fill={true}
                   className="object-cover rounded-[4px] lg:rounded-[8px]"
                 />
@@ -74,7 +94,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
       >
         <Image
           className="object-cover hover:scale-[1.05] transition duration-1000 ease-in-out cursor-pointer"
-          src={images[selectedIndex]}
+          src={getImageUrl(images[selectedIndex], 1160, 948)}
           alt={`Selected Image ${selectedIndex}`}
           fill={true}
           priority
@@ -129,7 +149,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
                 <CloseIcon variant="secondary" className="w-6 h-6" />
               </button>
               <Image
-                src={images[selectedIndex]}
+                src={getImageUrl(images[selectedIndex], 1600, 1200)}
                 alt="Full-size Image"
                 fill={true}
                 className="object-cover object-center"

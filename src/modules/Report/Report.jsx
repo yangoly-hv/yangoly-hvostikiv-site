@@ -108,7 +108,9 @@ function buildTabsFromReport(report) {
 }
 
 export default function Report({ translation, report }) {
-    const { date, title, images } = report;
+    const { date, title } = report;
+    const images = report.images ?? [];
+    const hasImages = images.length > 0;
 
     const tabs = buildTabsFromReport(report);
 
@@ -143,10 +145,11 @@ export default function Report({ translation, report }) {
                 </div>
             </div>
 
-            {/* ================= SLIDER (FULL WIDTH ON DESKTOP) ================= */}
-            <div className="mb-[32px] lg:mb-[44px]">
-                <ReportSlider images={images} />
-            </div>
+            {hasImages && (
+                <div className="mb-[32px] lg:mb-[44px]">
+                    <ReportSlider images={images} />
+                </div>
+            )}
 
             {/* ================= BOTTOM TEXT (container) ================= */}
             <div className="mx-auto container px-4 xl:px-10">

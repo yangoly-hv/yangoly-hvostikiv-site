@@ -99,20 +99,35 @@ export const getDateFromISO = (date) => {
 //     mainText: description,
 // });
 
-export const getTailData = ({_id, slug, mainImage, images, sex, name, description, sterilization_price, keeping_price, needs_family, needs_sterilization}, lang) => ({
-    id: _id,
-    image: mainImage,
-    slug: slug,
-    images: [mainImage, ...images],
-    name,
-    sterilization_price,
-    keeping_price,
-    sex: getSexTranslation(sex, lang),
-    sterilized: getSterializedText({needs_sterilization, sex, locale: lang}),
-    categories: getAnimalCategories({needs_sterilization, needs_family}),
-    description: description,
-    mainText: description,
-});
+export const getTailData = ({_id, slug, mainImage, mainImageForCrop, images, imagesForCrop, sex, name, description, sterilization_price, keeping_price, needs_family, needs_sterilization}, lang) => {
+    const needsSterilization = needs_sterilization !== false;
+    const tailImages = [mainImage, ...(Array.isArray(images) ? images : [])].filter(Boolean);
+    const galleryImages = [
+        mainImageForCrop || mainImage,
+        ...(Array.isArray(imagesForCrop) && imagesForCrop.length
+            ? imagesForCrop
+            : Array.isArray(images)
+                ? images
+                : []),
+    ].filter(Boolean);
+
+    return {
+        id: _id,
+        image: mainImage,
+        cardImage: mainImageForCrop || mainImage,
+        slug: slug,
+        images: tailImages,
+        galleryImages,
+        name,
+        sterilization_price,
+        keeping_price,
+        sex: getSexTranslation(sex, lang),
+        sterilized: getSterializedText({needs_sterilization: needsSterilization, sex, locale: lang}),
+        categories: getAnimalCategories({needs_sterilization: needsSterilization, needs_family}),
+        description: description,
+        mainText: description,
+    };
+};
 
 export const getBlogItemData = ({_id, slug, createdAt, publishedAt, title, description, additionalInfo, mainImage, secondaryImage})=> ({
     id: _id,
