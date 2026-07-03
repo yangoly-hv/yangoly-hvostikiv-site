@@ -3,7 +3,9 @@ import {useState} from "react";
 import HelpTabCard from "@/modules/Report/HelpTabCard";
 
 export default function HelpTabs({ tabs }) {
-    const [activeTab, setActiveTab] = useState(tabs[0].id)
+    const [desktopActiveTab, setDesktopActiveTab] = useState(tabs[0]?.id ?? '')
+    const [mobileActiveTab, setMobileActiveTab] = useState('')
+    const desktopActiveTabData = tabs.find(t => t.id === desktopActiveTab)
 
     return (
         <>
@@ -19,23 +21,25 @@ export default function HelpTabs({ tabs }) {
                             description={tab.description}
                             cta={tab.cta}
                             iconSrc={tab.iconSrc}
-                            isActive={tab.id === activeTab}
-                            onClick={() => setActiveTab(tab.id)}
+                            isActive={tab.id === desktopActiveTab}
+                            onClick={() => setDesktopActiveTab(tab.id)}
                         />
                     ))}
                 </div>
 
                 {/* RIGHT: CONTENT */}
-                <div className="bg-white rounded-[10px] py-[32px] px-[20px] lg:px-[64px]">
-                    <p className="font-arial font-normal uppercase text-[24px] lg:text-[32px] mb-[16px] lg:mb-[32px]">{tabs.find(t => t.id === activeTab)?.title}</p>
-                    {tabs.find(t => t.id === activeTab)?.content}
-                </div>
+                {desktopActiveTabData && (
+                    <div className="bg-white rounded-[10px] py-[32px] px-[20px] lg:px-[64px]">
+                        <p className="font-arial font-normal uppercase text-[24px] lg:text-[32px] mb-[16px] lg:mb-[32px]">{desktopActiveTabData.title}</p>
+                        {desktopActiveTabData.content}
+                    </div>
+                )}
             </div>
 
             {/* ===== MOBILE ===== */}
             <div className="lg:hidden space-y-4">
                 {tabs.map(tab => {
-                    const isOpen = tab.id === activeTab
+                    const isOpen = tab.id === mobileActiveTab
 
                     return (
                         <div key={tab.id}>
@@ -46,13 +50,13 @@ export default function HelpTabs({ tabs }) {
                                 iconSrc={tab.iconSrc}
                                 isActive={isOpen}
                                 onClick={() =>
-                                    setActiveTab(isOpen ? '' : tab.id)
+                                    setMobileActiveTab(isOpen ? '' : tab.id)
                                 }
                             />
 
                             {isOpen && (
                                 <div className="relative top-[-16px] lg:top-0 bg-white rounded-[10px] pt-[42px] pb-[24px] lg:py-[32px] px-[20px] lg:px-[64px]">
-                                    <p className="font-arial font-normal uppercase text-[24px] lg:text-[32px] mb-[16px] lg:mb-[32px] leading-[130%]">{tabs.find(t => t.id === activeTab)?.title}</p>
+                                    <p className="font-arial font-normal uppercase text-[24px] lg:text-[32px] mb-[16px] lg:mb-[32px] leading-[130%]">{tab.title}</p>
                                     {tab.content}
                                 </div>
                             )}
