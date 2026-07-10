@@ -4,20 +4,10 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { CircleArrowIcon, CloseIcon } from "../../../../public/images/icons";
 import { cn } from "@/shared/utils";
-import { urlFor } from "@/shared/lib/sanityImage";
+import { imageUrlForSlot } from "@/shared/lib/sanityImage";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
 type SliderImage = SanityImageSource;
-
-const getImageUrl = (image: SliderImage, width: number, height: number) =>
-  typeof image === "string"
-    ? image
-    : urlFor(image)
-        .width(width)
-        .height(height)
-        .fit("crop")
-        .auto("format")
-        .url();
 
 const getImageKey = (image: SliderImage, index: number) =>
   typeof image === "string"
@@ -58,7 +48,7 @@ const ImageSlider = ({ images }: { images: SliderImage[] }) => {
         <AnimatePresence mode="popLayout">
           {thumbs.map((image, index) => {
             const globalIndex = images.indexOf(image);
-            const imageUrl = getImageUrl(image, 202, 284);
+            const imageUrl = imageUrlForSlot(image, "tailDetailThumb");
             return (
               <motion.button
                 key={getImageKey(image, index)}
@@ -68,7 +58,7 @@ const ImageSlider = ({ images }: { images: SliderImage[] }) => {
                 exit={{ y: -20, opacity: 0 }}
                 transition={{ duration: 0.3, ease: "easeInOut" }}
                 className={cn(
-                  "relative aspect-[99/104] lg:aspect-[101/142] min-w-[99px] lg:min-w-[101px] min-h-[104px] lg:min-h-[142px] rounded-[6px] lg:rounded-[10px] cursor-pointer",
+                  "relative aspect-[6/5] min-w-[99px] lg:min-w-[101px] rounded-[6px] lg:rounded-[10px] cursor-pointer",
                   globalIndex === selectedIndex && "border-2 border-orange"
                 )}
                 onClick={() => handleThumbClick(globalIndex)}
@@ -87,14 +77,14 @@ const ImageSlider = ({ images }: { images: SliderImage[] }) => {
 
       <motion.div
         key={selectedIndex}
-        className="w-full max-w-[706px] lg:max-w-full aspect-[328/264] lg:aspect-auto lg:w-[420px] xl:w-[580px] lg:h-[474px] mx-auto lg:mx-0 relative rounded-[8px] lg:rounded-r-none overflow-hidden"
+        className="w-full max-w-[420px] lg:max-w-full aspect-[6/5] lg:w-[420px] xl:w-[500px] mx-auto lg:mx-0 relative rounded-[8px] lg:rounded-r-none overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
         <Image
           className="object-cover hover:scale-[1.05] transition duration-1000 ease-in-out cursor-pointer"
-          src={getImageUrl(images[selectedIndex], 1160, 948)}
+          src={imageUrlForSlot(images[selectedIndex], "tailDetailMain")}
           alt={`Selected Image ${selectedIndex}`}
           fill={true}
           priority
@@ -113,7 +103,7 @@ const ImageSlider = ({ images }: { images: SliderImage[] }) => {
             onClick={() => setIsModalOpen(false)}
           >
             <motion.div
-              className="relative w-[90vw] max-w-[800px] h-[90vh] max-h-[600px] rounded-lg overflow-hidden"
+              className="relative w-[90vw] max-w-[500px] aspect-[6/5] rounded-lg overflow-hidden"
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               exit={{ scale: 0.8 }}
@@ -149,7 +139,7 @@ const ImageSlider = ({ images }: { images: SliderImage[] }) => {
                 <CloseIcon variant="secondary" className="w-6 h-6" />
               </button>
               <Image
-                src={getImageUrl(images[selectedIndex], 1600, 1200)}
+                src={imageUrlForSlot(images[selectedIndex], "tailModal")}
                 alt="Full-size Image"
                 fill={true}
                 className="object-cover object-center"

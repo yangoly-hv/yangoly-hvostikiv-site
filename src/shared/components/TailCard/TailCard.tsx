@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { fadeIn, slideUp } from "@/shared/utils";
 import PortableTextRender from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 import { PortableTextComponents } from "@portabletext/react";
-import { urlFor } from "@/shared/lib/sanityImage";
+import { imageUrlForSlot } from "@/shared/lib/sanityImage";
 
 interface ITailCardProps extends ComponentProps<"div"> {
   tail: ITailItem;
@@ -18,17 +18,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
   const { detailsButton } = translation;
   //@ts-expect-error
   const { name, image, cardImage, description, sex, sterilized, slug } = tail;
-  const cardImageSrc =
-    typeof cardImage === "string"
-      ? cardImage
-      : cardImage
-        ? urlFor(cardImage)
-            .width(592)
-            .height(492)
-            .fit("crop")
-            .auto("format")
-            .url()
-        : image;
+  const cardImageSrc = imageUrlForSlot(cardImage || image, "tailCard");
 
   const portableTextComponents: PortableTextComponents = {
     block: ({ children }) => (
@@ -51,7 +41,7 @@ const TailCard = ({ tail, translation }: ITailCardProps) => {
             custom={0}
           >
             <Link href={`/tails/${slug}`}>
-              <div className="relative w-full h-[246px] desk:h-[323px] mb-[26px] aspect-[296/246] rounded-[16px]">
+              <div className="relative w-full mb-[26px] aspect-[6/5] rounded-[16px] overflow-hidden">
                 <Image
                   src={cardImageSrc}
                   alt="Photo"

@@ -37,13 +37,18 @@ export const allTailsQuery = `
     sex,
     needs_sterilization,
     needs_family,
-    "mainImage": mainImage.asset->url,
-    "mainImageForCrop": mainImage{
+    "mainImage": mainImage{
       asset,
       crop,
       hotspot
     },
-    "images": images[].asset->url
+    "mainImageUrl": mainImage.asset->url,
+    "images": images[]{
+      asset,
+      crop,
+      hotspot
+    },
+    "imageUrls": images[].asset->url
   }
 `
 
@@ -58,18 +63,18 @@ export const tailBySlugQuery = `
     sterilization_price,
     needs_family,
     keeping_price,
-    "mainImage": mainImage.asset->url,
-    "mainImageForCrop": mainImage{
+    "mainImage": mainImage{
       asset,
       crop,
       hotspot
     },
-    "imagesForCrop": images[]{
+    "mainImageUrl": mainImage.asset->url,
+    "images": images[]{
       asset,
       crop,
       hotspot
     },
-    "images": images[].asset->url
+    "imageUrls": images[].asset->url
     }
 `
 

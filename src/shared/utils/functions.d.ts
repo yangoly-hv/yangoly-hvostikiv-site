@@ -8,9 +8,11 @@ export function extractParagraphs(htmlString: string): string[];
 export interface GetTailDataInput {
   _id: string;
   slug: string;
-  mainImage: string;
+  mainImage: unknown;
+  mainImageUrl?: string;
   mainImageForCrop?: unknown;
-  images?: string[];
+  images?: unknown[];
+  imageUrls?: string[];
   imagesForCrop?: unknown[];
   sex: string;
   name: string;

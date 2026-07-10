@@ -119,7 +119,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
           >
             <Image
               src={image?.url}
-              alt={image?.alt}
+              alt={image?.alt ?? title ?? ""}
               fill
               sizes="50vw"
               className="object-cover"

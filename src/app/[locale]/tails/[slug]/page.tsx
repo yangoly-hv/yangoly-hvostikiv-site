@@ -60,7 +60,7 @@ export async function generateMetadata({
       locale,
       images: [
         {
-          url: data.mainImage,
+          url: data.mainImageUrl,
           width: 1200,
           height: 630,
           alt: title,

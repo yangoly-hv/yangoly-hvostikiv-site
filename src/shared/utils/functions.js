@@ -99,22 +99,30 @@ export const getDateFromISO = (date) => {
 //     mainText: description,
 // });
 
-export const getTailData = ({_id, slug, mainImage, mainImageForCrop, images, imagesForCrop, sex, name, description, sterilization_price, keeping_price, needs_family, needs_sterilization}, lang) => {
+export const getTailData = ({_id, slug, mainImage, mainImageUrl, mainImageForCrop, images, imageUrls, imagesForCrop, sex, name, description, sterilization_price, keeping_price, needs_family, needs_sterilization}, lang) => {
     const needsSterilization = needs_sterilization !== false;
-    const tailImages = [mainImage, ...(Array.isArray(images) ? images : [])].filter(Boolean);
+    const mainImageSource = mainImageForCrop || mainImage || mainImageUrl;
+    const additionalImageSources = Array.isArray(imagesForCrop) && imagesForCrop.length
+        ? imagesForCrop
+        : Array.isArray(images)
+            ? images
+            : [];
+    const additionalImageUrls = Array.isArray(imageUrls)
+        ? imageUrls
+        : Array.isArray(images)
+            ? images.filter((image) => typeof image === 'string')
+            : [];
+    const mainImageUrlFallback = mainImageUrl || (typeof mainImageSource === 'string' ? mainImageSource : '');
+    const tailImages = [mainImageUrlFallback, ...additionalImageUrls].filter(Boolean);
     const galleryImages = [
-        mainImageForCrop || mainImage,
-        ...(Array.isArray(imagesForCrop) && imagesForCrop.length
-            ? imagesForCrop
-            : Array.isArray(images)
-                ? images
-                : []),
+        mainImageSource,
+        ...additionalImageSources,
     ].filter(Boolean);
 
     return {
         id: _id,
-        image: mainImage,
-        cardImage: mainImageForCrop || mainImage,
+        image: mainImageUrlFallback,
+        cardImage: mainImageSource,
         slug: slug,
         images: tailImages,
         galleryImages,
