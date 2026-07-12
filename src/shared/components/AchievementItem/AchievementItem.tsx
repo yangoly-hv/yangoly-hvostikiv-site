@@ -2,7 +2,7 @@ import { IWorkResult } from "@/shared/types";
 
 const AchievementItem = ({ amount, name }: IWorkResult) => {
   return (
-    <div className="w-[197px]    flex flex-col justify-center items-center gap-[6px]">
+    <div className="w-[197px] flex flex-col justify-start items-center gap-[6px]">
       <p className="text-[48px] numeric-font leading-[130%] text-orange font-extralight font-arial ">
         {amount}
       </p>

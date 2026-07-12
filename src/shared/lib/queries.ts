@@ -16,7 +16,12 @@ export const reportBySlugQuery = `
   "title": title[$lang],
   "date": date,
   "slug": slug.current,
-  "images": coalesce(images[].asset->url, []),
+  "images": coalesce(images[]{
+    asset,
+    crop,
+    hotspot,
+    "url": asset->url
+  }, []),
   "shortFoodDescription": shortFoodDescription[$lang],
   "foodDescription": foodDescription[$lang],
   "shortHouseDescription": shortHouseDescription[$lang],

@@ -18,7 +18,10 @@ const Hero = async () => {
           priority
           sizes="100vw"
         />
-          <div style={{backgroundImage: "url(/images/hero-bg-mob.png)"}} className="h-[694px] bg-cover bg-center xl:hidden" />
+          <div
+            style={{backgroundImage: "url(/images/hero-bg-mob.png)"}}
+            className="h-[694px] bg-cover bg-center sm:bg-[position:center_32%] lg:bg-[position:center_24%] xl:hidden"
+          />
 
         {/*<Image*/}
         {/*  src="/images/hero-bg-mob.png"*/}

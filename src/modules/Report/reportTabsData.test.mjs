@@ -19,8 +19,10 @@ const completeReport = {
   otherDescription: block("Other full"),
 };
 
-assert.equal(TAB_CONFIG.find((tab) => tab.id === "food")?.title, "Допомога кормом");
-assert.equal(TAB_CONFIG.find((tab) => tab.id === "other")?.title, "Інше");
+assert.equal(TAB_CONFIG.find((tab) => tab.id === "food")?.labels.uk.title, "Допомога кормом");
+assert.equal(TAB_CONFIG.find((tab) => tab.id === "other")?.labels.uk.title, "Інше");
+assert.equal(TAB_CONFIG.find((tab) => tab.id === "therapy")?.labels.uk.title, "Ветеринарна допомога");
+assert.equal(TAB_CONFIG.find((tab) => tab.id === "therapy")?.labels.en.title, "Veterinary care");
 
 assert.deepEqual(
   buildReportTabsData({
@@ -44,6 +46,16 @@ assert.deepEqual(
     shortOtherDescription: block("   "),
   }).map((tab) => tab.id),
   ["food", "house", "therapy"],
+);
+
+assert.equal(
+  buildReportTabsData(completeReport).find((tab) => tab.id === "therapy")?.title,
+  "Ветеринарна допомога",
+);
+
+assert.equal(
+  buildReportTabsData(completeReport, "en").find((tab) => tab.id === "therapy")?.title,
+  "Veterinary care",
 );
 
 console.log("reportTabsData tests passed");

@@ -1,4 +1,6 @@
-import Image from 'next/image'
+import {PortableText} from '@portabletext/react'
+
+import {portableTextComponents} from './portableTextComponents'
 
 function HelpTabCard({title,
                          description,
@@ -7,10 +9,20 @@ function HelpTabCard({title,
                          isActive,
                          onClick,
                      }) {
-    console.log("iconSrc:", iconSrc);
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault()
+            onClick()
+        }
+    }
+
     return (
-        <button
+        <div
+            role="button"
+            tabIndex={0}
             onClick={onClick}
+            onKeyDown={handleKeyDown}
+            aria-pressed={isActive}
             className={`z-10 relative group w-full overflow-hidden rounded-2xl border-2 border-[#4C7B67] text-left transition`}
         >
             {/* TOP */}
@@ -34,13 +46,13 @@ function HelpTabCard({title,
                     <h3 className="mb-[12px] text-[20px] lg:text-[24px] font-semibold">
                         {title}
                     </h3>
-                    <p className="hidden sm:block text-[14px] leading-[130%]">
-                        {description}
-                    </p>
+                    <div className="hidden sm:block text-[14px] leading-[130%]">
+                        <PortableText value={description} components={portableTextComponents} />
+                    </div>
                 </div>
-                <p className="w-full sm:hidden text-[14px] leading-[130%]">
-                    {description}
-                </p>
+                <div className="w-full sm:hidden text-[14px] leading-[130%]">
+                    <PortableText value={description} components={portableTextComponents} />
+                </div>
             </div>
 
             {/* CTA */}
@@ -56,7 +68,7 @@ function HelpTabCard({title,
                 {cta}
                 <span className="transition group-hover:translate-x-1"> &gt; </span>
             </div>
-        </button>
+        </div>
     )
 }
 

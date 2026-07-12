@@ -23,7 +23,7 @@ const  WorkResults = async () => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="flex gap-[54px] xl:gap-[110px] flex-col md:flex-row md:items-center"
+        className="flex gap-[54px] xl:gap-[110px] flex-col md:flex-row md:items-start"
       >
         {translation.map((item: IWorkResult, index: number) => (
           <motion.li

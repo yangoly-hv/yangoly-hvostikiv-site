@@ -48,7 +48,10 @@ export async function generateMetadata({
   const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
   const description = `${metadata.reporting.description
     } | ${data.title} | ${data.date}`;
-  const imageUrl = data.images?.[0] || "/images/about/about-us-desk3.jpg";
+  const firstImage = data.images?.[0];
+  const imageUrl =
+    (typeof firstImage === "string" ? firstImage : firstImage?.url) ||
+    "/images/about/about-us-desk3.jpg";
 
   return {
     title,
@@ -99,7 +102,7 @@ export default async function ReportPage({ params }: PageParams) {
   return (
     <>
       <Suspense fallback={<Loading />}>
-        <Report report={data} translation={blog} />
+        <Report report={data} translation={blog} locale={locale} />
         <Contacts />
       </Suspense>
     </>

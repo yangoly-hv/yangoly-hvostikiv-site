@@ -10,8 +10,8 @@ import { fadeIn } from "@/shared/utils";
 import { portableTextComponents } from "./portableTextComponents";
 import { buildReportTabsData } from "./reportTabsData.mjs";
 
-function buildTabsFromReport(report) {
-  return buildReportTabsData(report).map((tab) => ({
+function buildTabsFromReport(report, locale) {
+  return buildReportTabsData(report, locale).map((tab) => ({
     id: tab.id,
     title: tab.title,
     description: tab.description,
@@ -26,12 +26,12 @@ function buildTabsFromReport(report) {
   }));
 }
 
-export default function Report({ translation, report }) {
+export default function Report({ translation, report, locale }) {
   const { date, title } = report;
   const images = report.images ?? [];
   const hasImages = images.length > 0;
 
-  const tabs = buildTabsFromReport(report);
+  const tabs = buildTabsFromReport(report, locale);
   const hasTabs = tabs.length > 0;
 
   return (
