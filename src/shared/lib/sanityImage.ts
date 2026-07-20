@@ -17,6 +17,7 @@ export const tailImageSlots = {
 
 export const imageSlots = {
   ...tailImageSlots,
+  collectionMonthlyGoal: {width: 705, height: 580},
   reportSlider: {width: 1040, height: 800},
   reportModal: {width: 1560, height: 1200},
 } as const;

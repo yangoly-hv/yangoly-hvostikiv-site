@@ -8,6 +8,17 @@ import { getTranslations } from "next-intl/server";
 
 import client from "@/shared/lib/sanity";
 import {mainCollectionQuery} from "@/shared/lib/queries";
+import { imageUrlForSlot } from "@/shared/lib/sanityImage";
+
+const fallbackImageUrl = "/images/home/monthlyGoal/dog.webp";
+
+const getAmount = (value: unknown) => {
+  const amount = typeof value === "number" ? value : Number(value);
+
+  return Number.isFinite(amount) ? amount : 0;
+};
+
+const formatAmount = (amount: number) => amount.toLocaleString("uk-UA");
 
 const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
   // const monthlyFundrasingLocalized = monthlyFundrasing[lang];
@@ -20,15 +31,17 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
   const [data] = await client.fetch(mainCollectionQuery);
   if(!data) return null;
 
-  const title = data.title[lang];
- const description = data.description[lang][0].children[0].text;
+  const title = data.title?.[lang] ?? data.title?.uk ?? "";
+  const description = data.description?.[lang]?.[0]?.children?.[0]?.text ?? "";
   const image = data.image;
-  const goal = data.amount;
-  const current = data.amountCollected;
+  const imageUrl = imageUrlForSlot(image, "collectionMonthlyGoal") || fallbackImageUrl;
+  const goal = getAmount(data.amount);
+  const current = getAmount(data.amountCollected);
+  const [generalGoalBefore, generalGoalAfter = ""] = generalGoal.split("{{goal}}");
 
   const formattedResult = result
-    .replace("{{goal}}", goal.toLocaleString("uk-UA"))
-    .replace("{{current}}", current.toLocaleString("uk-UA"));
+    .replace("{{goal}}", formatAmount(goal))
+    .replace("{{current}}", formatAmount(current));
 
   return (
     <section className="relative py-[120px] bg-white md:bg-transparent overflow-hidden">
@@ -79,7 +92,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
                 className="md:hidden relative h-[290px] mx-auto mb-6 rounded-[8px] overflow-hidden"
               >
                 <Image
-                  src={image?.url}
+                  src={imageUrl}
                   alt={title}
                   fill
                   sizes="100vw"
@@ -91,11 +104,11 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
                 animation={fadeInAnimation({ y: 30, delay: 0.4 })}
                 className="mb-[11px] xl:mb-6 font-arial text-[18px] xl:text-[24px] leading-[120%] text-center md:text-left"
               >
-                {generalGoal.split("{{goal}}")[0]}
+                {generalGoalBefore}
                 <span className="text-green">
-                  {goal.toLocaleString("uk-UA")}
+                  {formatAmount(goal)}
                 </span>
-                {generalGoal.split("{{goal}}")[1]}
+                {generalGoalAfter}
               </AnimatedWrapper>
             </div>
             <div>
@@ -115,10 +128,10 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
           </div>
           <AnimatedWrapper
             animation={fadeInAnimation({ x: 30, delay: 0.4 })}
-            className="hidden md:block relative w-[49.2%] aspect-[705/580] rounded-[8px] overflow-hidden"
+            className="hidden md:block md:self-center md:shrink-0 relative w-[49.2%] aspect-[705/580] rounded-[8px] overflow-hidden"
           >
             <Image
-              src={image?.url}
+              src={imageUrl}
               alt={image?.alt ?? title ?? ""}
               fill
               sizes="50vw"

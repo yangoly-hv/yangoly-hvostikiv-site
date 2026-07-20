@@ -154,7 +154,9 @@ export const perfomanceQuery = `*[_type == "perfomance"][0]{
 export const mainCollectionQuery = `*[_type == "collection" && main == true]{
  ...,
   image{
-    ...,
+    asset,
+    crop,
+    hotspot,
     "url": asset->url
   }
 }`;
