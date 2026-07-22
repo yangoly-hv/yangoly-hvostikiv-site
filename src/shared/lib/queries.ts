@@ -22,6 +22,8 @@ export const reportBySlugQuery = `
     hotspot,
     "url": asset->url
   }, []),
+  "reportFileUrl": reportFile.asset->url,
+  "reportFileName": reportFile.asset->originalFilename,
   "shortFoodDescription": shortFoodDescription[$lang],
   "foodDescription": foodDescription[$lang],
   "shortHouseDescription": shortHouseDescription[$lang],

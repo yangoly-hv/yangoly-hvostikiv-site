@@ -838,7 +838,8 @@
     "detailsButton": "More details"
   },
   "Reporting": {
-    "title": "Financial reporting"
+    "title": "Financial reporting",
+    "viewReportButton": "View this report"
   },
   "Tails": {
     "detailsButton": "More details",

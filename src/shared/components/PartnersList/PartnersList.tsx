@@ -10,6 +10,7 @@ import {
 const PartnersList = async () => {
   const t = await getTranslations("PartnersList");
   const list = (await t.raw("list")) as IPartnerItem[];
+  const visibleList = list.slice(4);
 
   return (
     <section className="relative pb-[100px] lg:pb-[120px] ">
@@ -30,7 +31,7 @@ const PartnersList = async () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          {list.map((partner, index) => (
+          {visibleList.map((partner, index) => (
             <motion.div
               key={index}
               variants={listItemVariants}

@@ -27,12 +27,14 @@ function buildTabsFromReport(report, locale) {
 }
 
 export default function Report({ translation, report, locale }) {
-  const { date, title } = report;
+  const { date, title, reportFileUrl } = report;
   const images = report.images ?? [];
   const hasImages = images.length > 0;
 
   const tabs = buildTabsFromReport(report, locale);
   const hasTabs = tabs.length > 0;
+  const viewReportButtonText =
+    translation?.viewReportButton ?? "Переглянути цей звіт";
 
   return (
     <section className="pt-[60px] xl:pt-12 pb-[100px] xl:pb-[148px]">
@@ -74,8 +76,29 @@ export default function Report({ translation, report, locale }) {
       {/* ================= BOTTOM TEXT (container) ================= */}
       <div className="mx-auto container px-4 xl:px-10">
         <div className="text-[14px] lg:text-[18px] font-light leading-[130%]">
-          {hasTabs && <HelpTabs tabs={tabs} />}
+          {hasTabs && (
+            <HelpTabs
+              tabs={tabs}
+              reportFileUrl={reportFileUrl}
+              viewReportButtonText={viewReportButtonText}
+            />
+          )}
         </div>
+        {!hasTabs && reportFileUrl && (
+          <motion.a
+            variants={fadeIn}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            custom={0.4}
+            href={reportFileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 lg:mt-8 flex w-full items-center justify-center rounded-[28px] bg-green px-6 py-3 text-center text-[14px] font-bold uppercase leading-[110%] text-white transition-all duration-300 ease-in-out hover:brightness-125 active:scale-95 xl:mx-auto xl:w-fit xl:text-[18px]"
+          >
+            {viewReportButtonText}
+          </motion.a>
+        )}
       </div>
     </section>
   );

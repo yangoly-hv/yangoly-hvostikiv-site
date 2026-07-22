@@ -838,7 +838,8 @@
     "detailsButton": "Детальніше"
   },
   "Reporting": {
-    "title": "Фінансова звітність"
+    "title": "Фінансова звітність",
+    "viewReportButton": "Переглянути цей звіт"
   },
   "Tails": {
     "detailsButton": "Детальніше",
