@@ -4,12 +4,12 @@ import Image from "next/image";
 import ClockIcon from "../../../public/images/icons/ClockIcon";
 import * as motion from "motion/react-client";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
-import { BlogBlockContent } from "@/shared/components/BlogBlocks";
-import type { PostWithContent } from "@/shared/types/blog.types";
+import { BlogBlockContent } from "@/features/blog/ui";
+import type { BlogPost } from "@/features/blog/model/types";
 import type { IBlog } from "@/shared/types/dictionary.types";
 
 interface Props {
-  article: PostWithContent;
+  article: BlogPost;
   translation: IBlog;
 }
 

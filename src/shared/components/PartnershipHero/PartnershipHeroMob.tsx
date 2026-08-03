@@ -88,7 +88,7 @@ const PartnershipHeroMob = async () => {
           fill
         />
         <Image
-          className="absolute bottom-[-58px] w-[277px] h-[304px] aspect-[277/304] left-1/2 -translate-x-1/2"
+          className="absolute bottom-[-58px] w-[277px] h-[304px] aspect-277/304 left-1/2 -translate-x-1/2"
           src="/images/partners/hero-mob.webp"
           alt="Dogs"
           width={277}
@@ -97,23 +97,6 @@ const PartnershipHeroMob = async () => {
           sizes="100vw"
         />
       </div>
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
-        viewport={{ once: true, amount: 0.2 }}
-        className="relative w-full min-h-[135px] mt-[37px]"
-      >
-        <Image src="/images/partners/ellipse.png" alt="Ellipse" fill />
-        <Image
-          className="absolute bottom-[-55px] w-[273px] h-[259px] aspect-[273/259] left-1/2 -translate-x-1/2"
-          src="/images/partners/dogs-mob.webp"
-          alt="Dogs"
-          width={408}
-          height={276}
-        />
-      </motion.div> */}
-
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}

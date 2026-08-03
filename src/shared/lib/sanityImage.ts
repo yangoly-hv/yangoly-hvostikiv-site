@@ -1,7 +1,9 @@
-import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import "server-only";
 
-const builder = imageUrlBuilder({
+import { createImageUrlBuilder } from "@sanity/image-url";
+import type { SanityImageSource } from "@sanity/image-url";
+
+const builder = createImageUrlBuilder({
   projectId: "vintpwoh",
   dataset: "production",
 });
@@ -22,7 +24,6 @@ export const imageSlots = {
   reportModal: {width: 1560, height: 1200},
 } as const;
 
-export type TailImageSlot = keyof typeof tailImageSlots;
 export type ImageSlot = keyof typeof imageSlots;
 
 export const imageUrlForSlot = (

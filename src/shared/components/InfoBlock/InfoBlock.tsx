@@ -48,15 +48,18 @@ const InfoBlock = ({
           const nodes: ReactElement[] = [];
 
           for (let i = 0; i < contentBlocks.length; i++) {
-            const block: any = contentBlocks[i];
+            const block = contentBlocks[i];
+            if (!block) continue;
 
             // Group consecutive bullet list items into one <ul>
             if (block.listItem === "bullet") {
-              const listItems: any[] = [];
+              const listItems: typeof contentBlocks = [];
               let j = i;
 
-              while (j < contentBlocks.length && contentBlocks[j].listItem === "bullet") {
-                listItems.push(contentBlocks[j]);
+              while (j < contentBlocks.length) {
+                const listItem = contentBlocks[j];
+                if (!listItem || listItem.listItem !== "bullet") break;
+                listItems.push(listItem);
                 j++;
               }
 
@@ -82,7 +85,7 @@ const InfoBlock = ({
                       key={item._key}
                       className="text-[14px] md:text-[16px] xl:text-[18px] leading-[130%] text-black font-light"
                     >
-                      {item.children?.map((child: any) => {
+                      {item.children?.map((child) => {
                         const isStrong = child.marks?.includes("strong");
                         return (
                           <span
@@ -127,7 +130,7 @@ const InfoBlock = ({
                     : "font-light text-black"
                 )}
               >
-                {block.children?.map((child: any) => {
+                {block.children?.map((child) => {
                   const isStrong = child.marks?.includes("strong");
                   return (
                     <span

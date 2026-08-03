@@ -83,7 +83,7 @@ const WhatVolunteerGetDesk = ({
               key={index}
             >
               <p className="text-[18px] leading-[130%] flex gap-[10px] items-center">
-                <span className="text-[#4C7B67] text-[24px] font-bold font-ranga">
+                <span className="text-green text-[24px] font-bold font-ranga">
                   {index + 1}.
                 </span>
                 {paragraph}

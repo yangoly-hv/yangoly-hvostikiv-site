@@ -34,7 +34,7 @@ export default function ChangeLifeImagesMob() {
         className="md:hidden absolute z-20 bottom-[208px] sm:bottom-[96px] left-[calc(50%-288px)] h-[196px] w-[577px]"
       >
         <div className="relative h-full w-full" style={ellipseMaskStyle}>
-          <div className="absolute bottom-[-15px] sm:bottom-[-15px] left-[36px] w-[378px] aspect-[378/237]">
+          <div className="absolute bottom-[-15px] sm:bottom-[-15px] left-[36px] w-[378px] aspect-378/237">
             <Image
               src="/images/home/changeLife/dogs-mobile.webp"
               alt="dogs"
@@ -47,7 +47,7 @@ export default function ChangeLifeImagesMob() {
       </AnimatedWrapper>
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-        className="md:hidden absolute top-[-12px] left-[calc(50%-197px)] h-[436px] aspect-[394/436]"
+        className="md:hidden absolute top-[-12px] left-[calc(50%-197px)] h-[436px] aspect-394/436"
       >
         <Image
           src="/images/home/changeLife/pawsMob.svg"

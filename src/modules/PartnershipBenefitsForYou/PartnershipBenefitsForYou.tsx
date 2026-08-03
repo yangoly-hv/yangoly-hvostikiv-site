@@ -16,7 +16,7 @@ const PartnershipBenefitsForYou = async () => {
   return (
     <section className="pt-[120px] pb-[138px] lg:pt-0 lg:pb-[120px]">
       <div className="relative container bg-white pt-[40px] pb-[89px] lg:pt-[90px] lg:pb-[195px] mx-auto px-[16px] lg:px-[40px]">
-        <div className="absolute z-10 bottom-[26px] sm:bottom-[40px] lg:bottom-[119px] left-1/2 -translate-x-1/2 lg:left-[auto] lg:translate-x-0 md:right-[-88px] w-[540px] h-[314px] xl:w-[900px] xl:h-[676px]">
+        <div className="absolute z-10 bottom-[26px] sm:bottom-[40px] lg:bottom-[119px] left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 md:right-[-88px] w-[540px] h-[314px] xl:w-[900px] xl:h-[676px]">
           <Image
             src="/images/partners/animals.webp"
             alt="animals"
@@ -35,9 +35,9 @@ const PartnershipBenefitsForYou = async () => {
           {title}
         </motion.h2>
         <div className="relative rounded-[8px] overflow-hidden w-full text-left bg-[#F4E1C1] px-[30px] pt-[32px] lg:pt-[64px] pb-[217px] lg:pb-[64px]">
-          <PawIcon className="absolute top-[-17px] right-[-17px] w-[81px] h-[81px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-[30deg] opacity-30" />
+          <PawIcon className="absolute top-[-17px] right-[-17px] w-[81px] h-[81px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-30 opacity-30" />
           <PawIcon className="absolute top-[-17px] lg:top-[-68px] left-[-17px] w-[66px] h-[66px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-[-44deg] opacity-30" />
-          <PawIcon className="absolute bottom-[77px] left-[-18px] lg:bottom-[265px] lg:left-auto lg:right-[538px] w-[79px] h-[79px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-[150deg] opacity-30" />
+          <PawIcon className="absolute bottom-[77px] left-[-18px] lg:bottom-[265px] lg:left-auto lg:right-[538px] w-[79px] h-[79px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-150 opacity-30" />
           <div className="relative z-10 flex flex-col gap-6">
             {items.map((item, index) => (
               <motion.div

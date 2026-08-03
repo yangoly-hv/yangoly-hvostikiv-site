@@ -6,11 +6,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
 import clsx from "clsx";
-import SlidesPagination from "@/modules/Pagination/SlidesPagination/SlidesPagination";
+import SlidesPagination from "@/shared/ui/SlidesPagination";
+import type { Swiper as SwiperInstance } from "swiper";
 
 const EventsSlider = ({ images }: { images: string[] }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const swiperRef = useRef<any>(null);
+  const swiperRef = useRef<SwiperInstance | null>(null);
   const [isPrevDisabled, setIsPrevDisabled] = useState(true);
   const [isNextDisabled, setIsNextDisabled] = useState(false);
 

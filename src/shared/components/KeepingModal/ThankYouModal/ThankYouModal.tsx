@@ -42,9 +42,9 @@ const ThankYouModal = ({
             {title ? title : t("title")}
           </h2>
         </div>
-        <div className="w-full h-[1px] bg-gray-300"></div>
+        <div className="w-full h-px bg-gray-300"></div>
         <div className="px-[20px]">
-          <p className="text-start text-[#000] py-[10px]   text-[18px] mb-6">
+          <p className="text-start text-black py-[10px]   text-[18px] mb-6">
             {message ? message : t("message")}
           </p>
 

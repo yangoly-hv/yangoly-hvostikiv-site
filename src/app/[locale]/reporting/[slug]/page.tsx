@@ -1,110 +1,97 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import Contacts from "@/modules/Contacts/Contacts";
 import Report from "@/modules/Report/Report";
-import { getDictionary } from "@/shared/utils";
-import { PageParams } from "@/shared/types";
-// import { reportingList } from "../constants";
+import {
+  getAllReportSlugs,
+  getReportBySlug,
+} from "@/features/reports/server/data";
+import { formatReportDate } from "@/features/reports/model/formatReportDate";
+import { locales } from "@/shared/config/site";
+import type { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
 
-// import { getReportById } from "@/shared/api/reports";
-import type { Metadata } from "next";
+export const dynamicParams = true;
 
-// import { extractFirstParagraphText } from "@/shared/utils/functions";
-import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
-
-import client from "@/shared/lib/sanity";
-import {reportBySlugQuery} from "@/shared/lib/queries";
-
-//@ts-expect-error
-import {formatReportMonthYear} from "@/shared/utils/functions";
+export async function generateStaticParams() {
+  const slugs = await getAllReportSlugs();
+  return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
+}
 
 export async function generateMetadata({
   params,
-}: PageParams): Promise<Metadata> {
-  const { locale, slug, } = await params;
-  const { metadata } = await getDictionary(locale);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://yangoly-hvostikiv-site.vercel.app";
-
-  const data = await client.fetch(reportBySlugQuery, {
-    slug,
-    lang: locale,
-  });
-
-  if (!data) {
-    return {
-      title: metadata.reporting.title,
-      description: metadata.reporting.description,
-      keywords: metadata.reporting.keywords,
-      icons: {
-        icon: "/favicon.ico",
-      },
-    };
+}: PageParams<{ slug: string }>): Promise<Metadata> {
+  const { locale, slug } = await params;
+  if (!slug) {
+    return getPageMetadata({ locale, key: "reporting", path: "/reporting" });
   }
 
-  // const data = await getReportById(id, locale);
-
-  const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
-  const description = `${metadata.reporting.description
-    } | ${data.title} | ${data.date}`;
-  const firstImage = data.images?.[0];
-  const imageUrl =
-    (typeof firstImage === "string" ? firstImage : firstImage?.url) ||
-    "/images/about/about-us-desk3.jpg";
-
-  return {
-    title,
-    description,
-    keywords: metadata.reporting.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title,
-      description: `${data.tilte}`,
-      url: `${baseUrl}/${locale}/reporting/${slug}`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: imageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-    },
+  const [report, t] = await Promise.all([
+    getReportBySlug(locale, slug),
+    getTranslations({ locale, namespace: "Metadata" }),
+  ]);
+  const fallback = t.raw("reporting") as {
+    title: string;
+    description: string;
+    keywords: string;
   };
+
+  if (!report) {
+    return getPageMetadata({
+      locale,
+      key: "reporting",
+      path: `/reporting/${slug}`,
+    });
+  }
+
+  const date =
+    typeof report.date === "string"
+      ? report.date
+      : formatReportDate(report.date, locale);
+  const title = `${fallback.title} | ${report.title} | ${date}`;
+
+  return getPageMetadata({
+    locale,
+    path: `/reporting/${slug}`,
+    values: {
+      title,
+      description: `${fallback.description} | ${report.title} | ${date}`,
+      keywords: fallback.keywords,
+    },
+    image: report.images?.[0],
+  });
 }
 
-export default async function ReportPage({ params }: PageParams) {
+export default async function ReportPage({ params }: PageParams<{ slug: string }>) {
   const { slug, locale } = await params;
-  const t = await getTranslations("");
-  const reporting = await t.raw("Reporting");
-  // const { reporting } = await getDictionary(locale);
+  if (!slug) notFound();
 
-  // const report = reportingList[locale].find(
-  //   (reportItem) => reportItem.id === id
-  // );
+  setRequestLocale(locale);
+  const [report, t] = await Promise.all([
+    getReportBySlug(locale, slug),
+    getTranslations({ locale }),
+  ]);
 
-  // const data = await getReportById(id, locale);
-  const data = await client.fetch(reportBySlugQuery, {
-    slug,
-    lang: locale,
-  });
+  if (!report) notFound();
 
-  if (!data) {
-    return null;
-  }
-  data.date = formatReportMonthYear(data.date, locale);
+  const preparedReport = {
+    ...report,
+    date:
+      typeof report.date === "string"
+        ? report.date
+        : formatReportDate(report.date, locale),
+  };
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <Report report={data} translation={reporting} locale={locale} />
-        <Contacts />
-      </Suspense>
+      <Report
+        report={preparedReport}
+        translation={t.raw("Reporting")}
+        locale={locale}
+      />
+      <Contacts />
     </>
   );
 }

@@ -16,7 +16,7 @@ const ProblemsWeSolve = async () => {
           <ProblemsWeSolveBgSvg className="w-full h-full" />
         </div>
         <PawIcon className="absolute top-[-83px] lg:top-[-26px] right-[calc(50%+92px)] md:right-auto md:left-[-34px] w-[167px] h-[167px] text-orange rotate-[-54.76deg] opacity-80" />
-        <PawIcon className="absolute top-[216px] md:top-[19px] right-[-30px] md:right-[-20px] w-[84px] h-[84px] lg:w-[114px] lg:h-[114px] text-orange rotate-[134deg] opacity-80" />
+        <PawIcon className="absolute top-[216px] md:top-[19px] right-[-30px] md:right-[-20px] w-[84px] h-[84px] lg:w-[114px] lg:h-[114px] text-orange rotate-134 opacity-80" />
       </div>
       <div className="relative z-10 container mx-auto px-[46px] lg:px-[40px]">
         <motion.h2

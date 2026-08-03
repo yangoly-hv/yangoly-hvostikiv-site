@@ -16,7 +16,7 @@ const ActivityDirections = async () => {
             md:top-[8px] md:right-auto md:left-[18px] md:rotate-[-30deg]
             " />
             <PawIcon className="absolute bottom-[13px] left-[8px] w-[86px] h-[86px] rotate-[-155.7deg] text-orange opacity-30
-            md:bottom-auto md:top-[12px] md:left-auto md:right-[78px] md:rotate-[30deg]
+            md:bottom-auto md:top-[12px] md:left-auto md:right-[78px] md:rotate-30
             " />
           </div>
           <div className="relative z-10">

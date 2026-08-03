@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { cn } from "@/shared/utils";
 import { CloseIcon } from "../../../../public/images/icons";
 import { IModalProps } from "@/shared/types";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { useLockBodyScroll } from "@/shared/hooks/useLockBodyScroll";
 
 const Modal = ({
@@ -29,7 +29,7 @@ const Modal = ({
         <motion.div
           onClick={handleBackdropClick}
           className={cn(
-            "fixed inset-0 flex items-center justify-center bg-black/50 z-[1000]",
+            "fixed inset-0 flex items-center justify-center bg-black/50 z-1000",
             className
           )}
           initial={{ opacity: 0 }}

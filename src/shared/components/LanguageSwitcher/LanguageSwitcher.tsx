@@ -1,59 +1,30 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { usePathname } from "@/i18n/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useLocale } from "next-intl";
+import { AnimatePresence, motion } from "motion/react";
+
+import { usePathname, useRouter } from "@/i18n/navigation";
+import type { ILanguage, ILanguages, Locale } from "@/shared/types";
+import { cn } from "@/shared/utils";
 import {
   ArrowDonwIcon,
   BritishFlag,
   UkraineFlag,
 } from "../../../../public/images/icons";
-import { ILanguage, ILanguages, Locale } from "@/shared/types";
-import { cn } from "@/shared/utils";
-import { motion, AnimatePresence } from "framer-motion";
 
 const languages: ILanguages = {
-  uk: {
-    name: "UA",
-    icon: <UkraineFlag />,
-  },
-  en: {
-    name: "EN",
-    icon: <BritishFlag />,
-  },
+  uk: { name: "UA", icon: <UkraineFlag /> },
+  en: { name: "EN", icon: <BritishFlag /> },
 };
 
 const LanguageSwitcher = () => {
   const pathname = usePathname();
-  const defaultLocale = useLocale() as Locale;
-  const [selectedLocale, setSelectedLocale] = useState<Locale>(defaultLocale);
+  const router = useRouter();
+  const selectedLocale = useLocale() as Locale;
+  const selectedLanguage = languages[selectedLocale];
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setSelectedLocale(defaultLocale);
-  }, [defaultLocale]);
-
-  useEffect(() => {
-    const currentPath = window.location.pathname;
-    const pathParts = currentPath.split("/");
-
-    // Перевіряємо, чи є перша частина шляху локаллю
-    if (pathParts.length > 1) {
-      const possibleLocale = pathParts[1] as Locale;
-      if (Object.keys(languages).includes(possibleLocale)) {
-        setSelectedLocale(possibleLocale);
-      }
-    }
-  }, [pathname]);
-
-  const pathnameWithoutLocale = () => {
-    const pathParts = pathname.split("/");
-    if (pathParts.length > 1 && Object.keys(languages).includes(pathParts[1])) {
-      return "/" + pathParts.slice(2).join("/");
-    }
-    return pathname;
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -70,53 +41,27 @@ const LanguageSwitcher = () => {
   }, []);
 
   const handleLocaleSwitch = (newLocale: Locale) => {
-    // Встановлюємо локальний стан відразу
-    setSelectedLocale(newLocale);
-
-    const cleanPathname = pathnameWithoutLocale();
-
-    window.location.href = `/${newLocale}${cleanPathname || "/"}`;
-
+    router.replace(pathname, { locale: newLocale });
     setIsOpen(false);
   };
+
+  if (!selectedLanguage) return null;
+
   return (
     <div className="relative" ref={dropdownRef}>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-50"
-      >
-        <div className="flex-shrink-0">{languages[selectedLocale]?.icon}</div>
-        <span className="text-sm font-medium text-[#262827]">
-          {languages[selectedLocale]?.name}
-        </span>
-        <ArrowDonwIcon
-          className={cn(
-            "w-4 h-4 transition-transform text-[#262827]",
-            isOpen && "rotate-180"
-          )}
-        />
+      <button type="button" aria-expanded={isOpen} onClick={() => setIsOpen((value) => !value)} className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-50">
+        <div className="shrink-0">{selectedLanguage.icon}</div>
+        <span className="text-sm font-medium text-[#262827]">{selectedLanguage.name}</span>
+        <ArrowDonwIcon className={cn("w-4 h-4 transition-transform text-[#262827]", isOpen && "rotate-180")} />
       </button>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg z-50 border border-gray-100"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-          >
+          <motion.div className="absolute right-0 mt-2 w-32 bg-white rounded-md shadow-lg z-50 border border-gray-100" initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
             {(Object.entries(languages) as [Locale, ILanguage][]).map(
               ([langCode, { name, icon }]) => (
-                <button
-                  key={langCode}
-                  onClick={() => handleLocaleSwitch(langCode)}
-                  className={cn(
-                    "w-full flex items-center gap-2 px-4 py-2 text-sm text-[#262827] hover:bg-gray-50",
-                    selectedLocale === langCode && "bg-gray-100"
-                  )}
-                >
-                  <div className="flex-shrink-0">{icon}</div>
+                <button type="button" key={langCode} onClick={() => handleLocaleSwitch(langCode)} className={cn("w-full flex items-center gap-2 px-4 py-2 text-sm text-[#262827] hover:bg-gray-50", selectedLocale === langCode && "bg-gray-100")}>
+                  <div className="shrink-0">{icon}</div>
                   <span className="font-medium">{name}</span>
                 </button>
               )

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -8,15 +7,21 @@ import { cn } from "@/shared/utils";
 import { IFormConfig, IFormField } from "@/shared/types";
 import Button from "../Button/Button";
 
-export const UniversalForm = ({
+export const UniversalForm = <TFieldName extends string>({
   title,
   fields,
   submitText,
   onSubmit,
   className,
-}: IFormConfig) => {
+}: IFormConfig<TFieldName>) => {
+  const pickFormValues = (
+    data: Record<string, string | undefined>,
+  ): Record<TFieldName, string> =>
+    Object.fromEntries(
+      fields.map((field) => [field.name, data[field.name] ?? ""]),
+    ) as Record<TFieldName, string>;
   const validationSchema = yup.object().shape(
-    fields.reduce<Record<string, any>>(
+    fields.reduce<Record<string, yup.StringSchema>>(
       (acc, field) => ({
         ...acc,
         [field.name]: field.validation || yup.string(),
@@ -28,12 +33,12 @@ export const UniversalForm = ({
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<Record<string, any>>({
+    formState: { errors, isSubmitting },
+  } = useForm<Record<string, string | undefined>>({
     resolver: yupResolver(validationSchema),
   });
 
-  const renderField = (field: IFormField) => {
+  const renderField = (field: IFormField<TFieldName>) => {
     const commonProps = {
       ...register(field.name),
       placeholder: field.placeholder,
@@ -70,7 +75,7 @@ export const UniversalForm = ({
   return (
     <div
       className={cn(
-        "w-full  mx-auto p-6 bg-white rounded-lg shadow",
+        "w-full  mx-auto p-6 bg-white rounded-lg shadow-sm",
         className
       )}
     >
@@ -79,14 +84,15 @@ export const UniversalForm = ({
       )}
 
       <form
-        onSubmit={handleSubmit((data) => {
-          if (onSubmit) onSubmit(data);
+        onSubmit={handleSubmit(async (data) => {
+          if (onSubmit) await onSubmit(pickFormValues(data));
         })}
+        aria-busy={isSubmitting}
         className="space-y-1"
       >
         {fields.map((field) => (
           <div key={field.name} className="">
-            <label className="block text-[16px] lg:text-[18px] leading-[130%] text-[#18181B]">
+            <label className="block text-[16px] lg:text-[18px] leading-[130%] text-dark">
               {field.label}
               {field.required && (
                 <span className={cn("", errors[field.name] && "text-red-500")}>
@@ -115,7 +121,12 @@ export const UniversalForm = ({
           </div>
         ))}
 
-        <Button className="w-full py-3" text={submitText} type="submit" />
+        <Button
+          className="w-full py-3 disabled:cursor-not-allowed disabled:opacity-60"
+          disabled={isSubmitting}
+          text={submitText}
+          type="submit"
+        />
       </form>
     </div>
   );

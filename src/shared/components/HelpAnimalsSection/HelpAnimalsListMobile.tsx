@@ -18,7 +18,7 @@ const HelpAnimalsListMobile = ({ list }: { list: IHelpAnimalsListItem[] }) => {
       {list.map((item, index) => (
         <motion.div
           variants={listItemVariants}
-          className="flex flex-col justify-between h-full rounded-[8px] border-[3px] border-[#EACCAA] py-[21px] px-[7px]"
+          className="flex flex-col justify-between h-full rounded-[8px] border-[3px] border-orange py-[21px] px-[7px]"
           key={index}
         >
           <div>

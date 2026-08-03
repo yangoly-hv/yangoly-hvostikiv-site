@@ -9,23 +9,23 @@ import Contacts from "@/modules/Contacts/Contacts";
 import Hero from "@/modules/Hero/Hero";
 import MonthlyGoalSection from "@/modules/MonthlyGoalSection/MonthlyGoalSection";
 import Partners from "@/modules/Partners/Partners";
-// import SupportFundraising from "@/modules/SupportFundraising/SupportFundraising";
 import WorkResults from "@/modules/WorkResults/WorkResults";
 import { PageParams } from "@/shared/types";
+import { setRequestLocale } from "next-intl/server";
 
 export default async function Home({ params }: PageParams) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   return (
     <>
       <Hero />
       <WorkResults />
-        <MonthlyGoalSection lang={locale} />
-        <Angels />
+      <MonthlyGoalSection lang={locale} />
+      <Angels />
 
       <ChangeLife />
 
-      {/*  <SupportFundraising lang={locale} />*/}
       <About lang={locale} />
       <ActivityDirections />
       <ProblemsWeSolve />

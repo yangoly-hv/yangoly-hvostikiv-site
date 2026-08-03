@@ -1,75 +1,48 @@
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import Contacts from "@/modules/Contacts/Contacts";
 import Reporting from "@/modules/Reporting/Reporting";
-import { getDictionary } from "@/shared/utils";
-import { PageParams } from "@/shared/types";
-
-// import { getAllReports } from "@/shared/api/reports";
-import type { Metadata } from "next";
-import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
-
-import client from "@/shared/lib/sanity";
-import {allReportsQuery} from "@/shared/lib/queries";
-
-//@ts-expect-error
-import {formatReportMonthYear} from "@/shared/utils/functions";
+import { getAllReports } from "@/features/reports/server/data";
+import { formatReportDate } from "@/features/reports/model/formatReportDate";
+import type { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
 
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
   const { locale } = await params;
-  const { metadata } = await getDictionary(locale);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
-
-  return {
-    title: metadata.reporting.title,
-    description: metadata.reporting.description,
-    keywords: metadata.reporting.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title: metadata.reporting.title,
-      description: metadata.reporting.description,
-      url: `${baseUrl}/${locale}/reporting`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: "/images/about/about-us-desk3.jpg",
-          width: 1200,
-          height: 630,
-          alt: metadata.reporting.title,
-        },
-      ],
-    },
-  };
+  return getPageMetadata({
+    locale,
+    key: "reporting",
+    path: "/reporting",
+  });
 }
 
 export default async function ReportingPage({ params }: PageParams) {
   const { locale } = await params;
-  const t = await getTranslations("");
-  const reporting = await t.raw("Reporting");
-  // const { reporting } = await getDictionary(locale);
-  const reports = await client.fetch(allReportsQuery, {
-    lang: locale
-  });
+  setRequestLocale(locale);
 
-  if (!reports) {
-    return null;
-  }
-
-  //@ts-expect-error
-  const prepareData = reports.map(item => ({...item, date: formatReportMonthYear(item.date, locale)}));
+  const [reports, t] = await Promise.all([
+    getAllReports(locale),
+    getTranslations({ locale }),
+  ]);
+  const preparedReports = reports.map((report) => ({
+    ...report,
+    date:
+      typeof report.date === "string"
+        ? report.date
+        : formatReportDate(report.date, locale),
+  }));
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <Reporting data={prepareData} translation={reporting} lang={locale} />
-        <Contacts />
-      </Suspense>
+      <Reporting
+        data={preparedReports}
+        translation={t.raw("Reporting")}
+        lang={locale}
+      />
+      <Contacts />
     </>
   );
 }

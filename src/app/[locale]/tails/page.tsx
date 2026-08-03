@@ -1,68 +1,35 @@
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import Contacts from "@/modules/Contacts/Contacts";
 import Tails from "@/modules/Tails/Tails";
-import { getDictionary } from "@/shared/utils";
-import { PageParams } from "@/shared/types";
-import type { Metadata } from "next";
-import { getAllAnimals } from "@/shared/api/animals";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
-import { getTranslations } from "next-intl/server";
-
-import client from "@/shared/lib/sanity";
-import {allTailsQuery} from "@/shared/lib/queries";
+import { getAllTails } from "@/features/tails/server/data";
+import { mapTail } from "@/features/tails/model/mapTail";
+import type { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
 
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
   const { locale } = await params;
-  const { metadata } = await getDictionary(locale);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
-
-  return {
-    title: metadata.tails.title,
-    description: metadata.tails.description,
-    keywords: metadata.tails.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title: metadata.tails.title,
-      description: metadata.tails.description,
-      url: `${baseUrl}/${locale}/tails`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: "/images/about/about-us-desk3.jpg",
-          width: 1200,
-          height: 630,
-          alt: metadata.tails.title,
-        },
-      ],
-    },
-  };
+  return getPageMetadata({ locale, key: "tails", path: "/tails" });
 }
 
 export default async function TailsPage({ params }: PageParams) {
   const { locale } = await params;
-  const tails = (await getTranslations("")).raw("Tails");
+  setRequestLocale(locale);
 
-  // const data = await getAllAnimals(locale);
-  const data = await client.fetch(allTailsQuery, {
-    lang: locale,
-  });
-
-  if (!data) {
-    return null;
-  }
+  const [data, t] = await Promise.all([
+    getAllTails(locale),
+    getTranslations({ locale }),
+  ]);
+  const translation = t.raw("Tails");
+  const tails = data.map((tail) => mapTail(tail, locale));
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <Tails data={data} translation={tails} lang={locale} />
-        <Contacts />
-      </Suspense>
+      <Tails data={tails} translation={translation} lang={locale} />
+      <Contacts />
     </>
   );
 }

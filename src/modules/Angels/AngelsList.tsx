@@ -1,40 +1,16 @@
-// import { donorsList } from "./mockedData";
 import {
   listVariants,
   fadeInAnimation,
 } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AnimatedListItem from "@/shared/components/Animations/AnimatedListItem";
-import { getLocale, getTranslations } from "next-intl/server";
-import { Locale } from "@/shared/types";
+import { getTranslations } from "next-intl/server";
+import type { Donor } from "@/features/home/model/types";
 
-import client from "@/shared/lib/sanity";
-import {topDotatorsQuery} from "@/shared/lib/queries";
-
-interface Props {
-    amount: number;
-    name: string;
-}
-
-interface Donor {
-    sum: number;
-    name: string;
-}
-
-export default async function AngelsList() {
+export default async function AngelsList({ donors }: { donors: Donor[] }) {
   const t = await getTranslations("Angels");
-  const lang = (await getLocale()) as Locale;
 
-    const data = await client.fetch(topDotatorsQuery, {
-        lang,
-    });
-
-    const donorsList = data.map((item: Props) => ({
-        sum: item.amount,
-        name: item.name,
-    }))
-
-  const formatSum = (value: number): string => {
+  const formatSum = (value: number) => {
     return new Intl.NumberFormat("uk-UA", {
       useGrouping: true,
       minimumFractionDigits: 0,
@@ -60,7 +36,7 @@ export default async function AngelsList() {
         animation={listVariants({ staggerChildren: 0.5, delayChildren: 0.4 })}
         className="flex flex-col gap-y-6"
       >
-        {donorsList.map((donor: Donor, idx: number) => (
+        {donors.map((donor, idx) => (
           <AnimatedListItem
             key={idx}
             className="grid grid-cols-[1fr_2.5fr_1.5fr] py-[11px] border-b border-orange text-[14px] xl:text-[20px] leading-[139%] xl:leading-[97%]"
@@ -68,7 +44,7 @@ export default async function AngelsList() {
             <p>{idx + 1}</p>
             <p>{donor?.name}</p>
             <p className="text-right">
-              {formatSum(donor?.sum)}&nbsp;{t("hrn")}
+              {formatSum(donor.amount)}&nbsp;{t("hrn")}
             </p>
           </AnimatedListItem>
         ))}

@@ -1,5 +1,4 @@
 import * as motion from "motion/react-client";
-// import DonateAction from "@/shared/components/DonateAction/DonateAction";
 import DonationForm from "@/modules/Hero/Donation/DonationForm";
 import Image from "next/image";
 import { getTranslations } from "next-intl/server";
@@ -10,28 +9,19 @@ const Hero = async () => {
     <section className="relative md:pt-[300px] xl:py-[141px] overflow-hidden">
       <div className="absolute inset-0 w-full h-full xl:left-0 xl:w-[115%]">
         <Image
-          src="/images/hero-bg-desk.jpg"
+          src="/images/hero-bg-desk.webp"
           alt="Hero background"
           fill
-          className="hidden sm:flex object-cover w-full h-full lg:object-bottom xl:object-left-bottom"
+          className="hidden sm:flex object-cover w-full h-full lg:object-bottom xl:object-bottom-left"
           quality={75}
           priority
           sizes="100vw"
         />
           <div
             style={{backgroundImage: "url(/images/hero-bg-mob.png)"}}
-            className="h-[694px] bg-cover bg-center sm:bg-[position:center_32%] lg:bg-[position:center_24%] xl:hidden"
+            className="h-[694px] bg-cover bg-center sm:bg-position-[center_32%] lg:bg-position-[center_24%] xl:hidden"
           />
 
-        {/*<Image*/}
-        {/*  src="/images/hero-bg-mob.png"*/}
-        {/*  alt="Hero background"*/}
-        {/*  fill*/}
-        {/*  className="object-cover object-top sm:hidden w-full h-full"*/}
-        {/*  quality={75}*/}
-        {/*  priority*/}
-        {/*  sizes="100vw"*/}
-        {/*/>*/}
       </div>
         <div className="relative lg:py-[20px] xl:py-0 lg:pl-[20px] xl:pl-[40px] flex justify-center xl:justify-start xl:items-center flex-wrap lg:flex-nowrap gap-[57px] xl:gap-[40px] z-10">
             <div className="order-2 md:order-1">

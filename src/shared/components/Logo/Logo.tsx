@@ -2,7 +2,7 @@
 import { ILogoProps } from "@/shared/types";
 import clsx from "clsx";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 
 const Logo = ({ variant = "black", className = "", ...props }: ILogoProps) => {
     return (

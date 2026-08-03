@@ -10,9 +10,9 @@ const Benefits = async () => {
   const secondList = list.slice(3);
 
   return (
-    <div className="bg-[#4C7B67] lg:py-[48px] pt-[25px] pb-[43px] lg:pb-0">
+    <div className="bg-green lg:py-[48px] pt-[25px] pb-[43px] lg:pb-0">
       <div className="container  mx-auto px-4   lg:px-[40px] xl:px-[187px] ">
-        <div className="lg:hidden relative aspect-[328/286] max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
+        <div className="lg:hidden relative aspect-328/286 max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
           <Image src="/images/events/benefits-desk.webp" className="w-full h-full object-cover" alt="Pet" fill />
         </div>
         <div>
@@ -78,7 +78,7 @@ const Benefits = async () => {
             transition: { duration: 0.5, ease: "easeOut", delay: 0.4 },
           },
         }}
-        className="relative aspect-[2400/1601] max-h-[665px] w-full mt-[70px] hidden lg:block"
+        className="relative aspect-2400/1601 max-h-[665px] w-full mt-[70px] hidden lg:block"
       >
         <Image
           src="/images/events/benefits-desk.webp"

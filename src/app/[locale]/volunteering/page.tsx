@@ -1,50 +1,25 @@
-import { getTranslations } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import * as motion from "motion/react-client";
 import Contacts from "@/modules/Contacts/Contacts";
 import HelpSection from "@/shared/components/HelpSection/HelpSection";
 import WhatVolunteerGet from "@/shared/components/WhatVolunteerGet/WhatVolunteerGet";
-import { IMetadata, PageParams } from "@/shared/types";
+import { PageParams } from "@/shared/types";
 import { Metadata } from "next";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
+import { getPageMetadata } from "@/shared/lib/metadata";
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const t = await getTranslations("Metadata");
-  const metadata = (await t.raw("volunteering")) as IMetadata;
   const { locale } = await params;
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
-  return {
-    title: metadata.title,
-    description: metadata.description,
-    keywords: metadata.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title: metadata.title,
-      description: metadata.description,
-      url: `${baseUrl}/${locale}/blog`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: "/images/about/about-us-desk3.jpg",
-          width: 1200,
-          height: 630,
-          alt: metadata.title,
-        },
-      ],
-    },
-  };
+  return getPageMetadata({ locale, key: "volunteering", path: "/volunteering" });
 }
 
-export default async function VolunteeringPage() {
-  const t = await getTranslations("VolunteeringPage");
+export default async function VolunteeringPage({ params }: PageParams) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "VolunteeringPage" });
 
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       <div className="container px-4 xl:px-[40px] mx-auto">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -62,6 +37,6 @@ export default async function VolunteeringPage() {
       </div>
       <WhatVolunteerGet />
       <Contacts />
-    </Suspense>
+    </>
   );
 }

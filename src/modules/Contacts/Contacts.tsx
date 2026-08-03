@@ -96,7 +96,7 @@ const Contacts = async () => {
           <ContactForm lang={lang} />
         </div>
       </div>
-      <div className="hidden xl:block absolute bottom-0 right-[35%] z-10 w-[678px] aspect-[678/571]">
+      <div className="hidden xl:block absolute bottom-0 right-[35%] z-10 w-[678px] aspect-678/571">
         <Image
             src="/images/contacts-union.png"
             alt="Two dogs"

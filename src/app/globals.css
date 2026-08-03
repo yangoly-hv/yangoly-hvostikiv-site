@@ -1,126 +1,192 @@
-@import url("https://fonts.googleapis.com/css2?family=Ranga&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Ranga&display=swap')
+layer(base);
+@import 'tailwindcss';
 
-:root {
-  --background: #fff7e5;
-  --foreground: #18181b;
-}
+@theme {
+  --breakpoint-tabxl: 1101px;
+  --breakpoint-xl: 1366px;
+  --breakpoint-laptop: 1512px;
+  --breakpoint-desk: 1920px;
 
-@font-face {
-  font-family: "Arial Black";
-  src: url("/fonts/ariblk.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
+  --color-white: #ffffff;
 
-html,
-body {
-  scrollbar-gutter: stable;
-  height: 100%;
-  max-width: 100vw;
-  scroll-behavior: smooth;
-}
+  --color-dark: #18181b;
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  --color-orange: #eaccaa;
+  --color-orange-bright: #ffd699;
+  --color-orange-bg: #fff7e5;
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-  /* outline: 1px solid red; */
-}
+  --color-green: #4c7b67;
+  --color-green-soft: #709480;
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  --color-gray: #27272a;
 
-.numeric-font {
-  font-feature-settings:
-    "lnum" 1,
-    "pnum" 1;
-}
+  --font-raleway: var(--font-raleway), serif;
+  --font-arial: Arial Black, serif;
+  --font-ranga: Ranga, cursive;
 
-.no-ligatures {
-  font-feature-settings:
-    "liga" off,
-    "clig" off;
-}
-.paws-background {
-  background-image: url("/images/paws-background.png");
-  background-position: center;
-  background-repeat: repeat;
-}
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee2: marquee2 40s linear infinite;
 
-.logo-white-mask {
-  mask-image: linear-gradient(0deg, #fff 0%, #fff 100%);
-  -webkit-mask-image: linear-gradient(0deg, #fff 0%, #fff 100%);
-  filter: brightness(0) invert(1);
-  width: 100%;
-  height: 100%;
-}
+  --shadow-blogCard: 0px 4px 24px 3px rgba(104, 104, 104, 0.12);
+  --shadow-pagination: 0px 10px 56px 2px #7979791f;
 
-input,
-textarea {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-
-input:focus-visible,
-textarea:focus-visible {
-  outline: none;
-}
-.swiper {
-  position: relative;
-}
-.swiper-pagination {
-  position: static !important;
-  display: flex !important;
-  justify-content: center !important;
-  margin-top: 32px !important;
-}
-.swiper-pagination-bullet {
-  width: 14px !important;
-  height: 14px !important;
-  background-color: #d9d9d9 !important;
-  opacity: 1 !important;
-  margin: 0 4px !important;
-  border-radius: 50px !important;
-}
-.swiper-pagination-bullet-active {
-  background-color: #ff9332 !important;
-  border-radius: 50px !important;
-  opacity: 1 !important;
-}
-
-.event-mask {
-  background-image: url("../../public/images/events/mask-mob.png");
-  background-size: 100% 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  @media (min-width: 1366px) {
-    background-image: url("../../public/images/events/mask-desk.png");
-    background-position: right top -50px;
-    background-size: 90% 100%;
+  @keyframes marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes marquee2 {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(0%);
+    }
   }
 }
-.animate-color {
-  animation: colorChange 2s infinite ease-in-out;
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility transition-base {
+  @apply transition duration-300 ease-in-out;
+}
+
+@layer utilities {
+  :root {
+    --background: #fff7e5;
+    --foreground: #18181b;
+  }
+
+  @font-face {
+    font-family: 'Arial Black';
+    src: url('/fonts/ariblk.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  html,
+  body {
+    scrollbar-gutter: stable;
+    height: 100%;
+    max-width: 100vw;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    /* outline: 1px solid red; */
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .numeric-font {
+    font-feature-settings:
+      'lnum' 1,
+      'pnum' 1;
+  }
+
+  .no-ligatures {
+    font-feature-settings:
+      'liga' off,
+      'clig' off;
+  }
+  .paws-background {
+    background-image: url('/images/paws-background.png');
+    background-position: center;
+    background-repeat: repeat;
+  }
+
+  .logo-white-mask {
+    mask-image: linear-gradient(0deg, #fff 0%, #fff 100%);
+    -webkit-mask-image: linear-gradient(0deg, #fff 0%, #fff 100%);
+    filter: brightness(0) invert(1);
+    width: 100%;
+    height: 100%;
+  }
+
+  input,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  input:focus-visible,
+  textarea:focus-visible {
+    outline: none;
+  }
+  .swiper {
+    position: relative;
+  }
+  .swiper-pagination {
+    position: static !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 32px !important;
+  }
+  .swiper-pagination-bullet {
+    width: 14px !important;
+    height: 14px !important;
+    background-color: #d9d9d9 !important;
+    opacity: 1 !important;
+    margin: 0 4px !important;
+    border-radius: 50px !important;
+  }
+  .swiper-pagination-bullet-active {
+    background-color: #ff9332 !important;
+    border-radius: 50px !important;
+    opacity: 1 !important;
+  }
+
+  .event-mask {
+    background-image: url('../../public/images/events/mask-mob.png');
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    @media (min-width: 1366px) {
+      background-image: url('../../public/images/events/mask-desk.png');
+      background-position: right top -50px;
+      background-size: 90% 100%;
+    }
+  }
+  .animate-color {
+    animation: colorChange 2s infinite ease-in-out;
+  }
 }
 @layer utilities {
-  .transition-base {
-    @apply transition duration-300 ease-in-out;
-  }
-
   @keyframes wave {
     0%,
     100% {

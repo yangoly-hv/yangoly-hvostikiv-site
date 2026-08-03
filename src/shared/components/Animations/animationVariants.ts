@@ -1,4 +1,4 @@
-import { Variants } from "framer-motion";
+import type { Variants } from "motion/react";
 
 type FadeInParams = {
   x?: number;

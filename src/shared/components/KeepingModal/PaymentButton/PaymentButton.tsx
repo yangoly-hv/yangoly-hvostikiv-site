@@ -13,7 +13,6 @@ const PaymentButton = ({
         return (
           <div className="flex items-center justify-center gap-1">
             <span>Зробити донат</span>
-            {/*<span className="bg-white text-black px-1 rounded">Pay</span>*/}
           </div>
         );
       case "googlePay":

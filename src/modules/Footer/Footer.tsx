@@ -2,7 +2,7 @@ import * as motion from "motion/react-client";
 import Logo from "@/shared/components/Logo/Logo";
 import SocialsList from "@/shared/components/SocialsList/SocialsList";
 import { IContacts, INavigationItem } from "@/shared/types";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import {
   containerVariants,

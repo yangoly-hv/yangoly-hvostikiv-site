@@ -21,11 +21,11 @@ const VolunteeringCardDesk = ({
       viewport={{ once: true, amount: 0.2 }}
       style={{ backgroundColor: item.bg }}
       className={clsx(
-        "py-[32px] rounded-[8px] relative flex flex-col overflow-hidden flex-grow",
+        "py-[32px] rounded-[8px] relative flex flex-col overflow-hidden grow",
         className
       )}
     >
-      <div className="px-4 pl-[36px] z-[2]">
+      <div className="px-4 pl-[36px] z-2">
         <h3
           className={clsx(
             "mb-3 font-arial text-[32px] tracking-[-0.225px] leading-[141%] whitespace-pre-line",
@@ -71,7 +71,7 @@ const VolunteeringCardDesk = ({
       {item.imagePathDesk && (
         <div
           className={clsx(
-            "absolute z-[1]",
+            "absolute z-1",
             index === 0 &&
               "right-[-15px] bottom-0 w-[250px] h-[400px] laptop:w-[350px] laptop:h-[526px]",
             index === 3 &&

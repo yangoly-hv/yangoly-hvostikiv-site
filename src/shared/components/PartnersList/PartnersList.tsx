@@ -25,7 +25,7 @@ const PartnersList = async () => {
       </motion.h2>
       <div className="container  px-4 xl:px-[40px] mx-auto overflow-hidden">
         <motion.div
-          className="grid grid-cols-1 gap-[20px] md:grid-cols-2 lg:grid-cols-3 relative z-[2]"
+          className="grid grid-cols-1 gap-[20px] md:grid-cols-2 lg:grid-cols-3 relative z-2"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"

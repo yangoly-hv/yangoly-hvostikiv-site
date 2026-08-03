@@ -1,24 +1,31 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
+import * as yup from "yup";
 
 import client from "@/shared/lib/sanity";
+import { getRequiredEnv } from "@/shared/lib/env.server";
 
-const merchantAccount = process.env.WAYFORPAY_ACCOUNT!;
-const merchantSecretKey = process.env.WAYFORPAY_SECRET!;
-const merchantDomainName = process.env.WAYFORPAY_DOMAIN!;
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-
-type CheckoutBody = {
-    amount: number;
-    orderReference: string;
-    productName: string;
-    returnPath?: string;
-};
+const checkoutBodySchema = yup
+    .object({
+        amount: yup.number().positive().required(),
+        orderReference: yup.string().trim().required(),
+        productName: yup.string().trim().required(),
+        returnPath: yup.string().optional(),
+    })
+    .noUnknown();
 
 export async function POST(req: Request) {
     try {
-        const body = (await req.json()) as CheckoutBody;
+        const body = await checkoutBodySchema.validate(await req.json(), {
+            abortEarly: false,
+            stripUnknown: true,
+        });
         const { amount, orderReference, productName, returnPath } = body;
+
+        const merchantAccount = getRequiredEnv("WAYFORPAY_ACCOUNT");
+        const merchantSecretKey = getRequiredEnv("WAYFORPAY_SECRET");
+        const merchantDomainName = getRequiredEnv("WAYFORPAY_DOMAIN");
+        const baseUrl = getRequiredEnv("NEXT_PUBLIC_BASE_URL");
 
         if (!amount || amount <= 0 || !orderReference || !productName) {
             return NextResponse.json({ error: "Invalid request" }, { status: 400 });
@@ -71,7 +78,13 @@ export async function POST(req: Request) {
             returnUrl,
             serviceUrl: `${baseUrl}/api/wayforpay/callback`,
         });
-    } catch {
+    } catch (error) {
+        if (error instanceof yup.ValidationError) {
+            return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+        }
+        if (error instanceof Error && error.message.startsWith("Missing required environment variable:")) {
+            return NextResponse.json({ error: "Payment is not configured" }, { status: 503 });
+        }
         return NextResponse.json(
             { error: "Internal server error" },
             { status: 500 }

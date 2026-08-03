@@ -1,14 +1,6 @@
 import EventsGrid from "@/shared/components/EventsGrid/EventsGrid";
 import EventsSlider from "@/shared/components/EventsSlider/EventsSlider";
 import * as motion from "motion/react-client";
-
-// const heroImages = [
-//   "/images/events/hero/img1.webp",
-//   "/images/events/hero/img3.webp",
-//   "/images/events/hero/img2.webp",
-//   "/images/events/hero/img4.webp",
-//   "/images/events/hero/img5.webp",
-// ];
 const Hero = ({ images, title }: { title: string, images: string[] }) => {
   return (
     <section className="container mx-auto px-4 xl:px-[40px] pt-[60px] xl:pt-[100px]">

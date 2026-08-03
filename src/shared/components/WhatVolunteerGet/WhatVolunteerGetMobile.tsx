@@ -53,14 +53,14 @@ const WhatVolunteerGetMobile = ({
           variants={listItemVariants}
           className="relative rounded-[8px] overflow-hidden w-full bg-[#F4E1C1] mt-[40px] px-[32px] pt-[32px] pb-[187px]"
         >
-          <PawIcon className="absolute top-[-17px] right-[-17px] w-[81px] h-[81px] text-[#BB9B53] rotate-[30deg] opacity-30" />
+          <PawIcon className="absolute top-[-17px] right-[-17px] w-[81px] h-[81px] text-[#BB9B53] rotate-30 opacity-30" />
           <PawIcon className="absolute top-[-17px] left-[-17px] w-[66px] h-[66px] text-[#BB9B53] rotate-[-44deg] opacity-30" />
-          <PawIcon className="absolute bottom-[77px] left-[-18px] w-[79px] h-[79px] text-[#BB9B53] rotate-[150deg] opacity-30" />
+          <PawIcon className="absolute bottom-[77px] left-[-18px] w-[79px] h-[79px] text-[#BB9B53] rotate-150 opacity-30" />
           <ul className="relative z-10 flex flex-col gap-6">
             {paragraphs.map((paragraph, index) => (
               <li key={index}>
                 <p className="text-[14px] leading-[130%] flex gap-[10px] items-center">
-                  <span className="text-[#4C7B67] text-[24px] font-bold font-ranga">
+                  <span className="text-green text-[24px] font-bold font-ranga">
                     {index + 1}.
                   </span>
                   {paragraph}

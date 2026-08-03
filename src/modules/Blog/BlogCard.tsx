@@ -1,9 +1,10 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import Button from "@/shared/components/Button/Button";
-import { IBlogCardProps } from "@/shared/types";
-import { motion } from "framer-motion";
+import type { BlogPostSummary } from "@/features/blog/model/types";
+import type { IBlog } from "@/shared/types";
+import { Link } from "@/i18n/navigation";
+import { motion } from "motion/react";
 import { fadeIn, slideUp } from "@/shared/utils";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
@@ -11,7 +12,11 @@ export default function BlogCard({
   blogItem,
   className = "",
   translation,
-}: IBlogCardProps) {
+}: {
+  blogItem: BlogPostSummary;
+  className?: string;
+  translation: IBlog;
+}) {
   const { mainPhoto, date, title, description, slug } = blogItem;
   const { detailsButton } = translation;
 
@@ -30,7 +35,7 @@ export default function BlogCard({
             custom={0}
           >
             <Link href={`/blog/${slug}`} className="block mb-[26px]">
-              <div className="relative w-full h-[246px] desk:h-[323px] aspect-[295/246] rounded-[11.25px] overflow-hidden">
+              <div className="relative w-full h-[246px] desk:h-[323px] aspect-295/246 rounded-[11.25px] overflow-hidden">
                 <Image
                   src={mainPhoto}
                   alt={title}

@@ -1,11 +1,10 @@
 
 
 import { Metadata } from "next";
-import { Suspense, useMemo } from "react";
-import { getTranslations } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import * as motion from "motion/react-client";
-import Loading from "@/app/loading";
-import { PageParams, IMetadata } from "@/shared/types";
+import { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
 
 /* =======================
    METADATA
@@ -14,33 +13,17 @@ import { PageParams, IMetadata } from "@/shared/types";
 export async function generateMetadata({
                                            params,
                                        }: PageParams): Promise<Metadata> {
-    const t = await getTranslations("Metadata");
-    const metadata = (await t.raw("publicOffer")) as IMetadata;
     const { locale } = await params;
-
-    const baseUrl =
-        process.env.NEXT_PUBLIC_SITE_URL ||
-        "https://yangoly-hvostikiv.vercel.app";
-
-    return {
-        title: metadata.title,
-        description: metadata.description,
-        openGraph: {
-            title: metadata.title,
-            description: metadata.description,
-            url: `${baseUrl}/${locale}/public-offer`,
-            type: "website",
-            locale,
-        },
-    };
+    return getPageMetadata({ locale, key: "publicOffer", path: "/public-offer" });
 }
 
 
 export default async function PublicOfferPage({ params }: PageParams) {
     const { locale } = await params;
+    setRequestLocale(locale);
 
     return (
-        <Suspense fallback={<Loading />}>
+        <>
             <div className="container mx-auto px-4 xl:px-[40px]">
                 <motion.h1
                     initial={{ opacity: 0, y: 18 }}
@@ -58,7 +41,7 @@ export default async function PublicOfferPage({ params }: PageParams) {
                     <OfferDocument locale={(locale as "uk" | "en") === "uk" ? "uk" : "en"} />
                 </div>
             </div>
-        </Suspense>
+        </>
     );
 }
 
@@ -67,10 +50,10 @@ export default async function PublicOfferPage({ params }: PageParams) {
 ====================================================== */
 
 function OfferDocument({ locale }: { locale: "uk" | "en" }) {
-    const lines = useMemo(() => (locale === "uk" ? UA_LINES : EN_LINES), [locale]);
+    const lines = locale === "uk" ? UA_LINES : EN_LINES;
 
     // Парсер: заголовки/списки/абзацы (простая надёжная логика)
-    const blocks = useMemo(() => parseLines(lines), [lines]);
+    const blocks = parseLines(lines);
 
     return (
         <article className="text-[#1D1D1D]">
@@ -221,7 +204,9 @@ function parseLines(lines: readonly string[]): Block[] {
 
     let i = 0;
     while (i < lines.length) {
-        const line = lines[i].trim();
+        const currentLine = lines[i];
+        if (currentLine === undefined) break;
+        const line = currentLine.trim();
         if (!line) {
             i++;
             continue;
@@ -254,7 +239,9 @@ function parseLines(lines: readonly string[]): Block[] {
             i++;
 
             while (i < lines.length) {
-                const li = lines[i].trim();
+                const currentItem = lines[i];
+                if (currentItem === undefined) break;
+                const li = currentItem.trim();
                 if (!li) {
                     i++;
                     continue;
@@ -275,7 +262,9 @@ function parseLines(lines: readonly string[]): Block[] {
         if (/^\d+\)/.test(line)) {
             const items: string[] = [];
             while (i < lines.length) {
-                const li = lines[i].trim();
+                const currentItem = lines[i];
+                if (currentItem === undefined) break;
+                const li = currentItem.trim();
                 if (!li) {
                     i++;
                     continue;
@@ -296,7 +285,7 @@ function parseLines(lines: readonly string[]): Block[] {
             line.startsWith("Я, Благодійник, що акцептував") ||
             line.startsWith("I, the Donor who has accepted")
         ) {
-            const paragraphs: string[] = [line];
+            const paragraphs = [line];
             i++;
 
             // подтянем ещё 1-2 абзаца, если они логически продолжают (без заголовка/списка)

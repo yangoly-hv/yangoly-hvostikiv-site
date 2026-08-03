@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { IFilterOption, Locale } from "@/shared/types";
+import { IFilterOption } from "@/shared/types";
 
 export default function Filter({ selectedFilter }: { selectedFilter: string }) {
   const router = useRouter();
@@ -10,20 +10,18 @@ export default function Filter({ selectedFilter }: { selectedFilter: string }) {
   const pathname = usePathname();
   const t = useTranslations("Filters");
 
-  const lang = pathname.split("/")[1] as Locale;
-
-  const filterOptions: IFilterOption[] = [
+  const filterOptions = [
     { label: t("allTails"), value: "all" },
     { label: t("needsSterilization"), value: "needs-sterilization" },
     { label: t("needsFamily"), value: "needs-family" },
     { label: t("adopted"), value: "adopted" },
-  ];
+  ] satisfies IFilterOption[];
 
   const handleFilterChange = (value: string) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("filter", value);
     params.set("page", "1");
-    router.push(`/${lang}/tails?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}`, { scroll: false });
   };
 
   return (

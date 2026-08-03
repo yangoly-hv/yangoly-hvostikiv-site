@@ -29,7 +29,7 @@ const WhatMakesUsDifferent = async () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
             viewport={{ once: true, amount: 0.2 }}
-            className={`${tileBaseClass} pr-[71px] bg-[#FFD699] h-[328px] lg:h-[262px] md:col-start-1 md:row-start-1`}
+            className={`${tileBaseClass} pr-[71px] bg-orange-bright h-[328px] lg:h-[262px] md:col-start-1 md:row-start-1`}
           >
             <div className="relative z-10 flex items-center gap-[32px] xl:gap-[52px]">
               <span className="font-ranga text-[128px] xl:text-[228px] leading-[120%] shrink-0 text-[#CB9B54]">
@@ -39,7 +39,7 @@ const WhatMakesUsDifferent = async () => {
                 {t("block1")}
               </p>
             </div>
-            <div className="absolute bottom-[-10px] left-[-11px] lg:bottom-0 lg:left-auto lg:right-[-15px] w-[322px] h-auto aspect-[322/262]">
+            <div className="absolute bottom-[-10px] left-[-11px] lg:bottom-0 lg:left-auto lg:right-[-15px] w-[322px] h-auto aspect-322/262">
               <Image src="/images/home/makesDifferent/card-1.webp"
                 alt="What Makes Us Different"
                 fill 
@@ -64,7 +64,7 @@ const WhatMakesUsDifferent = async () => {
                 {t("block2")}
               </p>
             </div>
-            <div className="absolute bottom-[-18px] left-[-73px] lg:bottom-[-20px] lg:left-auto lg:right-[-115px] w-[457px] h-auto aspect-[457/255]">
+            <div className="absolute bottom-[-18px] left-[-73px] lg:bottom-[-20px] lg:left-auto lg:right-[-115px] w-[457px] h-auto aspect-457/255">
               <Image src="/images/home/makesDifferent/card-2.webp"
                 alt="What Makes Us Different"
                 fill
@@ -89,7 +89,7 @@ const WhatMakesUsDifferent = async () => {
                 {t("block3")}
               </p>
             </div>
-            <div className="absolute bottom-[-7px] left-[-52px] lg:bottom-[-2px] lg:left-auto lg:right-[-83px] w-[397px] xl:w-[661px] h-auto aspect-[567/317] -scale-x-100">
+            <div className="absolute bottom-[-7px] left-[-52px] lg:bottom-[-2px] lg:left-auto lg:right-[-83px] w-[397px] xl:w-[661px] h-auto aspect-567/317 -scale-x-100">
               <Image src="/images/home/makesDifferent/card-3.webp"
                 alt="What Makes Us Different"
                 fill
@@ -114,7 +114,7 @@ const WhatMakesUsDifferent = async () => {
                 {t("block4")}
               </p>
             </div>
-            <div className="absolute bottom-[-107px] left-[-12px] xl:bottom-[16px] xl:left-auto xl:right-[-28px] w-[363px] xl:w-[281px] h-auto aspect-[303/252]">
+            <div className="absolute bottom-[-107px] left-[-12px] xl:bottom-[16px] xl:left-auto xl:right-[-28px] w-[363px] xl:w-[281px] h-auto aspect-303/252">
               <Image src="/images/home/makesDifferent/card-4.webp"
                 alt="What Makes Us Different"
                 fill

@@ -14,6 +14,7 @@ const VounteeringCardList = async ({
   formCard,
   helpsList,
 }: IVounteeringCardListProps) => {
+  const [firstCard, secondCard, thirdCard, fourthCard] = helpsList;
   return (
     <>
       <ul className="grid xl:hidden grid-cols-1 md:grid-cols-2 mt-[18px] gap-5 pt-[18px] pb-[100px]  xl:grid-rows-6">
@@ -61,37 +62,37 @@ const VounteeringCardList = async ({
       <div className=" grid-cols-2 gap-6 pt-[32px] pb-[100px] hidden xl:grid">
         {/* Перший стовпчик */}
         <div className="flex flex-col gap-6">
-          <div className="h-full flex-grow">
-            <VolunteeringCardDesk
-              item={helpsList[0]}
+          <div className="h-full grow">
+            {firstCard && <VolunteeringCardDesk
+              item={firstCard}
               index={0}
               className="h-full flex flex-col"
-            />
+            />}
           </div>
-          <div className="h-full flex-grow">
-            <VolunteeringCardDesk
-              item={helpsList[3]}
+          <div className="h-full grow">
+            {fourthCard && <VolunteeringCardDesk
+              item={fourthCard}
               index={3}
               className="h-full flex flex-col"
-            />
+            />}
           </div>
         </div>
 
         {/* Другий стовпчик */}
         <div className="flex flex-col gap-6">
           <div className="flex-none">
-            <VolunteeringCardDesk
-              item={helpsList[2]}
+            {thirdCard && <VolunteeringCardDesk
+              item={thirdCard}
               index={2}
               className="h-full"
-            />
+            />}
           </div>
           <div className="flex-none">
-            <VolunteeringCardDesk
-              item={helpsList[1]}
+            {secondCard && <VolunteeringCardDesk
+              item={secondCard}
               index={1}
               className="h-full"
-            />
+            />}
           </div>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -103,7 +104,7 @@ const VounteeringCardList = async ({
             }}
             viewport={{ once: true, amount: 0.2 }}
             style={{ backgroundColor: formCard.bg }}
-            className="pt-[23px] rounded-[8px] relative flex flex-col flex-grow min-h-0"
+            className="pt-[23px] rounded-[8px] relative flex flex-col grow min-h-0"
           >
             <div className="px-6 flex-1">
               <h3 className="font-arial text-center text-[24px] tracking-[-0.225px] leading-[141%]">
@@ -115,7 +116,7 @@ const VounteeringCardList = async ({
               <div className="flex justify-center items-center">
                 <ContactFormAction
                   buttonText={formCard.buttonText ? formCard.buttonText : ""}
-                  className="mt-6 w-full h-[52px] max-w-[253px] z-[2]"
+                  className="mt-6 w-full h-[52px] max-w-[253px] z-2"
                 />
               </div>
 
@@ -124,7 +125,7 @@ const VounteeringCardList = async ({
                 alt="Volunteering"
                 width={282}
                 height={282}
-                className="object-bottom w-[282px] h-[282px] absolute bottom-0 left-1/2 -translate-x-1/2 z-[1]"
+                className="object-bottom w-[282px] h-[282px] absolute bottom-0 left-1/2 -translate-x-1/2 z-1"
               />
             </div>
           </motion.div>

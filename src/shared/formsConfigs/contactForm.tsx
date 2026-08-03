@@ -1,8 +1,8 @@
 import * as yup from "yup";
-import { IFormConfig, Locale } from "@/shared/types";
+import { ContactFormFieldName, IFormConfig, Locale } from "@/shared/types";
 import { UkraineFlag } from "../../../public/images/icons";
 
-const getContactFormConfig = (lang: Locale): IFormConfig => {
+const getContactFormConfig = (lang: Locale): IFormConfig<ContactFormFieldName> => {
   const translations = {
     uk: {
       name: "Ваше ім'я",
@@ -16,6 +16,9 @@ const getContactFormConfig = (lang: Locale): IFormConfig => {
       requiredPhone: "Телефон обов'язковий",
       submitText: "ЗВ'ЯЖІТЬСЯ ЗІ МНОЮ",
       submiteddText: "Дякуємо за ваше повідомлення. Ми зв'яжемося з вами якнайшвидше!",
+      submitErrorText:
+        "Не вдалося надіслати повідомлення. Спробуйте ще раз.",
+      requestLabel: "Зворотний зв’язок",
     },
     en: {
       name: "Your Name",
@@ -29,6 +32,8 @@ const getContactFormConfig = (lang: Locale): IFormConfig => {
       requiredPhone: "Phone is required",
       submitText: "CONTACT ME",
       submiteddText: "Thank you for your message. We will contact you as soon as possible!",
+      submitErrorText: "Failed to send your message. Please try again.",
+      requestLabel: "Contact request",
     },
   };
 
@@ -66,6 +71,8 @@ const getContactFormConfig = (lang: Locale): IFormConfig => {
     ],
     submitText: t.submitText,
     submiteddText: t.submiteddText,
+    submitErrorText: t.submitErrorText,
+    requestLabel: t.requestLabel,
   };
 };
 

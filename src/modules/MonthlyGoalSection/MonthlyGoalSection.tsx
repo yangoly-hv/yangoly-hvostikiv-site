@@ -1,13 +1,11 @@
 import Image from "next/image";
-// import { monthlyFundrasing } from "./mockedData";
 import { IMonthlyGoalSectionProps } from "@/shared/types";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import Donate from "@/shared/components/Donate/Donate";
 import { getTranslations } from "next-intl/server";
 
-import client from "@/shared/lib/sanity";
-import {mainCollectionQuery} from "@/shared/lib/queries";
+import { getMainCollection } from "@/features/home/server/data";
 import { imageUrlForSlot } from "@/shared/lib/sanityImage";
 
 const fallbackImageUrl = "/images/home/monthlyGoal/dog.webp";
@@ -21,14 +19,11 @@ const getAmount = (value: unknown) => {
 const formatAmount = (amount: number) => amount.toLocaleString("uk-UA");
 
 const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
-  // const monthlyFundrasingLocalized = monthlyFundrasing[lang];
-  // const {goal, current } =
-  //   monthlyFundrasingLocalized;
   const t = await getTranslations("");
   const { generalGoal, result, supportFundrasing, support } = await t.raw(
     "MonthlyGoalSection"
   );
-  const [data] = await client.fetch(mainCollectionQuery);
+  const data = await getMainCollection();
   if(!data) return null;
 
   const title = data.title?.[lang] ?? data.title?.uk ?? "";
@@ -61,7 +56,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
         <div className="relative md:flex justify-between rounded-[8px] md:bg-white overflow-hidden">
           <AnimatedWrapper
             animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-            className="hidden md:block absolute top-[-26px] left-[-18px] md:w-[382px] lg:w-[502px] xl:w-[622px] laptop:w-[642px] desk:w-[802px] aspect-[642/583] h-auto"
+            className="hidden md:block absolute top-[-26px] left-[-18px] md:w-[382px] lg:w-[502px] xl:w-[622px] laptop:w-[642px] desk:w-[802px] aspect-642/583 h-auto"
           >
             <Image
               src="/images/home/monthlyGoal/housesDesk.svg"
@@ -128,7 +123,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
           </div>
           <AnimatedWrapper
             animation={fadeInAnimation({ x: 30, delay: 0.4 })}
-            className="hidden md:block md:self-center md:shrink-0 relative w-[49.2%] aspect-[705/580] rounded-[8px] overflow-hidden"
+            className="hidden md:block md:self-center md:shrink-0 relative w-[49.2%] aspect-705/580 rounded-[8px] overflow-hidden"
           >
             <Image
               src={imageUrl}

@@ -11,7 +11,7 @@ const WhatChangesThanksToUs = async () => {
   return (
     <section className="pt-[120px] pb-[138px] lg:pt-[92px] lg:pb-[217px]">
       <div className="relative container mx-auto px-[16px] lg:px-[40px]">
-        <div className="absolute z-10 bottom-[-18px] md:bottom-[-107px] left-1/2 -translate-x-1/2 lg:left-[auto] lg:translate-x-0 lg:right-[-22px] w-[530px] h-[216px] md:w-[700px] md:h-[340px] lg:w-[900px] lg:h-[458px]">
+        <div className="absolute z-10 bottom-[-18px] md:bottom-[-107px] left-1/2 -translate-x-1/2 lg:left-auto lg:translate-x-0 lg:right-[-22px] w-[530px] h-[216px] md:w-[700px] md:h-[340px] lg:w-[900px] lg:h-[458px]">
           <Image src="/images/home/whatChanges/animals.webp"
             alt="animals"
             fill
@@ -29,9 +29,9 @@ const WhatChangesThanksToUs = async () => {
             {title}
           </motion.h2>
           <div className="relative rounded-[8px] overflow-hidden w-full text-left bg-[#F4E1C1] px-[33px] pt-[32px] lg:pt-[64px] pb-[233px] lg:pb-[64px]">
-            <PawIcon className="absolute top-[-17px] right-[-17px] w-[81px] h-[81px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-[30deg] opacity-30" />
+            <PawIcon className="absolute top-[-17px] right-[-17px] w-[81px] h-[81px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-30 opacity-30" />
             <PawIcon className="absolute top-[-17px] lg:top-[-68px] left-[-17px] w-[66px] h-[66px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-[-44deg] opacity-30" />
-            <PawIcon className="absolute bottom-[77px] left-[-18px] lg:bottom-[-42px] lg:left-[35%] w-[79px] h-[79px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-[150deg] opacity-30" />
+            <PawIcon className="absolute bottom-[77px] left-[-18px] lg:bottom-[-42px] lg:left-[35%] w-[79px] h-[79px] lg:w-[131px] lg:h-[131px] text-[#BB9B53] rotate-150 opacity-30" />
             <div className="relative z-10 flex flex-col gap-6">
               {items.map((item, index) => (
                 <motion.div

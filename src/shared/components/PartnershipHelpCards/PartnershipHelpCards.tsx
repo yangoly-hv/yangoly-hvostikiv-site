@@ -8,7 +8,9 @@ const PartnershipHelpCards = async () => {
   const cards = (await t.raw("cards")) as IPartnershipHelpCard[];
 
   // Order for 2x2 grid: card1 (row1 col1), card3 (row1 col2), card2 (row2 col1), card4 (row2 col2)
-  const gridOrder = [cards[0], cards[2], cards[1], cards[3]];
+  const gridOrder = [cards[0], cards[2], cards[1], cards[3]].filter(
+    (card): card is IPartnershipHelpCard => card !== undefined,
+  );
 
   return (
     <section className="container px-4 xl:px-[40px] mx-auto pb-[60px] lg:pb-[80px]">

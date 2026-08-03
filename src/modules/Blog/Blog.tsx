@@ -1,12 +1,17 @@
 "use client";
 import BlogList from "./BlogList";
-// import { IBlogProps } from "@/shared/types";
-import { motion } from "framer-motion";
+import type { BlogPostSummary } from "@/features/blog/model/types";
+import type { IBlog } from "@/shared/types";
+import { motion } from "motion/react";
 import { fadeIn } from "@/shared/utils";
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-//@ts-expect-error
-export default function Blog({ data, translation }) {
+export default function Blog({
+  data,
+  translation,
+}: {
+  data: BlogPostSummary[];
+  translation: IBlog;
+}) {
   const { title } = translation;
 
   return (

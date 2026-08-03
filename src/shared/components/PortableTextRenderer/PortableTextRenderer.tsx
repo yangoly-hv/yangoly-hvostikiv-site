@@ -1,10 +1,10 @@
 "use client";
 
 import { PortableText, PortableTextComponents } from "@portabletext/react";
+import type { PortableTextBlock, TypedObject } from "@portabletext/types";
 
 interface PortableTextRendererProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any;
+  value: PortableTextBlock | Array<PortableTextBlock | TypedObject>;
   components?: PortableTextComponents;
 }
 

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import Button from "@/shared/components/Button/Button";

@@ -1,9 +1,9 @@
-import { ICheckBoxIconProps } from "@/shared/types";
+import type { CheckboxIconProps } from "@/shared/types";
 
 export const CheckboxIcon = ({
   variant = "default",
   ...props
-}: ICheckBoxIconProps) => {
+}: CheckboxIconProps) => {
   if (variant === "default")
     return (
       <svg

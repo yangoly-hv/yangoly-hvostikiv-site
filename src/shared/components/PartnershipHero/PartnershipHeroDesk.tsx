@@ -27,33 +27,33 @@ const PartnershipHeroDesk = async () => {
             alt="Paws"
             width={150}
             height={150}
-            className="absolute left-0 top-0 z-[1]"
+            className="absolute left-0 top-0 z-1"
           />
           <Image
             src="/images/partners/paw-desk-2.png"
             alt="Paws"
             width={185}
             height={185}
-            className="absolute left-[496px] top-0 z-[1]"
+            className="absolute left-[496px] top-0 z-1"
           />
           <Image
             src="/images/partners/paw-desk-3.png"
             alt="Paws"
             width={98}
             height={98}
-            className="absolute left-0 top-[270px] z-[1]"
+            className="absolute left-0 top-[270px] z-1"
           />
           <Image
             src="/images/partners/paw-desk-4.png"
             alt="Paws"
             width={104}
             height={104}
-            className="absolute left-[346px] bottom-0 z-[1]"
+            className="absolute left-[346px] bottom-0 z-1"
           />
         </div>
         <motion.div
           variants={containerVariants}
-          className="flex flex-col justify-center my-[80px] xl:my-[135px] max-w-[420px] xl:max-w-[508px] z-[10]"
+          className="flex flex-col justify-center my-[80px] xl:my-[135px] max-w-[420px] xl:max-w-[508px] z-10"
         >
           <motion.h2
             variants={listItemVariants}
@@ -80,7 +80,7 @@ const PartnershipHeroDesk = async () => {
 
         <motion.div
           variants={listItemVariantSecond}
-          className="relative z-[2] "
+          className="relative z-2 "
         >
           <Image
             src="/images/partners/ellipse-desk.png"

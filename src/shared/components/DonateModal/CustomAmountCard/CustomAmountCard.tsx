@@ -31,7 +31,7 @@ const CustomAmountCard = ({
         onChange={handleChange}
         onFocus={onFocus}
         placeholder={anotherAmount}
-        className="w-full text-[16px] bg-transparent outline-none text-center"
+        className="w-full text-[16px] bg-transparent outline-hidden text-center"
       />
     </div>
   );

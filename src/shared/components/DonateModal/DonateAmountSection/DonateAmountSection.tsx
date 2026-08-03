@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback, useMemo } from "react";
-import axios from "axios";
+import React, { useState, useCallback, useMemo } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
@@ -48,12 +47,6 @@ const DonateAmountSection = () => {
   const [agreementError, setAgreementError] = useState(false);
   const [isToastVisible, setIsToastVisible] = useState(false);
 
-  useEffect(() => {
-    if (isAgreed) {
-      setAgreementError(false);
-    }
-  }, [isAgreed]);
-
   const handleAmountSelect = useCallback((amount: number) => {
     setSelectedAmount(amount);
     setCustomAmount("");
@@ -77,33 +70,6 @@ const DonateAmountSection = () => {
       return;
     }
     await donate({amount: currentAmount, comment, returnPath});
-    // try {
-    //   const { data } = await axios.post("/api/wayforpay/checkout", {
-    //     amount: currentAmount,
-    //     orderReference: `DONATE_${Date.now()}`,
-    //     productName: "Донат для фонду Янголи хвостиків",
-    //     comment,
-    //     returnPath,
-    //   });
-    //
-    //   const form = document.createElement("form");
-    //   form.method = "POST";
-    //   form.action = "https://secure.wayforpay.com/pay";
-    //
-    //   Object.entries(data).forEach(([key, value]) => {
-    //     const input = document.createElement("input");
-    //     input.type = "hidden";
-    //     input.name = key;
-    //     input.value = Array.isArray(value) ? value.join(";") : String(value);
-    //     form.appendChild(input);
-    //   });
-    //
-    //   document.body.appendChild(form);
-    //   form.submit();
-    // } catch (error) {
-    //   console.error("WayForPay checkout error:", error);
-    //   // setIsToastVisible(true);
-    // }
   };
 
   return (
@@ -162,7 +128,10 @@ const DonateAmountSection = () => {
               <CheckBox
                   label={<PublicOfferLink text={translation.secondCheckboxLabel} />}
                   checked={isAgreed}
-                  onChange={setIsAgreed}
+                  onChange={(checked) => {
+                    setIsAgreed(checked);
+                    if (checked) setAgreementError(false);
+                  }}
                   error={agreementError}
                   required
               />
@@ -174,7 +143,6 @@ const DonateAmountSection = () => {
                   paymentType="monoPay"
                   onClick={handlePayment}
               />
-              {/* <PaymentButton paymentType="googlePay" onClick={handlePayment} /> */}
             </div>
           </div>
         </div>

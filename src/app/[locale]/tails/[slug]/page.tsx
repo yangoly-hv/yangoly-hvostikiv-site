@@ -1,110 +1,101 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import Tail from "@/modules/Tail/Tail";
 import Contacts from "@/modules/Contacts/Contacts";
-import { getDictionary } from "@/shared/utils";
-import { PageParams } from "@/shared/types";
-// import { tails } from "../constans";
+import {
+  getAllTails,
+  getAllTailSlugs,
+  getTailBySlug,
+} from "@/features/tails/server/data";
+import { mapTail } from "@/features/tails/model/mapTail";
+import { locales } from "@/shared/config/site";
+import type { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
 
-import { getAnimalById, getAllAnimals } from "@/shared/api/animals";
-import type { Metadata } from "next";
-import { extractFirstParagraphText } from "@/shared/utils/functions";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
-import { getTranslations } from "next-intl/server";
-import { notFound } from "next/navigation";
+export const dynamicParams = true;
 
-import client from "@/shared/lib/sanity";
-import {allTailsQuery, tailBySlugQuery} from "@/shared/lib/queries";
+export async function generateStaticParams() {
+  const slugs = await getAllTailSlugs();
+  return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
+}
 
 export async function generateMetadata({
   params,
-}: PageParams): Promise<Metadata> {
+}: PageParams<{ slug: string }>): Promise<Metadata> {
   const { locale, slug } = await params;
-  const { metadata } = await getDictionary(locale);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
+  if (!slug) return getPageMetadata({ locale, key: "tails", path: "/tails" });
 
-  const data = await client.fetch(tailBySlugQuery, {
-    slug,
-    lang: locale,
-  });
+  const [tail, t] = await Promise.all([
+    getTailBySlug(locale, slug),
+    getTranslations({ locale, namespace: "Metadata" }),
+  ]);
+  const fallback = t.raw("tails") as {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 
-  if (!data) {
-    return {
-      title: metadata.tails.title,
-      description: metadata.tails.description,
-      keywords: metadata.tails.keywords,
-      icons: {
-        icon: "/favicon.ico",
-      },
-    };
+  if (!tail) {
+    return getPageMetadata({ locale, key: "tails", path: `/tails/${slug}` });
   }
 
-  // const data = await getAnimalById(id, locale);
-  const title = `${metadata.tails.title} | ${data.name}`;
-  const firstDescription =
-    data.description?.[0]?.children?.[0]?.text ?? metadata.tails.description;
-  const description = `${metadata.tails.description} | ${firstDescription}`;
+  const firstDescription = tail.description?.[0]?.children?.[0]?.text;
+  const title = `${fallback.title} | ${tail.name}`;
 
-  return {
-    title,
-    description,
-    keywords: metadata.tails.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
+  return getPageMetadata({
+    locale,
+    path: `/tails/${slug}`,
+    values: {
       title,
-      description,
-      url: `${baseUrl}/${locale}/tails/${slug}`,
-      type: "website",
-      locale,
-      images: [
-        {
-          url: data.mainImageUrl,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      description: firstDescription || fallback.description,
+      keywords: fallback.keywords,
     },
-  };
+    image: tail.mainImageUrl,
+  });
 }
 
-export default async function TailPage({ params }: PageParams) {
+const selectRelatedTails = <T extends { slug: string }>(
+  tails: T[],
+  currentSlug: string,
+  limit: number
+) => {
+  const candidates = tails.filter((tail) => tail.slug !== currentSlug);
+  const offset = [...currentSlug].reduce((sum, character) => sum + character.charCodeAt(0), 0);
+  return [...candidates.slice(offset % Math.max(candidates.length, 1)), ...candidates].slice(
+    0,
+    Math.min(limit, candidates.length)
+  );
+};
+
+export default async function TailPage({ params }: PageParams<{ slug: string }>) {
   const { slug, locale } = await params;
-  // const tail = tails[locale].find((tail) => tail.id === id);
-  // const tail = tails[locale].find((tail) => tail.id === "tail-1");
-  const translation = (await getTranslations("")).raw("Tails");
+  if (!slug) notFound();
 
-  // const data = await getAnimalById(id, locale);
-  const data = await client.fetch(tailBySlugQuery, {
-    slug,
-    lang: locale,
-  });
+  setRequestLocale(locale);
+  const [tail, allTails, t] = await Promise.all([
+    getTailBySlug(locale, slug),
+    getAllTails(locale),
+    getTranslations({ locale }),
+  ]);
 
-  // const allData = await getAllAnimals(locale);
+  if (!tail) notFound();
 
-  const allData = await client.fetch(allTailsQuery, {
-    lang: locale,
-  });
-  if (!data) {
-    notFound();
-  }
-  //@ts-expect-error
-  const otherTails = allData.filter((item) => item.slug !== data.slug);
-  const randomTails = otherTails.sort(() => 0.5 - Math.random()).slice(0, 4);
+  const translation = t.raw("Tails");
+  const related = selectRelatedTails(allTails, slug, 4).map((item) =>
+    mapTail(item, locale)
+  );
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <Tail
-          translation={translation}
-          locale={locale}
-          tail={data}
-          randomTails={randomTails}
-        />
-        <Contacts />
-      </Suspense>
+      <Tail
+        translation={translation}
+        locale={locale}
+        tail={mapTail(tail, locale)}
+        randomTails={related}
+      />
+      <Contacts />
     </>
   );
 }

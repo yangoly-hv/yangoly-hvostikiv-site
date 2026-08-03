@@ -1,22 +1,22 @@
 "use client";
 import Image from "next/image";
-// import { Fragment } from "react";
 import ClockIcon from "../../../public/images/icons/ClockIcon";
-// import { calculateReadingTime } from "@/shared/utils/calculateReadingTime";
-import { IBlogArticleProps } from "@/shared/types";
-import { motion } from "framer-motion";
+import type { BlogPost } from "@/features/blog/model/types";
+import type { IBlog } from "@/shared/types";
+import { motion } from "motion/react";
 import { fadeIn, slideUp, generalSlideUp } from "@/shared/utils";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
-import {getBlogItemData} from "@/shared/utils/functions";
-
-export default function BlogArticle({ article, translation }: IBlogArticleProps) {
-  const transformData = getBlogItemData(article);
-
-  const { title, description, mainPhoto, secondaryPhoto, mainPart } = transformData;
+export default function BlogArticle({
+  article,
+  translation,
+}: {
+  article: BlogPost;
+  translation: IBlog;
+}) {
+  const { title, description, mainImage, secondaryImage, additionalInfo } = article;
   const { timeToRead } = translation;
 
-  // const readingTime = calculateReadingTime(article);
   const readingTime = "1";
 
   return (
@@ -58,7 +58,7 @@ export default function BlogArticle({ article, translation }: IBlogArticleProps)
             </span>
           </motion.div>
         </div>
-        {mainPhoto && <motion.div
+        {mainImage && <motion.div
           variants={slideUp}
           initial="hidden"
           whileInView="visible"
@@ -67,7 +67,7 @@ export default function BlogArticle({ article, translation }: IBlogArticleProps)
           className="relative w-full lg:w-[40.8%] max-w-[585px] h-[383px] mx-auto lg:mx-0"
         >
           <Image
-            src={mainPhoto}
+            src={mainImage}
             alt={title}
             fill
             className="object-cover object-center rounded-[18.05px]"
@@ -75,58 +75,21 @@ export default function BlogArticle({ article, translation }: IBlogArticleProps)
           />
         </motion.div>}
       </div>
-      {mainPart ? (
+      {additionalInfo ? (
         <div className="mb-[60px] lg:mb-[96px] text-[14px] lg:text-[18px] font-light leading-[130%]">
-          <PortableTextRenderer value={mainPart} />
+          <PortableTextRenderer value={additionalInfo} />
         </div>
       ) : null}
-      {/*  {mainPart.lists.map((list, idx) => (*/}
-      {/*    <Fragment key={idx}>*/}
-      {/*      <motion.h2*/}
-      {/*        variants={fadeIn}*/}
-      {/*        initial="hidden"*/}
-      {/*        whileInView="visible"*/}
-      {/*        viewport={{ once: true }}*/}
-      {/*        custom={0.6 + idx * 0.4}*/}
-      {/*      >*/}
-      {/*        {list.title}*/}
-      {/*      </motion.h2>*/}
-      {/*      <ul>*/}
-      {/*        {list.items.map((item, itemIdx) => (*/}
-      {/*          <motion.li*/}
-      {/*            variants={generalSlideUp}*/}
-      {/*            initial="hidden"*/}
-      {/*            whileInView="visible"*/}
-      {/*            viewport={{ once: true }}*/}
-      {/*            custom={0.8 + idx * 0.4 + itemIdx * 0.2}*/}
-      {/*            key={itemIdx}*/}
-      {/*          >*/}
-      {/*            {item}*/}
-      {/*          </motion.li>*/}
-      {/*        ))}*/}
-      {/*      </ul>*/}
-      {/*    </Fragment>*/}
-      {/*  ))}*/}
-      {/*  <motion.p*/}
-      {/*    variants={generalSlideUp}*/}
-      {/*    initial="hidden"*/}
-      {/*    whileInView="visible"*/}
-      {/*    viewport={{ once: true }}*/}
-      {/*    custom={0.8 + mainPart.lists.length * 0.4}*/}
-      {/*  >*/}
-      {/*    {mainPart.text}*/}
-      {/*  </motion.p>*/}
-      {/*</div>*/}
-      {secondaryPhoto && <motion.div
+      {secondaryImage && <motion.div
         variants={slideUp}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         custom={0.6}
-        className="relative w-full max-w-[585px] lg:max-w-full aspect-[328/189] lg:aspect-[1429/455] mx-auto lg:mx-0"
+        className="relative w-full max-w-[585px] lg:max-w-full aspect-328/189 lg:aspect-1429/455 mx-auto lg:mx-0"
       >
         <Image
-          src={secondaryPhoto}
+          src={secondaryImage}
           alt={title}
           fill
           className="rounded-[18.05px] object-cover object-center"

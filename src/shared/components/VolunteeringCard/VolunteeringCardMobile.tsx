@@ -50,14 +50,10 @@ const VolunteeringCardMobile = ({
       <div
         className={clsx(
           "relative w-full mx-auto mt-auto ",
-          // index === 0 && "w-full max-w-[354px] h-[335px]",
-          // index === 1 && "aspect-[330/264]",
-          // index === 2 && "w-full  h-full min-h-[494px]",
-          // index === 3 && " w-[328px] min-h-[299px]"
-          index === 0 && "w-full aspect-[223/204]",
-          index === 1 && "aspect-[330/264]",
-          index === 2 && "aspect-[329/410]",
-          index === 3 && "aspect-[448/299]"
+          index === 0 && "w-full aspect-223/204",
+          index === 1 && "aspect-330/264",
+          index === 2 && "aspect-329/410",
+          index === 3 && "aspect-448/299"
         )}
       >
         <Image

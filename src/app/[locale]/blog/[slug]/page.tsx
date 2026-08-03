@@ -1,86 +1,75 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import Contacts from "@/modules/Contacts/Contacts";
 import BlogArticle from "@/modules/BlogArticle/BlogArticle";
 import BlogArticleWithContent from "@/modules/BlogArticle/BlogArticleWithContent";
-import { getDictionary } from "@/shared/utils";
-import { PageParams } from "@/shared/types";
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
-import { getTranslations } from "next-intl/server";
+import { getAllPostSlugs, getPostBySlug } from "@/features/blog/server/data";
+import { locales } from "@/shared/config/site";
+import type { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
 
-import client from "@/shared/lib/sanity";
-import { postBySlugWithContentQuery } from "@/shared/lib/queries";
-import type { PostWithContent } from "@/shared/types/blog.types";
+export const dynamicParams = true;
+
+export async function generateStaticParams() {
+  const slugs = await getAllPostSlugs();
+  return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
+}
 
 export async function generateMetadata({
   params,
-}: PageParams): Promise<Metadata> {
+}: PageParams<{ slug: string }>): Promise<Metadata> {
   const { locale, slug } = await params;
-  const { metadata } = await getDictionary(locale);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://yangoly-hvostikiv-site.vercel.app";
+  if (!slug) return getPageMetadata({ locale, key: "blog", path: "/blog" });
 
-  return {
-    title: metadata.blog.title,
-    description: metadata.blog.description,
-    keywords: metadata.blog.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title: metadata.blog.title,
-      description: metadata.blog.description,
-      url: `${baseUrl}/${locale}/blog/${slug}`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: "/images/about/about-us-desk3.jpg",
-          width: 1200,
-          height: 630,
-          alt: metadata.blog.title,
-        },
-      ],
-    },
+  const [post, t] = await Promise.all([
+    getPostBySlug(locale, slug),
+    getTranslations({ locale, namespace: "Metadata" }),
+  ]);
+  const fallback = t.raw("blog") as {
+    title: string;
+    description: string;
+    keywords: string;
   };
+
+  return getPageMetadata({
+    locale,
+    path: `/blog/${slug}`,
+    values: post
+      ? {
+          title: `${fallback.title} | ${post.title}`,
+          description: fallback.description,
+          keywords: fallback.keywords,
+        }
+      : fallback,
+    image: post?.mainImage,
+  });
 }
 
-/** Detect new schema: post has content array with blocks. Legacy has additionalInfo/secondaryImage. */
-function hasContentBlocks(
-  data: { content?: unknown[] }
-): data is { content: unknown[] } {
-  return Array.isArray(data.content) && data.content.length > 0;
-}
-
-export default async function ArticlePage({ params }: PageParams) {
+export default async function ArticlePage({ params }: PageParams<{ slug: string }>) {
   const { slug, locale } = await params;
-  const t = await getTranslations("");
-  const blog = await t.raw("Blog");
-  const data = await client.fetch<PostWithContent | null>(
-    postBySlugWithContentQuery,
-    { lang: locale, slug }
-  );
+  if (!slug) notFound();
 
-  if (!data) {
-    return null;
-  }
-console.log(data);
-  const useNewSchema = hasContentBlocks(data);
+  setRequestLocale(locale);
+  const [post, t] = await Promise.all([
+    getPostBySlug(locale, slug),
+    getTranslations({ locale }),
+  ]);
+
+  if (!post) notFound();
+
+  const translation = t.raw("Blog");
+  const hasContent = Array.isArray(post.content) && post.content.length > 0;
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        {useNewSchema ? (
-          <BlogArticleWithContent
-            article={data}
-            translation={blog}
-          />
-        ) : (
-          <BlogArticle article={data} translation={blog} />
-        )}
-        <Contacts />
-      </Suspense>
+      {hasContent ? (
+        <BlogArticleWithContent article={post} translation={translation} />
+      ) : (
+        <BlogArticle article={post} translation={translation} />
+      )}
+      <Contacts />
     </>
   );
 }

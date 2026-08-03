@@ -22,7 +22,7 @@ const PartnersListItem = ({ partner }: { partner: IPartnerItem }) => {
       <div
         className={clsx(
           "h-[148px] lg:h-[188px] flex items-center justify-center",
-          !partner.image.bg && "border-b border-solid border-[#EACCAA]"
+          !partner.image.bg && "border-b border-solid border-orange"
         )}
         style={partner.image.bg ? { backgroundColor: partner.image.bg } : {}}
       >

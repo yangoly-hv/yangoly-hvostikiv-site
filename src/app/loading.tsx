@@ -2,7 +2,7 @@ const Loading = () => {
   const letters = "Loading...".split("");
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-[#FFF7E5]">
+    <div className="min-h-screen w-full flex items-center justify-center bg-orange-bg">
       <div className="flex space-x-1">
         {letters.map((letter, index) => (
           <span

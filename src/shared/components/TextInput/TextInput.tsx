@@ -27,7 +27,7 @@ const TextInput = ({
         type="text"
         value={value}
         onChange={handleChange}
-        className={`w-full pl-[12px] py-[11px] border text-[14px] xl:text-[16px] bg-white text-dark border-[#A1A1AA] rounded-[4px] focus:outline-none focus:border-orange-500 ${className}`}
+        className={`w-full pl-[12px] py-[11px] border text-[14px] xl:text-[16px] bg-white text-dark border-[#A1A1AA] rounded-[4px] focus:outline-hidden focus:border-orange-500 ${className}`}
         {...props}
       />
     </div>

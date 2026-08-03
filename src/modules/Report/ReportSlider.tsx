@@ -7,22 +7,14 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
 import clsx from "clsx";
-import { AnimatePresence, motion } from "framer-motion";
-import SlidesPagination from "@/modules/Pagination/SlidesPagination/SlidesPagination";
-import { imageUrlForSlot } from "@/shared/lib/sanityImage";
+import { AnimatePresence, motion } from "motion/react";
+import SlidesPagination from "@/shared/ui/SlidesPagination";
 import { CircleArrowIcon, CloseIcon } from "../../../public/images/icons";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-
-type ReportImage = (SanityImageSource & { url?: string }) | string;
+import type { Swiper as SwiperInstance } from "swiper";
 
 type ReportSliderProps = {
-    images: ReportImage[];
+    images: string[];
 };
-
-const getImageKey = (image: ReportImage, index: number) =>
-    typeof image === "string"
-        ? image
-        : `${(image as { asset?: { _ref?: string }; url?: string }).asset?._ref || image.url || "report-image"}-${index}`;
 
 const modalImageVariants = {
     enter: (direction: number) => ({
@@ -40,8 +32,7 @@ const modalImageVariants = {
 };
 
 const ReportSlider = ({ images }: ReportSliderProps) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const swiperRef = useRef<any>(null);
+    const swiperRef = useRef<SwiperInstance | null>(null);
 
     const [isPrevDisabled, setIsPrevDisabled] = useState(true);
     const [isNextDisabled, setIsNextDisabled] = useState(false);
@@ -91,12 +82,12 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
         return () => document.removeEventListener("keydown", handleKeyDown);
     }, [closeModal, handleModalNext, handleModalPrev, images.length, isModalOpen]);
 
-    const modalImageSrc = isModalOpen ? imageUrlForSlot(images[selectedIndex], "reportModal") : "";
+    const modalImageSrc = isModalOpen ? images[selectedIndex] : "";
 
     return (
         <div className="relative
-    w-[100vw]
-    ml-[calc(50%_-_50vw)]">
+    w-screen
+    ml-[calc(50%-50vw)]">
             <Swiper
                 spaceBetween={24}
                 slidesPerView={1}
@@ -120,18 +111,18 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
                 }}
             >
                 {images.map((image, index) => {
-                    const imageSrc = imageUrlForSlot(image, "reportSlider");
+                    const imageSrc = image;
 
                     if (!imageSrc) return null;
 
                     return (
                         <SwiperSlide
-                            key={getImageKey(image, index)}
-                            className="flex justify-center lg:!w-[520px]"
+                            key={image}
+                            className="flex justify-center lg:w-[520px]!"
                         >
                             <button
                                 type="button"
-                                className="relative mx-auto block w-[330px] lg:w-[520px] aspect-[13/10] rounded-[8px] overflow-hidden"
+                                className="relative mx-auto block w-[330px] lg:w-[520px] aspect-13/10 rounded-[8px] overflow-hidden"
                                 onClick={(event) => {
                                     event.preventDefault();
                                     openModal(index);
@@ -178,14 +169,14 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
             <AnimatePresence>
                 {isModalOpen && (
                     <motion.div
-                        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 px-4"
+                        className="fixed inset-0 z-100 flex items-center justify-center bg-black/70 px-4"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={closeModal}
                     >
                         <motion.div
-                            className="relative w-full max-w-[1040px] aspect-[13/10] overflow-hidden rounded-[8px] bg-black"
+                            className="relative w-full max-w-[1040px] aspect-13/10 overflow-hidden rounded-[8px] bg-black"
                             initial={{ scale: 0.92, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.92, opacity: 0 }}

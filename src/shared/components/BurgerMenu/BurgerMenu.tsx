@@ -5,7 +5,7 @@ import { INavigationItem } from "@/shared/types";
 import { useTranslations } from "next-intl";
 import DonateAction from "../DonateAction/DonateAction";
 import { CloseIcon } from "../../../../public/images/icons";
-import { AnimatePresence, motion, Variants  } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "motion/react";
 
 interface IBurgerMenuopProps {
   isOpen: boolean;
@@ -73,7 +73,7 @@ const BurgerMenu = ({ isOpen, onClose }: IBurgerMenuopProps) => {
                     <li key={index} className="pb-6 border-b border-[#E1E1E1]">
                       <Link
                         href={item.href}
-                        className="text-[#27272A] leading-[120%] hover:text-green-600 transition-colors duration-200 text-[24px]"
+                        className="text-gray leading-[120%] hover:text-green-600 transition-colors duration-200 text-[24px]"
                         onClick={onClose}
                       >
                         {item.name}

@@ -2,20 +2,26 @@ import * as motion from "motion/react-client";
 import AchievementItem from "@/shared/components/AchievementItem/AchievementItem";
 import { IWorkResult } from "@/shared/types";
 import { getTranslations } from "next-intl/server";
-
-import client from "@/shared/lib/sanity";
-import {perfomanceQuery} from "@/shared/lib/queries";
+import { getPerformance } from "@/features/home/server/data";
 
 
 const  WorkResults = async () => {
   const t = await getTranslations("");
   const translation = (await t.raw("WorkResults")) as IWorkResult[];
+  const performance = await getPerformance();
 
-    const { tailsCount, feedCount, vaccinesCount, treatmentsCount } = await client.fetch(perfomanceQuery);
-    translation[0].amount = `${tailsCount}+`;
-    translation[1].amount = `${feedCount}+`;
-    translation[2].amount = `${vaccinesCount}+`;
-    translation[3].amount = `${treatmentsCount}+`;
+  if (!performance) return null;
+
+  const amounts = [
+    performance.tailsCount,
+    performance.feedCount,
+    performance.vaccinesCount,
+    performance.treatmentsCount,
+  ];
+  const results = translation.map((item, index) => ({
+    ...item,
+    amount: `${amounts[index] ?? 0}+`,
+  }));
 
   return (
     <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-green">
@@ -25,7 +31,7 @@ const  WorkResults = async () => {
         viewport={{ once: true, amount: 0.2 }}
         className="flex gap-[54px] xl:gap-[110px] flex-col md:flex-row md:items-start"
       >
-        {translation.map((item: IWorkResult, index: number) => (
+        {results.map((item, index) => (
           <motion.li
             key={index}
             initial="hidden"

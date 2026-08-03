@@ -2,6 +2,8 @@ import Image from "next/image";
 import * as motion from "motion/react-client";
 
 const EventsGrid = ({ images }: { images: string[] }) => {
+  const [first, second, third, fourth, fifth] = images;
+  if (!first || !second || !third || !fourth || !fifth) return null;
   return (
     <div className="hidden lg:block">
       <div className="grid grid-cols-[2.92fr_2.82fr_5.92fr] gap-5 max-h-[484px]">
@@ -22,7 +24,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             className="relative h-[228px] shrink-0 overflow-hidden rounded-[8px]"
           >
             <Image
-              src={images[0]}
+              src={first}
               alt="Event 1"
               fill
               className="object-cover"
@@ -45,7 +47,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             className="relative h-[236px] shrink-0 overflow-hidden rounded-[8px]"
           >
             <Image
-              src={images[1]}
+              src={second}
               alt="Event 2"
               fill
               className="object-cover"
@@ -71,7 +73,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             className="relative h-[317px] shrink-0 overflow-hidden rounded-[8px]"
           >
             <Image
-              src={images[2]}
+              src={third}
               alt="Event 3"
               fill
               className="object-cover"
@@ -94,7 +96,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             className="relative h-[147px] shrink-0 overflow-hidden rounded-[8px]"
           >
             <Image
-              src={images[3]}
+              src={fourth}
               alt=""
               fill
               className="object-cover"
@@ -119,7 +121,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             className="relative h-full min-h-[484px] w-full overflow-hidden rounded-[8px]"
           >
             <Image
-              src={images[4]}
+              src={fifth}
               alt="Event 4"
               fill
               className="object-cover"

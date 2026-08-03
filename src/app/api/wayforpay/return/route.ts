@@ -1,9 +1,14 @@
 import { NextResponse } from "next/server";
 import client from "@/shared/lib/sanity";
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
+import { getRequiredEnv } from "@/shared/lib/env.server";
 
 export async function POST(req: Request) {
+    let baseUrl: string;
+    try {
+        baseUrl = getRequiredEnv("NEXT_PUBLIC_BASE_URL");
+    } catch {
+        return NextResponse.json({ error: "Payment is not configured" }, { status: 503 });
+    }
     const formData = await req.formData();
     const orderReference = formData.get("orderReference");
 

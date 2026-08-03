@@ -10,8 +10,7 @@ type DonateParams = {
 };
 
 const donate = async ({amount, productName = "Донат для фонду Янголи хвостиків", comment, returnPath}: DonateParams)=> {
-    try {
-        const { data } = await axios.post("/api/wayforpay/checkout", {
+    const { data } = await axios.post("/api/wayforpay/checkout", {
             amount,
             orderReference: `DONATE_${Date.now()}`,
             productName,
@@ -32,10 +31,7 @@ const donate = async ({amount, productName = "Донат для фонду Ян�
         });
 
         document.body.appendChild(form);
-        form.submit();
-    } catch (error) {
-        console.error("WayForPay checkout error:", error);
-    }
+    form.submit();
 }
 
 export default donate;

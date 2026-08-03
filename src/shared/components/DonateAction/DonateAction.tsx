@@ -1,9 +1,7 @@
 "use client";
 import Button from "@/shared/components/Button/Button";
-// import DonateModal from "@/shared/components/DonateModal/DonateModal";
 import { ButtonVariant } from "@/shared/types";
 import clsx from "clsx";
-// import { useState } from "react";
 import { useTranslations } from "next-intl";
 
 import {useModal} from "@/providers/ModalProvider";
@@ -21,10 +19,8 @@ const DonateAction = ({
   buttonText,
   className,
 }: IDonateActionProps) => {
-  // const [isDonateModalOpen, setIsDonateModalOpen] = useState(false);
-    const t = useTranslations("DonateModal");
-
-    const {openDonateModal} = useModal();
+  const t = useTranslations("DonateModal");
+  const {openDonateModal} = useModal();
 
   return (
     <>
@@ -38,11 +34,6 @@ const DonateAction = ({
         )}
         text={buttonText}
       />
-      {/*<DonateModal*/}
-      {/*    title={t("fundraisingOneTimeTitle")}*/}
-      {/*  isOpen={isDonateModalOpen}*/}
-      {/*  onClose={() => setIsDonateModalOpen(false)}*/}
-      {/*/>*/}
     </>
   );
 };
