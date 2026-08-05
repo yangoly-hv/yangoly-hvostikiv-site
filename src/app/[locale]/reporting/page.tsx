@@ -7,6 +7,9 @@ import { getAllReports } from "@/features/reports/server/data";
 import { formatReportDate } from "@/features/reports/model/formatReportDate";
 import type { PageParams } from "@/shared/types";
 import { getPageMetadata } from "@/shared/lib/metadata";
+import { getPageNumber } from "@/shared/lib/pagination";
+import { getItemListSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
 export async function generateMetadata({
   params,
@@ -19,8 +22,9 @@ export async function generateMetadata({
   });
 }
 
-export default async function ReportingPage({ params }: PageParams) {
+export default async function ReportingPage({ params, searchParams }: PageParams) {
   const { locale } = await params;
+  const query = await searchParams;
   setRequestLocale(locale);
 
   const [reports, t] = await Promise.all([
@@ -34,13 +38,28 @@ export default async function ReportingPage({ params }: PageParams) {
         ? report.date
         : formatReportDate(report.date, locale),
   }));
+  const currentPage = getPageNumber(query?.page, Math.ceil(preparedReports.length / 12));
+  const visibleReports = preparedReports.slice((currentPage - 1) * 12, currentPage * 12);
+  const translation = t.raw("Reporting");
 
   return (
     <>
+      <JsonLd
+        data={getItemListSchema({
+          locale,
+          path: "/reporting",
+          name: translation.title,
+          items: visibleReports.map((report) => ({
+            name: report.date,
+            path: `/reporting/${report.slug}`,
+          })),
+        })}
+      />
       <Reporting
         data={preparedReports}
-        translation={t.raw("Reporting")}
+        translation={translation}
         lang={locale}
+        page={query?.page}
       />
       <Contacts />
     </>

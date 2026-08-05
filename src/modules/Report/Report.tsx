@@ -1,11 +1,10 @@
-"use client";
-
 import { PortableText } from "@portabletext/react";
-import { motion } from "motion/react";
+import * as motion from "motion/react-client";
 
 import HelpTabs from "@/modules/Report/HelpTabs";
 import ReportSlider from "@/modules/Report/ReportSlider";
-import { fadeIn } from "@/shared/utils";
+import { getSafeHref } from "@/shared/lib/safeHref";
+import { fadeInAt } from "@/shared/utils";
 
 import { portableTextComponents } from "./portableTextComponents";
 import { buildReportTabsData } from "./reportTabsData";
@@ -36,6 +35,7 @@ function buildTabsFromReport(report: ReportForView, locale: ReportProps["locale"
 
 export default function Report({ translation, report, locale }: ReportProps) {
   const { date, title, reportFileUrl } = report;
+  const safeReportFileUrl = getSafeHref(reportFileUrl);
   const images = report.images ?? [];
   const hasImages = images.length > 0;
 
@@ -51,22 +51,20 @@ export default function Report({ translation, report, locale }: ReportProps) {
         <div className="lg:flex items-center justify-between gap-x-[141px] mb-[32px] lg:mb-[44px]">
           <div className="lg:w-[70.3%]">
             <motion.h2
-              variants={fadeIn}
+              variants={fadeInAt()}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              custom={0}
               className="font-arial font-normal mb-[12px] text-[18px] lg:text-[24px] leading-[130%]"
             >
               {date}
             </motion.h2>
 
             <motion.h1
-              variants={fadeIn}
+              variants={fadeInAt(0.2)}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              custom={0.2}
               className="font-arial uppercase text-[24px] lg:text-[32px] font-normal leading-[130%]"
             >
               {title}
@@ -87,19 +85,18 @@ export default function Report({ translation, report, locale }: ReportProps) {
           {hasTabs && (
             <HelpTabs
               tabs={tabs}
-              reportFileUrl={reportFileUrl}
+              reportFileUrl={safeReportFileUrl}
               viewReportButtonText={viewReportButtonText}
             />
           )}
         </div>
-        {!hasTabs && reportFileUrl && (
+        {!hasTabs && safeReportFileUrl && (
           <motion.a
-            variants={fadeIn}
+            variants={fadeInAt(0.4)}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={0.4}
-            href={reportFileUrl}
+            href={safeReportFileUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-6 lg:mt-8 flex w-full items-center justify-center rounded-[28px] bg-green px-6 py-3 text-center text-[14px] font-bold uppercase leading-[110%] text-white transition-all duration-300 ease-in-out hover:brightness-125 active:scale-95 xl:mx-auto xl:w-fit xl:text-[18px]"

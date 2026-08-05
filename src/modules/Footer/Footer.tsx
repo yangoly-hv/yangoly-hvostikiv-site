@@ -81,7 +81,7 @@ const Footer = async () => {
         </motion.a>
         <motion.a
           variants={listItemVariants}
-          href="mailto:email@gmail.com"
+          href={`mailto:${contacts.email}`}
           className="flex items-center gap-2 text-[14px] font-medium text-dark"
         >
           <EmailIcon /> {contacts.email}

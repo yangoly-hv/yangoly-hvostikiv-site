@@ -33,6 +33,8 @@ export type BlogPost = {
   description: PortableTextBlock[];
   mainImage: string;
   publishedAt?: string;
+  createdAt?: string;
+  updatedAt?: string;
   readingTime?: number;
   content?: BlogContentBlock[];
   additionalInfo?: PortableTextBlock[];

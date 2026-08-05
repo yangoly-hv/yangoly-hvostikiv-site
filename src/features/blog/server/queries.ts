@@ -1,11 +1,13 @@
 export const allPostsQuery = `
-  *[_type == "post"] | order(publishedAt desc, _updatedAt desc) {
+  *[_type == "post" && defined(title[$lang]) && defined(slug.current)] | order(publishedAt desc, _updatedAt desc) {
     _id,
     "title": title[$lang],
     "slug": slug.current,
     "description": description[$lang],
     "mainImage": mainImage.asset->url,
-    publishedAt
+    publishedAt,
+    "createdAt": _createdAt,
+    "updatedAt": _updatedAt
   }
 `;
 
@@ -19,6 +21,8 @@ export const postBySlugQuery = `
     "mainImage": mainImage.asset->url,
     "secondaryImage": secondaryImage.asset->url,
     publishedAt,
+    "createdAt": _createdAt,
+    "updatedAt": _updatedAt,
     readingTime,
     "content": content[]{
       _key,
@@ -33,5 +37,5 @@ export const postBySlugQuery = `
 `;
 
 export const allPostSlugsQuery = `
-  *[_type == "post" && defined(slug.current)][]{"slug": slug.current}
+  *[_type == "post" && defined(slug.current) && defined(title[$lang])]{"slug": slug.current, "updatedAt": _updatedAt}
 `;

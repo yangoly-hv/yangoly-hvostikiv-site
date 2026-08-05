@@ -1,41 +1,25 @@
-"use client";
-
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { useTranslations } from "next-intl";
 import { IFilterOption } from "@/shared/types";
 
-export default function Filter({ selectedFilter }: { selectedFilter: string }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const t = useTranslations("Filters");
+type FilterProps = {
+  selectedFilter: string;
+  options: IFilterOption[];
+};
 
-  const filterOptions = [
-    { label: t("allTails"), value: "all" },
-    { label: t("needsSterilization"), value: "needs-sterilization" },
-    { label: t("needsFamily"), value: "needs-family" },
-    { label: t("adopted"), value: "adopted" },
-  ] satisfies IFilterOption[];
-
-  const handleFilterChange = (value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("filter", value);
-    params.set("page", "1");
-    router.push(`${pathname}?${params.toString()}`, { scroll: false });
-  };
+export default function Filter({ selectedFilter, options }: FilterProps) {
 
   return (
     <div className="flex flex-col lg:flex-row justify-center gap-y-3 lg:gap-x-[44px] mb-10 lg:mb-[44px]">
-      {filterOptions.map((filter) => (
-        <button
+      {options.map((filter) => (
+        <a
           key={filter.value}
+          href={filter.value === "all" ? "?" : `?filter=${filter.value}`}
+          aria-current={selectedFilter === filter.value ? "page" : undefined}
           className={`text-[16px] text-dark lg:text-[20px] leading-[130%] hover:text-green focus-visible:text-green transition duration-300 ease-in-out ${
             selectedFilter === filter.value ? "text-green font-bold" : ""
           }`}
-          onClick={() => handleFilterChange(filter.value)}
         >
           {filter.label}
-        </button>
+        </a>
       ))}
     </div>
   );

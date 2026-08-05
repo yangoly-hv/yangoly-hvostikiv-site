@@ -1,30 +1,16 @@
 "use client";
-import React, { useRef, useCallback, useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
-import clsx from "clsx";
-import SlidesPagination from "@/shared/ui/SlidesPagination";
-import type { Swiper as SwiperInstance } from "swiper";
+import { useSwiperNavigation } from "@/shared/hooks/useSwiperNavigation";
+import SliderNavigationControls from "@/shared/components/SliderNavigationControls/SliderNavigationControls";
 
 const EventsSlider = ({ images }: { images: string[] }) => {
-  const swiperRef = useRef<SwiperInstance | null>(null);
-  const [isPrevDisabled, setIsPrevDisabled] = useState(true);
-  const [isNextDisabled, setIsNextDisabled] = useState(false);
-
-  const handlePrev = useCallback(() => {
-    if (swiperRef.current) {
-      swiperRef.current.slidePrev();
-    }
-  }, []);
-
-  const handleNext = useCallback(() => {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext();
-    }
-  }, []);
+  const { isPrevDisabled, isNextDisabled, onSwiper, onSlideChange, previous, next } =
+    useSwiperNavigation();
 
   return (
     <div className="w-full">
@@ -36,15 +22,8 @@ const EventsSlider = ({ images }: { images: string[] }) => {
           360: { slidesPerView: 1 },
         }}
         modules={[Pagination]}
-        onSlideChange={(swiper) => {
-          setIsPrevDisabled(swiper.isBeginning);
-          setIsNextDisabled(swiper.isEnd);
-        }}
-        onSwiper={(swiper) => {
-          swiperRef.current = swiper;
-          setIsPrevDisabled(swiper.isBeginning);
-          setIsNextDisabled(swiper.isEnd);
-        }}
+        onSlideChange={onSlideChange}
+        onSwiper={onSwiper}
       >
         {images.map((image, index) => (
           <SwiperSlide
@@ -68,25 +47,13 @@ const EventsSlider = ({ images }: { images: string[] }) => {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div
-        className={clsx(
-          "mt-[40px] flex justify-center gap-6",
-          isPrevDisabled && isNextDisabled && "hidden"
-        )}
-      >
-        <SlidesPagination
-          className="bg-orange"
-          direction="prev"
-          onClick={handlePrev}
-          disabled={isPrevDisabled}
-        />
-        <SlidesPagination
-          className="bg-orange"
-          direction="next"
-          onClick={handleNext}
-          disabled={isNextDisabled}
-        />
-      </div>
+      <SliderNavigationControls
+        className="mt-[40px]"
+        isPrevDisabled={isPrevDisabled}
+        isNextDisabled={isNextDisabled}
+        onPrevious={previous}
+        onNext={next}
+      />
     </div>
   );
 };

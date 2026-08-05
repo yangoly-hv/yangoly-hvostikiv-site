@@ -1,15 +1,11 @@
-"use client";
-
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
-import type { PortableTextComponents } from "@portabletext/react";
+import * as motion from "motion/react-client";
 
 import { Link } from "@/i18n/navigation";
 import Button from "@/shared/components/Button/Button";
-import PortableTextRender from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 import type { ITails } from "@/shared/types";
-import { fadeIn, slideUp } from "@/shared/utils";
+import { fadeInAt, slideUpAt } from "@/shared/utils";
 import type { TailViewModel } from "../model/types";
 
 interface TailCardProps extends ComponentProps<"div"> {
@@ -20,19 +16,18 @@ interface TailCardProps extends ComponentProps<"div"> {
 const TailCard = ({ tail, translation }: TailCardProps) => {
   const { name, image, cardImage, description, sex, sterilized, slug } = tail;
   const cardImageSrc = cardImage || image;
-  const portableTextComponents: PortableTextComponents = {
-    block: ({ children }: { children?: ReactNode }) => (
-      <p className="min-h-[73px] text-dark mb-5 text-[14px] leading-[130%] line-clamp-4">
-        {children}
-      </p>
-    ),
-  };
+  const descriptionText = description
+    .flatMap((block) => block.children ?? [])
+    .map((child) => child.text)
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
 
   return (
     <div className="flex flex-col justify-between min-h-full h-full py-8 px-4 lg:px-6 rounded-[20px] bg-[#FCFCFC] shadow-blogCard">
       <div>
         {cardImageSrc && (
-          <motion.div variants={slideUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}>
+          <motion.div variants={slideUpAt()} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <Link href={`/tails/${slug}`}>
               <div className="relative w-full mb-[26px] aspect-6/5 rounded-[16px] overflow-hidden">
                 <Image src={cardImageSrc} alt={name} fill className="object-cover object-center rounded-[16px]" sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw" />
@@ -40,23 +35,27 @@ const TailCard = ({ tail, translation }: TailCardProps) => {
             </Link>
           </motion.div>
         )}
-        <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.2}>
+        <motion.div variants={fadeInAt(0.2)} initial="hidden" whileInView="visible" viewport={{ once: true }}>
           <Link href={`/tails/${slug}`}>
             <h2 className="mb-3 text-black text-[20px] font-semibold leading-[130%] line-clamp-1 focus-visible:text-primary-gray xl:hover:text-primary-gray transition duration-300 ease-out">
               {name}
             </h2>
           </Link>
         </motion.div>
-        <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.4} className="flex items-center gap-x-2 mb-3 text-[14px] leading-[130%]">
+        <motion.div variants={fadeInAt(0.4)} initial="hidden" whileInView="visible" viewport={{ once: true }} className="flex items-center gap-x-2 mb-3 text-[14px] leading-[130%]">
           <p className="px-6 text-dark py-[8.5px] border border-black rounded-[28px]">{sex}</p>
           <p className="px-6 text-dark py-[8.5px] border border-black rounded-[28px]">{sterilized}</p>
         </motion.div>
-        <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.6}>
-          <PortableTextRender value={description} components={portableTextComponents} />
+        <motion.div variants={fadeInAt(0.6)} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          {descriptionText && (
+            <p className="min-h-[73px] text-dark mb-5 text-[14px] leading-[130%] line-clamp-4">
+              {descriptionText}
+            </p>
+          )}
         </motion.div>
       </div>
 
-      <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.8} className="block mt-auto h-[47px]">
+      <motion.div variants={fadeInAt(0.8)} initial="hidden" whileInView="visible" viewport={{ once: true }} className="block mt-auto h-[47px]">
         <Link href={`/tails/${slug}`}>
           <Button text={translation.detailsButton} fullWidth />
         </Link>

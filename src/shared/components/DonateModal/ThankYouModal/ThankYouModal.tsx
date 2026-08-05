@@ -3,7 +3,7 @@ import Button from "../../Button/Button";
 import { CloseIcon } from "../../../../../public/images/icons";
 import Image from "next/image";
 import { IThankYouModalProps } from "@/shared/types";
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 
 const ThankYouModal = ({
@@ -15,6 +15,15 @@ const ThankYouModal = ({
   onButtonClick,
 }: IThankYouModalProps) => {
   const t = useTranslations("ThankYouModal");
+  const dialogRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialogRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => { if (event.key === "Escape") onClose(); };
+    document.addEventListener("keydown", onKeyDown);
+    return () => { document.removeEventListener("keydown", onKeyDown); previous?.focus(); };
+  }, [isOpen, onClose]);
   const handleButtonClick = useCallback(() => {
     onButtonClick?.();
     onClose();
@@ -24,9 +33,10 @@ const ThankYouModal = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
-      <div className="bg-white  max-w-md w-full mx-4 py-[20px] relative">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="payment-result-title" tabIndex={-1} className="bg-white  max-w-md w-full mx-4 py-[20px] relative">
         <button
           onClick={onClose}
+          aria-label="Закрити повідомлення"
           className="absolute hover:bg-gray-100 rounded-full p-2 top-4 right-4 text-gray-500 hover:text-gray-700"
         >
           <CloseIcon variant="secondary" />
@@ -38,7 +48,7 @@ const ThankYouModal = ({
             width={35}
             height={32}
           />
-          <h2 className="text-2xl font-bold text-center mb-[20px]">
+          <h2 id="payment-result-title" className="text-2xl font-bold text-center mb-[20px]">
             {title ? title : t("title")}
           </h2>
         </div>

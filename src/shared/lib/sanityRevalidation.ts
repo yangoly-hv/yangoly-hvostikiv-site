@@ -70,6 +70,10 @@ export const getRevalidationTargets = (
       target.tags.push(sanityTags.performance);
       target.paths.push(...localizedPaths());
       break;
+    case "partner":
+      target.tags.push(sanityTags.partnersList);
+      target.paths.push(...localizedPaths("/partnership"));
+      break;
     case "aboutFoundation":
       target.tags.push(sanityTags.about);
       target.paths.push(...localizedPaths());

@@ -1,6 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
-import ContactFormAction from "../ContactFormAction/ContactFormAction";
+import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
 import Image from "next/image";
 import { HeartIcon } from "../Icons/HeartIcon";
 import {
@@ -72,6 +72,7 @@ const PartnershipHeroDesk = async () => {
           <motion.div className="z-100" variants={listItemVariants}>
             <ContactFormAction
               buttonText={t("heroButton")}
+              source="partnership"
               variant="primary"
               className="w-[400px] xl:w-[451px] h-[67px] mt-[120px] lg:text-[18px]"
             />

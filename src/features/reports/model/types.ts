@@ -6,6 +6,7 @@ export type ReportSummary = {
   _id: string;
   slug: string;
   date: ReportDate | string;
+  updatedAt?: string;
 };
 
 export type ReportDetail = ReportSummary & {

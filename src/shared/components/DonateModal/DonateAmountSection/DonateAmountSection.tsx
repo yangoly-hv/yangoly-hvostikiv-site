@@ -1,52 +1,42 @@
 "use client";
 
-import React, { useState, useCallback, useMemo } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
+import React, { useState, useCallback } from "react";
 import { useTranslations } from "next-intl";
 
 import CustomAmountCard from "../CustomAmountCard/CustomAmountCard";
 import AmountCard from "../AmountCard/AmountCard";
-import TextInput from "../../TextInput/TextInput";
-import CheckBox from "../../CheckBox/CheckBox";
-import PaymentButton from "../PaymentButton/PaymentButton";
-import Toast from "../../Toast/Toast";
-import PublicOfferLink from "@/shared/components/PublicOfferLink/PublicOfferLink";
 import { formatAmount } from "@/shared/utils";
 
-import donate from "@/shared/lib/donate";
+import DonationAmountForm from "@/features/donation/ui/DonationAmountForm";
+import type { DonationTarget } from "@/features/donation/model/purpose";
 
 const predefinedAmounts = [200, 500, 1000];
 
-const DonateAmountSection = () => {
+const DonateAmountSection = ({
+  donationTarget,
+  price,
+  paymentButtonText,
+}: {
+  donationTarget?: DonationTarget;
+  price?: number;
+  paymentButtonText?: string;
+}) => {
   const t = useTranslations("DonateModal");
-
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const returnPath = useMemo(() => {
-    const query = searchParams.toString();
-    return query ? `${pathname}?${query}` : pathname;
-  }, [pathname, searchParams]);
 
   const translation = {
     title: t("donateAmountSection.title"),
     anotherAmount: t("donateAmountSection.anotherAmount"),
+    fullNamePlaceholder: t("donateAmountSection.fullNamePlaceholder"),
+    fullNameLabel: t("donateAmountSection.fullNameLabel"),
+    anonymousLabel: t("donateAmountSection.anonymousLabel"),
     inputPlaceholder: t("donateAmountSection.inputPlaceholder"),
     inputLabel: t("donateAmountSection.inputLabel"),
-    firstCheckboxLabel: t("donateAmountSection.firstCheckboxLabel"),
     secondCheckboxLabel: t("donateAmountSection.secondCheckboxLabel"),
-    submitError: t("donateAmountSection.submitError"),
     currency: t("currency"),
   };
 
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState("");
-  const [comment, setComment] = useState("");
-  const [isAgreed, setIsAgreed] = useState(false);
-  const [wantNotifications, setWantNotifications] = useState(false);
-  const [agreementError, setAgreementError] = useState(false);
-  const [isToastVisible, setIsToastVisible] = useState(false);
-
   const handleAmountSelect = useCallback((amount: number) => {
     setSelectedAmount(amount);
     setCustomAmount("");
@@ -61,100 +51,49 @@ const DonateAmountSection = () => {
     setSelectedAmount(null);
   }, []);
 
-  const currentAmount =
-      selectedAmount || (customAmount ? parseInt(customAmount, 10) : 0);
-
-  const handlePayment = async () => {
-    if (!isAgreed) {
-      setAgreementError(true);
-      return;
-    }
-    await donate({amount: currentAmount, comment, returnPath});
-  };
+  const parsedCustomAmount = Number(customAmount.replace(",", "."));
+  const currentAmount = price ?? selectedAmount ?? (Number.isFinite(parsedCustomAmount) ? parsedCustomAmount : 0);
+  const isFixedAmount = typeof price === "number";
 
   return (
-      <>
-        <div className="flex relative flex-col items-center gap-4 py-4">
-          <div className="border border-[#FF9332] max-w-[350px] xl:max-w-[544px] p-3 xl:p-6 w-full">
-            <p className="text-center text-[20px] font-black font-arial text-dark uppercase leading-[130%] mb-2">
-              {translation.title}
-            </p>
-
-            <p className="text-center text-[24px] xl:text-[32px] leading-[130%] text-[#52525B] mb-2">
-              {formatAmount(currentAmount)} {translation.currency}
-            </p>
-
-            <div className="grid grid-cols-3 gap-2 max-w-[400px] xl:max-w-[544px] mx-auto">
-              {predefinedAmounts.map((amount) => (
-                  <AmountCard
-                      key={amount}
-                      amount={amount}
-                      formattedAmount={formatAmount(amount)}
-                      currency={translation.currency}
-                      isSelected={selectedAmount === amount}
-                      onClick={handleAmountSelect}
-                  />
-              ))}
-
-              <div className="col-start-1">
-                <CustomAmountCard
-                    anotherAmount={translation.anotherAmount}
-                    currency={translation.currency}
-                    value={customAmount}
-                    formatAmount={formatAmount}
-                    isSelected={selectedAmount === null && customAmount !== ""}
-                    onChange={handleCustomAmountChange}
-                    onFocus={handleCustomAmountFocus}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="w-full max-w-[350px] xl:max-w-[544px]">
-            <TextInput
-                value={comment}
-                onChange={setComment}
-                placeholder={translation.inputPlaceholder}
-                label={translation.inputLabel}
-            />
-
-            <div className="space-y-3 mb-4">
-              <CheckBox
-                  label={translation.firstCheckboxLabel}
-                  checked={wantNotifications}
-                  onChange={setWantNotifications}
+      <DonationAmountForm
+        amount={currentAmount}
+        donationTarget={donationTarget}
+        currency={translation.currency}
+        title={translation.title}
+        fullNamePlaceholder={translation.fullNamePlaceholder}
+        fullNameLabel={translation.fullNameLabel}
+        anonymousLabel={translation.anonymousLabel}
+        inputPlaceholder={translation.inputPlaceholder}
+        inputLabel={translation.inputLabel}
+        agreementLabel={translation.secondCheckboxLabel}
+        paymentButtonText={paymentButtonText}
+        amountPicker={!isFixedAmount ?
+          <div className="mx-auto grid max-w-[400px] grid-cols-3 gap-2 xl:max-w-[544px]">
+            {predefinedAmounts.map((amount) => (
+              <AmountCard
+                key={amount}
+                amount={amount}
+                formattedAmount={formatAmount(amount)}
+                currency={translation.currency}
+                isSelected={selectedAmount === amount}
+                onClick={handleAmountSelect}
               />
-
-              <CheckBox
-                  label={<PublicOfferLink text={translation.secondCheckboxLabel} />}
-                  checked={isAgreed}
-                  onChange={(checked) => {
-                    setIsAgreed(checked);
-                    if (checked) setAgreementError(false);
-                  }}
-                  error={agreementError}
-                  required
-              />
-            </div>
-
-            <div className="space-y-2 mb-2">
-              <PaymentButton
-                  disabled={!isAgreed || currentAmount <= 0}
-                  paymentType="monoPay"
-                  onClick={handlePayment}
+            ))}
+            <div className="col-start-1">
+              <CustomAmountCard
+                anotherAmount={translation.anotherAmount}
+                currency={translation.currency}
+                value={customAmount}
+                formatAmount={formatAmount}
+                isSelected={selectedAmount === null && customAmount !== ""}
+                onChange={handleCustomAmountChange}
+                onFocus={handleCustomAmountFocus}
               />
             </div>
           </div>
-        </div>
-
-        {isToastVisible && (
-            <Toast
-                message={translation.submitError}
-                isVisible={isToastVisible}
-                onClose={() => setIsToastVisible(false)}
-            />
-        )}
-      </>
+        : undefined}
+      />
   );
 };
 

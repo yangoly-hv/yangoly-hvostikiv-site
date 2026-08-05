@@ -15,6 +15,7 @@ export type TailDocument = {
   mainImageUrl?: string;
   images?: SanityImage[];
   imageUrls?: string[];
+  updatedAt?: string;
 };
 
 export type TailViewModel = {

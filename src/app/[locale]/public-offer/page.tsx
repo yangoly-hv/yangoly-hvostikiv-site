@@ -5,6 +5,8 @@ import { setRequestLocale } from "next-intl/server";
 import * as motion from "motion/react-client";
 import { PageParams } from "@/shared/types";
 import { getPageMetadata } from "@/shared/lib/metadata";
+import { getWebPageSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
 /* =======================
    METADATA
@@ -24,6 +26,14 @@ export default async function PublicOfferPage({ params }: PageParams) {
 
     return (
         <>
+            <JsonLd
+                data={getWebPageSchema({
+                    locale,
+                    path: "/public-offer",
+                    name: locale === "uk" ? "Публічна оферта про надання благодійної пожертви" : "Public Offer for Charitable Donation",
+                    description: locale === "uk" ? "Умови публічної оферти про надання благодійної пожертви" : "Terms of the public offer for charitable donations",
+                })}
+            />
             <div className="container mx-auto px-4 xl:px-[40px]">
                 <motion.h1
                     initial={{ opacity: 0, y: 18 }}

@@ -5,8 +5,7 @@ import {
 } from "../Animations/animationVariants";
 import { getTranslations } from "next-intl/server";
 import { IHelpAnimalsListItem } from "@/shared/types";
-import HelpAnimalsListMobile from "./HelpAnimalsListMobile";
-import HelpAnimalsListDesktop from "./HelpAnimalsListDesktop";
+import HelpAnimalsList from "./HelpAnimalsList";
 
 const HelpAnimalsSection = async () => {
   const t = await getTranslations("CharityEvents.helpAnimal");
@@ -32,8 +31,7 @@ const HelpAnimalsSection = async () => {
           {t("text")}
         </motion.p>
       </motion.div>
-      <HelpAnimalsListMobile list={list} />
-      <HelpAnimalsListDesktop list={list} />
+      <HelpAnimalsList list={list} />
     </section>
   );
 };

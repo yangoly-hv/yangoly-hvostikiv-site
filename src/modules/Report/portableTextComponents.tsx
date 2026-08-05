@@ -1,6 +1,8 @@
 
 import type { PortableTextComponents } from "@portabletext/react";
 
+import { getSafeHref, isExternalWebHref } from "@/shared/lib/safeHref";
+
 export const portableTextComponents: PortableTextComponents = {
     block: {
         normal: ({ children }) => (
@@ -39,16 +41,21 @@ export const portableTextComponents: PortableTextComponents = {
                 {children}
             </strong>
         ),
-        link: ({ value, children }) => (
-            <a
-                href={value?.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="border-b border-green text-green transition-colors hover:text-[#3f6656]"
-                onClick={(event) => event.stopPropagation()}
-            >
-                {children}
-            </a>
-        ),
+        link: ({ value, children }) => {
+            const href = getSafeHref(value?.href)
+            if (!href) return <>{children}</>
+
+            const isExternal = isExternalWebHref(href)
+            return (
+                <a
+                    href={href}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    className="border-b border-green text-green transition-colors hover:text-[#3f6656]"
+                >
+                    {children}
+                </a>
+            )
+        },
     },
 }

@@ -13,12 +13,19 @@ import { mapTail } from "@/features/tails/model/mapTail";
 import { locales } from "@/shared/config/site";
 import type { PageParams } from "@/shared/types";
 import { getPageMetadata } from "@/shared/lib/metadata";
+import { toPlainText, truncateDescription } from "@/shared/lib/seo";
+import { getBreadcrumbSchema, getItemPageSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const slugs = await getAllTailSlugs();
-  return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
+  const localizedSlugs = await Promise.all(
+    locales.map(async (locale) => ({ locale, slugs: await getAllTailSlugs(locale) }))
+  );
+  return localizedSlugs.flatMap(({ locale, slugs }) =>
+    slugs.map(({ slug }) => ({ locale, slug }))
+  );
 }
 
 export async function generateMetadata({
@@ -41,7 +48,6 @@ export async function generateMetadata({
     return getPageMetadata({ locale, key: "tails", path: `/tails/${slug}` });
   }
 
-  const firstDescription = tail.description?.[0]?.children?.[0]?.text;
   const title = `${fallback.title} | ${tail.name}`;
 
   return getPageMetadata({
@@ -49,10 +55,12 @@ export async function generateMetadata({
     path: `/tails/${slug}`,
     values: {
       title,
-      description: firstDescription || fallback.description,
+      description: truncateDescription(toPlainText(tail.description) || fallback.description),
       keywords: fallback.keywords,
     },
     image: tail.mainImageUrl,
+    imageAlt: tail.name,
+    modifiedTime: tail.updatedAt,
   });
 }
 
@@ -89,6 +97,23 @@ export default async function TailPage({ params }: PageParams<{ slug: string }>)
 
   return (
     <>
+      <JsonLd
+        data={[
+          getItemPageSchema({
+            locale,
+            path: `/tails/${slug}`,
+            name: tail.name,
+            description: truncateDescription(toPlainText(tail.description)),
+            image: tail.mainImageUrl,
+            dateModified: tail.updatedAt,
+          }),
+          getBreadcrumbSchema(locale, [
+            { name: locale === "uk" ? "Головна" : "Home", path: "" },
+            { name: locale === "uk" ? "Хвостики" : "Tails", path: "/tails" },
+            { name: tail.name, path: `/tails/${slug}` },
+          ]),
+        ]}
+      />
       <Tail
         translation={translation}
         locale={locale}

@@ -1,8 +1,9 @@
 export const allReportsQuery = `
-  *[_type == "reports"] | order(date.year desc, date.month desc) {
+  *[_type == "reports" && defined(title[$lang]) && defined(slug.current)] | order(date.year desc, date.month desc) {
     _id,
     date,
-    "slug": slug.current
+    "slug": slug.current,
+    "updatedAt": _updatedAt
   }
 `;
 
@@ -12,6 +13,7 @@ export const reportBySlugQuery = `
     "title": title[$lang],
     date,
     "slug": slug.current,
+    "updatedAt": _updatedAt,
     "images": coalesce(images[].asset->url, []),
     "reportFileUrl": reportFile.asset->url,
     "reportFileName": reportFile.asset->originalFilename,
@@ -27,5 +29,5 @@ export const reportBySlugQuery = `
 `;
 
 export const allReportSlugsQuery = `
-  *[_type == "reports" && defined(slug.current)][]{"slug": slug.current}
+  *[_type == "reports" && defined(slug.current) && defined(title[$lang])]{"slug": slug.current, "updatedAt": _updatedAt}
 `;

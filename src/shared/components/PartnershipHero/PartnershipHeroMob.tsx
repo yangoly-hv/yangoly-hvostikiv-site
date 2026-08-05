@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
 import Image from "next/image";
-import ContactFormAction from "../ContactFormAction/ContactFormAction";
+import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
 
 const PartnershipHeroMob = async () => {
   const t = await getTranslations("Partnership");
@@ -106,6 +106,7 @@ const PartnershipHeroMob = async () => {
       >
         <ContactFormAction
           buttonText={t("heroButton")}
+          source="partnership"
           variant="primary"
           className="max-w-[328px] mt-[37px] h-[42px]"
         />

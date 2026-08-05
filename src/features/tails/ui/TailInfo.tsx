@@ -39,9 +39,9 @@ const TailInfo = ({
         </motion.div>
       )}
       <div className="flex flex-col justify-center w-full max-w-[706px] lg:max-w-full p-6 lg:px-[76px] bg-white rounded-[12px] lg:rounded-none">
-        <motion.h2 variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.2} className="mb-4 lg:mb-5 font-arial font-black text-black text-[24px] lg:text-[32px] leading-[130%]">
+        <motion.h1 variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.2} className="mb-4 lg:mb-5 font-arial font-black text-black text-[24px] lg:text-[32px] leading-[130%]">
           {tail.name}
-        </motion.h2>
+        </motion.h1>
 
         <div className="flex flex-col gap-4">
           <PortableTextRenderer value={tail.description} />
@@ -53,7 +53,13 @@ const TailInfo = ({
             </motion.div>
           )}
           <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}>
-            <Button onClick={() => openDonateModal(supportText)} variant="outline" text={oneTimeHelpButton} fullWidth className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0" />
+            <Button
+              onClick={() => openDonateModal(supportText, { purpose: "tail-one-time", targetId: tail.id })}
+              variant="outline"
+              text={oneTimeHelpButton}
+              fullWidth
+              className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0"
+            />
           </motion.div>
           <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}>
             <Button onClick={() => setIsKeepingModalOpen(true)} variant="outline" text={becomeGuardianButton} fullWidth className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0" />
@@ -61,7 +67,12 @@ const TailInfo = ({
         </div>
       </div>
       <AdoptModal isOpen={isAdoptModalOpen} onClose={() => setIsAdoptModalOpen(false)} translation={translation} />
-      <KeepingModal price={tail.keeping_price} isOpen={isKeepingModalOpen} onClose={() => setIsKeepingModalOpen(false)} />
+      <KeepingModal
+        price={tail.keeping_price}
+        donationTarget={{ purpose: "tail-guardianship", targetId: tail.id }}
+        isOpen={isKeepingModalOpen}
+        onClose={() => setIsKeepingModalOpen(false)}
+      />
     </div>
   );
 };

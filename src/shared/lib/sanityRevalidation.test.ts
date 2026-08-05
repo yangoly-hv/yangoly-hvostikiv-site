@@ -35,6 +35,7 @@ describe("getRevalidationTargets", () => {
     ["donator", "donors:list", "/uk"],
     ["collection", "collection:main", "/uk"],
     ["perfomance", "performance", "/uk"],
+    ["partner", "partners:list", "/uk/partnership"],
     ["aboutFoundation", "about", "/uk"],
     ["events", "events", "/uk/charity-events"],
   ] as const)("maps %s to its domain tag and path", (type, tag, path) => {
@@ -59,5 +60,16 @@ describe("getRevalidationTargets", () => {
 
     expect(result.tags.filter((tag) => tag === "tail:same")).toHaveLength(1);
     expect(result.paths.filter((path) => path.endsWith("/same"))).toHaveLength(2);
+  });
+
+  it("invalidates both localized partnership pages when a partner changes", () => {
+    const result = getRevalidationTargets({
+      _id: "partner-1",
+      _type: "partner",
+      operation: "delete",
+    });
+
+    expect(result.tags).toEqual(["partners:list"]);
+    expect(result.paths).toEqual(["/uk/partnership", "/en/partnership"]);
   });
 });

@@ -19,6 +19,7 @@ yarn test
 yarn build
 yarn check:bundles
 yarn audit:images
+yarn audit:dependencies
 ```
 
 Playwright smoke-тесты требуют установленного Chromium и production build:
@@ -86,9 +87,35 @@ curl -X POST https://example.org/api/revalidate/all \
 
 Preview включается защищённым URL `/api/draft/enable?secret=…&locale=uk&type=blog&slug=…`. Поддерживаются `blog`, `tails` и `reporting`. Preview-маршрут использует `SANITY_API_READ_TOKEN`, perspective `drafts`, `no-store` и `noindex`; публичный cache он не затрагивает. Выход: `/api/draft/disable?locale=uk`.
 
+## Платежи WayForPay
+
+Регулярные ежемесячные пожертвования, модель отдельных списаний и checklist для владельца кабинета описаны в [`docs/wayforpay-recurring-handoff.md`](docs/wayforpay-recurring-handoff.md).
+
+`POST /api/wayforpay/callback` принимает только подписанные callback WayForPay, сверяет их с приватным Sanity dataset `payments` и возвращает подписанный `accept`. Публичный dataset `production` не содержит платежные данные.
+
+`GET /api/wayforpay/cleanup` удаляет только заказы в состоянии `created` без callback старше 30 дней. Он защищён `Authorization: Bearer $CRON_SECRET`; для Vercel ежедневный запуск задан в `vercel.json`.
+
+`GET /api/wayforpay/reconcile` запускает подписанный `CHECK_STATUS` для зависших заказов и сохраняет проверенный ответ как отдельное reconciliation-событие. Спецификация запроса и подписи: [WayForPay CHECK_STATUS](https://wiki.wayforpay.com/en/view/852117).
+
+Неанонимный подтверждённый донат от 1 000 UAH автоматически создаёт/обновляет существующий документ `donator` в content dataset. Для этого `SANITY_API_TOKEN` должен иметь право записи в content dataset.
+
+Обязательные server-side переменные: `SANITY_PAYMENTS_DATASET`, `SANITY_PAYMENTS_TOKEN`, `PAYMENTS_ENCRYPTION_KEY`, `WAYFORPAY_ACCOUNT`, `WAYFORPAY_SECRET`, `WAYFORPAY_DOMAIN`, `NEXT_PUBLIC_BASE_URL`.
+
+`PAYMENTS_ENCRYPTION_KEY` — base64-encoded 32-byte ключ для AES-256-GCM. В него шифруются raw callback, `recToken` и `repayUrl`; email и телефон сохраняются только когда заказ содержит согласие на уведомления. Не передавать эти переменные в браузер и не добавлять в публичный dataset.
+
+В Studio доступны workspace `/content` для контента и `/payments` для read-only платежных документов. Доступ к `payments` должен быть выдан только сотрудникам, которым разрешена работа с платежными данными.
+
 ## Статические маршруты и локализация
 
 Build генерирует `uk` и `en`, статические контентные маршруты и все существующие blog/tail/report slug. `next-intl` использует единственные словари `public/messages/{locale}.json`. Locale проверяется в root locale layout, а `setRequestLocale` вызывается во всех страницах. Canonical, Open Graph и alternate locales собираются централизованно; sitemap получает актуальные slug из того же cache layer.
+
+## Contact form rate limiting
+
+The contact endpoint keeps up to five requests per IP address in a ten-minute
+window in the memory of each running application instance. The reverse proxy
+must overwrite `x-real-ip`, `cf-connecting-ip`, or `x-forwarded-for`; never
+forward a client-supplied value unchanged. Limits reset when the application
+restarts and are independent for each deployed instance.
 
 ## CI
 

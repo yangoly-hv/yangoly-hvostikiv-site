@@ -1,5 +1,5 @@
 export const allTailsQuery = `
-  *[_type == "tail"] | order(_createdAt desc) {
+  *[_type == "tail" && defined(name[$lang]) && defined(slug.current)] | order(_createdAt desc) {
     _id,
     "name": name[$lang],
     "slug": slug.current,
@@ -10,7 +10,8 @@ export const allTailsQuery = `
     "mainImage": mainImage{asset, crop, hotspot},
     "mainImageUrl": mainImage.asset->url,
     "images": images[]{asset, crop, hotspot},
-    "imageUrls": images[].asset->url
+    "imageUrls": images[].asset->url,
+    "updatedAt": _updatedAt
   }
 `;
 
@@ -28,10 +29,11 @@ export const tailBySlugQuery = `
     "mainImage": mainImage{asset, crop, hotspot},
     "mainImageUrl": mainImage.asset->url,
     "images": images[]{asset, crop, hotspot},
-    "imageUrls": images[].asset->url
+    "imageUrls": images[].asset->url,
+    "updatedAt": _updatedAt
   }
 `;
 
 export const allTailSlugsQuery = `
-  *[_type == "tail" && defined(slug.current)][]{"slug": slug.current}
+  *[_type == "tail" && defined(slug.current) && defined(name[$lang])]{"slug": slug.current, "updatedAt": _updatedAt}
 `;

@@ -8,6 +8,7 @@ import {useModal} from "@/providers/ModalProvider";
 
 export default function Donate({
     title,
+  donationTarget,
   buttonText,
   className = "",
 }: IDonateProps) {
@@ -17,7 +18,7 @@ export default function Donate({
     <>
       <AnimatedWrapper animation={fadeInAnimation({ y: 30, delay: 0.4 })}>
         <Button
-          onClick={() => openDonateModal(title)}
+          onClick={() => openDonateModal(title, donationTarget)}
           text={buttonText}
           className={className}
         ></Button>

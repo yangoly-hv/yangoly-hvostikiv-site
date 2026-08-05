@@ -8,10 +8,11 @@ import ChangeLife from "@/modules/ChangeLife/ChangeLife";
 import Contacts from "@/modules/Contacts/Contacts";
 import Hero from "@/modules/Hero/Hero";
 import MonthlyGoalSection from "@/modules/MonthlyGoalSection/MonthlyGoalSection";
-import Partners from "@/modules/Partners/Partners";
 import WorkResults from "@/modules/WorkResults/WorkResults";
 import { PageParams } from "@/shared/types";
 import { setRequestLocale } from "next-intl/server";
+import JsonLd from "@/shared/components/JsonLd";
+import { getWebSiteSchema } from "@/shared/lib/structuredData";
 
 export default async function Home({ params }: PageParams) {
   const { locale } = await params;
@@ -19,6 +20,7 @@ export default async function Home({ params }: PageParams) {
 
   return (
     <>
+      <JsonLd data={getWebSiteSchema(locale)} />
       <Hero />
       <WorkResults />
       <MonthlyGoalSection lang={locale} />
@@ -31,9 +33,6 @@ export default async function Home({ params }: PageParams) {
       <ProblemsWeSolve />
       <WhatMakesUsDifferent />
       <WhatChangesThanksToUs />
-      <div className="container mx-auto px-4 pb-[80px] xl:pb-[120px] xl:px-10">
-        <Partners />
-      </div>
       <Contacts />
     </>
   );

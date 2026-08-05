@@ -3,7 +3,7 @@ import "server-only";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import type { AppLocale } from "@/shared/config/site";
-import { locales, localizedPath, siteUrl } from "@/shared/config/site";
+import { defaultLocale, locales, localizedPath, siteUrl } from "@/shared/config/site";
 
 type MetadataValues = {
   title: string;
@@ -26,6 +26,10 @@ type PageMetadataOptions = {
   key?: MetadataKey;
   values?: MetadataValues;
   image?: string;
+  imageAlt?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
 };
 
 export async function getPageMetadata({
@@ -33,7 +37,11 @@ export async function getPageMetadata({
   path = "",
   key,
   values,
-  image = "/images/about/about-us-desk3.webp",
+  image,
+  imageAlt,
+  type = "website",
+  publishedTime,
+  modifiedTime,
 }: PageMetadataOptions): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace: "Metadata" });
   const translated = (key
@@ -45,29 +53,54 @@ export async function getPageMetadata({
       }) as MetadataValues;
   const metadata = values || translated;
   const canonicalPath = localizedPath(locale, path);
+  const alternateLanguages = Object.fromEntries(
+    locales.map((supportedLocale) => [
+      supportedLocale,
+      localizedPath(supportedLocale, path),
+    ])
+  );
+  const socialImageUrl = image ?? localizedPath(locale, "/opengraph-image");
+  const socialImage = [
+    {
+      url: new URL(socialImageUrl, siteUrl).toString(),
+      alt: imageAlt ?? metadata.title,
+    },
+  ];
 
   return {
     metadataBase: siteUrl,
+    applicationName: "Янголи Хвостиків",
     title: metadata.title,
     description: metadata.description,
     keywords: metadata.keywords,
     alternates: {
       canonical: canonicalPath,
-      languages: Object.fromEntries(
-        locales.map((supportedLocale) => [
-          supportedLocale,
-          localizedPath(supportedLocale, path),
-        ])
-      ),
+      languages: {
+        ...alternateLanguages,
+        "x-default": localizedPath(defaultLocale, path),
+      },
     },
     icons: { icon: "/favicon.ico" },
+    verification: {
+      other: {
+        "facebook-domain-verification": "cxpcls30yzkm7jisl8d6oz9i3umuk4",
+      },
+    },
     openGraph: {
       title: metadata.title,
       description: metadata.description,
-      url: canonicalPath,
-      type: "website",
-      locale,
-      images: [{ url: image, width: 1200, height: 630, alt: metadata.title }],
+      url: new URL(canonicalPath, siteUrl).toString(),
+      type,
+      locale: locale === "uk" ? "uk_UA" : "en_US",
+      siteName: "Янголи Хвостиків",
+      images: socialImage,
+      ...(type === "article" ? { publishedTime, modifiedTime } : {}),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: metadata.title,
+      description: metadata.description,
+      images: socialImage?.map((item) => item.url),
     },
   };
 }

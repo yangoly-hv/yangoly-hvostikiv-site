@@ -15,7 +15,6 @@ export const staticPagePaths = [
   "",
   "/blog",
   "/charity-events",
-  "/fundraising",
   "/partnership",
   "/public-offer",
   "/reporting",

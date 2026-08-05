@@ -1,50 +1,55 @@
 'use client';
 
-import {useMemo, useState} from 'react';
-import { useForm } from 'react-hook-form';
+import {useState} from 'react';
+import { Controller } from "react-hook-form";
 import { useTranslations } from 'next-intl';
 import Image from "next/image";
 import clsx from 'clsx';
 
 import Button from "@/shared/components/Button/Button";
+import CheckBox from "@/shared/components/CheckBox/CheckBox";
+import PublicOfferLink from "@/shared/components/PublicOfferLink/PublicOfferLink";
+import TextInput from "@/shared/components/TextInput/TextInput";
 
 import {onceImages, monthlyImages} from "@/modules/Hero/Donation/donationIcons";
-import {usePathname, useSearchParams} from "next/navigation";
 
-import donate from "@/shared/lib/donate";
+import { useDonationCheckout } from "@/features/donation/model/useDonationCheckout";
 
 type Tab = 'once' | 'monthly';
 
-interface FormValues {
-    amount: number | '';
-}
 const onceValues = [100, 200, 600, 1500];
 const monthlyValues = [250, 500, 1000, 1500, 2500];
 
 export default function DonationForm() {
     const t = useTranslations('DonationForm');
     const [tab, setTab] = useState<Tab>('once');
+    const [donationItemDescription, setDonationItemDescription] = useState(() => t("onceItems.100"));
 
-    const pathname = usePathname();
-    const searchParams = useSearchParams();
-
-    const returnPath = useMemo(() => {
-        const query = searchParams.toString();
-        return query ? `${pathname}?${query}` : pathname;
-    }, [pathname, searchParams]);
-
-    const { register, setValue, watch, handleSubmit } = useForm<FormValues>({
-        defaultValues: { amount: tab === "once" ? 100 : 250 },
+    const { register, setValue, watch, submit, formState, control, submitError } = useDonationCheckout({
+        initialAmount: 100,
+        donationItemDescription,
+        donationSchedule: "oneTime",
     });
 
     const amount = watch('amount');
+    const isAnonymous = watch('isAnonymous');
+    const isAgreed = watch('isAgreed');
+    const isRecurringAgreed = watch('isRecurringAgreed');
+    const amountField = register('amount', { valueAsNumber: true });
     const values = tab === 'once' ? onceValues : monthlyValues;
 
-    const onSubmit = async () => {
-        if(amount) {
-            await donate({amount, returnPath});
-        }
+    const handleTabChange = (nextTab: Tab) => {
+        if (nextTab === tab) return;
 
+        setTab(nextTab);
+        setValue("amount", nextTab === "once" ? 100 : 250, {
+            shouldValidate: true,
+        });
+        setValue("donationSchedule", nextTab === "monthly" ? "monthly" : "oneTime", {
+            shouldValidate: true,
+        });
+        setValue("isRecurringAgreed", false, { shouldValidate: true });
+        setDonationItemDescription(t(`${nextTab}Items.${nextTab === "once" ? 100 : 250}`));
     };
 
     const icons = tab === "once" ? onceImages : monthlyImages;
@@ -61,10 +66,7 @@ export default function DonationForm() {
                     <button
                         key={key}
                         type="button"
-                        onClick={() => {
-                            setValue("amount", tab === "once" ? 250 : 100);
-                            setTab(key);
-                        }}
+                        onClick={() => handleTabChange(key)}
                         className={clsx(
                             'rounded-[8px] py-2 px-4 xl:px-0 text-[16px] xl:text-[14px] transition',
                             tab === key
@@ -82,7 +84,7 @@ export default function DonationForm() {
                 {t(`descriptions.${tab}`)}
             </p>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 xl:space-y-[25px] lg:px-[6px]">
+            <form onSubmit={submit} className="space-y-4 xl:space-y-[25px] lg:px-[6px]">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-[13px]">
                     {values.map((value, idx) => {
                         const icon = icons[idx] ?? fallbackIcon;
@@ -90,7 +92,10 @@ export default function DonationForm() {
                         <button
                             key={value}
                             type="button"
-                            onClick={() => setValue('amount', value)}
+                            onClick={() => {
+                                setValue('amount', value, { shouldValidate: true });
+                                setDonationItemDescription(t(`${tab}Items.${value}`));
+                            }}
                             className={clsx(
                                 'flex items-center gap-3 lg:gap-[19px] rounded-[10px] px-[16px] py-[8px] text-left transition xl:px-[14px] xl:py-0 xl:min-h-[69px]',
                                 amount === value
@@ -141,7 +146,11 @@ export default function DonationForm() {
                                 type="number"
                                 placeholder={t('customAmount.placeholder')}
                                 className="w-full placeholder:text-green placeholder:text-[14px] placeholder:leading-[130%] rounded-[8px] border border-green px-3 py-1 text-sm xl:h-[25px] xl:text-[10px] bg-[#F5F5F5] focus:outline-hidden"
-                                {...register('amount')}
+                                {...amountField}
+                                onChange={(event) => {
+                                    amountField.onChange(event);
+                                    setDonationItemDescription(t('customAmount.label'));
+                                }}
                             />
                             <div className="mt-2 text-sm xl:text-[11px] xl:mt-[3px]">
                                 {t('customAmount.label')}
@@ -149,12 +158,79 @@ export default function DonationForm() {
                         </div>
                     </div>
                 </div>
-                <Button
-                    onClick={onSubmit}
-                    text={t('submit')}
-                    className="w-full mb-3 desk:mb-8 xl:h-[53px] lg:text-[14px] rounded-[22px]"
-                    type="button"
-                ></Button>
+                <div className="pt-4">
+                    <Controller
+                        control={control}
+                        name="fullName"
+                        render={({ field }) => (
+                            <TextInput
+                                value={field.value ?? ""}
+                                onChange={field.onChange}
+                                label={t("fullNameLabel")}
+                                placeholder={t("fullNamePlaceholder")}
+                                disabled={isAnonymous}
+                            />
+                        )}
+                    />
+                </div>
+                <Controller
+                    control={control}
+                    name="isAnonymous"
+                    render={({ field }) => (
+                        <CheckBox
+                            label={t("anonymousLabel")}
+                            checked={field.value}
+                            onChange={field.onChange}
+                        />
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="isAgreed"
+                    render={({ field }) => (
+                        <CheckBox
+                            label={<PublicOfferLink text={t("agreementLabel")} />}
+                            checked={field.value}
+                            onChange={field.onChange}
+                            error={Boolean(formState.errors.isAgreed)}
+                            required
+                        />
+                    )}
+                />
+                {tab === "monthly" && (
+                    <Controller
+                        control={control}
+                        name="isRecurringAgreed"
+                        render={({ field }) => (
+                            <CheckBox
+                                label={t("recurringAgreementLabel", { amount: amount ?? 0 })}
+                                checked={field.value}
+                                onChange={field.onChange}
+                                error={Boolean(formState.errors.isRecurringAgreed)}
+                                required
+                            />
+                        )}
+                    />
+                )}
+                <div className="pt-4">
+                    <Button
+                        text={t('submit')}
+                        className="w-full mb-3 desk:mb-8 xl:h-[53px] lg:text-[14px] rounded-[22px]"
+                        disabled={
+                            formState.isSubmitting ||
+                            !amount ||
+                            amount <= 0 ||
+                            !isAgreed ||
+                            (tab === "monthly" && !isRecurringAgreed)
+                        }
+                        type="submit"
+                    ></Button>
+                </div>
+                {submitError && (
+                    <p className="text-center text-sm font-medium text-red-600" role="alert">
+                        {t("submitError")}
+                    </p>
+                )}
             </form>
         </div>
     );

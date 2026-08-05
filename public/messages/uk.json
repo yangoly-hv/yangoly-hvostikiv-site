@@ -25,7 +25,13 @@
       "placeholder": "Введіть значення",
       "label": "Інша сума"
     },
-    "submit": "ЗРОБИТИ ДОНАТ"
+    "submit": "ЗРОБИТИ ДОНАТ",
+    "agreementLabel": "Я ознайомився/лася та погоджуюся з договором публічної оферти щодо благодійної пожертви.",
+    "recurringAgreementLabel": "Я погоджуюся на автоматичне списання {amount} грн щомісяця до скасування в особистому кабінеті WayForPay.",
+    "submitError": "Не вдалося розпочати оплату. Будь ласка, спробуйте пізніше.",
+    "fullNameLabel": "ПІБ",
+    "fullNamePlaceholder": "Ваше повне ім'я",
+    "anonymousLabel": "Зберегти анонімність"
   },
   "Header": {
     "donateButton": "Разова допомога",
@@ -88,7 +94,7 @@
       },
       {
         "name": "Волонтерство",
-        "href": "/partnership"
+        "href": "/volunteering"
       },
       {
         "name": "Благодійні заходи",
@@ -329,8 +335,11 @@
     "donateAmountSection": {
       "title": "Сума поповнення",
       "anotherAmount": "Інша сума",
+      "fullNameLabel": "ПІБ",
+      "fullNamePlaceholder": "Ваше повне ім'я",
+      "anonymousLabel": "Зберегти анонімність",
       "inputPlaceholder": "Не обов'язково",
-      "inputLabel": "Ваше ім'я або коментар",
+      "inputLabel": "Коментар",
       "firstCheckboxLabel": "Хочу знати про благодійні заходи першим",
       "secondCheckboxLabel": "Я ознайомився/лась із договором публічної оферти щодо надання благодійної пожертви та згоден/згодна на збір, обробку та використання персональних даних, згідно з умовами цього договору.",
       "cardButton": "Оплатити карткою",
@@ -388,15 +397,18 @@
     }
   },
   "KeepingModal": {
-    "fundraisingTitle": "Дякую, Янгеле, за те, що взяли піклування за хвостиком на себе",
+    "fundraisingTitle": "Дякую, Янголе, за те, що взяли піклування за хвостиком на себе",
     "subtitle": "Завдяки вашій допомозі хвостик буде доглянутий!",
     "goal": "Ціль",
     "currency": "грн",
     "donateAmountSection": {
       "title": "Сума поповнення",
       "anotherAmount": "Інша сума",
+      "fullNameLabel": "ПІБ",
+      "fullNamePlaceholder": "Ваше повне ім'я",
+      "anonymousLabel": "Зберегти анонімність",
       "inputPlaceholder": "Не обов'язково",
-      "inputLabel": "Ваше ім'я або коментар",
+      "inputLabel": "Коментар",
       "firstCheckboxLabel": "Хочу знати про благодійні заходи першим",
       "secondCheckboxLabel": "Я ознайомився/лась із договором публічної оферти щодо надання благодійної пожертви та згоден/згодна на збір, обробку та використання персональних даних, згідно з умовами цього договору.",
       "cardButton": "Оплатити карткою",
@@ -407,6 +419,29 @@
     "title": "Дякуємо!",
     "message": "Хвостики дякують за ваш донат",
     "buttonText": "Зрозуміло"
+  },
+  "PaymentReturn": {
+    "buttonText": "Зрозуміло",
+    "pending": {
+      "title": "Підтверджуємо платіж",
+      "message": "WayForPay ще не надіслав остаточне підтвердження. Будь ласка, зачекайте: ми зарахуємо донат одразу після його отримання."
+    },
+    "failed": {
+      "title": "Платіж не виконано",
+      "message": "WayForPay не підтвердив цей платіж. Донат не зараховано."
+    },
+    "reversed": {
+      "title": "Платіж скасовано",
+      "message": "WayForPay повідомив про скасування цього платежу. Активного донату немає."
+    },
+    "unknown": {
+      "title": "Платіж потребує підтвердження",
+      "message": "Ми отримали нерозпізнаний статус платежу і поки не можемо підтвердити донат."
+    }
+  },
+  "CheckoutError": {
+    "message": "Не вдалося розпочати оплату. Будь ласка, спробуйте пізніше.",
+    "recurringAgreement": "Я погоджуюся на автоматичне списання {amount} щомісяця до скасування в особистому кабінеті WayForPay."
   },
   "Contacts": {
     "title": "Контакти",
@@ -423,126 +458,7 @@
   },
   "PartnersList": {
     "title": "Наші партнери - наші герої!",
-    "list": [
-      {
-        "title": "Відділ культури Оболонь",
-        "image": {
-          "imagePath": "/images/partners/kultura.png",
-          "widthMob": 271,
-          "heightMob": 100,
-          "widthDesk": 380,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      },
-      {
-        "title": "Оболонська адміністрація",
-        "image": {
-          "imagePath": "/images/partners/obolon.png",
-          "widthMob": 90,
-          "heightMob": 120,
-          "widthDesk": 104,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      },
-      {
-        "title": "Песики Фест",
-        "image": {
-          "imagePath": "/images/partners/pesiki-fest.png",
-          "widthMob": 115,
-          "heightMob": 100,
-          "widthDesk": 139,
-          "heightDesk": 120,
-          "bg": "#7030A0"
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      },
-      {
-        "title": "ArtZavod Platforma",
-        "image": {
-          "imagePath": "/images/partners/artzavod.png",
-          "widthMob": 218,
-          "heightMob": 100,
-          "widthDesk": 305,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      },
-      {
-        "title": "Habiohika",
-        "image": {
-          "imagePath": "/images/partners/habiohika.png",
-          "widthMob": 245,
-          "heightMob": 30,
-          "widthDesk": 327,
-          "heightDesk": 40
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      },
-      {
-        "title": "Brit",
-        "image": {
-          "imagePath": "/images/partners/brit.png",
-          "widthMob": 232,
-          "heightMob": 80,
-          "widthDesk": 406,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      },
-      {
-        "title": "Mayata event agency",
-        "image": {
-          "imagePath": "/images/partners/myata-event-agency.webp",
-          "widthMob": 196,
-          "heightMob": 100,
-          "widthDesk": 274,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      },
-      {
-        "title": "PRACTIK",
-        "image": {
-          "imagePath": "/images/partners/practik.png",
-          "widthMob": 81,
-          "heightMob": 100,
-          "widthDesk": 113,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      },
-      {
-        "title": "V.O.G DOG salon",
-        "image": {
-          "imagePath": "/images/partners/vog-dog-salon.webp",
-          "widthMob": 104,
-          "heightMob": 110,
-          "widthDesk": 133,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Дізнатися більше",
-        "buttonLink": ""
-      }
-    ]
+    "buttonText": "Дізнатися більше"
   },
   "PartnershipHelpCards": {
     "title": "Чим ви можете допомогти",

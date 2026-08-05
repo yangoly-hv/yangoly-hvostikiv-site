@@ -3,7 +3,11 @@ import { siteUrl } from "@/shared/config/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/" },
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/uk/preview/", "/en/preview/"],
+    },
     sitemap: new URL("/sitemap.xml", siteUrl).toString(),
   };
 }

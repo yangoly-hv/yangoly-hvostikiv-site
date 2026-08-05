@@ -4,7 +4,7 @@ import path from "node:path";
 
 const nextDir = path.join(process.cwd(), ".next");
 const appDir = path.join(nextDir, "server", "app");
-const budgetKb = Number(process.env.CLIENT_ROUTE_BUDGET_KB || 350);
+const budgetKb = Number(process.env.CLIENT_ROUTE_BUDGET_KB || 200);
 
 const walk = async (directory) => {
   const entries = await readdir(directory, { withFileTypes: true });

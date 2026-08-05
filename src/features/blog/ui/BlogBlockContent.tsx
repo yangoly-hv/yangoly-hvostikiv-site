@@ -1,5 +1,3 @@
-"use client";
-
 import type { BlogContentBlock } from "../model/types";
 import BlogPlainTextBlock from "./BlogPlainTextBlock";
 import BlogTextWithImageBlock from "./BlogTextWithImageBlock";

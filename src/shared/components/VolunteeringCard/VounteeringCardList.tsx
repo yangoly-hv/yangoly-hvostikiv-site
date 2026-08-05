@@ -3,7 +3,7 @@ import Image from "next/image";
 import VolunteeringCardMobile from "./VolunteeringCardMobile";
 import { IHelpVolonteeringTranslation } from "@/shared/types";
 import VolunteeringCardDesk from "./VolunteeringCardDesk";
-import ContactFormAction from "../ContactFormAction/ContactFormAction";
+import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
 
 interface IVounteeringCardListProps {
   helpsList: IHelpVolonteeringTranslation[];
@@ -52,6 +52,7 @@ const VounteeringCardList = async ({
             <div className="flex justify-center items-center relative z-10">
               <ContactFormAction
                 buttonText={formCard.buttonText ? formCard.buttonText : ""}
+                source="volunteering"
                 className="mt-6 w-full h-[52px] max-w-[253px]"
               />
             </div>
@@ -116,6 +117,7 @@ const VounteeringCardList = async ({
               <div className="flex justify-center items-center">
                 <ContactFormAction
                   buttonText={formCard.buttonText ? formCard.buttonText : ""}
+                  source="volunteering"
                   className="mt-6 w-full h-[52px] max-w-[253px] z-2"
                 />
               </div>

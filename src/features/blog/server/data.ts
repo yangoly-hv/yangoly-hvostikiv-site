@@ -23,11 +23,13 @@ export const getPostBySlug = cache((locale: AppLocale, slug: string) =>
   )
 );
 
-export const getAllPostSlugs = cache(async () => {
-  const rows = await sanityFetch<Array<{ slug: string }>>(
+export type ContentSlug = { slug: string; updatedAt?: string };
+
+export const getAllPostSlugs = cache(async (locale: AppLocale) => {
+  const rows = await sanityFetch<ContentSlug[]>(
     allPostSlugsQuery,
-    {},
+    { lang: locale },
     { tags: [sanityTags.blogList, sanityTags.sitemap] }
   );
-  return rows.map(({ slug }) => slug);
+  return rows;
 });

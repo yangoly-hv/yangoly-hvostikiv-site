@@ -11,6 +11,8 @@ import { PageParams } from "@/shared/types";
 import { Metadata } from "next";
 import { getCharityEvents } from "@/features/events/server/data";
 import { getPageMetadata } from "@/shared/lib/metadata";
+import { getWebPageSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
 export async function generateMetadata({
   params,
@@ -35,7 +37,16 @@ export default async function CharityEventPage({ params }: PageParams) {
   const pageTitle = content?.title?.[locale] || t("title");
 
   return (
-    <section className="bg-orange-bg">
+    <>
+      <JsonLd
+        data={getWebPageSchema({
+          locale,
+          path: "/charity-events",
+          name: pageTitle,
+          description: t("missionText"),
+        })}
+      />
+      <section className="bg-orange-bg">
         <Hero images={images} title={t("title")} />
         <Paragraphs
           title={t("title")}
@@ -56,6 +67,7 @@ export default async function CharityEventPage({ params }: PageParams) {
         />
         <HelpAnimalsSection />
         <Contacts />
-    </section>
+      </section>
+    </>
   );
 }

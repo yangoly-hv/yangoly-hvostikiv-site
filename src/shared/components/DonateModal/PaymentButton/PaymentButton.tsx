@@ -14,7 +14,7 @@ const PaymentButton = ({
       case "monoPay":
         return (
           <div className="flex items-center justify-center gap-1">
-            <span>{t("donateAmountSection.donate")}</span>
+            <span>{text ?? `${t("donateAmountSection.donate")} · WayForPay`}</span>
           </div>
         );
       case "googlePay":

@@ -8,7 +8,7 @@ export const performanceQuery = `
 `;
 
 export const topDonorsQuery = `
-  *[_type == "donator"] | order(amount desc)[0...5]{
+  *[_type == "donator" && (!defined(isActive) || isActive == true)] | order(amount desc)[0...5]{
     _id,
     "name": name[$lang],
     amount

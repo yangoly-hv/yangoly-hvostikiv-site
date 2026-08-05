@@ -1,38 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import UniversalForm from "@/shared/components/UniversalForm/UniversalForm";
-import getContactFormConfig from "@/shared/formsConfigs/contactForm";
-import { ContactFormFields, Locale } from "@/shared/types";
+import { Locale } from "@/shared/types";
 import { slideUp } from "@/shared/utils";
 import { motion } from "motion/react";
-import { sendContactMessage } from "@/shared/lib/contact";
+import ContactRequestForm from "@/features/contact-request/ui/ContactRequestForm";
+import { getContactRequestCopy } from "@/features/contact-request/model/copy";
+import { useContactRequest } from "@/features/contact-request/model/useContactRequest";
 
 interface Props {
   lang: Locale;
 }
 
 const ContactForm = ({ lang }: Props) => {
-  const [submittedSuccess, setSubmittedSuccess] = useState(false);
-  const [submitError, setSubmitError] = useState(false);
-  const contactConfig = getContactFormConfig(lang);
-
-  const handleSubmit = async (data: ContactFormFields) => {
-    setSubmitError(false);
-
-    try {
-      await sendContactMessage({
-        name: data.name,
-        phone: data.phone,
-        message: data.message,
-        requestLabel: contactConfig.requestLabel,
-      });
-
-      setSubmittedSuccess(true);
-    } catch {
-      setSubmitError(true);
-    }
-  };
+  const copy = getContactRequestCopy(lang);
+  const { submittedSuccess, submitError, submit } = useContactRequest("contact-page");
 
   return (
     <motion.div
@@ -45,13 +26,15 @@ const ContactForm = ({ lang }: Props) => {
     >
       {!submittedSuccess && (
         <>
-          <UniversalForm onSubmit={handleSubmit} {...contactConfig} />
+          <div className="w-full rounded-lg bg-white p-6 shadow-sm">
+            <ContactRequestForm copy={copy} onSubmit={submit} />
+          </div>
           {submitError && (
             <p
               className="mt-3 text-center text-sm font-medium text-white"
               role="alert"
             >
-              {contactConfig.submitErrorText}
+              {copy.errorText}
             </p>
           )}
         </>
@@ -61,7 +44,7 @@ const ContactForm = ({ lang }: Props) => {
           className="text-2xl font-bold text-center mb-[20px] text-white"
           role="status"
         >
-          {contactConfig.submiteddText}
+          {copy.successText}
         </h2>
       )}
     </motion.div>

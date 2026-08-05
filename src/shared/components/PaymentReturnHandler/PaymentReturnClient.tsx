@@ -1,15 +1,5 @@
-"use client";
-
-import dynamic from "next/dynamic";
-
-const PaymentReturnHandler = dynamic(
-    () =>
-        import(
-            "@/shared/components/PaymentReturnHandler/PaymentReturnHandler"
-            ),
-    { ssr: false }
-);
+import PaymentReturnHandler from "@/shared/components/PaymentReturnHandler/PaymentReturnHandler";
 
 export default function PaymentReturnClient() {
-    return <PaymentReturnHandler />;
+  return <PaymentReturnHandler />;
 }

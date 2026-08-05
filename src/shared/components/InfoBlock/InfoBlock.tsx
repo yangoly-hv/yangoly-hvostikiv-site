@@ -31,7 +31,7 @@ const InfoBlock = ({
           },
         }}
         className={clsx(
-          "text-[20px] xl:text-left uppercase font-extrabold text-center font-arial xl:text-[32px] text-[#140A01] leading-[130%] mb-[28px]",
+          "text-[20px] xl:text-left uppercase font-extrabold text-center font-arial xl:text-[32px] text-[#140A01] leading-[130%] !mb-[28px]",
           titleClassName
         )}
       >
@@ -42,7 +42,7 @@ const InfoBlock = ({
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="space-y-5"
+        className="flex flex-col gap-5 space-y-5"
       >
         {(() => {
           const nodes: ReactElement[] = [];
@@ -78,7 +78,7 @@ const InfoBlock = ({
                       },
                     },
                   }}
-                  className="p-5 bg-orange-bright rounded-[20px] pl-6 space-y-[1lh]"
+                  className="flex flex-col gap-[1lh] p-5 pl-6 !p-5 !pl-6 space-y-[1lh] bg-orange-bright rounded-[20px]"
                 >
                   {listItems.map((item) => (
                     <li

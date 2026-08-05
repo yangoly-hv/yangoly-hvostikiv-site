@@ -27,11 +27,13 @@ export const getReportBySlug = cache((locale: AppLocale, slug: string) =>
   )
 );
 
-export const getAllReportSlugs = cache(async () => {
-  const rows = await sanityFetch<Array<{ slug: string }>>(
+export type ReportSlug = { slug: string; updatedAt?: string };
+
+export const getAllReportSlugs = cache(async (locale: AppLocale) => {
+  const rows = await sanityFetch<ReportSlug[]>(
     allReportSlugsQuery,
-    {},
+    { lang: locale },
     { tags: [sanityTags.reportsList, sanityTags.sitemap] }
   );
-  return rows.map(({ slug }) => slug);
+  return rows;
 });

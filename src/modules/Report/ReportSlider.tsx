@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useRef, useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
-import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
-import SlidesPagination from "@/shared/ui/SlidesPagination";
 import { CircleArrowIcon, CloseIcon } from "../../../public/images/icons";
-import type { Swiper as SwiperInstance } from "swiper";
+import { useSwiperNavigation } from "@/shared/hooks/useSwiperNavigation";
+import SliderNavigationControls from "@/shared/components/SliderNavigationControls/SliderNavigationControls";
 
 type ReportSliderProps = {
     images: string[];
@@ -32,21 +31,11 @@ const modalImageVariants = {
 };
 
 const ReportSlider = ({ images }: ReportSliderProps) => {
-    const swiperRef = useRef<SwiperInstance | null>(null);
-
-    const [isPrevDisabled, setIsPrevDisabled] = useState(true);
-    const [isNextDisabled, setIsNextDisabled] = useState(false);
+    const { isPrevDisabled, isNextDisabled, onSwiper, onSlideChange, previous, next } =
+        useSwiperNavigation();
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalDirection, setModalDirection] = useState(0);
-
-    const handlePrev = useCallback(() => {
-        swiperRef.current?.slidePrev();
-    }, []);
-
-    const handleNext = useCallback(() => {
-        swiperRef.current?.slideNext();
-    }, []);
 
     const openModal = useCallback((index: number) => {
         setModalDirection(0);
@@ -100,15 +89,8 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
                     },
                 }}
                 modules={[Pagination]}
-                onSlideChange={(swiper) => {
-                    setIsPrevDisabled(swiper.isBeginning);
-                    setIsNextDisabled(swiper.isEnd);
-                }}
-                onSwiper={(swiper) => {
-                    swiperRef.current = swiper;
-                    setIsPrevDisabled(swiper.isBeginning);
-                    setIsNextDisabled(swiper.isEnd);
-                }}
+                onSlideChange={onSlideChange}
+                onSwiper={onSwiper}
             >
                 {images.map((image, index) => {
                     const imageSrc = image;
@@ -145,26 +127,13 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
             </Swiper>
 
             {/* Pagination arrows */}
-            <div
-                className={clsx(
-                    "mt-[24px] flex justify-center gap-[25px] lg:gap-[12px]",
-                    "lg:absolute lg:top-[-90px] lg:right-[40px] lg:mt-0",
-                    isPrevDisabled && isNextDisabled && "hidden"
-                )}
-            >
-                <SlidesPagination
-                    className="bg-orange"
-                    direction="prev"
-                    onClick={handlePrev}
-                    disabled={isPrevDisabled}
-                />
-                <SlidesPagination
-                    className="bg-orange"
-                    direction="next"
-                    onClick={handleNext}
-                    disabled={isNextDisabled}
-                />
-            </div>
+            <SliderNavigationControls
+                className="mt-[24px] gap-[25px] lg:absolute lg:right-[40px] lg:top-[-90px] lg:mt-0 lg:gap-[12px]"
+                isPrevDisabled={isPrevDisabled}
+                isNextDisabled={isNextDisabled}
+                onPrevious={previous}
+                onNext={next}
+            />
 
             <AnimatePresence>
                 {isModalOpen && (

@@ -3,10 +3,16 @@ layer(base);
 @import 'tailwindcss';
 
 @theme {
-  --breakpoint-tabxl: 1101px;
-  --breakpoint-xl: 1366px;
-  --breakpoint-laptop: 1512px;
-  --breakpoint-desk: 1920px;
+  /*
+    Keep every breakpoint in the same unit as Tailwind's defaults. Tailwind
+    sorts media queries by their values, and mixing px with the default rem
+    breakpoints caused the 64rem/96rem container rules to override our wider
+    desktop containers.
+  */
+  --breakpoint-tabxl: 68.8125rem;
+  --breakpoint-xl: 85.375rem;
+  --breakpoint-laptop: 94.5rem;
+  --breakpoint-desk: 120rem;
 
   --color-white: #ffffff;
 
@@ -64,6 +70,27 @@ layer(base);
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
+  }
+
+  /* Tailwind v4 intentionally leaves buttons with the default cursor. */
+  a[href],
+  button:not(:disabled),
+  summary,
+  label[for],
+  select:not(:disabled),
+  input[type='checkbox']:not(:disabled),
+  input[type='radio']:not(:disabled),
+  input[type='file']:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab']:not([aria-disabled='true']),
+  [role='menuitem']:not([aria-disabled='true']),
+  [role='option']:not([aria-disabled='true']) {
+    cursor: pointer;
+  }
+
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
   }
 }
 

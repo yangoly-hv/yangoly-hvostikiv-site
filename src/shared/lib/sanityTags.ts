@@ -5,6 +5,7 @@ export const sanityTags = {
   donorsList: "donors:list",
   events: "events",
   performance: "performance",
+  partnersList: "partners:list",
   reportsList: "reports:list",
   sitemap: "sitemap",
   tailsList: "tails:list",
@@ -20,6 +21,7 @@ export const supportedSanityDocumentTypes = [
   "donator",
   "collection",
   "perfomance",
+  "partner",
   "aboutFoundation",
   "events",
 ] as const;

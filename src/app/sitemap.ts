@@ -13,15 +13,18 @@ import {
 const absoluteUrl = (path: string) => new URL(path, siteUrl).toString();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [postSlugs, reportSlugs, tailSlugs] = await Promise.all([
-    getAllPostSlugs(),
-    getAllReportSlugs(),
-    getAllTailSlugs(),
-  ]);
+  const localizedContent = await Promise.all(
+    locales.map(async (locale) => ({
+      locale,
+      posts: await getAllPostSlugs(locale),
+      reports: await getAllReportSlugs(locale),
+      tails: await getAllTailSlugs(locale),
+    }))
+  );
 
   const entries: MetadataRoute.Sitemap = [];
 
-  for (const locale of locales) {
+  for (const { locale, posts, reports, tails } of localizedContent) {
     for (const path of staticPagePaths) {
       entries.push({
         url: absoluteUrl(localizedPath(locale, path)),
@@ -30,25 +33,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       });
     }
 
-    for (const slug of postSlugs) {
+    for (const { slug, updatedAt } of posts) {
       entries.push({
         url: absoluteUrl(localizedPath(locale, `/blog/${slug}`)),
+        lastModified: updatedAt,
         changeFrequency: "monthly",
         priority: 0.6,
       });
     }
 
-    for (const slug of reportSlugs) {
+    for (const { slug, updatedAt } of reports) {
       entries.push({
         url: absoluteUrl(localizedPath(locale, `/reporting/${slug}`)),
+        lastModified: updatedAt,
         changeFrequency: "monthly",
         priority: 0.6,
       });
     }
 
-    for (const slug of tailSlugs) {
+    for (const { slug, updatedAt } of tails) {
       entries.push({
         url: absoluteUrl(localizedPath(locale, `/tails/${slug}`)),
+        lastModified: updatedAt,
         changeFrequency: "monthly",
         priority: 0.6,
       });

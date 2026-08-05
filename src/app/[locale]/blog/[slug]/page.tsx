@@ -9,12 +9,19 @@ import { getAllPostSlugs, getPostBySlug } from "@/features/blog/server/data";
 import { locales } from "@/shared/config/site";
 import type { PageParams } from "@/shared/types";
 import { getPageMetadata } from "@/shared/lib/metadata";
+import { toPlainText, truncateDescription } from "@/shared/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
 export const dynamicParams = true;
 
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs();
-  return locales.flatMap((locale) => slugs.map((slug) => ({ locale, slug })));
+  const localizedSlugs = await Promise.all(
+    locales.map(async (locale) => ({ locale, slugs: await getAllPostSlugs(locale) }))
+  );
+  return localizedSlugs.flatMap(({ locale, slugs }) =>
+    slugs.map(({ slug }) => ({ locale, slug }))
+  );
 }
 
 export async function generateMetadata({
@@ -38,12 +45,16 @@ export async function generateMetadata({
     path: `/blog/${slug}`,
     values: post
       ? {
-          title: `${fallback.title} | ${post.title}`,
-          description: fallback.description,
+          title: post.title,
+          description: truncateDescription(toPlainText(post.description) || fallback.description),
           keywords: fallback.keywords,
         }
       : fallback,
     image: post?.mainImage,
+    imageAlt: post?.title,
+    type: "article",
+    publishedTime: post?.publishedAt,
+    modifiedTime: post?.updatedAt,
   });
 }
 
@@ -61,9 +72,29 @@ export default async function ArticlePage({ params }: PageParams<{ slug: string 
 
   const translation = t.raw("Blog");
   const hasContent = Array.isArray(post.content) && post.content.length > 0;
+  const description = truncateDescription(toPlainText(post.description));
 
   return (
     <>
+      <JsonLd
+        data={[
+          getArticleSchema({
+            locale,
+            path: `/blog/${slug}`,
+            title: post.title,
+            description,
+            image: post.mainImage,
+            datePublished: post.publishedAt,
+            dateModified: post.updatedAt,
+            dateCreated: post.createdAt,
+          }),
+          getBreadcrumbSchema(locale, [
+            { name: locale === "uk" ? "Головна" : "Home", path: "" },
+            { name: locale === "uk" ? "Блог" : "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${slug}` },
+          ]),
+        ]}
+      />
       {hasContent ? (
         <BlogArticleWithContent article={post} translation={translation} />
       ) : (

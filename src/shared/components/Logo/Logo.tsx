@@ -1,4 +1,3 @@
-"use client";
 import { ILogoProps } from "@/shared/types";
 import clsx from "clsx";
 import Image from "next/image";
@@ -9,7 +8,7 @@ const Logo = ({ variant = "black", className = "", ...props }: ILogoProps) => {
         <Link {...props} className={`${className} relative block overflow-hidden`}>
             <Image
                 src="/images/logo.webp"
-                alt="logo"
+                alt="Янголи Хвостиків"
                 priority
                 fill
                 sizes="10vw"

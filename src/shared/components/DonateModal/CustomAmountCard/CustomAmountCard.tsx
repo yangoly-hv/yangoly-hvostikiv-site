@@ -4,7 +4,6 @@ import React, { useCallback } from "react";
 
 const CustomAmountCard = ({
   value,
-  formatAmount,
   isSelected,
   onChange,
   onFocus,
@@ -13,8 +12,8 @@ const CustomAmountCard = ({
 }: ICustomAmountCardProps) => {
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value.replace(/[^0-9]/g, "");
-      onChange(newValue);
+      const newValue = e.target.value.replace(",", ".").replace(/[^0-9.]/g, "");
+      if (/^\d*(?:\.\d{0,2})?$/.test(newValue)) onChange(newValue);
     },
     [onChange]
   );
@@ -27,7 +26,9 @@ const CustomAmountCard = ({
     >
       <input
         type="text"
-        value={value ? `+${formatAmount(Number(value))} ${currency}` : ""}
+        inputMode="decimal"
+        aria-label={anotherAmount}
+        value={value}
         onChange={handleChange}
         onFocus={onFocus}
         placeholder={anotherAmount}

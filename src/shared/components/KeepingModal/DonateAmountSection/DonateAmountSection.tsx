@@ -1,114 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
-import axios from "axios";
-import { formatAmount } from "@/shared/utils";
-import TextInput from "../../TextInput/TextInput";
-import CheckBox from "../../CheckBox/CheckBox";
-import PaymentButton from "../PaymentButton/PaymentButton";
-import Toast from "../../Toast/Toast";
-import ThankYouModal from "../ThankYouModal/ThankYouModal";
-import { useTranslations } from "next-intl";
+import React from "react";
+import type { DonationTarget } from "@/features/donation/model/purpose";
+import DonationAmountSectionBase from "@/shared/components/DonateModal/DonateAmountSection/DonateAmountSection";
 
-import PublicOfferLink from "@/shared/components/PublicOfferLink/PublicOfferLink";
-
-const DonateAmountSection = ({price}: {price: number}) => {
-  const t = useTranslations("DonateModal");
-
-  const translation = {
-    title: t("donateAmountSection.title"),
-    anotherAmount: t("donateAmountSection.anotherAmount"),
-    inputPlaceholder: t("donateAmountSection.inputPlaceholder"),
-    inputLabel: t("donateAmountSection.inputLabel"),
-    firstCheckboxLabel: t("donateAmountSection.firstCheckboxLabel"),
-    secondCheckboxLabel: t("donateAmountSection.secondCheckboxLabel"),
-    submitError: t("donateAmountSection.submitError"),
-  };
-
-  const [comment, setComment] = useState("");
-  const [isAgreed, setIsAgreed] = useState(false);
-  const [wantNotifications, setWantNotifications] = useState(false);
-  const [isToastVisible, setIsToastVisible] = useState(false);
-  const [isThankYouModalOpen, setIsThankYouModalOpen] = useState(false);
-
-  const currentAmount = price;
-
-  const handlePayment = async () => {
-    const {data} = await axios.post("/api/wayforpay/checkout", {
-      amount: currentAmount,
-      orderReference: `DONATE_${Date.now()}`,
-      productName: "Донат для фонду Янголи хвостиків",
-    });
-
-    const form = document.createElement("form");
-    form.method = "POST";
-    form.action = "https://secure.wayforpay.com/pay";
-
-    Object.keys(data).forEach((key) => {
-      const input = document.createElement("input");
-      input.type = "hidden";
-      input.name = key;
-      input.value = Array.isArray(data[key]) ? data[key].join(";") : data[key];
-      form.appendChild(input);
-    });
-
-    document.body.appendChild(form);
-    form.submit();
-  };
-
-  return (
-    <>
-      <div className="flex relative flex-col items-center gap-4 py-4">
-        <div className="border border-[#FF9332] max-w-[350px] xl:max-w-[544px] p-3 xl:p-6 w-full">
-          <p className="text-center text-[20px] font-black font-arial text-dark uppercase leading-[130%] mb-2">
-            {translation.title}
-          </p>
-          <p className="text-center text-[24px] xl:text-[32px] leading-[130%] text-[#52525B] mb-2">
-            {formatAmount(currentAmount)} {t("currency")}
-          </p>
-        </div>
-        <div className="w-full max-w-[350px] xl:max-w-[544px]">
-          <TextInput
-            value={comment}
-            onChange={setComment}
-            placeholder={translation.inputPlaceholder}
-            label={translation.inputLabel}
-          />
-
-          <div className="space-y-3 mb-4">
-            <CheckBox
-              label={translation.firstCheckboxLabel}
-              checked={wantNotifications}
-              onChange={(checked) => setWantNotifications(checked)}
-            />
-            <CheckBox
-              label={<PublicOfferLink text={translation.secondCheckboxLabel} />}
-              checked={isAgreed}
-              onChange={(checked) => setIsAgreed(checked)}
-              required
-            />
-          </div>
-
-          <div className="space-y-2 mb-2">
-            <PaymentButton paymentType="monoPay" onClick={handlePayment}/>
-          </div>
-        </div>
-      </div>
-
-      <ThankYouModal
-          isOpen={isThankYouModalOpen}
-          onClose={() => setIsThankYouModalOpen(false)}
-      />
-
-      {isToastVisible && (
-          <Toast
-              message={translation.submitError}
-              isVisible={isToastVisible}
-              onClose={() => setIsToastVisible(false)}
-          />
-      )}
-    </>
-  );
+const DonateAmountSection = ({
+  price,
+  donationTarget,
+}: {
+  price: number;
+  donationTarget?: DonationTarget;
+}) => {
+  return <DonationAmountSectionBase price={price} donationTarget={donationTarget} />;
 };
 
 export default React.memo(DonateAmountSection);

@@ -1,11 +1,10 @@
-"use client";
 import Image from "next/image";
 import Button from "@/shared/components/Button/Button";
 import type { BlogPostSummary } from "@/features/blog/model/types";
 import type { IBlog } from "@/shared/types";
 import { Link } from "@/i18n/navigation";
-import { motion } from "motion/react";
-import { fadeIn, slideUp } from "@/shared/utils";
+import * as motion from "motion/react-client";
+import { fadeInAt, slideUpAt } from "@/shared/utils";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
 export default function BlogCard({
@@ -28,11 +27,10 @@ export default function BlogCard({
         {" "}
         {mainPhoto && (
           <motion.div
-            variants={slideUp}
+            variants={slideUpAt()}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={0}
           >
             <Link href={`/blog/${slug}`} className="block mb-[26px]">
               <div className="relative w-full h-[246px] desk:h-[323px] aspect-295/246 rounded-[11.25px] overflow-hidden">
@@ -49,22 +47,20 @@ export default function BlogCard({
         )}
         {date && (
           <motion.p
-            variants={fadeIn}
+            variants={fadeInAt(0.2)}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
-            custom={0.2}
             className="mb-3 text-dark text-[16px] font-medium leading-[20.8px]"
           >
             {date}
           </motion.p>
         )}
         <motion.div
-          variants={fadeIn}
+          variants={fadeInAt(0.4)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          custom={0.4}
         >
           <Link href={`/blog/${slug}`}>
             <h2
@@ -75,23 +71,21 @@ export default function BlogCard({
             </h2>
           </Link>
         </motion.div>
-        <motion.p
-          variants={fadeIn}
+        <motion.div
+          variants={fadeInAt(0.6)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          custom={0.6}
           className="mb-5 text-dark font-normal text-[14px] leading-[18.2px] line-clamp-4"
         >
           <PortableTextRenderer value={description} />
-        </motion.p>
+        </motion.div>
       </div>
       <motion.div
-        variants={fadeIn}
+        variants={fadeInAt(0.8)}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        custom={0.8}
       >
         <Link href={`/blog/${slug}`}>
           <Button text={detailsButton} fullWidth />

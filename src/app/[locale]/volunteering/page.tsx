@@ -6,6 +6,8 @@ import WhatVolunteerGet from "@/shared/components/WhatVolunteerGet/WhatVolunteer
 import { PageParams } from "@/shared/types";
 import { Metadata } from "next";
 import { getPageMetadata } from "@/shared/lib/metadata";
+import { getWebPageSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
@@ -20,6 +22,14 @@ export default async function VolunteeringPage({ params }: PageParams) {
 
   return (
     <>
+      <JsonLd
+        data={getWebPageSchema({
+          locale,
+          path: "/volunteering",
+          name: t("title"),
+          description: t("title"),
+        })}
+      />
       <div className="container px-4 xl:px-[40px] mx-auto">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}

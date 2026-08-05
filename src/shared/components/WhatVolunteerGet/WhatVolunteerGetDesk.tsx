@@ -2,9 +2,9 @@ import * as motion from "motion/react-client";
 import clsx from "clsx";
 import Image from "next/image";
 import {
-  containerVariants,
   listItemVariants,
 } from "../Animations/animationVariants";
+import VolunteerBenefitsIntro from "./VolunteerBenefitsIntro";
 const WhatVolunteerGetDesk = ({
   title,
   subtitle,
@@ -25,25 +25,7 @@ const WhatVolunteerGetDesk = ({
           sizes="(max-width: 1024px) 50vw, 33vw"
         />
       </div>
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={containerVariants}
-      >
-        <motion.h2
-          variants={listItemVariants}
-          className="text-[24px] lg:text-[32px] font-arial leading-[130%] uppercase"
-        >
-          {title}
-        </motion.h2>
-        <motion.p
-          variants={listItemVariants}
-          className="text-[18px] font-medium leading-[130%] mt-4 max-w-[80%]"
-        >
-          {subtitle}
-        </motion.p>
-      </motion.div>
+      <VolunteerBenefitsIntro title={title} subtitle={subtitle} subtitleClassName="max-w-[80%]" />
 
       <motion.div
         initial="hidden"

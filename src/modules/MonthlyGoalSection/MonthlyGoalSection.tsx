@@ -39,7 +39,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
     .replace("{{current}}", formatAmount(current));
 
   return (
-    <section className="relative py-[120px] bg-white md:bg-transparent overflow-hidden">
+    <section className="relative pt-[120px] pb-[60px] bg-white md:bg-transparent overflow-hidden">
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
         className="md:hidden absolute top-[-18px] left-[calc(50%-205px)] w-[429px] h-[630px]"
@@ -109,6 +109,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
             <div>
               <Donate
                   title={`${support} ${title}`}
+                donationTarget={{ purpose: "collection", targetId: data._id, targetName: title, amount: goal, amountCollected: current }}
                 className="w-full lg:max-w-[348px] xl:max-w-[555px] mb-3 desk:mb-8 xl:h-[67px]"
                 buttonText={supportFundrasing}
               />

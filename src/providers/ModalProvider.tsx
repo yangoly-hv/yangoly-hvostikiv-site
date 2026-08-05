@@ -6,23 +6,46 @@ import {
     useState,
     ReactNode,
 } from "react";
-import DonateModal from "@/shared/components/DonateModal/DonateModal";
-import ThankYouModal from "@/shared/components/DonateModal/ThankYouModal/ThankYouModal";
+import dynamic from "next/dynamic";
+import { IThankYouModalProps } from "@/shared/types";
+import type { DonationTarget } from "@/features/donation/model/purpose";
+
+const DonateModal = dynamic(
+    () => import("@/shared/components/DonateModal/DonateModal"),
+    { ssr: false },
+);
+
+const ThankYouModal = dynamic(
+    () => import("@/shared/components/DonateModal/ThankYouModal/ThankYouModal"),
+    { ssr: false },
+);
 
 /* =======================
    Types
 ======================= */
 
 type ModalContextType = {
-    openDonateModal: (title: string) => void;
+    openDonateModal: (title: string, donationTarget?: DonationTarget) => void;
     openThankYouModal: () => void;
+    openPaymentStatusModal: (content: PaymentStatusModalContent) => void;
     closeDonateModal: () => void;
     closeThankYouModal: () => void;
+    closePaymentStatusModal: () => void;
 };
 
 type DonateModalState = {
     open: boolean;
     title?: string;
+    donationTarget?: DonationTarget;
+};
+
+type PaymentStatusModalContent = Pick<
+    IThankYouModalProps,
+    "title" | "message" | "buttonText" | "onButtonClick"
+>;
+
+type PaymentStatusModalState = PaymentStatusModalContent & {
+    open: boolean;
 };
 
 /* =======================
@@ -53,11 +76,14 @@ export default function ModalProvider({
     });
 
     const [thankYouOpen, setThankYouOpen] = useState(false);
+    const [paymentStatusModal, setPaymentStatusModal] = useState<PaymentStatusModalState>({
+        open: false,
+    });
 
     /* ===== Donate modal ===== */
 
-    const openDonateModal = (title: string) => {
-        setDonateModal({ open: true, title });
+    const openDonateModal = (title: string, donationTarget?: DonationTarget) => {
+        setDonateModal({ open: true, title, donationTarget });
     };
 
     const closeDonateModal = () => {
@@ -74,6 +100,14 @@ export default function ModalProvider({
         setThankYouOpen(false);
     };
 
+    const openPaymentStatusModal = (content: PaymentStatusModalContent) => {
+        setPaymentStatusModal({ open: true, ...content });
+    };
+
+    const closePaymentStatusModal = () => {
+        setPaymentStatusModal({ open: false });
+    };
+
     return (
         <ModalContext.Provider
             value={{
@@ -81,20 +115,38 @@ export default function ModalProvider({
                 closeDonateModal,
                 openThankYouModal,
                 closeThankYouModal,
+                openPaymentStatusModal,
+                closePaymentStatusModal,
             }}
         >
             {children}
 
-            <DonateModal
-                isOpen={donateModal.open}
-                title={donateModal.title}
-                onClose={closeDonateModal}
-            />
+            {donateModal.open && (
+                <DonateModal
+                    isOpen
+                    title={donateModal.title}
+                    donationTarget={donateModal.donationTarget}
+                    onClose={closeDonateModal}
+                />
+            )}
 
-            <ThankYouModal
-                isOpen={thankYouOpen}
-                onClose={closeThankYouModal}
-            />
+            {thankYouOpen && (
+                <ThankYouModal
+                    isOpen
+                    onClose={closeThankYouModal}
+                />
+            )}
+
+            {paymentStatusModal.open && (
+                <ThankYouModal
+                    isOpen
+                    onClose={closePaymentStatusModal}
+                    title={paymentStatusModal.title}
+                    message={paymentStatusModal.message}
+                    buttonText={paymentStatusModal.buttonText}
+                    onButtonClick={paymentStatusModal.onButtonClick}
+                />
+            )}
         </ModalContext.Provider>
     );
 }

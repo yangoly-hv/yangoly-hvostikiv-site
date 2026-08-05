@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import * as motion from "motion/react-client";
 import Image from "next/image";
-import clsx from "clsx";
 import LargePhotoModal from "@/shared/components/LargePhotoModal/LargePhotoModal";
-import SlidesPagination from "@/shared/ui/SlidesPagination";
 import type { BlogContentBlock } from "../model/types";
-import type { Swiper as SwiperInstance } from "swiper";
+import { useSwiperNavigation } from "@/shared/hooks/useSwiperNavigation";
+import SliderNavigationControls from "@/shared/components/SliderNavigationControls/SliderNavigationControls";
 
 import "swiper/css";
 
@@ -24,16 +23,8 @@ interface Props {
 export default function BlogGalleryBlock({ block }: Props) {
   const { images } = block;
   const [openPhoto, setOpenPhoto] = useState<string | null>(null);
-  const [isPrevDisabled, setIsPrevDisabled] = useState(true);
-  const [isNextDisabled, setIsNextDisabled] = useState(false);
-  const swiperRef = useRef<SwiperInstance | null>(null);
-
-  const handlePrev = useCallback(() => {
-    swiperRef.current?.slidePrev();
-  }, []);
-  const handleNext = useCallback(() => {
-    swiperRef.current?.slideNext();
-  }, []);
+  const { isPrevDisabled, isNextDisabled, onSwiper, onSlideChange, previous, next } =
+    useSwiperNavigation();
 
   if (!images?.length) return null;
 
@@ -48,15 +39,8 @@ export default function BlogGalleryBlock({ block }: Props) {
             768: { slidesPerView: 2.1 },
             1366: { slidesPerView: 4.1 },
           }}
-          onSwiper={(swiper) => {
-            swiperRef.current = swiper;
-            setIsPrevDisabled(swiper.isBeginning);
-            setIsNextDisabled(swiper.isEnd);
-          }}
-          onSlideChange={(swiper) => {
-            setIsPrevDisabled(swiper.isBeginning);
-            setIsNextDisabled(swiper.isEnd);
-          }}
+          onSwiper={onSwiper}
+          onSlideChange={onSlideChange}
         >
           {images.map((img, index) => (
             <SwiperSlide key={img.url + index}>
@@ -90,25 +74,13 @@ export default function BlogGalleryBlock({ block }: Props) {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div
-          className={clsx(
-            "mt-[40px] flex justify-center gap-6",
-            isPrevDisabled && isNextDisabled && "hidden"
-          )}
-        >
-          <SlidesPagination
-            className="bg-orange"
-            direction="prev"
-            onClick={handlePrev}
-            disabled={isPrevDisabled}
-          />
-          <SlidesPagination
-            className="bg-orange"
-            direction="next"
-            onClick={handleNext}
-            disabled={isNextDisabled}
-          />
-        </div>
+        <SliderNavigationControls
+          className="mt-[40px]"
+          isPrevDisabled={isPrevDisabled}
+          isNextDisabled={isNextDisabled}
+          onPrevious={previous}
+          onNext={next}
+        />
       </div>
 
       {openPhoto && (

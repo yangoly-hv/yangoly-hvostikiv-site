@@ -27,11 +27,13 @@ export const getTailBySlug = cache((locale: AppLocale, slug: string) =>
   )
 );
 
-export const getAllTailSlugs = cache(async () => {
-  const rows = await sanityFetch<Array<{ slug: string }>>(
+export type TailSlug = { slug: string; updatedAt?: string };
+
+export const getAllTailSlugs = cache(async (locale: AppLocale) => {
+  const rows = await sanityFetch<TailSlug[]>(
     allTailSlugsQuery,
-    {},
+    { lang: locale },
     { tags: [sanityTags.tailsList, sanityTags.sitemap] }
   );
-  return rows.map(({ slug }) => slug);
+  return rows;
 });

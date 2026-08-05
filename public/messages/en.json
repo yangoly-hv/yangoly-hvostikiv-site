@@ -25,7 +25,13 @@
       "placeholder": "Enter amount",
       "label": "Custom amount"
     },
-    "submit": "MAKE DONATION"
+    "submit": "MAKE DONATION",
+    "agreementLabel": "I have read and agree to the public offer agreement for charitable donations.",
+    "recurringAgreementLabel": "I agree to an automatic charge of UAH {amount} every month until I cancel it in my WayForPay personal account.",
+    "submitError": "We could not start the payment. Please try again later.",
+    "fullNameLabel": "Full name",
+    "fullNamePlaceholder": "Your full name",
+    "anonymousLabel": "Keep my donation anonymous"
   },
   "Header": {
     "donateButton": "One-time assistance",
@@ -88,7 +94,7 @@
       },
       {
         "name": "Volunteering",
-        "href": "/partnership"
+        "href": "/volunteering"
       },
       {
         "name": "Charity Events",
@@ -329,8 +335,11 @@
     "donateAmountSection": {
       "title": "Top-up amount",
       "anotherAmount": "Other amount",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "anonymousLabel": "Keep my donation anonymous",
       "inputPlaceholder": "Optional",
-      "inputLabel": "Your name or comment",
+      "inputLabel": "Comment",
       "firstCheckboxLabel": "I want to be the first to know about charity events",
       "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
       "cardButton": "Pay by card",
@@ -346,8 +355,11 @@
     "donateAmountSection": {
       "title": "Top-up amount",
       "anotherAmount": "Other amount",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "anonymousLabel": "Keep my donation anonymous",
       "inputPlaceholder": "Optional",
-      "inputLabel": "Your name or comment",
+      "inputLabel": "Comment",
       "firstCheckboxLabel": "I want to be the first to know about charity events",
       "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
       "cardButton": "Pay by card",
@@ -395,8 +407,11 @@
     "donateAmountSection": {
       "title": "Top-up amount",
       "anotherAmount": "Other amount",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "anonymousLabel": "Keep my donation anonymous",
       "inputPlaceholder": "Optional",
-      "inputLabel": "Your name or comment",
+      "inputLabel": "Comment",
       "firstCheckboxLabel": "I want to be the first to know about charity events",
       "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
       "cardButton": "Pay by card",
@@ -407,6 +422,29 @@
     "title": "Thank you!",
     "message": "Tails thank you for your donation",
     "buttonText": "Got it"
+  },
+  "PaymentReturn": {
+    "buttonText": "Got it",
+    "pending": {
+      "title": "We are confirming your payment",
+      "message": "WayForPay has not sent the final confirmation yet. Please wait a moment; we will record the donation as soon as it arrives."
+    },
+    "failed": {
+      "title": "Payment was not completed",
+      "message": "WayForPay did not confirm this payment. No donation has been recorded."
+    },
+    "reversed": {
+      "title": "Payment was reversed",
+      "message": "WayForPay reported that this payment was reversed. No active donation is recorded."
+    },
+    "unknown": {
+      "title": "Payment needs confirmation",
+      "message": "We received an unrecognized payment status and cannot confirm the donation yet."
+    }
+  },
+  "CheckoutError": {
+    "message": "We could not start the payment. Please try again later.",
+    "recurringAgreement": "I agree to an automatic charge of {amount} every month until I cancel it in my WayForPay personal account."
   },
   "Contacts": {
     "title": "Contacts",
@@ -423,126 +461,7 @@
   },
   "PartnersList": {
     "title": "Our partners - our heroes!",
-    "list": [
-      {
-        "title": "Obolon Department of Culture",
-        "image": {
-          "imagePath": "/images/partners/kultura.png",
-          "widthMob": 271,
-          "heightMob": 100,
-          "widthDesk": 380,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "Obolon Administration",
-        "image": {
-          "imagePath": "/images/partners/obolon.png",
-          "widthMob": 90,
-          "heightMob": 120,
-          "widthDesk": 104,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "Pesyky Fest",
-        "image": {
-          "imagePath": "/images/partners/pesiki-fest.png",
-          "widthMob": 115,
-          "heightMob": 100,
-          "widthDesk": 139,
-          "heightDesk": 120,
-          "bg": "#7030A0"
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "ArtZavod Platforma",
-        "image": {
-          "imagePath": "/images/partners/artzavod.png",
-          "widthMob": 218,
-          "heightMob": 100,
-          "widthDesk": 305,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "Habiohika",
-        "image": {
-          "imagePath": "/images/partners/habiohika.png",
-          "widthMob": 245,
-          "heightMob": 30,
-          "widthDesk": 327,
-          "heightDesk": 40
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "Brit",
-        "image": {
-          "imagePath": "/images/partners/brit.png",
-          "widthMob": 232,
-          "heightMob": 80,
-          "widthDesk": 406,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "Mayata event agency",
-        "image": {
-          "imagePath": "/images/partners/myata-event-agency.webp",
-          "widthMob": 196,
-          "heightMob": 100,
-          "widthDesk": 274,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "PRACTIK",
-        "image": {
-          "imagePath": "/images/partners/practik.png",
-          "widthMob": 81,
-          "heightMob": 100,
-          "widthDesk": 113,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "V.O.G DOG salon",
-        "image": {
-          "imagePath": "/images/partners/vog-dog-salon.webp",
-          "widthMob": 104,
-          "heightMob": 110,
-          "widthDesk": 133,
-          "heightDesk": 140
-        },
-        "text": "",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      }
-    ]
+    "buttonText": "Learn more"
   },
   "PartnershipHelpCards": {
     "title": "How you can help",

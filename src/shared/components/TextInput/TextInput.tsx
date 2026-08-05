@@ -1,6 +1,6 @@
 "use client";
 import { ITextInputProps } from "@/shared/types";
-import React, { useCallback } from "react";
+import React, { useCallback, useId } from "react";
 
 const TextInput = ({
   value,
@@ -9,6 +9,8 @@ const TextInput = ({
   label,
   ...props
 }: ITextInputProps) => {
+  const generatedId = useId();
+  const inputId = props.id ?? generatedId;
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       onChange(e.target.value);
@@ -19,12 +21,13 @@ const TextInput = ({
   return (
     <div className="w-full mb-6">
       {label && (
-        <label className="block text-[18px] text-[#1D1D1D] mb-2 leading-[133%]">
+        <label htmlFor={inputId} className="block text-[18px] text-[#1D1D1D] mb-2 leading-[133%]">
           {label}
         </label>
       )}
       <input
         type="text"
+        id={inputId}
         value={value}
         onChange={handleChange}
         className={`w-full pl-[12px] py-[11px] border text-[14px] xl:text-[16px] bg-white text-dark border-[#A1A1AA] rounded-[4px] focus:outline-hidden focus:border-orange-500 ${className}`}

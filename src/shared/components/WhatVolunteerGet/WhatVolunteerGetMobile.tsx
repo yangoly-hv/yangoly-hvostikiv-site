@@ -2,9 +2,9 @@ import * as motion from "motion/react-client";
 import Image from "next/image";
 import { PawIcon } from "@/shared/components/Icons/PawIcon";
 import {
-  containerVariants,
   listItemVariants,
 } from "../Animations/animationVariants";
+import VolunteerBenefitsIntro from "./VolunteerBenefitsIntro";
 
 const WhatVolunteerGetMobile = ({
   title,
@@ -27,25 +27,7 @@ const WhatVolunteerGetMobile = ({
             sizes="(max-width: 768px) 100vw, 540px"
           />
         </div>
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={containerVariants}
-        >
-          <motion.h2
-            variants={listItemVariants}
-            className="text-[24px] lg:text-[32px] font-arial leading-[130%] uppercase"
-          >
-            {title}
-          </motion.h2>
-          <motion.p
-            variants={listItemVariants}
-            className="text-[18px] font-medium leading-[130%] mt-4"
-          >
-            {subtitle}
-          </motion.p>
-        </motion.div>
+        <VolunteerBenefitsIntro title={title} subtitle={subtitle} />
         <motion.div
           initial="hidden"
           whileInView="visible"

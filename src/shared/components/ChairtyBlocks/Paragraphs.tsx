@@ -59,8 +59,9 @@ const Paragraphs = ({ title, paragraphs, mobTitle, deskTitle }: ParagraphsProps)
               className={clsx(
                 "text-[18px] text-black leading-[130%] font-light mb-[24px]",
               )}
-              dangerouslySetInnerHTML={{ __html: paragraph }}
-            />
+            >
+              {paragraph}
+            </motion.p>
           ))}
           <motion.h2
             initial={{ opacity: 0, y: 20 }}

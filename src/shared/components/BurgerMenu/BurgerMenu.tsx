@@ -61,19 +61,21 @@ const BurgerMenu = ({ isOpen, onClose }: IBurgerMenuopProps) => {
             <div className="flex flex-col h-full">
               <div className="flex justify-end pt-8 pr-8">
                 <button
+                  type="button"
+                  aria-label="Закрити меню"
                   onClick={onClose}
-                  className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                  className="cursor-pointer p-1 hover:bg-gray-100 rounded-full transition-colors"
                 >
                   <CloseIcon />
                 </button>
               </div>
               <nav className="px-[70px]">
-                <ul className="flex flex-col space-y-4">
+                <ul className="flex flex-col">
                   {navigation.map((item, index) => (
-                    <li key={index} className="pb-6 border-b border-[#E1E1E1]">
+                    <li key={index} className="py-5 border-b border-[#E1E1E1]">
                       <Link
                         href={item.href}
-                        className="text-gray leading-[120%] hover:text-green-600 transition-colors duration-200 text-[24px]"
+                        className="cursor-pointer text-gray leading-[120%] hover:text-green-600 transition-colors duration-200 text-[24px]"
                         onClick={onClose}
                       >
                         {item.name}

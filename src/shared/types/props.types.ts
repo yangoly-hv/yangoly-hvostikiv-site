@@ -5,7 +5,7 @@ import {
   ITails,
 } from "./dictionary.types";
 import type { PortableTextContentBlock } from "./content.types";
-import * as yup from "yup";
+import type { DonationTarget } from "./donation";
 import { Link } from "@/i18n/navigation";
 
 export type Locale = AppLocale;
@@ -38,6 +38,7 @@ export interface IDonateProps {
   className?: string;
   buttonText: string;
   title: string;
+  donationTarget?: DonationTarget;
 }
 
 export interface IButtonProps
@@ -67,31 +68,6 @@ export interface IFundraisingGoalProps extends ComponentProps<"div"> {
 export interface IPartnersProps
   extends React.HtmlHTMLAttributes<HTMLTableSectionElement> {
   withTitle?: boolean;
-}
-
-export type ContactFormFieldName = "name" | "phone" | "message";
-export type ContactFormFields = Record<ContactFormFieldName, string>;
-
-export interface IFormField<TName extends string = string> {
-  name: TName;
-  label: string;
-  type: "text" | "tel" | "textarea" | "password";
-  placeholder?: string;
-  required?: boolean;
-  icon?: React.ReactNode;
-  validation?: yup.StringSchema;
-  mask?: string;
-}
-
-export interface IFormConfig<TFieldName extends string = string> {
-  title?: string;
-  fields: IFormField<TFieldName>[];
-  submitText: string;
-  submiteddText: string;
-  submitErrorText: string;
-  requestLabel: string;
-  onSubmit?: (data: Record<TFieldName, string>) => void | Promise<void>;
-  className?: string;
 }
 
 export interface ISvgIconProps extends React.SVGProps<SVGSVGElement> {
@@ -162,13 +138,14 @@ export interface CheckboxIconProps extends React.SVGProps<SVGSVGElement> {
 type PaymentType = "monoPay" | "googlePay" | "card";
 
 export interface IPaymentButtonProps
-  extends Omit<ComponentProps<"button">, "type"> {
+  extends ComponentProps<"button"> {
   paymentType: PaymentType;
   text?: string;
 }
 
 export interface IDonateModalProps {
   title?: string;
+  donationTarget?: DonationTarget;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -177,6 +154,7 @@ export interface IKeepingModalProps {
   isOpen: boolean;
   onClose: () => void;
   price?: number;
+  donationTarget?: DonationTarget;
 }
 
 export interface IThankYouModalProps {
@@ -226,21 +204,6 @@ export interface IHelpVolonteeringTranslation {
 export interface IAngelsProps extends ComponentProps<"section"> {
   title?: string;
   withCircle?: boolean;
-}
-
-export interface IPartnerItem {
-  title: string;
-  image: {
-    imagePath: string;
-    widthMob: number;
-    heightMob: number;
-    widthDesk: number;
-    heightDesk: number;
-    bg?: string;
-  };
-  text: string;
-  buttonText: string;
-  buttonLink: string;
 }
 
 export interface IPartnershipHelpCard {

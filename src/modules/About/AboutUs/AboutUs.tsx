@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import * as motion from "motion/react-client";
 
@@ -11,7 +9,7 @@ import Button from "@/shared/components/Button/Button";
 import ImageGallery from "@/shared/components/ImageGallery/ImageGallery";
 import InfoBlock from "@/shared/components/InfoBlock/InfoBlock";
 import type { IInformationBlockTranslation } from "@/shared/types";
-import { generalSlideUp } from "@/shared/utils";
+import { generalSlideUpAt } from "@/shared/utils";
 
 const AboutUs = ({
   translation,
@@ -37,16 +35,16 @@ const AboutUs = ({
       <InfoBlock
         titleClassName="xl:mb-[48px]"
         className="p-[30px] rounded-[20px] flex flex-col h-full justify-center xl:p-[93px]"
-        translation={{ title: about.title, paragraphs: [] }}
+        translation={{ title: translation.title, paragraphs: [] }}
         blocks={about.description}
       >
         <motion.div className="flex flex-col md:flex-row md:gap-4 mt-[24px] xl:mt-[32px] w-full gap-4 xl:flex-row" initial="hidden" whileInView="visible" viewport={{ once: true }}>
-          <motion.div variants={generalSlideUp} custom={0.8}>
+          <motion.div variants={generalSlideUpAt(0.8)}>
             <Link href="/partnership" className="block w-full">
               <Button className="w-full" text={translation.links?.[0]?.text || ""} />
             </Link>
           </motion.div>
-          <motion.div variants={generalSlideUp} custom={1}>
+          <motion.div variants={generalSlideUpAt(1)}>
             <Link href="/reporting" className="block w-full">
               <Button className="w-full" variant="outline" text={translation.links?.[1]?.text || ""} />
             </Link>

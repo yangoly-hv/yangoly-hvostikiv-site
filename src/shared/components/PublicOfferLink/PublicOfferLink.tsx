@@ -8,7 +8,7 @@ const PublicOfferLink = ({text}: {text: string})=> {
                 <Link
                     target="_blank"
                     href="/public-offer"
-                    className="text-blue-600 underline hover:no-underline"
+                    className="font-medium text-green underline decoration-green/60 decoration-2 underline-offset-4 transition-colors hover:text-dark hover:decoration-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green"
                 >
                     договором публічної оферти
                 </Link>{" "}
@@ -23,7 +23,7 @@ const PublicOfferLink = ({text}: {text: string})=> {
             <Link
                 target="_blank"
                 href="/public-offer"
-                className="text-blue-600 underline hover:no-underline"
+                className="font-medium text-green underline decoration-green/60 decoration-2 underline-offset-4 transition-colors hover:text-dark hover:decoration-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green"
             >
                 public offer agreement
             </Link>{" "}

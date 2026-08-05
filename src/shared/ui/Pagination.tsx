@@ -4,14 +4,14 @@ type PaginationProps = {
   currentPage: number;
   totalPages: number;
   maxVisiblePages?: number;
-  onPageChange: (page: number) => void;
+  getHref: (page: number) => string;
 };
 
 export default function Pagination({
   currentPage,
   totalPages,
   maxVisiblePages = 4,
-  onPageChange,
+  getHref,
 }: PaginationProps) {
   const halfVisible = Math.floor(maxVisiblePages / 2);
   let startPage = Math.max(1, currentPage - halfVisible);
@@ -24,40 +24,39 @@ export default function Pagination({
 
   return (
     <nav aria-label="Pagination" className="inline-flex justify-center items-center gap-[35px]">
-      <button
-        type="button"
-        aria-label="Previous page"
-        className={`flex justify-center items-center p-[13px] lg:p-[16.5px] size-[52px] lg:size-[66px] rounded-[19.8px] shadow-pagination transition duration-300 ease-in-out enabled:hover:brightness-115 enabled:active:scale-95 enabled:focus-visible:brightness-115 ${currentPage === 1 ? "bg-white text-gray-400" : "bg-orange"}`}
-        onClick={() => onPageChange(currentPage - 1)}
-        disabled={currentPage === 1}
-      >
-        <ArrowInCircleIcon className="rotate-180" />
-      </button>
+      {currentPage === 1 ? (
+        <span aria-disabled="true" className="flex justify-center items-center p-[13px] lg:p-[16.5px] size-[52px] lg:size-[66px] rounded-[19.8px] shadow-pagination bg-white text-gray-400">
+          <ArrowInCircleIcon className="rotate-180" />
+        </span>
+      ) : (
+        <a href={getHref(currentPage - 1)} aria-label="Previous page" className="flex justify-center items-center p-[13px] lg:p-[16.5px] size-[52px] lg:size-[66px] rounded-[19.8px] shadow-pagination bg-orange transition duration-300 ease-in-out hover:brightness-115 active:scale-95 focus-visible:brightness-115">
+          <ArrowInCircleIcon className="rotate-180" />
+        </a>
+      )}
 
       <div>
         {pageNumbers.map((page) => (
-          <button
-            type="button"
-            aria-current={page === currentPage ? "page" : undefined}
-            aria-label={`Page ${page}`}
-            key={page}
-            className={`px-[9px] py-2 text-[20px] font-medium leading-[16px] transition duration-300 ease-in-out ${page === currentPage ? "hover:bg-opacity-80 text-orange" : "hover:text-orange"}`}
-            onClick={() => onPageChange(page)}
-          >
-            {page}
-          </button>
+          page === currentPage ? (
+            <span aria-current="page" aria-label={`Page ${page}`} key={page} className="px-[9px] py-2 text-[20px] font-medium leading-[16px] text-orange">
+              {page}
+            </span>
+          ) : (
+            <a href={getHref(page)} aria-label={`Page ${page}`} key={page} className="px-[9px] py-2 text-[20px] font-medium leading-[16px] transition duration-300 ease-in-out hover:text-orange">
+              {page}
+            </a>
+          )
         ))}
       </div>
 
-      <button
-        type="button"
-        aria-label="Next page"
-        className={`flex justify-center items-center p-[13px] lg:p-[16.5px] size-[52px] lg:size-[66px] rounded-[19.8px] shadow-pagination transition duration-300 ease-in-out enabled:hover:brightness-115 enabled:active:scale-95 enabled:focus-visible:brightness-115 ${currentPage === totalPages ? "text-gray-400 bg-white" : "bg-orange"}`}
-        onClick={() => onPageChange(currentPage + 1)}
-        disabled={currentPage === totalPages}
-      >
-        <ArrowInCircleIcon />
-      </button>
+      {currentPage === totalPages ? (
+        <span aria-disabled="true" className="flex justify-center items-center p-[13px] lg:p-[16.5px] size-[52px] lg:size-[66px] rounded-[19.8px] shadow-pagination text-gray-400 bg-white">
+          <ArrowInCircleIcon />
+        </span>
+      ) : (
+        <a href={getHref(currentPage + 1)} aria-label="Next page" className="flex justify-center items-center p-[13px] lg:p-[16.5px] size-[52px] lg:size-[66px] rounded-[19.8px] shadow-pagination bg-orange transition duration-300 ease-in-out hover:brightness-115 active:scale-95 focus-visible:brightness-115">
+          <ArrowInCircleIcon />
+        </a>
+      )}
     </nav>
   );
 }
