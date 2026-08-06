@@ -1,0 +1,46 @@
+import * as motion from "motion/react-client";
+import { getTranslations } from "next-intl/server";
+import { getPartners } from "./data";
+import PartnersListItem from "./PartnersListItem";
+import {
+  containerVariants,
+  listItemVariants,
+} from "@/shared/components/Animations/animationVariants";
+
+const PartnersList = async () => {
+  const list = await getPartners();
+  if (!list.length) return null;
+
+  const t = await getTranslations("PartnersList");
+
+  return (
+    <section className="relative pb-[100px] lg:pb-[120px]">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true, amount: 0.2 }}
+        className="px-4 container mx-auto xl:px-[40px] uppercase text-center font-arial leading-[130%] text-[24px] lg:text-[44px] mb-[39px] xl:mb-[64px]"
+      >
+        {t("title")}
+      </motion.h2>
+      <div className="container px-4 xl:px-[40px] mx-auto overflow-hidden">
+        <motion.div
+          className="grid grid-cols-1 gap-[20px] md:grid-cols-2 lg:grid-cols-3 relative z-2"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          {list.map((partner) => (
+            <motion.div key={partner._id} variants={listItemVariants}>
+              <PartnersListItem partner={partner} buttonText={t("buttonText")} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default PartnersList;

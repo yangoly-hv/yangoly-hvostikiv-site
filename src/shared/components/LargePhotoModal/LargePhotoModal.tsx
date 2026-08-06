@@ -10,10 +10,10 @@ const LargePhotoModal = ({
 }) => {
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50"
+      className="fixed inset-0 z-50 flex cursor-pointer items-center justify-center bg-black bg-opacity-70"
       onClick={onClose}
     >
-      <div className="relative w-[90vw] max-w-[800px] h-[90vh] max-h-[600px] rounded-lg overflow-hidden">
+      <div className="relative h-[90vh] max-h-[600px] w-[90vw] max-w-[800px] cursor-default overflow-hidden rounded-lg">
         <Image
           src={photoSrc}
           alt="Full-size Image"

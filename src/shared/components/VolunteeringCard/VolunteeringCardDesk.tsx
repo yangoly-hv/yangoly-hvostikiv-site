@@ -1,8 +1,8 @@
-import * as motion from "motion/react-client";
-
 import { IVolunteeringCardProps } from "@/shared/types";
 import clsx from "clsx";
 import Image from "next/image";
+import VolunteeringCardContent from "./VolunteeringCardContent";
+import VolunteeringCardFrame from "./VolunteeringCardFrame";
 
 const VolunteeringCardDesk = ({
   index,
@@ -10,58 +10,19 @@ const VolunteeringCardDesk = ({
   className,
 }: IVolunteeringCardProps) => {
   return (
-    <motion.li
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{
-        delay: index * 0.2,
-        duration: 0.6,
-        ease: "easeOut",
-      }}
-      viewport={{ once: true, amount: 0.2 }}
-      style={{ backgroundColor: item.bg }}
+    <VolunteeringCardFrame
+      index={index}
+      backgroundColor={item.bg}
       className={clsx(
-        "py-[32px] rounded-[8px] relative flex flex-col overflow-hidden flex-grow",
+        "py-[32px] rounded-[8px] relative flex flex-col overflow-hidden grow",
         className
       )}
     >
-      <div className="px-4 pl-[36px] z-[2]">
-        <h3
-          className={clsx(
-            "font-arial text-[32px] tracking-[-0.225px] leading-[141%]",
-            index === 0 && "w-full max-w-[420px] ",
-            index === 1 && "w-full max-w-[561px] "
-          )}
-        >
-          {item.title}
-        </h3>
-        <ul
-          className={clsx(
-            "grid grid-cols-1  gap-1 list-disc ml-[20px]",
-            index === 0 && "max-w-[420px]",
-            index === 3 && "w-full max-w-[393px]",
-            index === 2 && "w-full max-w-[446px]",
-            index === 1 && "w-full max-w-[353px]"
-          )}
-        >
-          {item.paragraphs &&
-            item.paragraphs.map((paragraph, index) => (
-              <li
-                className={clsx(
-                  "p-[10px] text-[18px] leading-[114%] tracking-[-0.225px]",
-                  index === 3 && "max-w-[384px]"
-                )}
-                key={index}
-              >
-                {paragraph}
-              </li>
-            ))}
-        </ul>
-      </div>
+      <VolunteeringCardContent index={index} item={item} />
       {item.imagePathDesk && (
         <div
           className={clsx(
-            "absolute z-[1]",
+            "absolute z-1",
             index === 0 &&
               "right-[-15px] bottom-0 w-[250px] h-[400px] laptop:w-[350px] laptop:h-[526px]",
             index === 3 &&
@@ -80,7 +41,7 @@ const VolunteeringCardDesk = ({
           />
         </div>
       )}
-    </motion.li>
+    </VolunteeringCardFrame>
   );
 };
 

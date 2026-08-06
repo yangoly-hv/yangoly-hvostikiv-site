@@ -14,8 +14,7 @@ const PaymentButton = ({
       case "monoPay":
         return (
           <div className="flex items-center justify-center gap-1">
-            <span>{t("donateAmountSection.donate")}</span>
-            {/*<span className="bg-white text-black px-1 rounded">Pay</span>*/}
+            <span>{text ?? `${t("donateAmountSection.donate")} · WayForPay`}</span>
           </div>
         );
       case "googlePay":
@@ -55,7 +54,7 @@ const PaymentButton = ({
   return (
     <button
       type="button"
-      className={`w-full rounded-[36px] transition-all ${getButtonHeight()} ${getButtonStyles()} ${className}`}
+      className={`w-full rounded-[36px] transition-all disabled:opacity-40 disabled:cursor-not-allowed ${getButtonHeight()} ${getButtonStyles()} ${className}`}
       {...props}
     >
       {getButtonContent()}

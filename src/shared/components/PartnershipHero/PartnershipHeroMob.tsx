@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
 import Image from "next/image";
-import ContactFormAction from "../ContactFormAction/ContactFormAction";
+import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
 
 const PartnershipHeroMob = async () => {
   const t = await getTranslations("Partnership");
@@ -88,30 +88,15 @@ const PartnershipHeroMob = async () => {
           fill
         />
         <Image
-          className="absolute bottom-[-53px] w-[273px] h-[259px] aspect-[273/259] left-1/2 -translate-x-1/2"
-          src="/images/partners/dogs-mob.webp"
+          className="absolute bottom-[-58px] w-[277px] h-[304px] aspect-277/304 left-1/2 -translate-x-1/2"
+          src="/images/partners/hero-mob.webp"
           alt="Dogs"
-          width={408}
-          height={276}
+          width={277}
+          height={304}
+          priority
+          sizes="100vw"
         />
       </div>
-      {/* <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
-        viewport={{ once: true, amount: 0.2 }}
-        className="relative w-full min-h-[135px] mt-[37px]"
-      >
-        <Image src="/images/partners/ellipse.png" alt="Ellipse" fill />
-        <Image
-          className="absolute bottom-[-55px] w-[273px] h-[259px] aspect-[273/259] left-1/2 -translate-x-1/2"
-          src="/images/partners/dogs-mob.webp"
-          alt="Dogs"
-          width={408}
-          height={276}
-        />
-      </motion.div> */}
-
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -121,6 +106,7 @@ const PartnershipHeroMob = async () => {
       >
         <ContactFormAction
           buttonText={t("heroButton")}
+          source="partnership"
           variant="primary"
           className="max-w-[328px] mt-[37px] h-[42px]"
         />

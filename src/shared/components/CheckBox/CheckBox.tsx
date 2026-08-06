@@ -1,30 +1,31 @@
 "use client";
 import { ICheckBoxProps } from "@/shared/types";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useId } from "react";
 import { CheckboxIcon } from "../../../../public/images/icons";
 
-const CheckBox = ({ label, error, onChange, ...props }: ICheckBoxProps) => {
-  const [checked, setChecked] = useState(props.checked || false);
+const CheckBox = ({ label, error, onChange, checked = false, ...props }: ICheckBoxProps) => {
+  const id = useId();
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const newValue = e.target.checked;
-      setChecked(newValue);
       onChange?.(newValue);
     },
     [onChange]
   );
 
   return (
-    <label className="flex items-start gap-2 cursor-pointer">
+    <label htmlFor={id} className="flex cursor-pointer items-start gap-2">
       <input
+        id={id}
         type="checkbox"
         checked={checked}
         onChange={handleChange}
-        className="hidden"
+        aria-invalid={error || undefined}
+        className="peer sr-only"
         {...props}
       />
-      <span>
+      <span className="rounded-sm peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-orange">
         <CheckboxIcon
           variant={error ? "error" : checked ? "checked" : "default"}
         />

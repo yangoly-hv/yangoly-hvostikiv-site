@@ -4,16 +4,16 @@ import BenefitItem from "./BenefitItem";
 import Image from "next/image";
 
 const Benefits = async () => {
-  const t = await getTranslations("ChairtyEvents.benefits");
+  const t = await getTranslations("CharityEvents.benefits");
   const list = (await t.raw("list")) as string[];
   const firstList = list.slice(0, 3);
   const secondList = list.slice(3);
 
   return (
-    <div className="bg-[#18181B] lg:py-[48px] pt-[25px] pb-[43px]">
+    <div className="bg-green lg:py-[48px] pt-[25px] pb-[43px] lg:pb-0">
       <div className="container  mx-auto px-4   lg:px-[40px] xl:px-[187px] ">
-        <div className="lg:hidden relative aspect-[328/286] max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
-          <Image src="/images/events/benefits-mob.webp" alt="Pet" fill />
+        <div className="lg:hidden relative aspect-328/286 max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
+          <Image src="/images/events/benefits-desk.webp" className="w-full h-full object-cover" alt="Pet" fill />
         </div>
         <div>
           <motion.h2
@@ -78,13 +78,14 @@ const Benefits = async () => {
             transition: { duration: 0.5, ease: "easeOut", delay: 0.4 },
           },
         }}
-        className="relative aspect-[1512/465] max-h-[465px] w-full mt-[70px] hidden lg:block"
+        className="relative aspect-2400/1601 max-h-[665px] w-full mt-[70px] hidden lg:block"
       >
         <Image
-          src="/images/events/benefits-desk1.jpg"
+          src="/images/events/benefits-desk.webp"
           alt="Pet"
           fill
           quality={100}
+          className="object-cover"
         />
       </motion.div>
     </div>

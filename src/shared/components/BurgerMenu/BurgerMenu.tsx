@@ -5,27 +5,33 @@ import { INavigationItem } from "@/shared/types";
 import { useTranslations } from "next-intl";
 import DonateAction from "../DonateAction/DonateAction";
 import { CloseIcon } from "../../../../public/images/icons";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "motion/react";
 
 interface IBurgerMenuopProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const menuVariants = {
+export const menuVariants: Variants = {
   hidden: {
-    x: "100%",
+    x: 300, // ширина меню
     opacity: 0,
   },
   visible: {
     x: 0,
     opacity: 1,
-    transition: { type: "tween", duration: 0.4 },
+    transition: {
+      type: "tween",
+      duration: 0.4,
+    },
   },
   exit: {
-    x: "100%",
+    x: 300,
     opacity: 0,
-    transition: { type: "tween", duration: 0.3 },
+    transition: {
+      type: "tween",
+      duration: 0.3,
+    },
   },
 };
 
@@ -55,19 +61,21 @@ const BurgerMenu = ({ isOpen, onClose }: IBurgerMenuopProps) => {
             <div className="flex flex-col h-full">
               <div className="flex justify-end pt-8 pr-8">
                 <button
+                  type="button"
+                  aria-label="Закрити меню"
                   onClick={onClose}
-                  className="p-1 hover:bg-gray-100 rounded-full transition-colors"
+                  className="cursor-pointer p-1 hover:bg-gray-100 rounded-full transition-colors"
                 >
                   <CloseIcon />
                 </button>
               </div>
               <nav className="px-[70px]">
-                <ul className="flex flex-col space-y-4">
+                <ul className="flex flex-col">
                   {navigation.map((item, index) => (
-                    <li key={index} className="pb-6 border-b border-[#E1E1E1]">
+                    <li key={index} className="py-5 border-b border-[#E1E1E1]">
                       <Link
                         href={item.href}
-                        className="text-[#27272A] leading-[120%] hover:text-green-600 transition-colors duration-200 text-[24px]"
+                        className="cursor-pointer text-gray leading-[120%] hover:text-green-600 transition-colors duration-200 text-[24px]"
                         onClick={onClose}
                       >
                         {item.name}

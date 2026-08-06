@@ -1,31 +1,38 @@
 import About from "@/modules/About/About";
+import ActivityDirections from "@/modules/ActivityDirections/ActivityDirections";
+import ProblemsWeSolve from "@/modules/ProblemsWeSolve/ProblemsWeSolve";
+import WhatChangesThanksToUs from "@/modules/WhatChangesThanksToUs/WhatChangesThanksToUs";
+import WhatMakesUsDifferent from "@/modules/WhatMakesUsDifferent/WhatMakesUsDifferent";
 import Angels from "@/modules/Angels/Angels";
 import ChangeLife from "@/modules/ChangeLife/ChangeLife";
 import Contacts from "@/modules/Contacts/Contacts";
 import Hero from "@/modules/Hero/Hero";
 import MonthlyGoalSection from "@/modules/MonthlyGoalSection/MonthlyGoalSection";
-import Partners from "@/modules/Partners/Partners";
-// import SupportFundraising from "@/modules/SupportFundraising/SupportFundraising";
 import WorkResults from "@/modules/WorkResults/WorkResults";
 import { PageParams } from "@/shared/types";
+import { setRequestLocale } from "next-intl/server";
+import JsonLd from "@/shared/components/JsonLd";
+import { getWebSiteSchema } from "@/shared/lib/structuredData";
 
 export default async function Home({ params }: PageParams) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   return (
     <>
+      <JsonLd data={getWebSiteSchema(locale)} />
       <Hero />
       <WorkResults />
-        <MonthlyGoalSection lang={locale} />
-        <Angels />
+      <MonthlyGoalSection lang={locale} />
+      <Angels />
 
       <ChangeLife />
 
-      {/*  <SupportFundraising lang={locale} />*/}
       <About lang={locale} />
-      <div className="container mx-auto px-4 pt-[160px] pb-[80px] xl:py-[120px] xl:px-10">
-        <Partners />
-      </div>
+      <ActivityDirections />
+      <ProblemsWeSolve />
+      <WhatMakesUsDifferent />
+      <WhatChangesThanksToUs />
       <Contacts />
     </>
   );

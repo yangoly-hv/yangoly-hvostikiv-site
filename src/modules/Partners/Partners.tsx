@@ -4,12 +4,6 @@ import { IPartnersProps } from "@/shared/types";
 import { getTranslations } from "next-intl/server";
 
 const partners = [
-  {
-    src: "/images/partners/pesiki-fest.png",
-    alt: "Pesiki Fest Logo",
-    width: 70,
-  },
-  { src: "/images/partners/artzavod.png", alt: "Artzavod Logo", width: 130 },
   { src: "/images/partners/habiohika.png", alt: "Habiohika Logo", width: 527 },
   { src: "/images/partners/practik.png", alt: "Practik Logo", width: 48 },
   { src: "/images/partners/brit.png", alt: "Brit Logo", width: 180 },

@@ -1,24 +1,32 @@
 "use client";
-import { useMemo } from "react";
-import { motion, Variants } from "framer-motion";
-import { ElementType, PropsWithChildren } from "react";
+
+import type { PropsWithChildren } from "react";
+import { motion, type Variants } from "motion/react";
 import { fadeInAnimation } from "./animationVariants";
 
-interface AnimatedWrapperProps extends PropsWithChildren {
-  as?: ElementType;
+const motionComponents = {
+  div: motion.div,
+  h2: motion.h2,
+  h3: motion.h3,
+  p: motion.p,
+  ul: motion.ul,
+} as const;
+
+type AnimatedWrapperProps = PropsWithChildren<{
+  as?: keyof typeof motionComponents;
   className?: string;
   animation?: Variants;
   viewport?: { once?: boolean; amount?: number };
-}
+}>;
 
 export default function AnimatedWrapper({
-  as: Component = "div",
+  as = "div",
   className = "",
   animation = fadeInAnimation({}),
   viewport = { once: true, amount: 0.2 },
   children,
 }: AnimatedWrapperProps) {
-  const MotionComponent = useMemo(() => motion.create(Component), [Component]);
+  const MotionComponent = motionComponents[as];
 
   return (
     <MotionComponent

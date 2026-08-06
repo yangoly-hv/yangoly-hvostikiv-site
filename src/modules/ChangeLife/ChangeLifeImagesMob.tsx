@@ -2,12 +2,23 @@ import Image from "next/image";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 
+const ellipseMaskStyle = {
+  maskImage: "url(/images/home/changeLife/greenEllipse.webp)",
+  WebkitMaskImage: "url(/images/home/changeLife/greenEllipse.webp)",
+  maskSize: "100% 100%",
+  WebkitMaskSize: "100% 100%",
+  maskPosition: "center",
+  WebkitMaskPosition: "center",
+  maskRepeat: "no-repeat",
+  WebkitMaskRepeat: "no-repeat",
+} as React.CSSProperties;
+
 export default function ChangeLifeImagesMob() {
   return (
     <>
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-        className="md:hidden absolute z-10 bottom-[148px] sm:bottom-[96px] left-[calc(50%-288px)] h-[196px] w-[577px]"
+        className="md:hidden absolute z-10 bottom-[208px] sm:bottom-[96px] left-[calc(50%-288px)] h-[196px] w-[577px]"
       >
         <Image
           src="/images/home/changeLife/greenEllipse.webp"
@@ -17,21 +28,26 @@ export default function ChangeLifeImagesMob() {
           className="w-full h-full object-cover"
         />
       </AnimatedWrapper>
+      {/* Dogs clipped to ellipse: same size/position as ellipse, mask by ellipse image */}
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-        className="md:hidden absolute z-20 bottom-[120px] sm:bottom-[68px] left-[calc(50%-169px)] w-[338px] aspect-[1460/1040]"
+        className="md:hidden absolute z-20 bottom-[208px] sm:bottom-[96px] left-[calc(50%-288px)] h-[196px] w-[577px]"
       >
-        <Image
-          src="/images/home/changeLife/dogs.png"
-          alt="dogs"
-          width={1460}
-          height={1040}
-          className="w-full h-full object-cover"
-        />
+        <div className="relative h-full w-full" style={ellipseMaskStyle}>
+          <div className="absolute bottom-[-15px] sm:bottom-[-15px] left-[36px] w-[378px] aspect-378/237">
+            <Image
+              src="/images/home/changeLife/dogs-mobile.webp"
+              alt="dogs"
+              fill
+              className="object-cover"
+              sizes="338px"
+            />
+          </div>
+        </div>
       </AnimatedWrapper>
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-        className="md:hidden absolute top-[-12px] left-[calc(50%-197px)] h-[436px] aspect-[394/436]"
+        className="md:hidden absolute top-[-12px] left-[calc(50%-197px)] h-[436px] aspect-394/436"
       >
         <Image
           src="/images/home/changeLife/pawsMob.svg"

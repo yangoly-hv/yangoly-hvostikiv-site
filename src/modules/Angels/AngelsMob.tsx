@@ -4,16 +4,24 @@ import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AngelsList from "./AngelsList";
 import Donate from "../../shared/components/Donate/Donate";
 import { getTranslations } from "next-intl/server";
+import type { Donor } from "@/features/home/model/types";
 
-export default async function AngelsMob({ title }: { title?: string }) {
+export default async function AngelsMob({
+  title,
+  donors,
+}: {
+  title?: string;
+  donors: Donor[];
+}) {
   const t = await getTranslations("Angels");
+  const tr = await getTranslations("DonateModal");
 
   return (
     <div className="md:hidden flex flex-col gap-y-10">
       <div className="relative z-10 bg-white pt-[33px] pb-[87px] overflow-hidden">
         <AnimatedWrapper
           animation={fadeInAnimation({ scale: 0.9, delay: 0.4 })}
-          className="absolute bottom-0 left-[calc(50%-180px)] w-[211px] aspect-[905/934]"
+          className="absolute bottom-0 left-[calc(50%-180px)] w-[211px] aspect-905/934"
         >
           <Image
             src="/images/home/angels/dog.webp"
@@ -43,8 +51,9 @@ export default async function AngelsMob({ title }: { title?: string }) {
         </div>
       </div>
       <div className="flex flex-col gap-y-10 container px-4 xl:px-10 mx-auto">
-        <AngelsList />
+        <AngelsList donors={donors} />
         <Donate
+            title={tr("fundraisingOneTimeTitle")}
           buttonText={t("makeContribution")}
           className="w-full md:w-[297px] lg:w-[397px] xl:w-[607px] xl:h-[67px]"
         />

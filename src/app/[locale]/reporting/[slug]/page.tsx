@@ -1,91 +1,142 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import Contacts from "@/modules/Contacts/Contacts";
 import Report from "@/modules/Report/Report";
-import { getDictionary } from "@/shared/utils";
-import { PageParams } from "@/shared/types";
-// import { reportingList } from "../constants";
+import {
+  getAllReportSlugs,
+  getReportBySlug,
+} from "@/features/reports/server/data";
+import { formatReportDate } from "@/features/reports/model/formatReportDate";
+import { locales } from "@/shared/config/site";
+import type { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
+import { toPlainText, truncateDescription } from "@/shared/lib/seo";
+import { getBreadcrumbSchema, getReportSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
-// import { getReportById } from "@/shared/api/reports";
-import type { Metadata } from "next";
+export const dynamicParams = true;
 
-// import { extractFirstParagraphText } from "@/shared/utils/functions";
-import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
-
-import client from "@/shared/lib/sanity";
-import {reportBySlugQuery} from "@/shared/lib/queries";
+export async function generateStaticParams() {
+  const localizedSlugs = await Promise.all(
+    locales.map(async (locale) => ({ locale, slugs: await getAllReportSlugs(locale) }))
+  );
+  return localizedSlugs.flatMap(({ locale, slugs }) =>
+    slugs.map(({ slug }) => ({ locale, slug }))
+  );
+}
 
 export async function generateMetadata({
   params,
-}: PageParams): Promise<Metadata> {
-  const { locale, slug, } = await params;
-  const { metadata } = await getDictionary(locale);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://yangoly-hvostikiv-site.vercel.app";
+}: PageParams<{ slug: string }>): Promise<Metadata> {
+  const { locale, slug } = await params;
+  if (!slug) {
+    return getPageMetadata({ locale, key: "reporting", path: "/reporting" });
+  }
 
-  const data = await client.fetch(reportBySlugQuery, {
-    slug,
-    lang: locale,
-  });
+  const [report, t] = await Promise.all([
+    getReportBySlug(locale, slug),
+    getTranslations({ locale, namespace: "Metadata" }),
+  ]);
+  const fallback = t.raw("reporting") as {
+    title: string;
+    description: string;
+    keywords: string;
+  };
 
-  // const data = await getReportById(id, locale);
+  if (!report) {
+    return getPageMetadata({
+      locale,
+      key: "reporting",
+      path: `/reporting/${slug}`,
+    });
+  }
 
-  const title = `${metadata.reporting.title} | ${data.title} | ${data.date}`;
-  const description = `${metadata.reporting.description
-    } | ${data.description[0].children[0].text}`;
+  const date =
+    typeof report.date === "string"
+      ? report.date
+      : formatReportDate(report.date, locale);
+  const title = `${fallback.title} | ${report.title} | ${date}`;
+  const description = truncateDescription(
+    toPlainText(report.shortFoodDescription) ||
+      toPlainText(report.shortHouseDescription) ||
+      toPlainText(report.shortTherapyDescription) ||
+      fallback.description
+  );
 
-  return {
-    title,
-    description,
-    keywords: metadata.reporting.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
+  return getPageMetadata({
+    locale,
+    path: `/reporting/${slug}`,
+    values: {
       title,
       description,
-      url: `${baseUrl}/${locale}/reporting/${slug}`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: data.mainImage.url,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      keywords: fallback.keywords,
     },
-  };
+    image: report.images?.[0],
+    imageAlt: report.title,
+    modifiedTime: report.updatedAt,
+  });
 }
 
-export default async function ReportPage({ params }: PageParams) {
+export default async function ReportPage({ params }: PageParams<{ slug: string }>) {
   const { slug, locale } = await params;
-  const t = await getTranslations("");
-  const blog = await t.raw("Blog");
-  // const { blog } = await getDictionary(locale);
+  if (!slug) notFound();
 
-  // const report = reportingList[locale].find(
-  //   (reportItem) => reportItem.id === id
-  // );
+  setRequestLocale(locale);
+  const [report, t] = await Promise.all([
+    getReportBySlug(locale, slug),
+    getTranslations({ locale }),
+  ]);
 
-  // const data = await getReportById(id, locale);
-  const data = await client.fetch(reportBySlugQuery, {
-    slug,
-    lang: locale,
-  });
+  if (!report) notFound();
 
-  if (!data) {
-    return null;
-  }
+  const preparedReport = {
+    ...report,
+    date:
+      typeof report.date === "string"
+        ? report.date
+        : formatReportDate(report.date, locale),
+  };
+  const datePublished =
+    typeof report.date === "string"
+      ? undefined
+      : `${report.date.year}-${String(report.date.month).padStart(2, "0")}-01`;
+  const description = truncateDescription(
+    toPlainText(report.shortFoodDescription) ||
+      toPlainText(report.shortHouseDescription) ||
+      toPlainText(report.shortTherapyDescription) ||
+      report.title
+  );
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <Report report={data} translation={blog} />
-        <Contacts />
-      </Suspense>
+      <JsonLd
+        data={[
+          getReportSchema({
+            locale,
+            path: `/reporting/${slug}`,
+            title: report.title,
+            description,
+            image: report.images?.[0],
+            datePublished,
+            dateModified: report.updatedAt,
+            reportFileUrl: report.reportFileUrl,
+            reportFileName: report.reportFileName,
+          }),
+          getBreadcrumbSchema(locale, [
+            { name: locale === "uk" ? "Головна" : "Home", path: "" },
+            { name: locale === "uk" ? "Звітність" : "Reporting", path: "/reporting" },
+            { name: report.title, path: `/reporting/${slug}` },
+          ]),
+        ]}
+      />
+      <Report
+        report={preparedReport}
+        translation={t.raw("Reporting")}
+        locale={locale}
+      />
+      <Contacts />
     </>
   );
 }

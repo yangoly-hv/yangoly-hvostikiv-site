@@ -35,10 +35,12 @@ const socials = [
   },
 ];
 
+const activeSocials = socials.filter((item) => item.href.startsWith("https://"));
+
 const SocialsList = ({ iconClass = "text-orange" }: { iconClass?: string }) => {
   return (
     <ul className="flex items-center justify-center gap-4">
-      {socials.map((item) => (
+      {activeSocials.map((item) => (
         <li key={item.name}>
           <Link
             target="_blank"

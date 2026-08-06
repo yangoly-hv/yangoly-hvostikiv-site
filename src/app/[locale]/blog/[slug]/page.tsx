@@ -1,76 +1,106 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import Contacts from "@/modules/Contacts/Contacts";
 import BlogArticle from "@/modules/BlogArticle/BlogArticle";
-import { getDictionary } from "@/shared/utils";
-import { PageParams } from "@/shared/types";
-// import { newsList } from "../constants";
+import BlogArticleWithContent from "@/modules/BlogArticle/BlogArticleWithContent";
+import { getAllPostSlugs, getPostBySlug } from "@/features/blog/server/data";
+import { locales } from "@/shared/config/site";
+import type { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
+import { toPlainText, truncateDescription } from "@/shared/lib/seo";
+import { getArticleSchema, getBreadcrumbSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
-// import {extractFirstParagraphText} from "@/shared/utils/functions";
+export const dynamicParams = true;
 
-import { getBlogItemById } from "@/shared/api/blog";
-import type { Metadata } from "next";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
-import { getTranslations } from "next-intl/server";
-
-import client from "@/shared/lib/sanity";
-import {postBySlugQuery} from "@/shared/lib/queries";
+export async function generateStaticParams() {
+  const localizedSlugs = await Promise.all(
+    locales.map(async (locale) => ({ locale, slugs: await getAllPostSlugs(locale) }))
+  );
+  return localizedSlugs.flatMap(({ locale, slugs }) =>
+    slugs.map(({ slug }) => ({ locale, slug }))
+  );
+}
 
 export async function generateMetadata({
   params,
-}: PageParams): Promise<Metadata> {
+}: PageParams<{ slug: string }>): Promise<Metadata> {
   const { locale, slug } = await params;
-  const { metadata } = await getDictionary(locale);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    "https://yangoly-hvostikiv-site.vercel.app";
+  if (!slug) return getPageMetadata({ locale, key: "blog", path: "/blog" });
 
-  return {
-    title: metadata.blog.title,
-    description: metadata.blog.description,
-    keywords: metadata.blog.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title: metadata.blog.title,
-      description: metadata.blog.description,
-      url: `${baseUrl}/${locale}/blog/${slug}`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: "/images/about/about-us-desk3.jpg",
-          width: 1200,
-          height: 630,
-          alt: metadata.blog.title,
-        },
-      ],
-    },
+  const [post, t] = await Promise.all([
+    getPostBySlug(locale, slug),
+    getTranslations({ locale, namespace: "Metadata" }),
+  ]);
+  const fallback = t.raw("blog") as {
+    title: string;
+    description: string;
+    keywords: string;
   };
+
+  return getPageMetadata({
+    locale,
+    path: `/blog/${slug}`,
+    values: post
+      ? {
+          title: post.title,
+          description: truncateDescription(toPlainText(post.description) || fallback.description),
+          keywords: fallback.keywords,
+        }
+      : fallback,
+    image: post?.mainImage,
+    imageAlt: post?.title,
+    type: "article",
+    publishedTime: post?.publishedAt,
+    modifiedTime: post?.updatedAt,
+  });
 }
 
-export default async function ArticlePage({ params }: PageParams) {
+export default async function ArticlePage({ params }: PageParams<{ slug: string }>) {
   const { slug, locale } = await params;
-  const t = await getTranslations("");
-  const blog = await t.raw("Blog");
-  const data = await client.fetch(postBySlugQuery, {
-    lang: locale,
-    slug,
-  })
-  // const article = newsList[locale].find((newsItem) => newsItem.id === id);
+  if (!slug) notFound();
 
-  // const data = await getBlogItemById(id, locale);
+  setRequestLocale(locale);
+  const [post, t] = await Promise.all([
+    getPostBySlug(locale, slug),
+    getTranslations({ locale }),
+  ]);
 
-  if (!data) {
-    return null;
-  }
+  if (!post) notFound();
+
+  const translation = t.raw("Blog");
+  const hasContent = Array.isArray(post.content) && post.content.length > 0;
+  const description = truncateDescription(toPlainText(post.description));
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <BlogArticle article={data} translation={blog} />
-        <Contacts />
-      </Suspense>
+      <JsonLd
+        data={[
+          getArticleSchema({
+            locale,
+            path: `/blog/${slug}`,
+            title: post.title,
+            description,
+            image: post.mainImage,
+            datePublished: post.publishedAt,
+            dateModified: post.updatedAt,
+            dateCreated: post.createdAt,
+          }),
+          getBreadcrumbSchema(locale, [
+            { name: locale === "uk" ? "Головна" : "Home", path: "" },
+            { name: locale === "uk" ? "Блог" : "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${slug}` },
+          ]),
+        ]}
+      />
+      {hasContent ? (
+        <BlogArticleWithContent article={post} translation={translation} />
+      ) : (
+        <BlogArticle article={post} translation={translation} />
+      )}
+      <Contacts />
     </>
   );
 }

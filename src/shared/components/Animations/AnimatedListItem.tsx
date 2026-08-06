@@ -1,7 +1,7 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ReactNode } from "react";
-import { Variants } from "framer-motion";
+import type { Variants } from "motion/react";
 import { listItemVariants } from "./animationVariants";
 
 interface AnimatedListItemProps {

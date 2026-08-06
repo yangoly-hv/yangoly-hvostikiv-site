@@ -1,101 +1,77 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import TailCard from "@/shared/components/TailCard/TailCard";
+import * as motion from "motion/react-client";
+
 import Filter from "@/modules/Filter/Filter";
-import Pagination from "@/modules/Pagination/Pagination";
-import { useItemsPerPage } from "@/shared/hooks/useItemsPerPage";
-// import { tails } from "@/app/[locale]/tails/constans";
-import { ITailsProps } from "@/shared/types";
-import { motion } from "framer-motion";
+import type { TailViewModel } from "@/features/tails/model/types";
+import TailCard from "@/features/tails/ui/TailCard";
+import type { ITails } from "@/shared/types";
+import { getPageNumber } from "@/shared/lib/pagination";
+import Pagination from "@/shared/ui/Pagination";
+import type { IFilterOption } from "@/shared/types";
 import { fadeIn, generalSlideUp } from "@/shared/utils";
 
-import { getTailData } from "@/shared/utils/functions";
+type TailsProps = {
+  data: TailViewModel[];
+  translation: ITails;
+  lang: "uk" | "en";
+  filter: string;
+  page?: string;
+  filterOptions: IFilterOption[];
+};
 
-// import {getAllAnimals} from "@/shared/api/animals";
+const ITEMS_PER_PAGE = 8;
 
-//@ts-expect-error
-export default function Tails({ data, translation, lang }) {
-
-  const items = useMemo(
-      //@ts-expect-error
-    () => data.map((item) => getTailData(item, lang)),
-    [data, lang]
-  );
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const [filter, setFilter] = useState(searchParams.get("filter") || "all");
-  const [currentPage, setCurrentPage] = useState(
-    parseInt(searchParams.get("page") || "1", 10)
-  );
-  const itemsPerPage = useItemsPerPage();
-
-  useEffect(() => {
-    setFilter(searchParams.get("filter") || "all");
-    setCurrentPage(parseInt(searchParams.get("page") || "1", 10));
-  }, [searchParams]);
-  //@ts-expect-error
-  const filteredTails = filter === "all" ? items : items.filter((tail) => tail.categories.includes(filter));
-
-  const totalPages = Math.ceil(filteredTails.length / itemsPerPage);
-  const currentItems = filteredTails.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const handlePageChange = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
-    router.push(`?${params.toString()}`);
-    setCurrentPage(page);
+export default function Tails({ data, translation, lang, filter, page, filterOptions }: TailsProps) {
+  const filteredTails =
+    filter === "all"
+      ? data
+      : data.filter((tail) => tail.categories.includes(filter));
+  const totalPages = Math.ceil(filteredTails.length / ITEMS_PER_PAGE);
+  const currentPage = getPageNumber(page, totalPages);
+  const currentItems = filteredTails.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+  const getHref = (targetPage: number) => {
+    const params = new URLSearchParams();
+    if (filter !== "all") params.set("filter", filter);
+    if (targetPage > 1) params.set("page", String(targetPage));
+    const query = params.toString();
+    return query ? `?${query}` : "?";
   };
 
   return (
-    <section className=" mx-auto  container pt-[60px] lg:pt-8 pb-[100px] lg:pb-[148px] px-4 xl:px-10">
-      <motion.div
-        variants={fadeIn}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        custom={0}
-      >
-        <Filter selectedFilter={filter} />
+    <section className="mx-auto container pt-[60px] lg:pt-8 pb-[100px] lg:pb-[148px] px-4 xl:px-10">
+      <h1 className="sr-only">{translation.allTails}</h1>
+      <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0}>
+        <Filter selectedFilter={filter} options={filterOptions} />
       </motion.div>
 
-      <div className="flex justify-center">
-        <ul className="flex flex-wrap gap-5 xl:gap-x-5 xl:gap-y-8 w-full">
-          {/*@ts-expect-error*/}
-          {currentItems.map((tail, index) => (
-            <motion.li
-              key={index}
-              variants={generalSlideUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              custom={index * 0.2}
-              className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33%-13.33px)] laptop:w-[calc(25%-15px)]"
-            >
-              <TailCard tail={tail} translation={translation} />
-            </motion.li>
-          ))}
-        </ul>
-      </div>
+      {currentItems.length ? (
+        <div className="flex justify-center">
+          <ul className="flex flex-wrap gap-5 xl:gap-x-5 xl:gap-y-8 w-full">
+            {currentItems.map((tail, index) => (
+              <motion.li
+                key={tail.id}
+                variants={generalSlideUp}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                custom={index * 0.2}
+                className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33%-13.33px)] laptop:w-[calc(25%-15px)]"
+              >
+                <TailCard tail={tail} translation={translation} />
+              </motion.li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p className="py-12 text-center text-dark">
+          {lang === "uk" ? "Нічого не знайдено" : "Nothing found"}
+        </p>
+      )}
 
       {totalPages > 1 && (
-        <motion.div
-          variants={fadeIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          custom={0.8}
-          className="flex justify-center mt-8 lg:mt-12"
-        >
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
+        <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={0.8} className="flex justify-center mt-8 lg:mt-12">
+          <Pagination currentPage={currentPage} totalPages={totalPages} getHref={getHref} />
         </motion.div>
       )}
     </section>

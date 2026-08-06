@@ -1,77 +1,35 @@
-import * as motion from "motion/react-client";
-
 import PartnershipHero from "@/shared/components/PartnershipHero/PartnershipHero";
-import PartnersList from "@/shared/components/PartnersList/PartnersList";
-import PartnersSupport from "@/shared/components/PartnersSupport/PartnersSupport";
-import Image from "next/image";
+import PartnersList from "@/modules/PartnersList/PartnersList";
+import PartnershipHelpCards from "@/shared/components/PartnershipHelpCards/PartnershipHelpCards";
+import PartnershipBenefitsForYou from "@/modules/PartnershipBenefitsForYou/PartnershipBenefitsForYou";
 import Contacts from "@/modules/Contacts/Contacts";
 import { Metadata } from "next";
-import { IMetadata, PageParams } from "@/shared/types";
+import { PageParams } from "@/shared/types";
+import { setRequestLocale } from "next-intl/server";
 import { getTranslations } from "next-intl/server";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
+import { getPageMetadata } from "@/shared/lib/metadata";
+import { getWebPageSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const t = await getTranslations("Metadata");
-  const metadata = (await t.raw("partnership")) as IMetadata;
   const { locale } = await params;
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
-  return {
-    title: metadata.title,
-    description: metadata.description,
-    keywords: metadata.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title: metadata.title,
-      description: metadata.description,
-      url: `${baseUrl}/${locale}/blog`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: "/images/about/about-us-desk3.jpg",
-          width: 1200,
-          height: 630,
-          alt: metadata.title,
-        },
-      ],
-    },
-  };
+  return getPageMetadata({ locale, key: "partnership", path: "/partnership" });
 }
-export default async function ParnershipPage() {
+export default async function ParnershipPage({ params }: PageParams) {
+  const { locale } = await params;
+  setRequestLocale(locale);
+  const t = await getTranslations({ locale, namespace: "Metadata" });
+  const metadata = t.raw("partnership") as { title: string; description: string };
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <PartnershipHero />
-        <PartnersList />
-        <PartnersSupport />
-        <div className="w-full relative">
-          <Image src="/images/partners/support/bg.png" alt="bg" fill />
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{
-              duration: 1,
-              ease: "easeOut",
-            }}
-            className="relative aspect-[360/155] w-[360px] sm:w-[500px]  md:w-[650px] lg:w-[850px]  mt-[50px]  xl:w-[1190px] xl:aspect-[1190/515] mx-auto"
-          >
-            <Image
-              src="/images/partners/support/dogs.png"
-              alt="bg"
-              fill
-              className="object-contain"
-            />
-          </motion.div>
-        </div>
-        <Contacts />
-      </Suspense>
+      <JsonLd data={getWebPageSchema({ locale, path: "/partnership", name: metadata.title, description: metadata.description })} />
+      <PartnershipHero />
+      <PartnershipHelpCards />
+      <PartnershipBenefitsForYou />
+      <PartnersList />
+      <Contacts />
     </>
   );
 }

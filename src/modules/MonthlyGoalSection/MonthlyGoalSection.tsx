@@ -1,38 +1,45 @@
 import Image from "next/image";
-import { monthlyFundrasing } from "./mockedData";
 import { IMonthlyGoalSectionProps } from "@/shared/types";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import Donate from "@/shared/components/Donate/Donate";
 import { getTranslations } from "next-intl/server";
 
-import client from "@/shared/lib/sanity";
-import {mainCollectionQuery} from "@/shared/lib/queries";
+import { getMainCollection } from "@/features/home/server/data";
+import { imageUrlForSlot } from "@/shared/lib/sanityImage";
+
+const fallbackImageUrl = "/images/home/monthlyGoal/dog.webp";
+
+const getAmount = (value: unknown) => {
+  const amount = typeof value === "number" ? value : Number(value);
+
+  return Number.isFinite(amount) ? amount : 0;
+};
+
+const formatAmount = (amount: number) => amount.toLocaleString("uk-UA");
 
 const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
-  // const monthlyFundrasingLocalized = monthlyFundrasing[lang];
-  // const {goal, current } =
-  //   monthlyFundrasingLocalized;
   const t = await getTranslations("");
-  const { generalGoal, result, supportFundrasing } = await t.raw(
+  const { generalGoal, result, supportFundrasing, support } = await t.raw(
     "MonthlyGoalSection"
   );
-  const [data] = await client.fetch(mainCollectionQuery);
+  const data = await getMainCollection();
   if(!data) return null;
-  // console.log(lang)
-  // console.log(data);
-  const title = data.title[lang];
- const description = data.description[lang][0].children[0].text;
+
+  const title = data.title?.[lang] ?? data.title?.uk ?? "";
+  const description = data.description?.[lang]?.[0]?.children?.[0]?.text ?? "";
   const image = data.image;
-  const goal = data.amount;
-  const current = data.amountCollected;
+  const imageUrl = imageUrlForSlot(image, "collectionMonthlyGoal") || fallbackImageUrl;
+  const goal = getAmount(data.amount);
+  const current = getAmount(data.amountCollected);
+  const [generalGoalBefore, generalGoalAfter = ""] = generalGoal.split("{{goal}}");
 
   const formattedResult = result
-    .replace("{{goal}}", goal.toLocaleString("uk-UA"))
-    .replace("{{current}}", current.toLocaleString("uk-UA"));
+    .replace("{{goal}}", formatAmount(goal))
+    .replace("{{current}}", formatAmount(current));
 
   return (
-    <section className="relative py-[120px] bg-white md:bg-transparent overflow-hidden">
+    <section className="relative pt-[120px] pb-[60px] bg-white md:bg-transparent overflow-hidden">
       <AnimatedWrapper
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
         className="md:hidden absolute top-[-18px] left-[calc(50%-205px)] w-[429px] h-[630px]"
@@ -49,7 +56,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
         <div className="relative md:flex justify-between rounded-[8px] md:bg-white overflow-hidden">
           <AnimatedWrapper
             animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-            className="hidden md:block absolute top-[-26px] left-[-18px] md:w-[382px] lg:w-[502px] xl:w-[622px] laptop:w-[642px] desk:w-[802px] aspect-[642/583] h-auto"
+            className="hidden md:block absolute top-[-26px] left-[-18px] md:w-[382px] lg:w-[502px] xl:w-[622px] laptop:w-[642px] desk:w-[802px] aspect-642/583 h-auto"
           >
             <Image
               src="/images/home/monthlyGoal/housesDesk.svg"
@@ -59,7 +66,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
               className="w-full h-full object-cover"
             />
           </AnimatedWrapper>
-          <div className="md:flex flex-col justify-between md:w-1/2 md:p-10 xl:py-[89px] xl:px-[81px] rounded-[8px]">
+          <div className="md:flex flex-col justify-between md:w-1/2 md:p-10 xl:py-[89px] xl:px-[81px] rounded-[8px] z-10">
             <div className="lg:max-w-[348px] xl:max-w-[555px]">
               <AnimatedWrapper
                 as="h2"
@@ -80,7 +87,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
                 className="md:hidden relative h-[290px] mx-auto mb-6 rounded-[8px] overflow-hidden"
               >
                 <Image
-                  src={image?.url}
+                  src={imageUrl}
                   alt={title}
                   fill
                   sizes="100vw"
@@ -92,15 +99,17 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
                 animation={fadeInAnimation({ y: 30, delay: 0.4 })}
                 className="mb-[11px] xl:mb-6 font-arial text-[18px] xl:text-[24px] leading-[120%] text-center md:text-left"
               >
-                {generalGoal.split("{{goal}}")[0]}
+                {generalGoalBefore}
                 <span className="text-green">
-                  {goal.toLocaleString("uk-UA")}
+                  {formatAmount(goal)}
                 </span>
-                {generalGoal.split("{{goal}}")[1]}
+                {generalGoalAfter}
               </AnimatedWrapper>
             </div>
             <div>
               <Donate
+                  title={`${support} ${title}`}
+                donationTarget={{ purpose: "collection", targetId: data._id, targetName: title, amount: goal, amountCollected: current }}
                 className="w-full lg:max-w-[348px] xl:max-w-[555px] mb-3 desk:mb-8 xl:h-[67px]"
                 buttonText={supportFundrasing}
               />
@@ -115,11 +124,11 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
           </div>
           <AnimatedWrapper
             animation={fadeInAnimation({ x: 30, delay: 0.4 })}
-            className="hidden md:block relative w-[49.2%] aspect-[705/580] rounded-[8px] overflow-hidden"
+            className="hidden md:block md:self-center md:shrink-0 relative w-[49.2%] aspect-705/580 rounded-[8px] overflow-hidden"
           >
             <Image
-              src={image?.url}
-              alt={image?.alt}
+              src={imageUrl}
+              alt={image?.alt ?? title ?? ""}
               fill
               sizes="50vw"
               className="object-cover"

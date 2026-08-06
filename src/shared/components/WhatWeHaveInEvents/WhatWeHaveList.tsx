@@ -27,8 +27,9 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
                 },
               }}
               className="w-full bg-white rounded-[8px] flex flex-col max-w-[420px]"
+              style={{ backgroundColor: item.bgColor }}
             >
-              <div className="w-full aspect-[263/211] relative">
+              <div className="w-full aspect-263/211 relative">
                 <Image
                   src={item.imgPath}
                   alt={item.title}
@@ -69,10 +70,11 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
               },
             }}
             className="w-full h-full bg-white rounded-[8px] flex"
+            style={{ backgroundColor: item.bgColor }}
           >
             {index % 2 === 0 ? (
               <>
-                <div className="aspect-[464/382] h-auto sm:w-[39%] relative">
+                <div className="aspect-464/382 h-auto sm:w-[39%] relative">
                   <Image
                     src={item.imgPath}
                     alt={item.title}
@@ -93,7 +95,7 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
                     width={70}
                     height={70}
                     alt="Funny item"
-                    className="absolute bottom-[20px] left-[55px] rotate-[30deg]"
+                    className="absolute bottom-[20px] left-[55px] rotate-30"
                   />
                   <h3 className="font-arial text-[18px] lg:text-[40px] leading-[130%] text-center mb-3">
                     {item.title}
@@ -118,7 +120,7 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
                     width={70}
                     height={70}
                     alt="Funny item"
-                    className="absolute bottom-[20px] right-[55px] rotate-[30deg]"
+                    className="absolute bottom-[20px] right-[55px] rotate-30"
                   />
                   <h3 className="font-arial text-[18px] lg:text-[40px] leading-[130%] text-center mb-3">
                     {item.title}
@@ -127,7 +129,7 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
                     {item.text}
                   </p>
                 </div>
-                <div className="aspect-[464/382] h-auto sm:w-[39%] relative">
+                <div className="aspect-464/382 h-auto sm:w-[39%] relative">
                   <Image
                     src={item.imgPath}
                     alt={item.title}

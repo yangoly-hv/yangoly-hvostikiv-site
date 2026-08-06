@@ -10,10 +10,10 @@ const Contacts = async () => {
   const t = await getTranslations("Contacts");
 
   return (
-    <section id="contacts" className="relative h-[923px] lg:h-[634px] bg-green">
-      <div className="container relative z-10 px-4 xl:px-10 top-[124px] lg:top-[113px] mx-auto">
+    <section id="contacts" className="relative h-[800px] lg:h-[634px] bg-green">
+      <div className="container relative z-10 px-4 xl:px-10 max-w-[1560px] top-[60px] lg:top-[113px] mx-auto">
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center">
-          <div className="flex flex-col items-center lg:items-start lg:max-w-[406px]">
+          <div className="flex flex-col items-center lg:items-start lg:max-w-[340px]">
             <motion.h2
               initial="hidden"
               whileInView="visible"
@@ -61,34 +61,13 @@ const Contacts = async () => {
                     transition: { duration: 0.5, delay: 0.4 },
                   },
                 }}
-                href="tel:+380930000000"
+                href="tel:+380972002400"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
               >
                 <PhoneIcon className="w-6 h-6" variant="secondary" />
-                38 093 000 00 00
-              </motion.a>
-
-              <motion.a
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{
-                  hidden: { opacity: 0, y: 10 },
-                  visible: {
-                    opacity: 1,
-                    y: 0,
-                    transition: { duration: 0.5, delay: 0.5 },
-                  },
-                }}
-                href="tel:+380930000000"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
-              >
-                <PhoneIcon className="w-6 h-6" variant="secondary" />
-                38 093 000 00 00
+                  38 097 200 24 00
               </motion.a>
 
               <motion.a
@@ -103,13 +82,13 @@ const Contacts = async () => {
                     transition: { duration: 0.5, delay: 0.6 },
                   },
                 }}
-                href="mailto:hvostiki@gmail.com"
+                href="mailto:angelsuaorg@gmail.com"
                 target="_blank"
                 rel="noopener noreferrer nofollow"
                 className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
               >
                 <EmailIcon className="w-6 h-6" variant="secondary" />
-                hvostiki@gmail.com
+                  angelsuaorg@gmail.com
               </motion.a>
             </div>
           </div>
@@ -117,15 +96,24 @@ const Contacts = async () => {
           <ContactForm lang={lang} />
         </div>
       </div>
-
-      <Image
-        src="/images/two-dogs.webp"
-        alt="Two dogs"
-        width={682}
-        height={974}
-        priority
-        className="hidden xl:block absolute bottom-0 right-[42%] z-10 w-[341px] h-auto"
-      />
+      <div className="hidden xl:block absolute bottom-0 right-[35%] z-10 w-[678px] aspect-678/571">
+        <Image
+            src="/images/contacts-union.png"
+            alt="Two dogs"
+            width={274}
+            height={373}
+            priority
+            className="w-[274px] h-auto absolute bottom-0 left-[60px] -z-10"
+        />
+        <Image
+          src="/images/contacts-dog.png"
+          alt="Two dogs"
+          width={682}
+          height={571}
+          priority
+          className="w-[682px] h-auto absolute bottom-0 left-[10px]"
+        />
+      </div>
     </section>
   );
 };

@@ -1,10 +1,10 @@
-"use client";
-
 import { PortableText, PortableTextComponents } from "@portabletext/react";
+import type { PortableTextBlock, TypedObject } from "@portabletext/types";
+
+import { getSafeHref, isExternalWebHref } from "@/shared/lib/safeHref";
 
 interface PortableTextRendererProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value: any;
+  value: PortableTextBlock | Array<PortableTextBlock | TypedObject>;
   components?: PortableTextComponents;
 }
 
@@ -14,5 +14,27 @@ export default function PortableTextRenderer({
 }: PortableTextRendererProps) {
   if (!value) return null;
 
-  return <PortableText value={value} components={components} />;
+  const safeComponents: PortableTextComponents = {
+    ...components,
+    marks: {
+      ...components?.marks,
+      link: ({ value: linkValue, children }) => {
+        const href = getSafeHref(linkValue?.href);
+        if (!href) return <>{children}</>;
+
+        const isExternal = isExternalWebHref(href);
+        return (
+          <a
+            href={href}
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+          >
+            {children}
+          </a>
+        );
+      },
+    },
+  };
+
+  return <PortableText value={value} components={safeComponents} />;
 }

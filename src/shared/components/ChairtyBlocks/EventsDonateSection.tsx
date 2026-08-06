@@ -17,7 +17,7 @@ const EventsDonateSection = async ({
   buttonText,
 }: IEventsDonateSection) => {
   return (
-    <section className="container mx-auto px-4 xl:px-[40px] pt-[100px] pb-[69px]">
+    <section className="container mx-auto px-4 xl:px-[40px] pt-[100px] pb-[69px] lg:pt-[136px] lg:pb-[95px]">
       <motion.div
         variants={containerVariants}
         initial="hidden"

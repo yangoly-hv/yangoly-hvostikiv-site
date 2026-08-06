@@ -1,69 +1,58 @@
+import type { Metadata } from "next";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+
 import Blog from "@/modules/Blog/Blog";
 import Contacts from "@/modules/Contacts/Contacts";
-import { IMetadata, PageParams } from "@/shared/types";
-import type { Metadata } from "next";
-
-import { getAllBlogItems } from "@/shared/api/blog";
-import { Suspense } from "react";
-import Loading from "@/app/loading";
-import { getTranslations } from "next-intl/server";
-
-import client from "@/shared/lib/sanity";
-import {allPostsQuery} from "@/shared/lib/queries";
+import { getAllPosts } from "@/features/blog/server/data";
+import { mapBlogPostSummary } from "@/features/blog/model/mapBlogPost";
+import type { PageParams } from "@/shared/types";
+import { getPageMetadata } from "@/shared/lib/metadata";
+import { getPageNumber } from "@/shared/lib/pagination";
+import { getItemListSchema } from "@/shared/lib/structuredData";
+import JsonLd from "@/shared/components/JsonLd";
 
 export async function generateMetadata({
   params,
 }: PageParams): Promise<Metadata> {
-  const t = await getTranslations("Metadata");
-  const metadata = (await t.raw("blog")) as IMetadata;
   const { locale } = await params;
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://yangoly-hvostikiv.vercel.app";
-  return {
-    title: metadata.title,
-    description: metadata.description,
-    keywords: metadata.keywords,
-    icons: {
-      icon: "/favicon.ico",
-    },
-    openGraph: {
-      title: metadata.title,
-      description: metadata.description,
-      url: `${baseUrl}/${locale}/blog`,
-      type: "website",
-      locale: locale,
-      images: [
-        {
-          url: "/images/about/about-us-desk3.jpg",
-          width: 1200,
-          height: 630,
-          alt: metadata.title,
-        },
-      ],
-    },
-  };
+  return getPageMetadata({ locale, key: "blog", path: "/blog" });
 }
 
-export default async function BlogPage({ params }: PageParams) {
-  const t = await getTranslations("");
-  const blog = await t.raw("Blog");
+export default async function BlogPage({ params, searchParams }: PageParams) {
   const { locale } = await params;
+  const query = await searchParams;
+  setRequestLocale(locale);
 
-  // const data = await getAllBlogItems(locale);
-  const data = await client.fetch(allPostsQuery, {
-    lang: locale,
-  })
+  const [posts, t] = await Promise.all([
+    getAllPosts(locale),
+    getTranslations({ locale }),
+  ]);
 
-  if (!data) {
-    return null;
-  }
+  const preparedPosts = posts.map((post) => mapBlogPostSummary(post, locale));
+  const currentPage = getPageNumber(query?.page, Math.ceil(preparedPosts.length / 8));
+  const visiblePosts = preparedPosts.slice((currentPage - 1) * 8, currentPage * 8);
+  const translation = t.raw("Blog");
 
   return (
     <>
-      <Suspense fallback={<Loading />}>
-        <Blog data={data} translation={blog} />
-        <Contacts />
-      </Suspense>
+      <JsonLd
+        data={getItemListSchema({
+          locale,
+          path: "/blog",
+          name: translation.title,
+          items: visiblePosts.map((post) => ({
+            name: post.title,
+            path: `/blog/${post.slug}`,
+            image: post.mainPhoto,
+          })),
+        })}
+      />
+      <Blog
+        data={preparedPosts}
+        translation={translation}
+        page={query?.page}
+      />
+      <Contacts />
     </>
   );
 }

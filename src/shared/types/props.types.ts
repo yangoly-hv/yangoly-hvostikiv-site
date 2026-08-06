@@ -1,19 +1,14 @@
-import { ComponentProps } from "react";
-import { dictionaries } from "../utils/getDictionary";
+import { ComponentProps, ReactNode } from "react";
+import type { AppLocale } from "@/shared/config/site";
 import {
-  IAboutTranslation,
-  IBlog,
-  IDonateModalTranslation,
   IInformationBlockTranslation,
-  IPartnershipTranslation,
-  IReporting,
   ITails,
-  IAngelsTranslation,
 } from "./dictionary.types";
-import * as yup from "yup";
-import Link from "next/link";
+import type { PortableTextContentBlock } from "./content.types";
+import type { DonationTarget } from "./donation";
+import { Link } from "@/i18n/navigation";
 
-export type Locale = keyof typeof dictionaries;
+export type Locale = AppLocale;
 export type ButtonVariant = "primary" | "secondary" | "orange" | "outline";
 
 export interface ILanguage {
@@ -21,48 +16,29 @@ export interface ILanguage {
   icon: React.ReactNode;
 }
 
-export interface IMetadata {
-  title: string;
-  description: string;
-  keywords: string;
-}
-
 export interface ILanguages {
   [key: string]: ILanguage;
 }
 
-export type PageParams = {
-  params: Promise<{ locale: Locale; id?: string, slug?: string }>;
+export type LocalePageParams<
+  TLocale extends string = Locale,
+  TExtraParams extends Record<string, string | undefined> = Record<never, never>,
+> = {
+  params: Promise<{ locale: TLocale } & TExtraParams>;
   searchParams?: Promise<{ [key: string]: string | undefined }>;
 };
+export type PageParams<TExtraParams extends Record<string, string | undefined> = Record<never, never>> =
+  LocalePageParams<Locale, TExtraParams>;
 export type LocaleLayoutProps = {
   children: React.ReactNode;
-  params: Promise<{ locale: Locale }>;
+  params: Promise<{ locale: string }>;
 };
-
-export interface IHeaderProps {
-  lang: Locale;
-}
-
-export interface IBurgerMenuProps {
-  isOpen: boolean;
-  onClose: () => void;
-  lang: Locale;
-}
-
-export interface IAngelsMobProps {
-  translation?: IAngelsTranslation;
-  lang?: Locale;
-  donateModalTranslataion?: IDonateModalTranslation;
-}
 
 export interface IDonateProps {
   className?: string;
   buttonText: string;
-}
-
-export interface IAboutProps {
-  translation: IAboutTranslation;
+  title: string;
+  donationTarget?: DonationTarget;
 }
 
 export interface IButtonProps
@@ -79,7 +55,7 @@ interface IFundraisingGoalStyleProps {
 }
 
 export interface IFundraisingGoalProps extends ComponentProps<"div"> {
-  fundraisingTitle: string;
+  fundraisingTitle: string | undefined;
   subtitle?: string;
   goal: string;
   currency: string;
@@ -89,58 +65,15 @@ export interface IFundraisingGoalProps extends ComponentProps<"div"> {
   imageVariant?: "big" | "small" | "middle";
 }
 
-export interface IProgressBarProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  totalAmount: number;
-  currentAmount: number;
-  height?: string;
-}
-
-export interface ICardProps extends React.HTMLAttributes<HTMLDivElement> {
-  title?: string;
-  withProgressBar?: boolean;
-  goal?: string;
-  currency?: string;
-  currentAmount?: number;
-  totalAmount?: number;
-  onClick?: () => void;
-  buttonText?: string;
-  image: string;
-  buttonStyle?: string;
-}
-
 export interface IPartnersProps
   extends React.HtmlHTMLAttributes<HTMLTableSectionElement> {
   withTitle?: boolean;
-}
-
-export interface IFormField {
-  name: string;
-  label: string;
-  type: "text" | "tel" | "textarea" | "password";
-  placeholder?: string;
-  required?: boolean;
-  icon?: React.ReactNode;
-  validation?: yup.AnySchema;
-  mask?: string;
-}
-
-export interface IFormConfig {
-  title?: string;
-  fields: IFormField[];
-  submitText: string;
-  onSubmit?: (data: Record<string, string>) => void;
-  className?: string;
 }
 
 export interface ISvgIconProps extends React.SVGProps<SVGSVGElement> {
   variant?: "primary" | "secondary";
   color?: string;
   strokeWidth?: string;
-}
-
-export interface ICheckBoxIconProps extends React.SVGProps<SVGSVGElement> {
-  variant?: "default" | "error" | "checked";
 }
 
 export interface ILogoProps extends ComponentProps<typeof Link> {
@@ -150,6 +83,8 @@ export interface ILogoProps extends ComponentProps<typeof Link> {
 
 export interface IInfoBlockProps extends ComponentProps<"div"> {
   translation: IInformationBlockTranslation;
+  /** Optional raw Portable Text-style blocks (e.g. from Sanity) */
+  blocks?: PortableTextContentBlock[];
   children?: React.ReactNode;
   titleClassName?: string;
 }
@@ -191,40 +126,35 @@ export interface ITextInputProps
 
 export interface ICheckBoxProps
   extends Omit<ComponentProps<"input">, "onChange" | "type"> {
-  label: string;
+  label: ReactNode;
   onChange: (checked: boolean) => void;
   error?: boolean;
+}
+
+export interface CheckboxIconProps extends React.SVGProps<SVGSVGElement> {
+  variant?: "default" | "error" | "checked";
 }
 
 type PaymentType = "monoPay" | "googlePay" | "card";
 
 export interface IPaymentButtonProps
-  extends Omit<ComponentProps<"button">, "type"> {
+  extends ComponentProps<"button"> {
   paymentType: PaymentType;
   text?: string;
 }
 
 export interface IDonateModalProps {
+  title?: string;
+  donationTarget?: DonationTarget;
   isOpen: boolean;
   onClose: () => void;
 }
 
-export interface IToastProps {
-  message: string;
-  isVisible: boolean;
+export interface IKeepingModalProps {
+  isOpen: boolean;
   onClose: () => void;
-  duration?: number;
-}
-
-export interface ICardPaymentFormProps {
-  onSubmit: (data: ICardPaymentFormData) => void;
-  lang: Locale;
-}
-
-export interface ICardPaymentFormData {
-  cardNumber: string;
-  expiryDate: string;
-  cvv: string;
+  price?: number;
+  donationTarget?: DonationTarget;
 }
 
 export interface IThankYouModalProps {
@@ -240,121 +170,11 @@ export interface IMonthlyGoalSectionProps {
   lang: Locale;
 }
 
-export interface IAnimatedSectionProps {
-  children: React.ReactNode;
-  initial?: {
-    opacity?: number;
-    x?: number;
-    y?: number;
-    scale?: number;
-    rotate?: number;
-  };
-  whileInView?: {
-    opacity?: number;
-    x?: number;
-    y?: number;
-    scale?: number;
-    rotate?: number;
-  };
-  transition?: {
-    duration?: number;
-    delay?: number;
-    ease?: string | number[];
-  };
-  amount?: number;
-}
-
-export interface IPartnershipProps {
-  translation: IPartnershipTranslation;
-  lang: Locale;
-}
-
 export interface IModalProps extends ComponentProps<"div"> {
   isOpen: boolean;
   onClose: () => void;
   children?: React.ReactNode;
   modalClassName?: string;
-}
-
-export interface ITailInfoProps {
-  tail: ITailItem;
-  locale: Locale;
-  translation: ITails;
-}
-
-export interface IBlogProps {
-  translation: IBlog;
-  lang: Locale;
-}
-
-export interface INewsItem {
-  id: string;
-  slug?: string;
-  date: string;
-  title: string;
-  description: string;
-  mainPart: {
-    lists: { title: string; items: string[] }[];
-    text: string;
-  };
-  mainPhoto: string;
-  secondaryPhoto: string;
-}
-
-export interface ITailItem {
-  id: string;
-  image: string;
-  images: string[];
-  name: string;
-  description: string[];
-  sex: string;
-  sterilized: string;
-  categories: string[];
-}
-
-export interface IBlogCardProps {
-  blogItem: INewsItem;
-  className?: string;
-  translation: IBlog;
-}
-
-export interface IBlogListProps {
-  lang: Locale;
-  translation: IBlog;
-}
-
-export interface IBlogArticleProps {
-  article: INewsItem;
-  translation: IBlog;
-}
-
-export interface ITailsProps {
-  translation: ITails;
-  lang: Locale;
-}
-
-export interface IRandomTailCardsProps {
-  translation: ITails;
-  tails: ITailItem[];
-}
-
-export interface ITailProps {
-  translation: ITails;
-  tail: ITailItem;
-  randomTails: ITailItem[];
-  locale: Locale;
-}
-
-export interface IFundraisingCardProps {
-  image: string;
-  title: string;
-  totalAmount: number;
-  currentAmount: number;
-  currency: string;
-  buttonText: string;
-  goal: string;
-  onClick: () => void;
-  className?: string;
 }
 
 export interface ISlidesPaginationProps extends ComponentProps<"button"> {
@@ -368,33 +188,13 @@ export interface IAdoptModalProps {
   translation: ITails;
 }
 
-export interface IReportingProps {
-  translation: IReporting;
-  lang: Locale;
-}
-
-export interface IReportingListProps {
-  lang: Locale;
-}
-
-export interface IReportItem {
-  id: string;
-  date: string;
-  title: string;
-  description: string;
-  mainPart: string[];
-  mainPhoto: string;
-  secondaryPhoto: string;
-}
-
-export interface IReportProps {
-  report: IReportItem;
-}
-
 export interface IHelpVolonteeringTranslation {
   title: string;
   paragraphs?: string[];
+  /** Intro paragraph (first text block) */
   text?: string;
+  /** Label before the bullet list (second text block), e.g. "Що потрібно робити:" */
+  listLabel?: string;
   imagePath: string;
   imagePathDesk?: string;
   bg: string;
@@ -406,27 +206,19 @@ export interface IAngelsProps extends ComponentProps<"section"> {
   withCircle?: boolean;
 }
 
-export interface IPartnerItem {
+export interface IPartnershipHelpCard {
   title: string;
-  image: {
-    imagePath: string;
-    widthMob: number;
-    heightMob: number;
-    widthDesk: number;
-    heightDesk: number;
-    bg?: string;
-  };
   text: string;
-  buttonText: string;
-  buttonLink: string;
-}
-
-export interface IPartnersSupport {
-  title: string;
-  list: {
-    imgPath: string;
-    text: string;
-  }[];
+  bgColor: string;
+  imgPath?: string;
+  widthMob: number;
+  heightMob: number;
+  widthDesk: number;
+  heightDesk: number;
+  topMob: number;
+  topDesk: number;
+  rightMob: number;
+  rightDesk: number;
 }
 
 export interface IWhatWeHaveItem {
@@ -434,6 +226,7 @@ export interface IWhatWeHaveItem {
   text: string;
   imgPath: string;
   bgPath: string;
+  bgColor: string;
 }
 
 export interface IVolunteeringCardProps extends ComponentProps<"li"> {

@@ -1,10 +1,11 @@
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import Button from "@/shared/components/Button/Button";
 import ChangeLifeImagesMob from "./ChangeLifeImagesMob";
 import ChangeLifeImagesDesk from "./ChangeLifeImagesDesk";
 import { getTranslations } from "next-intl/server";
+import ChangeLifeDonate from "@/modules/ChangeLife/ChangeLifeDonate";
 
 export default async function ChangeLife() {
   const t = await getTranslations("ChangeLife");
@@ -13,9 +14,9 @@ export default async function ChangeLife() {
     <section className="relative mt-[131px] mb-[100px] xl:my-[140px] bg-white md:bg-transparent overflow-hidden">
       <ChangeLifeImagesMob />
       <div className="container px-4 xl:px-10 mx-auto">
-        <div className="relative z-20 py-6 md:py-[89px] md:bg-white md:rounded-[8px] overflow-hidden">
+        <div className="relative z-20 py-6 md:py-[53px] md:bg-white md:rounded-[8px] overflow-hidden">
           <ChangeLifeImagesDesk />
-          <div className="md:pl-[87px]">
+          <div className="md:pl-[87px] xl:pl-[127px]">
             <AnimatedWrapper
               as="h2"
               animation={fadeInAnimation({ y: 30 })}
@@ -32,7 +33,7 @@ export default async function ChangeLife() {
             </AnimatedWrapper>
             <AnimatedWrapper
               animation={fadeInAnimation({ y: 30, delay: 0.8 })}
-              className="md:w-[283px] lg:w-[323px] xl:w-[383px] laptop:w-[463px] desk:w-[523px] flex flex-col sm:flex-row gap-x-5 md:flex-col gap-y-3 xl:gap-y-6 "
+              className="pt-[70px] md:pt-0 md:w-[283px] lg:w-[323px] xl:w-[383px] laptop:w-[463px] desk:w-[523px] flex flex-col sm:flex-row gap-x-5 md:flex-col gap-y-3 xl:gap-y-[14px] "
             >
               <Link href="/partnership" className="block w-full">
                 <Button
@@ -47,6 +48,7 @@ export default async function ChangeLife() {
                   text={t("joinVolunteers")}
                 />
               </Link>
+              <ChangeLifeDonate text={t("oneTimeHelpButton")} />
             </AnimatedWrapper>
           </div>
         </div>

@@ -1,6 +1,40 @@
 {
+  "DonationForm": {
+    "tabs": {
+      "once": "One-time donation",
+      "monthly": "Monthly donation"
+    },
+    "descriptions": {
+      "once": "You can give rescued animals a chance for a new life right now.",
+      "monthly": "Together we save animals from frontline territories. Every donation means warmth, food, and safety for the tails."
+    },
+    "onceItems": {
+      "100": "1 day of food for a puppy or kitten",
+      "200": "A vaccine for one tail",
+      "600": "A bag of food for a dog",
+      "1500": "Veterinary care for one animal"
+    },
+    "monthlyItems": {
+      "250": "20 portions of dog food",
+      "500": "Vaccination and parasite treatment for a tail",
+      "1000": "Weekly supply of food and medicine for 2 dogs",
+      "1500": "Transportation and care for 2 tails",
+      "2500": "Full care for one dog for a month"
+    },
+    "customAmount": {
+      "placeholder": "Enter amount",
+      "label": "Custom amount"
+    },
+    "submit": "MAKE DONATION",
+    "agreementLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
+    "recurringAgreementLabel": "I agree to an automatic charge of UAH {amount} every month until I cancel it in my WayForPay personal account.",
+    "submitError": "We could not start the payment. Please try again later.",
+    "fullNameLabel": "Full name",
+    "fullNamePlaceholder": "Your full name",
+    "anonymousLabel": "Keep my donation anonymous"
+  },
   "Header": {
-    "donateButton": "One-time assistance",
+    "donateButton": "One-time donation",
     "navigation": [
       {
         "name": "Home",
@@ -24,7 +58,7 @@
       },
       {
         "name": "Events",
-        "href": "/chairty-events"
+        "href": "/charity-events"
       },
       {
         "name": "Blog",
@@ -47,7 +81,7 @@
         "href": "/"
       },
       {
-        "name": "About the Fund",
+        "name": "About",
         "href": "/#about"
       },
       {
@@ -60,14 +94,14 @@
       },
       {
         "name": "Volunteering",
-        "href": "/partnership"
+        "href": "/volunteering"
       },
       {
-        "name": "Charity Events",
-        "href": "/chairty-events"
+        "name": "Events",
+        "href": "/charity-events"
       },
       {
-        "name": "Reports",
+        "name": "Reporting",
         "href": "/reporting"
       },
       {
@@ -76,37 +110,71 @@
       }
     ],
     "contacts": {
-      "phone": "+380 99 200 40 80",
+      "phone": "+38 097 200 24 00",
       "email": "angelsuaorg@gmail.com",
       "address": "4 Pavla Tychyny Avenue, Kyiv, 02098, Ukraine"
     }
   },
   "Hero": {
-    "title": "Angels of Tails",
-    "subtitle": "Charity Fund",
+    "title": "Help animals feel needed in this world",
     "callToAction": "Become an Angel for Tails with us!",
-    "text": "Help animals feel needed in this world",
     "button": "Help a Tail"
   },
   "WorkResults": [
     {
       "amount": "1,000+",
-      "name": "Rescued tails"
+      "name": "Tails rescued"
     },
     {
       "amount": "5,000+",
-      "name": "Kilograms of food send"
+      "name": "Kg of food sent"
     },
     {
       "amount": "4,000+",
-      "name": "Vaccines, treatments, canned food, etc."
+      "name": "Vaccinations given"
+    },
+    {
+      "amount": "4,000+",
+      "name": "Animals sterilized"
     }
   ],
+  "ActivityDirections": {
+    "title": "AREAS OF\nACTIVITY",
+    "items": [
+      "Provision of food",
+      "Veterinary support (sterilization, vaccination, treatments, medical care)",
+      "Restoration of enclosures"
+    ]
+  },
+  "ProblemsWeSolve": {
+    "title": "Problems we solve",
+    "block1": "Due to the full-scale war, many shelters were forced to evacuate from Donetsk region, losing their territories, infrastructure and enclosures.\n\nThey are starting from scratch in new locations and urgently need to restore basic conditions (quality enclosures), food, and veterinary care.\n\nThe number of animals in such shelters is constantly growing due to the continuous evacuation of animals.",
+    "block2": "Due to overcrowded shelters, many animals cannot be evacuated from the frontline areas of Zaporizhzhia, Mykolaiv and Donetsk directions, and volunteers work in a constant shortage of resources.\n\nWe take on those critical requests that other foundations cannot cover: food, vaccination and sterilization."
+  },
+  "WhatMakesUsDifferent": {
+    "title": "What makes us\ndifferent",
+    "block1": "We support shelters evacuated from Donetsk region",
+    "block2": "We help animals that remain in frontline areas",
+    "block3": "We organize our own thematic charity events for dogs",
+    "block4": "We work with real, current needs of shelters and close those requests that other foundations cannot cover",
+    "block5": "We build a caring community through offline events"
+  },
+  "WhatChangesThanksToUs": {
+    "title": "What changes thanks to us",
+    "items": [
+      "Animal mortality decreases",
+      "Living conditions improve",
+      "Evacuated shelters are supported and restored",
+      "A community of caring people grows",
+      "Charity events become a tool for social unity"
+    ]
+  },
   "ChangeLife": {
     "title": "Together we change animals' lives!",
-    "description": "Be an Angel — choose your path of kindness: partner or volunteer, and together we change animals' lives.",
+    "description": "Choose how to help: become a partner or join the volunteers.",
     "becomePartner": "Become a partner",
-    "joinVolunteers": "Join the volunteers"
+    "joinVolunteers": "Join the volunteers",
+    "oneTimeHelpButton": "One-time donation"
   },
   "About": {
     "aboutUs": {
@@ -115,8 +183,14 @@
       "paragraphs": [
         {
           "segments": [
-            { "text": "The charitable foundation ", "bold": false },
-            { "text": "\"Tail Angels\"", "bold": true },
+            {
+              "text": "The charitable foundation ",
+              "bold": false
+            },
+            {
+              "text": "\"Angels of Tails\"",
+              "bold": true
+            },
             {
               "text": " was founded on 31.10.2023 by the Nikonchuk family: Oleh and Yevheniia. The foundation helps homeless animals affected by the war and those in frontline areas using the family’s own funds. Due to the constant danger, ensuring their survival is an extremely difficult task. Animals are often left alone with the war, suffering from hunger, cold, disease, and human aggression. The foundation’s mission is to provide animals with medicine, food, vaccinations, sterilization, and most importantly — a chance for rescue and hope for a dignified life.",
               "bold": false
@@ -125,7 +199,10 @@
         },
         {
           "segments": [
-            { "text": "Our mission", "bold": true },
+            {
+              "text": "Our mission",
+              "bold": true
+            },
             {
               "text": " is to break through people’s indifference and irresponsibility towards animals. People must stop treating animals as objects. This is what humanity truly means. An animal’s life should be valuable to a human! An animal deserves love and safety just as much as a human does!",
               "bold": false
@@ -134,44 +211,13 @@
         }
       ],
       "links": [
-        { "text": "Become a Partner", "href": "#" },
-        { "text": "Organization Reports", "href": "#" }
-      ]
-    },
-    "aboutOwner": {
-      "title": "ABOUT THE CO-FOUNDERS OF THE FOUNDATION",
-      "paragraphs": [
         {
-          "segments": [
-            {
-              "text": "The founders of the foundation are the Nikonchuk family. Oleh Nikonchuk is the founder of the IT companies 'Versiya' and 'Navionika', which exclusively represent Garmin, Simrad, Lowrance, B&G, Deeper, and Navico in Ukraine. Evheniia Nikonchuk is a two-time bodybuilding champion of Ukraine, vice-champion of the European fitness tournament FITPARADE. She dedicated 10 years to sports, worked as a fitness trainer, and conducted seminars on nutrition and training.",
-              "bold": false
-            }
-          ]
+          "text": "Become a Partner",
+          "href": "#"
         },
         {
-          "segments": [
-            {
-              "text": "\"Since childhood, I've always loved animals and dreamed of having a dog, but I was never allowed to have one,\" says Evheniia. Only at the age of 33 did she get her duo: Elsa, a husky, and Boom, a small mixed-breed dog she found on the roadside. \"Animals teach us compassion and attentiveness to the weak. In charity, humanity grows,\" Evheniia says.",
-              "bold": false
-            }
-          ]
-        },
-        {
-          "segments": [
-            {
-              "text": "Since the start of the full-scale war, Evheniia’s husband has supported the military, while she has focused on animals — the most vulnerable and overlooked group. With family funds, over 5 tons of food and hundreds of medicines, vaccines, and treatments have been sent. But as the number of strays keeps growing, especially near the frontlines, the idea of the 'Tail Angels' Foundation was born — to expand help and unite caring people.",
-              "bold": false
-            }
-          ]
-        },
-        {
-          "segments": [
-            {
-              "text": "\"My mission as a co-founder is to show that animals are part of Ukraine — they are our family. We must be more caring, not only to our pets but also to those without one,\" says Evheniia.",
-              "bold": false
-            }
-          ]
+          "text": "Organization Reports",
+          "href": "#"
         }
       ]
     }
@@ -179,14 +225,18 @@
   "MonthlyGoalSection": {
     "generalGoal": "Total goal: {{goal}} UAH for materials and construction.",
     "result": "Raised: {{current}} UAH out of {{goal}} UAH",
-    "supportFundrasing": "Support the fundraiser"
+    "supportFundrasing": "Support the fundraiser",
+    "support": "Support"
   },
   "Partners": {
     "title": "Our partners"
   },
+  "PublicOfferPage": {
+    "title": "PUBLIC OFFER for charitable donations"
+  },
   "VolunteeringPage": {
     "title": "Together we change the world with good deeds",
-    "helpTitle": "Become a volunteer at the 'Angels of Tails' Foundation",
+    "helpTitle": "Become a volunteer at the Angels of Tails Foundation",
     "helpSubtitle": "Want to help animals and be part of a big good cause? Join the volunteer team of our foundation! We are looking for active, caring people ready to support us in various directions.",
     "formCard": {
       "title": "Want to become part of the team?",
@@ -198,58 +248,69 @@
     "helpsList": [
       {
         "title": "Volunteer at charity events",
+        "text": "This role is about hands-on participation in the foundation's charity events.",
         "paragraphs": [
-          "Interacting with guests: telling them about the foundation, our mission, and achievements",
-          "Escorting people and dogs to photo zones, play areas, and contests",
-          "Distributing gifts, flyers, and helping with venue decoration",
-          "Photo and video documentation of events, shooting short videos, basic editing",
-          "Hosting at locations: photo zone, lottery, contests. Actively engaging guests and guiding them further"
+          "photo and video documentation of events",
+          "editing reels from events",
+          "photographer at the photo zone",
+          "hosting at zones: photo zone, lottery, prints, etc.",
+          "main host of the entire event",
+          "help with venue setup before the event",
+          "charity events coordinator"
         ],
         "imagePath": "/images/volounteering/card1.webp",
         "imagePathDesk": "/images/volounteering/card1-desk.webp",
-        "bg": "#FFD699"
+        "bg": "#FFD699",
+        "listLabel": "What to do:"
       },
       {
-        "title": "Assistant to the Foundation Director (volunteer position)",
+        "title": "Fundraiser",
+        "text": "This role is about attracting financial support and partnerships.",
         "paragraphs": [
-          "Assisting with organizational tasks and work planning",
-          "Working with Google Docs: spreadsheets, lists, forms",
-          "Preparing thank-you notes for donors and partners (based on templates)",
-          "Coordinating volunteers and event participants, maintaining simple lists"
+          "finding and attracting financial support for the foundation",
+          "communicating with potential partners and sponsors",
+          "initiating partnerships and long-term collaborations",
+          "managing agreements on charitable contributions and fundraisers",
+          "contributing to proposals for partners and sponsors"
         ],
         "imagePath": "/images/volounteering/card2.webp",
         "imagePathDesk": "/images/volounteering/card2.webp",
-        "bg": "#F4E1C1"
+        "bg": "#F4E1C1",
+        "listLabel": "What to do:"
       },
       {
-        "title": "Creative support",
+        "title": "Content volunteer (TikTok / YouTube)",
+        "text": "This role is about creating content and growing the foundation’s pages.",
         "paragraphs": [
-          "Designing layouts for flyers, thank-you cards, and posters",
-          "Photo or video editing, creating short social media videos",
-          "Generating ideas for upcoming events, photo zone setups, contests (props, decor, creative solutions)"
+          "shooting and editing short, fun, potentially viral videos for TikTok",
+          "shooting and editing videos for YouTube",
+          "publishing content and growing the pages"
         ],
         "imagePath": "/images/volounteering/card3.webp",
         "imagePathDesk": "/images/volounteering/card3.webp",
-        "bg": "#D6E6D5"
+        "bg": "#D6E6D5",
+        "listLabel": "What to do:"
       },
       {
         "title": "PR and communications",
+        "text": "This role is about the foundation's visibility and growing recognition.",
         "paragraphs": [
-          "Finding new partners and donors",
-          "Communicating with businesses, shopping centers, bloggers, and media",
-          "Connecting with show business: actors, musicians, hosts, influencers",
-          "Engaging TV channels and broadcasters to support with media coverage",
-          "Negotiating joint campaigns, fundraising, and collaborations",
-          "Sending request letters (based on templates) and maintaining communication"
+          "spreading information about the foundation’s activities",
+          "finding and communicating with bloggers, influencers, and media figures",
+          "connecting with TV channels and broadcasters for media support",
+          "initiating PR collaborations and joint activities",
+          "engaging influencers in the foundation’s charity events",
+          "taking part in communications around the foundation’s fundraisers"
         ],
         "imagePath": "/images/volounteering/card4.webp",
         "imagePathDesk": "/images/volounteering/card4.webp",
-        "bg": "#DFD8EC"
+        "bg": "#DFD8EC",
+        "listLabel": "What to do:"
       }
     ],
     "whatGet": {
-      "title": "What Does a Volunteer of the 'Tail Angels' Foundation Receive?",
-      "subtitle": "By becoming an angel for those who cannot ask for help, you open new opportunities for yourself as well. Together with the 'Tail Angels' team, we create positive change — with love, care, and inspiration.",
+      "title": "What Does a Volunteer of the Angels of Tails Foundation Receive?",
+      "subtitle": "By becoming an angel for those who cannot ask for help, you open new opportunities for yourself as well. Together with the Angels of Tails team, we create positive change — with love, care, and inspiration.",
       "paragraphs": [
         "Official recognition — thank-you notes, volunteer certificate, recommendations.",
         "Real impact — you personally help save animals’ lives.",
@@ -260,23 +321,47 @@
     }
   },
   "Angels": {
-    "title": "They’ve already become Angels for the furry ones. Join the light!",
+    "title": "They’ve already become Angels for the tails. Join the light!",
     "makeContribution": "Make a contribution",
-    "hrn": "hrn",
+    "hrn": "UAH",
     "donor": "Donor",
     "sum": "Contribution amount"
   },
   "DonateModal": {
     "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
-    "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
+    "fundraisingOneTimeTitle": "Thank you, Angel, for helping our foundation work",
+    "tailOneTimeTitle": "Thank you, Angel, for helping this tail",
+    "subtitle": "Thanks to your help, the tails have a chance for a better future!",
+    "tailSubtitle": "Thanks to your help, this tail will have a chance for a better future!",
     "goal": "Goal",
     "currency": "UAH",
     "donateAmountSection": {
-      "title": "Top-up amount",
+      "title": "Donation amount",
       "anotherAmount": "Other amount",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "anonymousLabel": "Keep my donation anonymous",
       "inputPlaceholder": "Optional",
-      "inputLabel": "Your name or comment",
-      "firstCheckboxLabel": "I want to be the first to know about charity events",
+      "inputLabel": "Comment",
+      "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
+      "cardButton": "Pay by card",
+      "submitError": "Please confirm that you have read the public offer agreement",
+      "donate": "Donate"
+    }
+  },
+  "FundraiserModal": {
+    "fundraisingTitle": "Thank you, Angel, for helping in the fundraiser",
+    "subtitle": "Thanks to your help, the tails have a chance for a better future!",
+    "goal": "Goal",
+    "currency": "UAH",
+    "donateAmountSection": {
+      "title": "Donation amount",
+      "anotherAmount": "Other amount",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "anonymousLabel": "Keep my donation anonymous",
+      "inputPlaceholder": "Optional",
+      "inputLabel": "Comment",
       "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
       "cardButton": "Pay by card",
       "submitError": "Please confirm that you have read the public offer agreement",
@@ -284,32 +369,48 @@
     }
   },
   "SterilizationModal": {
-    "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
-    "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
+    "fundraisingTitle": "Thank you, Angel, for helping this tail",
+    "subtitle": "Thanks to your help, this tail will be sterilized!",
     "goal": "Goal",
     "currency": "UAH",
     "donateAmountSection": {
-      "title": "Top-up amount",
+      "title": "Donation amount",
       "anotherAmount": "Other amount",
       "inputPlaceholder": "Optional",
       "inputLabel": "Your name or comment",
-      "firstCheckboxLabel": "I want to be the first to know about charity events",
+      "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
+      "cardButton": "Pay by card",
+      "submitError": "Please confirm that you have read the public offer agreement"
+    }
+  },
+  "OnceKeepModal": {
+    "fundraisingTitle": "Thank you, Angel, for helping this tail",
+    "subtitle": "Thanks to your help, this tail will get a chance!",
+    "goal": "Goal",
+    "currency": "UAH",
+    "donateAmountSection": {
+      "title": "Donation amount",
+      "anotherAmount": "Other amount",
+      "inputPlaceholder": "Optional",
+      "inputLabel": "Your name or comment",
       "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
       "cardButton": "Pay by card",
       "submitError": "Please confirm that you have read the public offer agreement"
     }
   },
   "KeepingModal": {
-    "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
-    "subtitle": "Thanks to your help, the ponytails have a chance for a better future!",
+    "fundraisingTitle": "Thank you, Angel, for choosing to become a guardian",
+    "subtitle": "Thanks to your help, this tail will receive proper care!",
     "goal": "Goal",
     "currency": "UAH",
     "donateAmountSection": {
-      "title": "Top-up amount",
+      "title": "Donation amount",
       "anotherAmount": "Other amount",
+      "fullNameLabel": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "anonymousLabel": "Keep my donation anonymous",
       "inputPlaceholder": "Optional",
-      "inputLabel": "Your name or comment",
-      "firstCheckboxLabel": "I want to be the first to know about charity events",
+      "inputLabel": "Comment",
       "secondCheckboxLabel": "I have read and agree to the public offer agreement for charitable donations and consent to the collection, processing, and use of personal data according to the terms of this agreement.",
       "cardButton": "Pay by card",
       "submitError": "Please confirm that you have read the public offer agreement"
@@ -317,216 +418,194 @@
   },
   "ThankYouModal": {
     "title": "Thank you!",
-    "message": "Tails thank you for your donation",
+    "message": "The tails thank you for your donation",
     "buttonText": "Got it"
+  },
+  "PaymentReturn": {
+    "buttonText": "Got it",
+    "pending": {
+      "title": "We are confirming your payment",
+      "message": "WayForPay has not sent the final confirmation yet. Please wait a moment; we will record the donation as soon as it arrives."
+    },
+    "failed": {
+      "title": "Payment was not completed",
+      "message": "WayForPay did not confirm this payment. No donation has been recorded."
+    },
+    "reversed": {
+      "title": "Payment was reversed",
+      "message": "WayForPay reported that this payment was reversed. No active donation is recorded."
+    },
+    "unknown": {
+      "title": "Payment needs confirmation",
+      "message": "We received an unrecognized payment status and cannot confirm the donation yet."
+    }
+  },
+  "CheckoutError": {
+    "message": "We could not start the payment. Please try again later.",
+    "recurringAgreement": "I agree to an automatic charge of UAH {amount} every month until I cancel it in my WayForPay personal account."
   },
   "Contacts": {
     "title": "Contacts",
-    "subtitle": "To get in touch with us, please leave your contact details"
+    "subtitle": "If you have any questions — leave your contacts. We will contact you soon."
   },
   "Partnership": {
     "title": "Partnership to Save Animals from War",
-    "heroTitle": "Your Contribution - A Chance for a New Life",
+    "heroTitle": "Your Contribution — A Chance for a New Life",
     "heroSubtitle": "Become an Angel and join our partnership to create a safe future for animals together.",
     "heroButton": "Become a Partner"
   },
   "ContactModal": {
-    "title": "To become our partner, please leave your contact details"
+    "title": "Please leave your contact details",
+    "titles": {
+      "default": "Please leave your contact details",
+      "contact-page": "Please leave your contact details",
+      "partnership": "To become our partner, please leave your contact details",
+      "volunteering": "To become our volunteer, please leave your contact details",
+      "event-partnership": "To become our partner, please leave your contact details",
+      "event-ambassador": "To become an ambassador, please leave your contact details",
+      "event-volunteering": "To become our volunteer, please leave your contact details"
+    }
   },
   "PartnersList": {
-    "title": "Our partners - our heroes!",
-    "list": [
+    "title": "Our partners — our heroes!",
+    "buttonText": "Learn more"
+  },
+  "PartnershipHelpCards": {
+    "title": "How you can help",
+    "cards": [
       {
-        "title": "Pesyky Fest",
-        "image": {
-          "imagePath": "/images/partners/pesiki-fest.png",
-          "widthMob": 101,
-          "heightMob": 87,
-          "widthDesk": 203,
-          "heightDesk": 176,
-          "bg": "#7030A0"
-        },
-        "text": "The largest festival for dogs and their owners in Kyiv! Fun, competitions, lectures, and an atmosphere full of love for our four-legged friends.",
-        "buttonText": "Learn more",
-        "buttonLink": ""
+        "title": "Financial support (targeted funds)",
+        "text": "Funds for the basic needs of animals: food, veterinary care, treatments, vaccination, sterilization, construction and equipping of enclosures, as well as other current needs of animals in our partner shelters.",
+        "bgColor": "#FFD699",
+        "imgPath": "/images/partners/card-1.webp",
+        "widthMob": 644,
+        "heightMob": 644,
+        "widthDesk": 657,
+        "heightDesk": 657,
+        "topMob": 177,
+        "topDesk": 36,
+        "rightMob": -231,
+        "rightDesk": -256
       },
       {
-        "title": "Obolon Administration",
-        "image": {
-          "imagePath": "/images/partners/obolon.png",
-          "widthMob": 73,
-          "heightMob": 91,
-          "widthDesk": 177,
-          "heightDesk": 237
-        },
-        "text": "A governmental institution supporting social, cultural, and charitable initiatives for community development.",
-        "buttonText": "Learn more",
-        "buttonLink": ""
+        "title": "Financial support for operational expenses",
+        "text": "Funds for salaries of the foundation team, advertising, communications and social media management, which allows the foundation to work steadily, attract new partners and scale help for animals.",
+        "bgColor": "#DFD8EC",
+        "imgPath": "/images/partners/card-2.webp",
+        "widthMob": 504,
+        "heightMob": 315,
+        "widthDesk": 595,
+        "heightDesk": 372,
+        "topMob": 133,
+        "topDesk": 0,
+        "rightMob": -11,
+        "rightDesk": -37
       },
       {
-        "title": "Obolon Department of Culture",
-        "image": {
-          "imagePath": "/images/partners/kultura.png",
-          "widthMob": 261,
-          "heightMob": 91,
-          "widthDesk": 588,
-          "heightDesk": 217
-        },
-        "text": "A subdivision implementing cultural projects and supporting creative community initiatives.",
-        "buttonText": "Learn more",
-        "buttonLink": ""
+        "title": "Resource assistance",
+        "text": "Providing food, treatments, vaccines, veterinary drugs, pet supplies and other necessary resources for animals under the care of the foundation and partner shelters.",
+        "bgColor": "#D6E6D5",
+        "imgPath": "/images/partners/card-3.webp",
+        "widthMob": 681,
+        "heightMob": 681,
+        "widthDesk": 773,
+        "heightDesk": 773,
+        "topMob": 149,
+        "topDesk": -25,
+        "rightMob": -176,
+        "rightDesk": -215
       },
       {
-        "title": "ArtZavod Platforma",
-        "image": {
-          "imagePath": "/images/partners/artzavod.png",
-          "widthMob": 176,
-          "heightMob": 81,
-          "widthDesk": 244,
-          "heightDesk": 112
-        },
-        "text": "A creative space in Ukraine where art, culture, and initiatives support animal welfare.",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "Habiohika",
-        "image": {
-          "imagePath": "/images/partners/habiohika.png",
-          "widthMob": 239,
-          "heightMob": 35,
-          "widthDesk": 392,
-          "heightDesk": 47
-        },
-        "text": "An innovative company developing safety technologies and supporting animal aid initiatives.",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "Brit",
-        "image": {
-          "imagePath": "/images/partners/brit.png",
-          "widthMob": 203,
-          "heightMob": 69,
-          "widthDesk": 470,
-          "heightDesk": 162
-        },
-        "text": "A well-known pet food brand that supports rescue initiatives and responsible pet care.",
-        "buttonText": "Learn more",
-        "buttonLink": ""
-      },
-      {
-        "title": "PRACTIK",
-        "image": {
-          "imagePath": "/images/partners/practik.png",
-          "widthMob": 73,
-          "heightMob": 91,
-          "widthDesk": 175,
-          "heightDesk": 217
-        },
-        "text": "A Ukrainian pet food brand that supports rescue initiatives and the health of your beloved pets.",
-        "buttonText": "Learn more",
-        "buttonLink": ""
+        "title": "Informational support",
+        "text": "Spreading information about the foundation's activities, PR support, information partnership, as well as attracting new partners and donors.",
+        "bgColor": "#DDF8BC",
+        "imgPath": "/images/partners/card-4.webp",
+        "widthMob": 463,
+        "heightMob": 463,
+        "widthDesk": 574,
+        "heightDesk": 574,
+        "topMob": 120,
+        "topDesk": 12,
+        "rightMob": -106,
+        "rightDesk": -126
       }
     ]
   },
-  "PartnersSupport": {
-    "titleMob": "Animal support means a new life!",
-    "titleDesk": "Your support gives animals a chance for a new life. Join us!",
-    "partnersButton": "Become a partner",
-    "documentsButton": "Our founding documents",
-    "firstPart": {
-      "title": "How you can help:",
-      "list": [
-        {
-          "imgPath": "/images/partners/support/1.png",
-          "text": "Financial support – food, medicine, treatments, vaccines, sterilization, kennel construction, etc."
-        },
-        {
-          "imgPath": "/images/partners/support/2.png",
-          "text": "Material assistance – providing food, medical supplies, animal care items, and other necessary resources."
-        },
-        {
-          "imgPath": "/images/partners/support/3.png",
-          "text": "Volunteering – active involvement of employees and volunteers in charity events and animal support activities."
-        },
-        {
-          "imgPath": "/images/partners/support/4.png",
-          "text": "Informational support – spreading awareness about the foundation's work and attracting new partners and donors."
-        }
-      ]
-    },
-    "secondPart": {
-      "title": "How it benefits you:",
-      "list": [
-        {
-          "imgPath": "/images/partners/support/5.png",
-          "text": "Social responsibility – building a positive image for your business and demonstrating civic engagement."
-        },
-        {
-          "imgPath": "/images/partners/support/6.png",
-          "text": "Informational support and PR – partner promotion, free publicity, and public acknowledgements."
-        },
-        {
-          "imgPath": "/images/partners/support/7.png",
-          "text": "Transparency and reporting – regular reports on how funds are used."
-        },
-        {
-          "imgPath": "/images/partners/support/8.png",
-          "text": "Outdoor promotion at events – showcasing your products and direct engagement with the audience."
-        }
-      ]
-    }
+  "PartnershipBenefitsForYou": {
+    "title": "How it benefits you",
+    "items": [
+      {
+        "title": "Social responsibility",
+        "text": "Building a positive business image and active civic stance through support of charitable initiatives"
+      },
+      {
+        "title": "Informational support and PR",
+        "text": "Promotion and increased brand recognition of the partner/sponsor among the target audience on the foundation's website and on social media: publications, stories, tags, joint materials, free informational promotion, public acknowledgements"
+      },
+      {
+        "title": "Transparency and reporting",
+        "text": "Regular reports on the use of funds and resources, confirmation of the real results of cooperation"
+      },
+      {
+        "title": "Outdoor promotion at events",
+        "text": "Placement of partner/sponsor logos, products and printed materials, opportunity to present the brand and direct contact with the target audience during charity events"
+      }
+    ]
   },
-  "ChairtyEvents": {
+  "CharityEvents": {
     "title": "Our Charity Events",
     "missionTitle": "The Mission of Our Events",
-    "missionText": "Using joy and entertainment to help animals in frontline areas",
-    "missionTitleMob": "Thanks to you, we held 4 events that changed animals’ lives!",
-    "missionTitleDesk": "Thanks to your support, we successfully held 4 events, making a positive impact on animals’ lives.",
+    "missionText": "All our charity events are held with the support of the Obolon District State Administration in Kyiv and the Obolon Department of Culture.",
+    "missionTitleMob": "We have held 7 events that are changing the lives of animals from the frontline.",
+    "missionTitleDesk": "We have held 7 events that are changing the lives of animals from the frontline.",
     "paragraphs": [
-      "Friends, let’s imagine — what emotions do charity foundations often evoke in us? Sadness, pain, despair... In these difficult times, we are overwhelmed with sorrow, worry, and stress.",
-      "Analyzing this, we decided to make charity fun.<br />It’s a chance to help animals not just through donations, but through participation in exciting events.",
-      "Unfortunately, during war it’s very hard to stay positive and joyful — we completely understand. That’s why fundraising is difficult. People are tired of donating, often walk past, indifferent, filled with disappointment and sadness."
+      "Our charity events are family events for people and dogs. All activities and zones are designed to make participation interesting for dogs, children and adults.",
+      "Imagine that we are taking you back to a carefree childhood for a few hours. Our charity events are a warm, family atmosphere where you can get away from urgent worries, feel like a child again and, together with your family and four-legged friends, immerse yourself in sincere children's emotions and become a little happier.",
+      "The first charity event of the foundation took place on August 20, 2024. It is thanks to such events that we manage to close current fundraisers, help animals in need and form a strong, responsible and caring community of people."
     ],
     "whatWeHave": {
       "title": "What’s at Our Charity Events?",
       "list": [
         {
-          "title": "Themed Photo Zone",
-          "text": "We create stylish decorations with costumes for dogs and their owners so guests can take bright photos. A professional photographer captures the best moments of your day.",
+          "title": "Themed Photo Zones and Animators",
+          "text": "We create atmospheric photo zones in Halloween, Christmas, Alice in Wonderland and other themes.\nFor guests with dogs we always have themed costumes.\nAnimators from Myata event agency add real holiday spirit to the event, and a professional photographer captures the best moments.",
           "imgPath": "/images/events/list/img-1.webp",
-          "bgPath": "/images/events/list/bg-1.png"
+          "bgPath": "/images/events/list/bg-1.png",
+          "bgColor": "#FFD699"
         },
         {
-          "title": "Win-Win Lottery",
-          "text": "For a donation, participants receive guaranteed gifts from our partners. A great opportunity to support the cause and receive a pleasant surprise!",
+          "title": "No-Lose Lottery",
+          "text": "For a donation each participant is guaranteed to receive gifts for their tails from our partners.",
           "imgPath": "/images/events/list/img-2.webp",
-          "bgPath": "/images/events/list/bg-2.png"
+          "bgPath": "/images/events/list/bg-2.png",
+          "bgColor": "#D6E6D5"
         },
         {
-          "title": "Contests and Games",
-          "text": "Exciting activities for the whole family, where everyone can have fun and enjoy positive emotions. Games and contests for kids, adults, and animals create a joyful and uniting atmosphere.",
+          "title": "Grooming from the V.O.G DOG salon chain",
+          "text": "A team of groomers dyes tails’ fur, applies glitter tattoos, adds rhinestones, braids and extends pigtails, trims claws, brushes coats, and much more.",
           "imgPath": "/images/events/list/img-3.webp",
-          "bgPath": "/images/events/list/bg-3.png"
+          "bgPath": "/images/events/list/bg-3.png",
+          "bgColor": "#DFD8EC"
         },
         {
-          "title": "Paintings with Paw and Hand Prints",
-          "text": "Unique souvenirs that will last a lifetime. These paintings will be a lasting reminder of a special day.",
+          "title": "Paw and Hand Prints",
+          "text": "For a donation guests and dogs leave prints with safe paints on canvases.",
           "imgPath": "/images/events/list/img-4.webp",
-          "bgPath": "/images/events/list/bg-4.png"
+          "bgPath": "/images/events/list/bg-4.png",
+          "bgColor": "#F4E1C1"
         },
         {
-          "title": "Educational Social Mission",
-          "text": "Raising awareness about stray animals and promoting responsible pet ownership.",
+          "title": "Tea Table",
+          "text": "For a voluntary donation guests can enjoy drinks and treats from our partners. We even have vegan sugar-free desserts.",
           "imgPath": "/images/events/list/img-5.webp",
-          "bgPath": "/images/events/list/bg-5.png"
+          "bgPath": "/images/events/list/bg-5.png",
+          "bgColor": "#DDF8BC"
         }
       ]
     },
     "benefits": {
       "title": "Benefits of Our Charity Initiatives",
-      "subtitle": "Together we can do more! Join our events and become part of the big kind family ‘Tail Angels’!",
+      "subtitle": "Together we can do more! Join our events and become part of the big kind family of Angels of Tails!",
       "list": [
         "Genuine emotions and trust – we create a joyful atmosphere where guests get to know the foundation and see our work.",
         "Educational social mission – at our events, we talk about the problem of stray animals, involving experts to spread a culture of responsible care.",
@@ -538,7 +617,7 @@
     },
     "donate": {
       "title": "Become an Angel – Give Hope.",
-      "text": "Your support changes lives! Support the Tail Angels and give a chance for a better future.",
+      "text": "Your support changes lives! Support Angels of Tails and give a chance for a better future.",
       "buttonText": "Support with a Donation"
     },
     "helpAnimal": {
@@ -635,8 +714,8 @@
   },
   "Filters": {
     "allTails": "All tails",
-    "needsSterilization": "Needs sterilization",
-    "needsFamily": "Needs a family",
+    "needsSterilization": "Need to be sterilized",
+    "needsFamily": "Need a family",
     "adopted": "Adopted"
   },
   "Metadata": {
@@ -644,33 +723,38 @@
     "description": "Charitable foundation helping stray animals",
     "keywords": "charity foundation, animal help, stray animals, pet rescue",
     "blog": {
-      "title": "Charity Foundation Angels of Tails | Our blog",
+      "title": "Angels of Tails Charity Foundation | Our blog",
       "description": "Blog of the Angels of Tails charity foundation",
       "keywords": "charity foundation, animal help, stray animals, pet rescue, blog"
     },
     "tails": {
-      "title": "Charity Foundation Angels of Tails | Need help",
-      "description": "Tails in need of help and cared for by the Tails Angels charity foundation",
+      "title": "Angels of Tails Charity Foundation | Need help",
+      "description": "Tails in need of help and cared for by the Angels of Tails charity foundation",
       "keywords": "charity foundation, animal help, stray animals, pet rescue, our tails"
     },
     "reporting": {
-      "title": "Charity Foundation Angels of Tails | Financial reporting",
+      "title": "Angels of Tails Charity Foundation | Financial reporting",
       "description": "Financial statements of the Angels of Tails charity foundation",
       "keywords": "charity foundation, animal help, stray animals, pet rescue, financial reporting"
     },
     "partnership": {
-      "title": "Tail Angels Charity Foundation | Partnership",
-      "description": "Information for partners who wish to support the Tail Angels charity foundation",
+      "title": "Angels of Tails Charity Foundation | Partnership",
+      "description": "Information for partners who wish to support the Angels of Tails charity foundation",
       "keywords": "charity foundation, animal aid, partnership, cooperation"
     },
     "volunteering": {
-      "title": "Tail Angels Charity Foundation | Volunteering",
-      "description": "How to become a volunteer for Tail Angels and help animals",
+      "title": "Angels of Tails Charity Foundation | Volunteering",
+      "description": "How to become a volunteer for Angels of Tails and help animals",
       "keywords": "charity foundation, animal aid, volunteering, volunteers"
     },
+    "publicOffer": {
+      "title": "Angels of Tails Charity Foundation | Public Offer Agreement",
+      "description": "Public Offer Agreement of the Angels of Tails Charity Foundation",
+      "keywords": "charity foundation, Public Offer Agreement"
+    },
     "charityEvents": {
-      "title": "Tail Angels Charity Foundation | Charity Events",
-      "description": "Learn about Tail Angels charity events and how to get involved",
+      "title": "Angels of Tails Charity Foundation | Charity Events",
+      "description": "Learn about Angels of Tails charity events and how to get involved",
       "keywords": "charity foundation, animal aid, charity events, activities"
     }
   },
@@ -680,16 +764,19 @@
     "detailsButton": "More details"
   },
   "Reporting": {
-    "title": "Financial reporting"
+    "title": "Financial reporting",
+    "viewReportButton": "View this report"
   },
   "Tails": {
     "detailsButton": "More details",
     "allTails": "All tails",
-    "adoptButton": "Take into the family",
-    "oneTimeHelpButton": "One-time assistance",
-    "adoptDescription": "To take the tail into the family, please contact its guardian at this number",
-    "name": "Anatoly",
-    "connectButton": "Connect",
-    "sterilize": "Sterilize"
+    "adoptButton": "Adopt",
+    "oneTimeHelpButton": "One-time donation",
+    "becomeGuardianButton": "Become a guardian",
+    "adoptDescription": "To adopt this tail, please contact its guardian at this number",
+    "name": "Anatolii",
+    "connectButton": "Contact",
+    "sterilize": "Sterilize",
+    "supportText": "Thank you, Angel, for helping this tail"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/wayforpay/cleanup",
+      "schedule": "17 3 * * *"
+    },
+    {
+      "path": "/api/wayforpay/reconcile",
+      "schedule": "31 3 * * *"
+    }
+  ]
+}
