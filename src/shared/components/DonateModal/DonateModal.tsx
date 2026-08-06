@@ -8,15 +8,20 @@ import DonateAmountSection from "./DonateAmountSection/DonateAmountSection";
 
 export default function DonateModal({ title, donationTarget, isOpen, onClose }: IDonateModalProps) {
   const t = useTranslations("DonateModal");
+  const isTailOneTime = donationTarget?.purpose === "tail-one-time";
+  const fundraisingTitle =
+    title ||
+    (isTailOneTime ? t("tailOneTimeTitle") : t("fundraisingOneTimeTitle"));
+  const subtitle = isTailOneTime ? t("tailSubtitle") : t("subtitle");
 
   return (
     <PaymentModalShell
       isOpen={isOpen}
       onClose={onClose}
-      fundraisingTitle={title}
+      fundraisingTitle={fundraisingTitle}
       goal={t("goal")}
       currency={t("currency")}
-      subtitle={t("subtitle")}
+      subtitle={subtitle}
       showFundraisingPanel
       progress={donationTarget?.purpose === "collection" && typeof donationTarget.amount === "number" && typeof donationTarget.amountCollected === "number"
         ? { totalAmount: donationTarget.amount, currentAmount: donationTarget.amountCollected }

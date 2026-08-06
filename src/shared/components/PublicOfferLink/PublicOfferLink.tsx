@@ -1,36 +1,36 @@
 import { Link } from "@/i18n/navigation";
 
-const PublicOfferLink = ({text}: {text: string})=> {
-    if(text.includes("договором")) {
-        return (
-            <>
-                Я ознайомився/лась із{" "}
-                <Link
-                    target="_blank"
-                    href="/public-offer"
-                    className="font-medium text-green underline decoration-green/60 decoration-2 underline-offset-4 transition-colors hover:text-dark hover:decoration-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green"
-                >
-                    договором публічної оферти
-                </Link>{" "}
-                щодо надання благодійної пожертви та згоден/згодна на збір, обробку та
-                використання персональних даних, згідно з умовами цього договору.
-            </>
-        )
-    }
+const PublicOfferLink = ({ text }: { text: string }) => {
+  if (text.includes("договором")) {
     return (
-        <>
-            I have read and agree to the{" "}
-            <Link
-                target="_blank"
-                href="/public-offer"
-                className="font-medium text-green underline decoration-green/60 decoration-2 underline-offset-4 transition-colors hover:text-dark hover:decoration-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green"
-            >
-                public offer agreement
-            </Link>{" "}
-            for charitable donations and consent to the collection, processing, and
-            use of personal data according to the terms of this agreement.
-        </>
-    )
-}
+      <>
+        Я ознайомився/лась із{" "}
+        <Link
+          target="_blank"
+          href="/public-offer"
+          className="font-medium text-green underline decoration-green/60 decoration-2 underline-offset-4 transition-colors hover:text-dark hover:decoration-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green"
+        >
+          договором публічної оферти
+        </Link>{" "}
+        щодо надання благодійної пожертви та згоден/згодна на збір, обробку та
+        використання персональних даних, згідно з умовами цього договору.
+      </>
+    );
+  }
+  return (
+    <>
+      I have read and agree to the{" "}
+      <Link
+        target="_blank"
+        href="/public-offer"
+        className="font-medium text-green underline decoration-green/60 decoration-2 underline-offset-4 transition-colors hover:text-dark hover:decoration-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green"
+      >
+        public offer agreement
+      </Link>{" "}
+      for charitable donations and consent to the collection, processing, and
+      use of personal data according to the terms of this agreement.
+    </>
+  );
+};
 
 export default PublicOfferLink;

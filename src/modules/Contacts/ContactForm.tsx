@@ -12,7 +12,7 @@ interface Props {
 }
 
 const ContactForm = ({ lang }: Props) => {
-  const copy = getContactRequestCopy(lang);
+  const copy = getContactRequestCopy(lang, "contact-page");
   const { submittedSuccess, submitError, submit } = useContactRequest("contact-page");
 
   return (

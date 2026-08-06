@@ -16,6 +16,15 @@ type ContactRequestModalProps = {
   onClose: () => void;
 };
 
+const TITLE_KEYS: Record<ContactRequestSource, string> = {
+  "contact-page": "titles.contact-page",
+  partnership: "titles.partnership",
+  volunteering: "titles.volunteering",
+  "event-partnership": "titles.event-partnership",
+  "event-ambassador": "titles.event-ambassador",
+  "event-volunteering": "titles.event-volunteering",
+};
+
 export default function ContactRequestModal({
   modalTitle,
   source,
@@ -23,14 +32,16 @@ export default function ContactRequestModal({
   onClose,
 }: ContactRequestModalProps) {
   const locale = useLocale() as Locale;
-  const copy = getContactRequestCopy(locale);
+  const copy = getContactRequestCopy(locale, source);
   const t = useTranslations("ContactModal");
   const { submittedSuccess, submitError, submit } = useContactRequest(source);
+
+  const resolvedTitle = modalTitle || t(TITLE_KEYS[source] as "titles.default");
 
   return (
     <Modal modalClassName="xl:max-w-[535px]" isOpen={isOpen} onClose={onClose}>
       <h2 className="mt-10 mb-5 text-center font-arial text-[20px] font-black leading-[130%] text-[#1D1D1D] lg:text-[24px]">
-        {modalTitle || t("title")}
+        {resolvedTitle}
       </h2>
 
       {submittedSuccess ? (
