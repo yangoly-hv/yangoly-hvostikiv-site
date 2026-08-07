@@ -4,17 +4,20 @@ import { Link } from "@/i18n/navigation";
 import { INavigationItem } from "@/shared/types";
 import { useTranslations } from "next-intl";
 import DonateAction from "../DonateAction/DonateAction";
+import SocialsList from "../SocialsList/SocialsList";
 import { CloseIcon } from "../../../../public/images/icons";
 import { AnimatePresence, motion, type Variants } from "motion/react";
+import type { SocialLink } from "@/shared/lib/socialLinks";
 
 interface IBurgerMenuopProps {
   isOpen: boolean;
   onClose: () => void;
+  socials?: SocialLink[];
 }
 
 export const menuVariants: Variants = {
   hidden: {
-    x: 300, // ширина меню
+    x: 300,
     opacity: 0,
   },
   visible: {
@@ -35,7 +38,7 @@ export const menuVariants: Variants = {
   },
 };
 
-const BurgerMenu = ({ isOpen, onClose }: IBurgerMenuopProps) => {
+const BurgerMenu = ({ isOpen, onClose, socials = [] }: IBurgerMenuopProps) => {
   const t = useTranslations("Header");
   const navigation = t.raw("navigation") as INavigationItem[];
 
@@ -75,7 +78,7 @@ const BurgerMenu = ({ isOpen, onClose }: IBurgerMenuopProps) => {
                     <li key={index} className="py-5 border-b border-[#E1E1E1]">
                       <Link
                         href={item.href}
-                        className="cursor-pointer text-gray leading-[120%] hover:text-green-600 transition-colors duration-200 text-[24px]"
+                        className="cursor-pointer text-gray leading-[120%] hover:text-green-600 transition-colors duration-200 text-[22px]"
                         onClick={onClose}
                       >
                         {item.name}
@@ -84,7 +87,8 @@ const BurgerMenu = ({ isOpen, onClose }: IBurgerMenuopProps) => {
                   ))}
                 </ul>
               </nav>
-              <div className="mt-auto p-6">
+              <div className="mt-auto p-6 flex flex-col gap-6">
+                <SocialsList links={socials} iconClass="text-dark" />
                 <DonateAction
                   className="bg-inherit text-dark border-dark hover:text-white hover:bg-dark"
                   variant="outline"

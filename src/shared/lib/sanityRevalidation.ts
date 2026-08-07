@@ -82,6 +82,10 @@ export const getRevalidationTargets = (
       target.tags.push(sanityTags.events);
       target.paths.push(...localizedPaths("/charity-events"));
       break;
+    case "siteSettings":
+      target.tags.push(sanityTags.siteSettings);
+      target.paths.push(...localizedPaths());
+      break;
   }
 
   return {

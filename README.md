@@ -64,7 +64,7 @@ Endpoint: `POST /api/revalidate`.
 }
 ```
 
-Filter: `_type in ["post", "tail", "reports", "donator", "collection", "perfomance", "aboutFoundation", "events"]`. Drafts и versions в настройках webhook должны быть выключены.
+Filter: `_type in ["post", "tail", "reports", "donator", "collection", "perfomance", "aboutFoundation", "events", "siteSettings"]`. Drafts и versions в настройках webhook должны быть выключены.
 
 В Sanity webhook включаются Create, Update и Delete опубликованных документов. Endpoint дополнительно игнорирует `_id`, начинающиеся с `drafts.` или `versions.`, проверяет допустимый тип и инвалидирует только его tags и localized paths.
 
@@ -104,6 +104,8 @@ Preview включается защищённым URL `/api/draft/enable?secret=
 `PAYMENTS_ENCRYPTION_KEY` — base64-encoded 32-byte ключ для AES-256-GCM. В него шифруются raw callback, `recToken` и `repayUrl`; email и телефон сохраняются только когда заказ содержит согласие на уведомления. Не передавать эти переменные в браузер и не добавлять в публичный dataset.
 
 В Studio доступны workspace `/content` для контента и `/payments` для read-only платежных документов. Доступ к `payments` должен быть выдан только сотрудникам, которым разрешена работа с платежными данными.
+
+Соцсети сайта хранятся в singleton-документе `siteSettings` (Instagram, Facebook, Twitter/X, Telegram, YouTube). Пустые поля и URL с чужим доменом на сайте не показываются. Первичное заполнение: Studio → «Налаштування сайту» или `node --env-file=.env.local scripts/seed-site-settings.mjs` (нужен `SANITY_API_TOKEN`).
 
 ## Статические маршруты и локализация
 

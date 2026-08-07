@@ -7,6 +7,7 @@ export const sanityTags = {
   performance: "performance",
   partnersList: "partners:list",
   reportsList: "reports:list",
+  siteSettings: "siteSettings",
   sitemap: "sitemap",
   tailsList: "tails:list",
   blogPost: (slug: string) => `blog:${slug}`,
@@ -24,6 +25,7 @@ export const supportedSanityDocumentTypes = [
   "partner",
   "aboutFoundation",
   "events",
+  "siteSettings",
 ] as const;
 
 export type SupportedSanityDocumentType =

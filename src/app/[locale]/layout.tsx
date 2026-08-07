@@ -13,6 +13,7 @@ import { getPageMetadata } from "@/shared/lib/metadata";
 import { getOrganizationSchema } from "@/shared/lib/structuredData";
 import JsonLd from "@/shared/components/JsonLd";
 import MotionProvider from "@/shared/ui/MotionProvider";
+import { getSocialLinks } from "@/features/site/server/data";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -42,6 +43,7 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const socials = await getSocialLinks();
   const clientMessages = {
     Header: messages.Header,
     Filters: messages.Filters,
@@ -57,19 +59,24 @@ export default async function LocaleLayout({
   return (
     <html lang={locale}>
       <body>
-        <JsonLd data={getOrganizationSchema(locale)} />
+        <JsonLd
+          data={getOrganizationSchema(
+            locale,
+            socials.map((link) => link.href)
+          )}
+        />
         <NextIntlClientProvider messages={clientMessages}>
           <MotionProvider>
             <ModalProvider>
               <div className="flex flex-col min-h-screen">
-                <Header />
+                <Header socials={socials} />
                 <PaymentReturnClient />
                 <main
                   className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway`}
                 >
                   {children}
                 </main>
-                <Footer />
+                <Footer socials={socials} />
               </div>
             </ModalProvider>
             <div id="modal-root" />

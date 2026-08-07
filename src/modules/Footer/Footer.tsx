@@ -10,11 +10,18 @@ import {
 } from "@/shared/components/Animations/animationVariants";
 import { EmailIcon, PhoneIcon } from "../../../public/images/icons";
 import { LocationIcon } from "../../../public/images/icons/LocationIcon";
+import { getSocialLinks } from "@/features/site/server/data";
+import type { SocialLink } from "@/shared/lib/socialLinks";
 
-const Footer = async () => {
+type FooterProps = {
+  socials?: SocialLink[];
+};
+
+const Footer = async ({ socials }: FooterProps) => {
   const t = await getTranslations("Footer");
   const navigation = (await t.raw("navigation")) as INavigationItem[];
   const contacts = (await t.raw("contacts")) as IContacts;
+  const socialLinks = socials ?? (await getSocialLinks());
   return (
     <footer className="bg-orange-bg py-10 px-4 flex flex-col items-center gap-6 xl:gap-8 xl:items-center">
       <motion.div
@@ -64,7 +71,7 @@ const Footer = async () => {
           },
         }}
       >
-        <SocialsList iconClass="text-dark" />
+        <SocialsList links={socialLinks} iconClass="text-dark" />
       </motion.div>
       <motion.div
         initial="hidden"

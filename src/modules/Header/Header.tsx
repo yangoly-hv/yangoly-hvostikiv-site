@@ -7,8 +7,13 @@ import Logo from "@/shared/components/Logo/Logo";
 import { useTranslations } from "next-intl";
 import BurgerMenu from "@/shared/components/BurgerMenu/BurgerMenu";
 import DonateAction from "@/shared/components/DonateAction/DonateAction";
+import type { SocialLink } from "@/shared/lib/socialLinks";
 
-const Header = () => {
+type HeaderProps = {
+  socials?: SocialLink[];
+};
+
+const Header = ({ socials = [] }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const t = useTranslations("Header");
 
@@ -28,12 +33,21 @@ const Header = () => {
             color="text-dark bg-orange"
             buttonText={t("donateButton")}
           />
-          <button className={"ml-auto"} onClick={() => setIsMenuOpen(true)}>
+          <button
+            type="button"
+            className="ml-auto"
+            aria-label="Відкрити меню"
+            onClick={() => setIsMenuOpen(true)}
+          >
             <BurgerButtonIcon />
           </button>
         </div>
       </div>
-      <BurgerMenu onClose={() => setIsMenuOpen(false)} isOpen={isMenuOpen} />
+      <BurgerMenu
+        onClose={() => setIsMenuOpen(false)}
+        isOpen={isMenuOpen}
+        socials={socials}
+      />
     </header>
   );
 };

@@ -21,7 +21,10 @@ function getOrganizationReference(locale: AppLocale) {
   };
 }
 
-export function getOrganizationSchema(locale: AppLocale) {
+export function getOrganizationSchema(
+  locale: AppLocale,
+  sameAs: string[] = []
+) {
   return {
     "@context": "https://schema.org",
     "@type": "NGO",
@@ -46,10 +49,7 @@ export function getOrganizationSchema(locale: AppLocale) {
       contactType: "customer support",
       availableLanguage: ["uk", "en"],
     },
-    sameAs: [
-      "https://www.instagram.com/yangoli_hvostikiv/",
-      "https://www.facebook.com/YangoliHvostikiv",
-    ],
+    ...(sameAs.length > 0 ? { sameAs } : {}),
   };
 }
 

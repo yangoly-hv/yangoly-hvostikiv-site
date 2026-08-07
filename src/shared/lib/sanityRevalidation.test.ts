@@ -38,6 +38,7 @@ describe("getRevalidationTargets", () => {
     ["partner", "partners:list", "/uk/partnership"],
     ["aboutFoundation", "about", "/uk"],
     ["events", "events", "/uk/charity-events"],
+    ["siteSettings", "siteSettings", "/uk"],
   ] as const)("maps %s to its domain tag and path", (type, tag, path) => {
     const result = getRevalidationTargets({
       _id: `${type}-1`,
