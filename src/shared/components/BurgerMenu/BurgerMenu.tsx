@@ -62,7 +62,7 @@ const BurgerMenu = ({ isOpen, onClose, socials = [] }: IBurgerMenuopProps) => {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex flex-col h-full">
-              <div className="flex justify-end pt-8 pr-8">
+              <div className="flex justify-end pt-5 pr-5 sm:pt-6 sm:pr-6 lg:pr-8">
                 <button
                   type="button"
                   aria-label="Закрити меню"
@@ -72,13 +72,13 @@ const BurgerMenu = ({ isOpen, onClose, socials = [] }: IBurgerMenuopProps) => {
                   <CloseIcon />
                 </button>
               </div>
-              <nav className="px-[70px]">
+              <nav className="px-8 sm:px-12 lg:px-14">
                 <ul className="flex flex-col">
                   {navigation.map((item, index) => (
-                    <li key={index} className="py-5 border-b border-[#E1E1E1]">
+                    <li key={index} className="py-3 sm:py-3.5 lg:py-4 border-b border-[#E1E1E1]">
                       <Link
                         href={item.href}
-                        className="cursor-pointer text-gray leading-[120%] hover:text-green-600 transition-colors duration-200 text-[22px]"
+                        className="cursor-pointer text-gray leading-[120%] hover:text-green-600 transition-colors duration-200 text-[18px] sm:text-[20px]"
                         onClick={onClose}
                       >
                         {item.name}
@@ -87,7 +87,7 @@ const BurgerMenu = ({ isOpen, onClose, socials = [] }: IBurgerMenuopProps) => {
                   ))}
                 </ul>
               </nav>
-              <div className="mt-auto p-6 flex flex-col gap-6">
+              <div className="mt-auto p-4 sm:p-5 lg:p-6 flex flex-col gap-4 sm:gap-5">
                 <SocialsList links={socials} iconClass="text-dark" />
                 <DonateAction
                   className="bg-inherit text-dark border-dark hover:text-white hover:bg-dark"
