@@ -314,7 +314,10 @@
   "MonthlyGoalSection": {
     "generalGoal": "Загальна мета: {{goal}} грн для матеріалів та будівництва.",
     "result": "Зібрано: {{current}} грн з {{goal}} грн",
+    "resultCombined": "Зібрано разом: {{current}} грн з {{goal}} грн",
     "supportFundrasing": "Підтримати збір",
+    "monoSupport": "Mono · {{current}} / {{goal}} грн",
+    "monoSupportNoGoal": "Mono · {{current}} грн",
     "support": "Підтримати"
   },
   "Partners": {

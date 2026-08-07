@@ -22,6 +22,7 @@ export const mainCollectionQuery = `
     description,
     amount,
     amountCollected,
+    monobankJarUrl,
     image{asset, crop, hotspot, "url": asset->url}
   }
 `;
