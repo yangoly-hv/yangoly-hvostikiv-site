@@ -17,7 +17,7 @@ type PartnerQueryResult = {
 };
 
 const partnersQuery = `
-  *[_type == "partner"] | order(_createdAt asc){
+  *[_type == "partner"] | order(sortOrder asc, _createdAt asc){
     _id,
     "logoUrl": logo.asset->url,
     websiteUrl

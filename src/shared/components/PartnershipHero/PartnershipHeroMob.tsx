@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
 import Image from "next/image";
 import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 
 const PartnershipHeroMob = async () => {
   const t = await getTranslations("Partnership");
@@ -81,13 +82,13 @@ const PartnershipHeroMob = async () => {
         </motion.p>
       </div>
       <div className="relative aspsect-[573/140px] min-h-[140px] mt-[37px] ">
-        <Image
+        <SafeImage
           src="/images/partners/ellipse.png"
           className="aspsect-[573/140px] min-h-[140px]"
           alt="Ellipse"
           fill
         />
-        <Image
+        <SafeImage
           className="absolute bottom-[-58px] w-[277px] h-[304px] aspect-277/304 left-1/2 -translate-x-1/2"
           src="/images/partners/hero-mob.webp"
           alt="Dogs"

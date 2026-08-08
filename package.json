@@ -15,7 +15,7 @@
     "audit:images": "node scripts/audit-images.mjs",
     "audit:dependencies": "yarn audit --groups dependencies --level moderate",
     "revalidate:all": "node scripts/revalidate-all.mjs",
-    "migrate:partners": "node --env-file=.env scripts/migrate-partners.mjs"
+    "migrate:partners": "node scripts/migrate-partners.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.5.7",

@@ -2,6 +2,7 @@ import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
 import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
 import Image from "next/image";
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 import { HeartIcon } from "../Icons/HeartIcon";
 import {
   containerVariants,
@@ -83,14 +84,14 @@ const PartnershipHeroDesk = async () => {
           variants={listItemVariantSecond}
           className="relative z-2 "
         >
-          <Image
+          <SafeImage
             src="/images/partners/ellipse-desk.png"
             alt="Ellipse"
             width={1535}
             height={1128}
             className="block h-full max-h-[608px] rounded-r-[8px]"
           />
-          <Image
+          <SafeImage
             src="/images/partners/hero-desk.webp"
             alt="Dogs"
             width={749}

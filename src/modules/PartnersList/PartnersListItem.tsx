@@ -1,8 +1,8 @@
 import * as motion from "motion/react-client";
 import clsx from "clsx";
-import Image from "next/image";
 import { getSafeHref, isExternalWebHref } from "@/shared/lib/safeHref";
 import { listItemVariants } from "@/shared/components/Animations/animationVariants";
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 import { cn } from "@/shared/utils";
 import type { Partner } from "./data";
 
@@ -26,7 +26,7 @@ const PartnersListItem = ({ partner, buttonText }: PartnersListItemProps) => {
       )}
     >
       <div className="relative h-[148px] lg:h-[188px] border-b border-solid border-orange">
-        <Image
+        <SafeImage
           src={partner.logoUrl}
           alt=""
           fill
