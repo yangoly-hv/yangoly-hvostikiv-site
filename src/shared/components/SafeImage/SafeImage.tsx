@@ -11,7 +11,7 @@ const isSvgSrc = (src: ImageProps["src"]) => {
 
 type SafeImageProps = Omit<ImageProps, "onError">;
 
-const SafeImage = ({ src, unoptimized, ...props }: SafeImageProps) => {
+const SafeImage = ({ src, alt, unoptimized, ...props }: SafeImageProps) => {
   const [forceUnoptimized, setForceUnoptimized] = useState(isSvgSrc(src));
   const [failed, setFailed] = useState(false);
 
@@ -26,6 +26,7 @@ const SafeImage = ({ src, unoptimized, ...props }: SafeImageProps) => {
       {...props}
       key={resolvedUnoptimized ? "direct" : "optimized"}
       src={src}
+      alt={alt}
       unoptimized={resolvedUnoptimized}
       onError={() => {
         if (!resolvedUnoptimized) {
