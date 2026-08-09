@@ -1,10 +1,10 @@
 import { EmailIcon, PhoneIcon } from "../../../public/images/icons";
-import Image from "next/image";
 import * as motion from "motion/react-client";
 import ContactForm from "./ContactForm";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Locale } from "@/shared/types";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const Contacts = async () => {
   const lang = (await getLocale()) as Locale;
   const t = await getTranslations("Contacts");
@@ -97,7 +97,7 @@ const Contacts = async () => {
         </div>
       </div>
       <div className="hidden xl:block absolute bottom-0 right-[35%] z-10 w-[678px] aspect-678/571">
-        <Image
+        <SafeImage
             src="/images/contacts-union.png"
             alt="Two dogs"
             width={274}
@@ -105,7 +105,7 @@ const Contacts = async () => {
             priority
             className="w-[274px] h-auto absolute bottom-0 left-[60px] -z-10"
         />
-        <Image
+        <SafeImage
           src="/images/contacts-dog.png"
           alt="Two dogs"
           width={682}

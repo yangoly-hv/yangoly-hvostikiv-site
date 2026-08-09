@@ -1,4 +1,3 @@
-import Image from "next/image";
 import * as motion from "motion/react-client";
 
 import {
@@ -8,6 +7,7 @@ import {
 import type { IHelpAnimalsListItem } from "@/shared/types";
 import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const eventContactSources = [
   "event-partnership",
   "event-ambassador",
@@ -39,7 +39,7 @@ const HelpAnimalsList = ({ list }: { list: IHelpAnimalsListItem[] }) => (
       >
         <div>
           <div className="flex justify-center gap-4">
-            <Image
+            <SafeImage
               src={item.titleIcon}
               alt={item.title}
               width={44}
@@ -59,7 +59,7 @@ const HelpAnimalsList = ({ list }: { list: IHelpAnimalsListItem[] }) => (
                 className="flex items-center gap-2 lg:gap-3"
                 key={paragraphIndex}
               >
-                <Image
+                <SafeImage
                   src={paragraph.icon}
                   alt={paragraph.text}
                   width={44}

@@ -1,6 +1,5 @@
 import * as motion from "motion/react-client";
-import Image from "next/image";
-
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 interface BenefitItemProps {
   text: string;
   index: number;
@@ -25,7 +24,7 @@ const BenefitItem = ({ text, index }: BenefitItemProps) => (
     }}
     className="flex gap-4"
   >
-    <Image
+    <SafeImage
       src="/images/paw.marker-mob.png"
       alt="Paw"
       width={32}

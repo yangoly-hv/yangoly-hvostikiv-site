@@ -1,7 +1,7 @@
-import Image from "next/image";
 import type { BlogContentBlock } from "../model/types";
 import BlogContentSection from "./BlogContentSection";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 type BlogSingleImageBlockType = Extract<
   BlogContentBlock,
   { _type: "blogSingleImageBlock" }
@@ -17,7 +17,7 @@ export default function BlogSingleImageBlock({ block }: Props) {
 
   return (
     <BlogContentSection className="relative mx-auto h-full min-h-[568px] w-full max-h-[568px] overflow-hidden rounded-[8px]">
-      <Image
+      <SafeImage
         src={image}
         alt={imageAlt ?? ""}
         fill

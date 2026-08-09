@@ -1,9 +1,9 @@
 import {PortableText} from '@portabletext/react'
-import Image from 'next/image'
 import type { KeyboardEvent } from 'react'
 
 import {portableTextComponents} from './portableTextComponents'
 import type { ReportTab } from './types'
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 
 type HelpTabCardProps = Pick<ReportTab, "title" | "description" | "cta" | "iconSrc"> & {
     isActive: boolean;
@@ -38,7 +38,7 @@ function HelpTabCard({title,
                 {/* ICON */}
 
                 <div className="w-8 h-8 lg:w-[97px] lg:h-[97px] flex items-center justify-center shrink-0">
-                    <Image src={iconSrc} alt={title} width={97} height={97} className="w-full h-full object-contain"/>
+                    <SafeImage src={iconSrc} alt={title} width={97} height={97} className="w-full h-full object-contain"/>
                 </div>
 
                 {/* TEXT */}

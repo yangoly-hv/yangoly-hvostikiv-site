@@ -1,11 +1,11 @@
 import * as motion from "motion/react-client";
-import Image from "next/image";
 import DonateAction from "../DonateAction/DonateAction";
 import {
   containerVariants,
   listItemVariants,
 } from "../Animations/animationVariants";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 interface IEventsDonateSection {
   title: string;
   text: string;
@@ -52,14 +52,14 @@ const EventsDonateSection = async ({
             />
           </motion.div>
         </motion.div>
-        <Image
+        <SafeImage
           src="/images/events/donate-dog-1.webp"
           alt="Dog"
           width={604}
           height={403}
           className="absolute bottom-0 hidden lg:block  lg:left-[-50px] xl:left-[-30px]"
         />
-        <Image
+        <SafeImage
           src="/images/events/donate-dog-2.webp"
           alt="Dog"
           width={373}

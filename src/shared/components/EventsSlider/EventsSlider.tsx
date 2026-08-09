@@ -4,10 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import Image from "next/image";
 import { useSwiperNavigation } from "@/shared/hooks/useSwiperNavigation";
 import SliderNavigationControls from "@/shared/components/SliderNavigationControls/SliderNavigationControls";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const EventsSlider = ({ images }: { images: string[] }) => {
   const { isPrevDisabled, isNextDisabled, onSwiper, onSlideChange, previous, next } =
     useSwiperNavigation();
@@ -35,7 +35,7 @@ const EventsSlider = ({ images }: { images: string[] }) => {
               borderRadius: "8px",
             }}
           >
-            <Image
+            <SafeImage
               src={image}
               alt={`Partner ${index + 1}`}
               className=" rounded-[8px] object-cover w-[328px] h-[377px] md:w-[428px] md:h-[500px]"

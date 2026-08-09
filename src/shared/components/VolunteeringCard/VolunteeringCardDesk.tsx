@@ -1,9 +1,9 @@
 import { IVolunteeringCardProps } from "@/shared/types";
 import clsx from "clsx";
-import Image from "next/image";
 import VolunteeringCardContent from "./VolunteeringCardContent";
 import VolunteeringCardFrame from "./VolunteeringCardFrame";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const VolunteeringCardDesk = ({
   index,
   item,
@@ -33,7 +33,7 @@ const VolunteeringCardDesk = ({
               "right-[-15px] bottom-[-15px] w-[285px] laptop:w-[307px] h-[246px] "
           )}
         >
-          <Image
+          <SafeImage
             src={item.imagePathDesk}
             alt="Volunteering Image"
             fill

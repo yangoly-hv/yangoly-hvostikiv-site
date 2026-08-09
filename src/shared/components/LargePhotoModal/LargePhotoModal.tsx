@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { CloseIcon } from "../../../../public/images/icons";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const LargePhotoModal = ({
   photoSrc,
   onClose,
@@ -14,7 +14,7 @@ const LargePhotoModal = ({
       onClick={onClose}
     >
       <div className="relative h-[90vh] max-h-[600px] w-[90vw] max-w-[800px] cursor-default overflow-hidden rounded-lg">
-        <Image
+        <SafeImage
           src={photoSrc}
           alt="Full-size Image"
           fill={true}

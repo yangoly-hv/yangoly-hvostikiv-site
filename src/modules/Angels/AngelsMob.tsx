@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AngelsList from "./AngelsList";
@@ -6,6 +5,7 @@ import Donate from "../../shared/components/Donate/Donate";
 import { getTranslations } from "next-intl/server";
 import type { Donor } from "@/features/home/model/types";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 export default async function AngelsMob({
   title,
   donors,
@@ -23,7 +23,7 @@ export default async function AngelsMob({
           animation={fadeInAnimation({ scale: 0.9, delay: 0.4 })}
           className="absolute bottom-0 left-[calc(50%-180px)] w-[211px] aspect-905/934"
         >
-          <Image
+          <SafeImage
             src="/images/home/angels/dog.webp"
             alt="dog"
             width={905}
@@ -32,7 +32,7 @@ export default async function AngelsMob({
           />
         </AnimatedWrapper>
         <div className="absolute -z-10 top-[-127px] left-[calc(50%-308px)] w-[1166px] h-[1103px]">
-          <Image
+          <SafeImage
             src="/images/home/angels/ellipseMob.svg"
             alt="background"
             width="1166"

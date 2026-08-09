@@ -1,11 +1,11 @@
 import * as motion from "motion/react-client";
-import Image from "next/image";
 import { PawIcon } from "@/shared/components/Icons/PawIcon";
 import {
   listItemVariants,
 } from "../Animations/animationVariants";
 import VolunteerBenefitsIntro from "./VolunteerBenefitsIntro";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const WhatVolunteerGetMobile = ({
   title,
   subtitle,
@@ -19,7 +19,7 @@ const WhatVolunteerGetMobile = ({
     <div className="relative lg:hidden">
       <section className="relative container pb-[89px] mx-auto px-4 xl:px-[40px]">
         <div className="absolute z-10 bottom-0 left-1/2 -translate-x-1/2 w-[540px] h-[267px]">
-          <Image
+          <SafeImage
             src="/images/volounteering/animals.webp"
             alt="Dogs"
             fill

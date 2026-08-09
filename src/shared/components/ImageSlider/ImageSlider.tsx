@@ -1,10 +1,10 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { CircleArrowIcon, CloseIcon } from "../../../../public/images/icons";
 import { cn } from "@/shared/utils";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const modalImageVariants = {
   enter: (direction: number) => ({
     opacity: 0,
@@ -91,7 +91,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
                 )}
                 onClick={() => handleThumbClick(globalIndex)}
               >
-                <Image
+                <SafeImage
                   src={image}
                   alt={`Thumbnail ${globalIndex + 1}`}
                   fill={true}
@@ -110,7 +110,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <Image
+        <SafeImage
           className="object-cover hover:scale-[1.05] transition duration-1000 ease-in-out cursor-pointer"
           src={selectedImage}
           alt={`Selected Image ${selectedIndex}`}

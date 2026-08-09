@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import * as motion from "motion/react-client";
-import Image from "next/image";
 import LargePhotoModal from "@/shared/components/LargePhotoModal/LargePhotoModal";
 import type { BlogContentBlock } from "../model/types";
 import { useSwiperNavigation } from "@/shared/hooks/useSwiperNavigation";
@@ -11,6 +10,7 @@ import SliderNavigationControls from "@/shared/components/SliderNavigationContro
 
 import "swiper/css";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 type BlogGalleryBlockType = Extract<
   BlogContentBlock,
   { _type: "blogGalleryBlock" }
@@ -63,7 +63,7 @@ export default function BlogGalleryBlock({ block }: Props) {
                 className="relative aspect-328/377 w-full cursor-pointer"
                 onClick={() => setOpenPhoto(img.url)}
               >
-                <Image
+                <SafeImage
                   src={img.url}
                   alt={img.alt ?? `Photo ${index + 1}`}
                   fill

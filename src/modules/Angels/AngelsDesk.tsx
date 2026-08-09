@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import AngelsList from "./AngelsList";
@@ -7,6 +6,7 @@ import { getTranslations } from "next-intl/server";
 import clsx from "clsx";
 import type { Donor } from "@/features/home/model/types";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 export default async function AngelsDesk({
   title,
   withCircle,
@@ -27,7 +27,7 @@ export default async function AngelsDesk({
           className="absolute -z-10 md:top-[144px] lg:top-[54px] md:left-0 lg:left-[-8px] xl:top-0 xl:left-0 md:w-[292px]
         lg:w-[372px] xl:w-[453px] aspect-905/934"
         >
-          <Image
+          <SafeImage
             src="/images/home/angels/dog.webp"
             alt="dog"
             width={905}
@@ -35,7 +35,7 @@ export default async function AngelsDesk({
             className="w-full h-full object-cover"
           />
         </AnimatedWrapper>
-        <Image
+        <SafeImage
           src="/images/home/angels/ellipseDesk.svg"
           alt="background"
           width="1097"
@@ -55,7 +55,7 @@ export default async function AngelsDesk({
             className="absolute -z-20 md:top-[-46px] xl:top-[-56px] md:right-0 xl:right-[-60px] laptop:right-[-21px] w-[259px]
           xl:w-[359px] aspect-359/250"
           >
-            <Image
+            <SafeImage
               src="/images/home/angels/textEllipse.svg"
               alt="background"
               width="359"

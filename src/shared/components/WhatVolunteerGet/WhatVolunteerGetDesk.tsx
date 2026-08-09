@@ -1,10 +1,10 @@
 import * as motion from "motion/react-client";
 import clsx from "clsx";
-import Image from "next/image";
 import {
   listItemVariants,
 } from "../Animations/animationVariants";
 import VolunteerBenefitsIntro from "./VolunteerBenefitsIntro";
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const WhatVolunteerGetDesk = ({
   title,
   subtitle,
@@ -17,7 +17,7 @@ const WhatVolunteerGetDesk = ({
   return (
     <section className="relative pb-[120px] px-4 xl:px-[40px] mx-auto hidden lg:block">
       <div className="absolute z-10 bottom-[30px] xl:bottom-[-60px] right-[-67px] w-[540px] h-[314px] xl:w-[900px] xl:h-[617px]">
-        <Image
+        <SafeImage
           src="/images/volounteering/animals.webp"
           alt="Dogs"
           fill
@@ -34,21 +34,21 @@ const WhatVolunteerGetDesk = ({
         variants={listItemVariants}
         className="relative rounded-[8px] overflow-hidden w-full bg-[#F4E1C1] mt-[45px] pl-[32px] pt-[68px] pb-[64px]"
       >
-        <Image
+        <SafeImage
           src="/images/volounteering/paw-1.png"
           alt="Paws"
           width={131}
           height={131}
           className="absolute left-0 top-0"
         />
-        <Image
+        <SafeImage
           src="/images/volounteering/paw-2.png"
           alt="Paws"
           width={131}
           height={131}
           className="absolute right-0 top-0"
         />
-        <Image
+        <SafeImage
           src="/images/volounteering/paw-3.png"
           alt="Paws"
           width={131}

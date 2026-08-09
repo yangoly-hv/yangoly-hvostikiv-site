@@ -1,5 +1,4 @@
 import type { ComponentProps } from "react";
-import Image from "next/image";
 import * as motion from "motion/react-client";
 
 import { Link } from "@/i18n/navigation";
@@ -8,6 +7,7 @@ import type { ITails } from "@/shared/types";
 import { fadeInAt, slideUpAt } from "@/shared/utils";
 import type { TailViewModel } from "../model/types";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 interface TailCardProps extends ComponentProps<"div"> {
   tail: TailViewModel;
   translation: ITails;
@@ -30,7 +30,7 @@ const TailCard = ({ tail, translation }: TailCardProps) => {
           <motion.div variants={slideUpAt()} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <Link href={`/tails/${slug}`}>
               <div className="relative w-full mb-[26px] aspect-6/5 rounded-[16px] overflow-hidden">
-                <Image src={cardImageSrc} alt={name} fill className="object-cover object-center rounded-[16px]" sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw" />
+                <SafeImage src={cardImageSrc} alt={name} fill className="object-cover object-center rounded-[16px]" sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 25vw" />
               </div>
             </Link>
           </motion.div>

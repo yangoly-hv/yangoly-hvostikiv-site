@@ -1,14 +1,14 @@
 import * as motion from "motion/react-client";
 import DonationForm from "@/modules/Hero/Donation/DonationForm";
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const Hero = async () => {
   const t = await getTranslations("Hero");
   return (
     <section className="relative md:pt-[300px] xl:py-[141px] overflow-hidden">
       <div className="absolute inset-0 w-full h-full xl:left-0 xl:w-[115%]">
-        <Image
+        <SafeImage
           src="/images/hero-bg-desk.webp"
           alt=""
           fill

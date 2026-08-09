@@ -9,7 +9,7 @@ const isSvgSrc = (src: ImageProps["src"]) => {
   return path.endsWith(".svg");
 };
 
-type SafeImageProps = Omit<ImageProps, "onError">;
+type SafeImageProps = Omit<ImageProps, "onError" | "onLoad">;
 
 const SafeImage = ({ src, alt, unoptimized, ...props }: SafeImageProps) => {
   const [forceUnoptimized, setForceUnoptimized] = useState(isSvgSrc(src));
@@ -21,6 +21,14 @@ const SafeImage = ({ src, alt, unoptimized, ...props }: SafeImageProps) => {
 
   const resolvedUnoptimized = Boolean(unoptimized || forceUnoptimized);
 
+  const fallbackToDirect = () => {
+    if (!resolvedUnoptimized) {
+      setForceUnoptimized(true);
+      return;
+    }
+    setFailed(true);
+  };
+
   return (
     <Image
       {...props}
@@ -28,12 +36,12 @@ const SafeImage = ({ src, alt, unoptimized, ...props }: SafeImageProps) => {
       src={src}
       alt={alt}
       unoptimized={resolvedUnoptimized}
-      onError={() => {
-        if (!resolvedUnoptimized) {
-          setForceUnoptimized(true);
-          return;
+      onError={fallbackToDirect}
+      onLoad={(event) => {
+        // Optimizer can return a non-image body that still "loads" with 0×0.
+        if (event.currentTarget.naturalWidth === 0) {
+          fallbackToDirect();
         }
-        setFailed(true);
       }}
     />
   );

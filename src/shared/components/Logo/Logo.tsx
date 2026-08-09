@@ -1,12 +1,12 @@
 import { ILogoProps } from "@/shared/types";
 import clsx from "clsx";
-import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 
 const Logo = ({ variant = "black", className = "", ...props }: ILogoProps) => {
     return (
         <Link {...props} className={`${className} relative block overflow-hidden`}>
-            <Image
+            <SafeImage
                 src="/images/logo.webp"
                 alt="Янголи Хвостиків"
                 priority

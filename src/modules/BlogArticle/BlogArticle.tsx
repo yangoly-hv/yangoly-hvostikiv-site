@@ -5,6 +5,8 @@ import { slideUpAt } from "@/shared/utils";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 import BlogArticleHero from "./BlogArticleHero";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
+
 export default function BlogArticle({
   article,
   translation,
@@ -38,7 +40,7 @@ export default function BlogArticle({
         viewport={{ once: true }}
         className="relative w-full max-w-[585px] lg:max-w-full aspect-328/189 lg:aspect-1429/455 mx-auto lg:mx-0"
       >
-        <Image
+        <SafeImage
           src={secondaryImage}
           alt={title}
           fill
@@ -49,4 +51,3 @@ export default function BlogArticle({
     </section>
   );
 }
-import Image from "next/image";

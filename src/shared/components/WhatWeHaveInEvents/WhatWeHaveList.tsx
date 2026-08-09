@@ -1,7 +1,6 @@
 import { IWhatWeHaveItem } from "@/shared/types";
 import * as motion from "motion/react-client";
-import Image from "next/image";
-
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
   return (
     <div>
@@ -30,7 +29,7 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
               style={{ backgroundColor: item.bgColor }}
             >
               <div className="w-full aspect-263/211 relative">
-                <Image
+                <SafeImage
                   src={item.imgPath}
                   alt={item.title}
                   fill
@@ -75,7 +74,7 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
             {index % 2 === 0 ? (
               <>
                 <div className="aspect-464/382 h-auto sm:w-[39%] relative">
-                  <Image
+                  <SafeImage
                     src={item.imgPath}
                     alt={item.title}
                     fill
@@ -83,14 +82,14 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
                   />
                 </div>
                 <div className="px-6 py-4 sm:w-[61%] flex flex-col justify-center items-center relative">
-                  <Image
+                  <SafeImage
                     src={item.bgPath}
                     width={70}
                     height={70}
                     alt="Funny item"
                     className="absolute top-[20px] right-[55px]"
                   />
-                  <Image
+                  <SafeImage
                     src={item.bgPath}
                     width={70}
                     height={70}
@@ -108,14 +107,14 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
             ) : (
               <>
                 <div className="px-6 py-4 sm:w-[61%] flex flex-col justify-center items-center relative">
-                  <Image
+                  <SafeImage
                     src={item.bgPath}
                     width={70}
                     height={70}
                     alt="Funny item"
                     className="absolute top-[20px] left-[55px]"
                   />
-                  <Image
+                  <SafeImage
                     src={item.bgPath}
                     width={70}
                     height={70}
@@ -130,7 +129,7 @@ const WhatWeHaveList = ({ list }: { list: IWhatWeHaveItem[] }) => {
                   </p>
                 </div>
                 <div className="aspect-464/382 h-auto sm:w-[39%] relative">
-                  <Image
+                  <SafeImage
                     src={item.imgPath}
                     alt={item.title}
                     fill

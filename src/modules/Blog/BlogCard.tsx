@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Button from "@/shared/components/Button/Button";
 import type { BlogPostSummary } from "@/features/blog/model/types";
 import type { IBlog } from "@/shared/types";
@@ -7,6 +6,7 @@ import * as motion from "motion/react-client";
 import { fadeInAt, slideUpAt } from "@/shared/utils";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 export default function BlogCard({
   blogItem,
   className = "",
@@ -34,7 +34,7 @@ export default function BlogCard({
           >
             <Link href={`/blog/${slug}`} className="block mb-[26px]">
               <div className="relative w-full h-[246px] desk:h-[323px] aspect-295/246 rounded-[11.25px] overflow-hidden">
-                <Image
+                <SafeImage
                   src={mainPhoto}
                   alt={title}
                   fill

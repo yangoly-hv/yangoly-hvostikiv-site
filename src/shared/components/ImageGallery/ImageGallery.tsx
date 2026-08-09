@@ -1,8 +1,8 @@
 import { IImageGalleryProps } from "@/shared/types";
-import Image from "next/image";
 import { fadeInAnimation } from "../Animations/animationVariants";
 import AnimatedWrapper from "../Animations/AnimationWrapper";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const ImageGallery = ({
   images,
   variant,
@@ -19,7 +19,7 @@ const ImageGallery = ({
           viewport={{ once: true, amount: 0.2 }}
         >
           <div className="absolute inset-0">
-            <Image
+            <SafeImage
               src={mainImage.src}
               alt={mainImage.alt}
               fill
@@ -35,7 +35,7 @@ const ImageGallery = ({
             animation={fadeInAnimation({ y: 30, delay: 0.4 })}
             viewport={{ once: true, amount: 0.2 }}
           >
-            <Image
+            <SafeImage
               src={secondaryImage.src}
               alt={secondaryImage.alt}
               fill
@@ -49,7 +49,7 @@ const ImageGallery = ({
               animation={fadeInAnimation({ y: 30, delay: 0.6 })}
               viewport={{ once: true, amount: 0.2 }}
             >
-              <Image
+              <SafeImage
                 src={tertiaryImage.src}
                 alt={tertiaryImage.alt}
                 fill
@@ -73,7 +73,7 @@ const ImageGallery = ({
             animation={fadeInAnimation({ y: 30, delay: 0.2 + index * 0.2 })}
             viewport={{ once: true, amount: 0.2 }}
           >
-            <Image
+            <SafeImage
               src={image.src}
               alt={image.alt}
               fill

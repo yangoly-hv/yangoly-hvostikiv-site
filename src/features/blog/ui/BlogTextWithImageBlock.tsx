@@ -1,8 +1,8 @@
 import * as motion from "motion/react-client";
-import Image from "next/image";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 import type { BlogContentBlock } from "../model/types";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 type BlogTextWithImageBlockType = Extract<
   BlogContentBlock,
   { _type: "blogTextWithImageBlock" }
@@ -43,7 +43,7 @@ export default function BlogTextWithImageBlock({ block }: Props) {
               }}
               className="relative w-full h-full min-h-[189px]"
             >
-              <Image
+              <SafeImage
                 src={image}
                 alt={imageAlt ?? ""}
                 fill
@@ -89,7 +89,7 @@ export default function BlogTextWithImageBlock({ block }: Props) {
               }}
               className="relative w-full h-full"
             >
-              <Image
+              <SafeImage
                 src={image}
                 alt={imageAlt ?? ""}
                 fill

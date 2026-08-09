@@ -1,4 +1,3 @@
-import Image from "next/image";
 import * as motion from "motion/react-client";
 import type { Variants } from "motion/react";
 
@@ -6,6 +5,7 @@ import ClockIcon from "../../../public/images/icons/ClockIcon";
 import type { BlogPost } from "@/features/blog/model/types";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 type BlogArticleHeroProps = Pick<
   BlogPost,
   "title" | "description" | "mainImage"
@@ -75,7 +75,7 @@ export default function BlogArticleHero({
           viewport={{ once: true }}
           className="relative mx-auto h-[383px] w-full max-w-[585px] lg:mx-0 lg:w-[40.8%]"
         >
-          <Image
+          <SafeImage
             src={mainImage}
             alt={title}
             fill

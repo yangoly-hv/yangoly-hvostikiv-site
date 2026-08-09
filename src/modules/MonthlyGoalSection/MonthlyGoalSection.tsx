@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { IMonthlyGoalSectionProps } from "@/shared/types";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
@@ -10,6 +9,7 @@ import { getMainCollection } from "@/features/home/server/data";
 import { getMonobankJarStatus } from "@/features/monobank/server/getJarStatus";
 import { imageUrlForSlot } from "@/shared/lib/sanityImage";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const fallbackImageUrl = "/images/home/monthlyGoal/dog.webp";
 
 const getAmount = (value: unknown) => {
@@ -75,7 +75,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
         className="md:hidden absolute top-[-18px] left-[calc(50%-205px)] w-[429px] h-[630px]"
       >
-        <Image
+        <SafeImage
           src="/images/home/monthlyGoal/housesMob.svg"
           alt="houses"
           width="429"
@@ -89,7 +89,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
             animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
             className="hidden md:block absolute top-[-26px] left-[-18px] md:w-[382px] lg:w-[502px] xl:w-[622px] laptop:w-[642px] desk:w-[802px] aspect-642/583 h-auto"
           >
-            <Image
+            <SafeImage
               src="/images/home/monthlyGoal/housesDesk.svg"
               alt="houses"
               width="642"
@@ -117,7 +117,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
                 animation={fadeInAnimation({ x: 30, delay: 0.4 })}
                 className="md:hidden relative h-[290px] mx-auto mb-6 rounded-[8px] overflow-hidden"
               >
-                <Image
+                <SafeImage
                   src={imageUrl}
                   alt={title}
                   fill
@@ -176,7 +176,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
             animation={fadeInAnimation({ x: 30, delay: 0.4 })}
             className="hidden md:block md:self-center md:shrink-0 relative w-[49.2%] aspect-705/580 rounded-[8px] overflow-hidden"
           >
-            <Image
+            <SafeImage
               src={imageUrl}
               alt={image?.alt ?? title ?? ""}
               fill

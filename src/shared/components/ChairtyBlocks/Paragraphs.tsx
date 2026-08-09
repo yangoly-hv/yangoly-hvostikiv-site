@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import * as motion from "motion/react-client";
-import Image from "next/image";
-
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 interface ParagraphsProps {
   title: string;
   paragraphs: string[];
@@ -14,7 +13,7 @@ const Paragraphs = ({ title, paragraphs, mobTitle, deskTitle }: ParagraphsProps)
     <section className="pt-[120px] xl:pt-[56px]">
       <div className="container mx-auto px-4 xl:px-[40px] max-w-[1560px] flex flex-col items-center gap-[20px] md:grid md:grid-cols-[minmax(0,698px)_minmax(0,734px)] md:items-stretch md:gap-0">
         <div className="relative w-full h-auto aspect-328/232 max-w-[698px] md:aspect-auto md:min-h-[320px] min-w-[328px] md:w-full md:min-w-0">
-          <Image src="/images/events/parag-image.webp"
+          <SafeImage src="/images/events/parag-image.webp"
             alt="Paragraphs BG"
             fill
             className="object-cover rounded-[8px]"

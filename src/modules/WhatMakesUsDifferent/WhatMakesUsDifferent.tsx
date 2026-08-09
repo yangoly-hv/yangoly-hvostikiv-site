@@ -1,8 +1,8 @@
 import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
-import Image from "next/image";
 import { PawIcon } from "@/shared/components/Icons/PawIcon";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const tileBaseClass =
   "overflow-hidden relative w-full rounded-[8px] pl-[28px] xl:pl-[44px]";
 
@@ -40,7 +40,7 @@ const WhatMakesUsDifferent = async () => {
               </p>
             </div>
             <div className="absolute bottom-[-10px] left-[-11px] lg:bottom-0 lg:left-auto lg:right-[-15px] w-[322px] h-auto aspect-322/262">
-              <Image src="/images/home/makesDifferent/card-1.webp"
+              <SafeImage src="/images/home/makesDifferent/card-1.webp"
                 alt="What Makes Us Different"
                 fill 
                 className="object-cover"
@@ -65,7 +65,7 @@ const WhatMakesUsDifferent = async () => {
               </p>
             </div>
             <div className="absolute bottom-[-18px] left-[-73px] lg:bottom-[-20px] lg:left-auto lg:right-[-115px] w-[457px] h-auto aspect-457/255">
-              <Image src="/images/home/makesDifferent/card-2.webp"
+              <SafeImage src="/images/home/makesDifferent/card-2.webp"
                 alt="What Makes Us Different"
                 fill
                 className="object-cover"
@@ -90,7 +90,7 @@ const WhatMakesUsDifferent = async () => {
               </p>
             </div>
             <div className="absolute bottom-[-7px] left-[-52px] lg:bottom-[-2px] lg:left-auto lg:right-[-83px] w-[397px] xl:w-[661px] h-auto aspect-567/317 -scale-x-100">
-              <Image src="/images/home/makesDifferent/card-3.webp"
+              <SafeImage src="/images/home/makesDifferent/card-3.webp"
                 alt="What Makes Us Different"
                 fill
                 className="object-cover"
@@ -115,7 +115,7 @@ const WhatMakesUsDifferent = async () => {
               </p>
             </div>
             <div className="absolute bottom-[-107px] left-[-12px] xl:bottom-[16px] xl:left-auto xl:right-[-28px] w-[363px] xl:w-[281px] h-auto aspect-303/252">
-              <Image src="/images/home/makesDifferent/card-4.webp"
+              <SafeImage src="/images/home/makesDifferent/card-4.webp"
                 alt="What Makes Us Different"
                 fill
                 className="object-cover"

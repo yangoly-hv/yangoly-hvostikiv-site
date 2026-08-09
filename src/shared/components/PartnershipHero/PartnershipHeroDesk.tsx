@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
 import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
-import Image from "next/image";
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
 import { HeartIcon } from "../Icons/HeartIcon";
 import {
@@ -23,28 +22,28 @@ const PartnershipHeroDesk = async () => {
         className="bg-white pl-[25px] relative flex rounded-[8px]"
       >
         <div>
-          <Image
+          <SafeImage
             src="/images/partners/paw-desk-1.png"
             alt="Paws"
             width={150}
             height={150}
             className="absolute left-0 top-0 z-1"
           />
-          <Image
+          <SafeImage
             src="/images/partners/paw-desk-2.png"
             alt="Paws"
             width={185}
             height={185}
             className="absolute left-[496px] top-0 z-1"
           />
-          <Image
+          <SafeImage
             src="/images/partners/paw-desk-3.png"
             alt="Paws"
             width={98}
             height={98}
             className="absolute left-0 top-[270px] z-1"
           />
-          <Image
+          <SafeImage
             src="/images/partners/paw-desk-4.png"
             alt="Paws"
             width={104}

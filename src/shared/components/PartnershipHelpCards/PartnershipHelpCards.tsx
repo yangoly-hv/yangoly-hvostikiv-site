@@ -1,8 +1,7 @@
 import { IPartnershipHelpCard } from "@/shared/types";
 import * as motion from "motion/react-client";
 import { getTranslations } from "next-intl/server";
-import Image from "next/image";
-
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const PartnershipHelpCards = async () => {
   const t = await getTranslations("PartnershipHelpCards");
   const cards = (await t.raw("cards")) as IPartnershipHelpCard[];
@@ -51,7 +50,7 @@ const PartnershipHelpCards = async () => {
                       width: card.widthMob,
                       height: card.heightMob,
                     }}>
-                    <Image
+                    <SafeImage
                       src={card.imgPath}
                       alt=""
                       width={card.widthMob}
@@ -67,7 +66,7 @@ const PartnershipHelpCards = async () => {
                     width: card.widthDesk,
                     height: card.heightDesk,
                   }}>
-                    <Image
+                    <SafeImage
                       src={card.imgPath}
                       alt=""
                       width={card.widthDesk}

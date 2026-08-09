@@ -1,8 +1,7 @@
 import * as motion from "motion/react-client";
 import { getTranslations } from "next-intl/server";
 import BenefitItem from "./BenefitItem";
-import Image from "next/image";
-
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const Benefits = async () => {
   const t = await getTranslations("CharityEvents.benefits");
   const list = (await t.raw("list")) as string[];
@@ -13,7 +12,7 @@ const Benefits = async () => {
     <div className="bg-green lg:py-[48px] pt-[25px] pb-[43px] lg:pb-0">
       <div className="container  mx-auto px-4   lg:px-[40px] xl:px-[187px] ">
         <div className="lg:hidden relative aspect-328/286 max-w-[540px] mx-auto w-full h-auto rounded-[8px] overflow-hidden">
-          <Image src="/images/events/benefits-desk.webp" className="w-full h-full object-cover" alt="Pet" fill />
+          <SafeImage src="/images/events/benefits-desk.webp" className="w-full h-full object-cover" alt="Pet" fill />
         </div>
         <div>
           <motion.h2
@@ -80,7 +79,7 @@ const Benefits = async () => {
         }}
         className="relative aspect-2400/1601 max-h-[665px] w-full mt-[70px] hidden lg:block"
       >
-        <Image
+        <SafeImage
           src="/images/events/benefits-desk.webp"
           alt="Pet"
           fill

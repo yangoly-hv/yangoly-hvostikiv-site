@@ -1,8 +1,8 @@
 import * as motion from "motion/react-client";
-import Image from "next/image";
 import { IPartnersProps } from "@/shared/types";
 import { getTranslations } from "next-intl/server";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const partners = [
   { src: "/images/partners/habiohika.png", alt: "Habiohika Logo", width: 527 },
   { src: "/images/partners/practik.png", alt: "Practik Logo", width: 48 },
@@ -54,7 +54,7 @@ const Partners = async ({ withTitle = true, ...props }: IPartnersProps) => {
               className="flex items-center shrink-0"
               style={{ width: `${partner.width}px` }}
             >
-              <Image
+              <SafeImage
                 src={partner.src}
                 alt={partner.alt}
                 width={partner.width}
@@ -70,7 +70,7 @@ const Partners = async ({ withTitle = true, ...props }: IPartnersProps) => {
               className="flex items-center shrink-0"
               style={{ width: `${partner.width}px` }}
             >
-              <Image
+              <SafeImage
                 src={partner.src}
                 alt={partner.alt}
                 width={partner.width}
@@ -89,7 +89,7 @@ const Partners = async ({ withTitle = true, ...props }: IPartnersProps) => {
               className="flex items-center shrink-0"
               style={{ width: `${partner.width}px` }}
             >
-              <Image
+              <SafeImage
                 src={partner.src}
                 alt={partner.alt}
                 width={partner.width}
@@ -105,7 +105,7 @@ const Partners = async ({ withTitle = true, ...props }: IPartnersProps) => {
               className="flex items-center shrink-0"
               style={{ width: `${partner.width}px` }}
             >
-              <Image
+              <SafeImage
                 src={partner.src}
                 alt={partner.alt}
                 width={partner.width}

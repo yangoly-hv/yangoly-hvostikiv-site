@@ -1,6 +1,6 @@
-import Image from "next/image";
 import * as motion from "motion/react-client";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const EventsGrid = ({ images }: { images: string[] }) => {
   const [first, second, third, fourth, fifth] = images;
   if (!first || !second || !third || !fourth || !fifth) return null;
@@ -23,7 +23,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             }}
             className="relative h-[228px] shrink-0 overflow-hidden rounded-[8px]"
           >
-            <Image
+            <SafeImage
               src={first}
               alt="Event 1"
               fill
@@ -46,7 +46,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             }}
             className="relative h-[236px] shrink-0 overflow-hidden rounded-[8px]"
           >
-            <Image
+            <SafeImage
               src={second}
               alt="Event 2"
               fill
@@ -72,7 +72,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             }}
             className="relative h-[317px] shrink-0 overflow-hidden rounded-[8px]"
           >
-            <Image
+            <SafeImage
               src={third}
               alt="Event 3"
               fill
@@ -95,7 +95,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             }}
             className="relative h-[147px] shrink-0 overflow-hidden rounded-[8px]"
           >
-            <Image
+            <SafeImage
               src={fourth}
               alt=""
               fill
@@ -120,7 +120,7 @@ const EventsGrid = ({ images }: { images: string[] }) => {
             }}
             className="relative h-full min-h-[484px] w-full overflow-hidden rounded-[8px]"
           >
-            <Image
+            <SafeImage
               src={fifth}
               alt="Event 4"
               fill

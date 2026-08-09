@@ -1,9 +1,8 @@
 import type { PropsWithChildren } from "react";
 import * as motion from "motion/react-client";
-import Image from "next/image";
-
 import { PawIcon } from "@/shared/components/Icons/PawIcon";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 type DecoratedBenefitsPanelProps = PropsWithChildren<{
   title: string;
   sectionClassName: string;
@@ -30,7 +29,7 @@ export default function DecoratedBenefitsPanel({
     <section className={sectionClassName}>
       <div className={containerClassName}>
         <div className={animalClassName}>
-          <Image
+          <SafeImage
             src={animalSrc}
             alt="animals"
             fill

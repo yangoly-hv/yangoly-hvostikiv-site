@@ -5,12 +5,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
-import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { CircleArrowIcon, CloseIcon } from "../../../public/images/icons";
 import { useSwiperNavigation } from "@/shared/hooks/useSwiperNavigation";
 import SliderNavigationControls from "@/shared/components/SliderNavigationControls/SliderNavigationControls";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 type ReportSliderProps = {
     images: string[];
 };
@@ -111,7 +111,7 @@ const ReportSlider = ({ images }: ReportSliderProps) => {
                                 }}
                                 aria-label={`Open report image ${index + 1}`}
                             >
-                                <Image
+                                <SafeImage
                                     src={imageSrc}
                                     alt={`Report ${index + 1}`}
                                     className="object-cover transition duration-500 ease-out hover:scale-[1.03]"

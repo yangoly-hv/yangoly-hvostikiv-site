@@ -1,6 +1,5 @@
 import { getTranslations } from "next-intl/server";
 import * as motion from "motion/react-client";
-import Image from "next/image";
 import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
 
@@ -16,42 +15,42 @@ const PartnershipHeroMob = async () => {
       className="bg-white lg:hidden pb-6 relative overflow-hidden"
     >
       <div>
-        <Image
+        <SafeImage
           src="/images/partners/paw-mob1.png"
           width={29}
           height={29}
           alt="Paw"
           className="absolute left-[20px]"
         />
-        <Image
+        <SafeImage
           src="/images/partners/paw-mob-2.png"
           width={29}
           height={29}
           alt="Paw"
           className="absolute right-0"
         />
-        <Image
+        <SafeImage
           src="/images/partners/paw-mob-3.png"
           width={29}
           height={29}
           alt="Paw"
           className="absolute top-[135px] right-0"
         />
-        <Image
+        <SafeImage
           src="/images/partners/paw-mob-4.png"
           width={29}
           height={29}
           alt="Paw"
           className="absolute bottom-0 right-0"
         />
-        <Image
+        <SafeImage
           src="/images/partners/paw-mob-5.png"
           width={29}
           height={29}
           alt="Paw"
           className="absolute bottom-[64px] left-0"
         />
-        <Image
+        <SafeImage
           src="/images/partners/paw-mob-6.png"
           width={29}
           height={29}

@@ -1,10 +1,10 @@
 import * as motion from "motion/react-client";
-import Image from "next/image";
 import VolunteeringCardMobile from "./VolunteeringCardMobile";
 import { IHelpVolonteeringTranslation } from "@/shared/types";
 import VolunteeringCardDesk from "./VolunteeringCardDesk";
 import ContactFormAction from "@/widgets/ContactFormAction/ContactFormAction";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 interface IVounteeringCardListProps {
   helpsList: IHelpVolonteeringTranslation[];
   formCard: IHelpVolonteeringTranslation;
@@ -42,7 +42,7 @@ const VounteeringCardList = async ({
             <p className="mt-3 text-[18px] font-medium leading-[133%] text-center">
               {formCard.text}
             </p>
-            <Image
+            <SafeImage
               src={formCard.imagePath}
               alt="Volunteering"
               width={282}
@@ -122,7 +122,7 @@ const VounteeringCardList = async ({
                 />
               </div>
 
-              <Image
+              <SafeImage
                 src={formCard.imagePath}
                 alt="Volunteering"
                 width={282}

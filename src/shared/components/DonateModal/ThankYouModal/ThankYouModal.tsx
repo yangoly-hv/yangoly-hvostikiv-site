@@ -1,11 +1,11 @@
 "use client";
 import Button from "../../Button/Button";
 import { CloseIcon } from "../../../../../public/images/icons";
-import Image from "next/image";
 import { IThankYouModalProps } from "@/shared/types";
 import { useCallback, useEffect, useRef } from "react";
 import { useTranslations } from "next-intl";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const ThankYouModal = ({
   isOpen,
   onClose,
@@ -42,7 +42,7 @@ const ThankYouModal = ({
           <CloseIcon variant="secondary" />
         </button>
         <div className="flex pl-5 justify-start gap-[14px] items-baseline">
-          <Image
+          <SafeImage
             src="/images/cartoon-cat.png"
             alt="Cartoon cat"
             width={35}

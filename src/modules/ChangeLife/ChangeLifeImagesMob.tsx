@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const ellipseMaskStyle = {
   maskImage: "url(/images/home/changeLife/greenEllipse.webp)",
   WebkitMaskImage: "url(/images/home/changeLife/greenEllipse.webp)",
@@ -20,7 +20,7 @@ export default function ChangeLifeImagesMob() {
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
         className="md:hidden absolute z-10 bottom-[208px] sm:bottom-[96px] left-[calc(50%-288px)] h-[196px] w-[577px]"
       >
-        <Image
+        <SafeImage
           src="/images/home/changeLife/greenEllipse.webp"
           alt="background"
           width="1154"
@@ -35,7 +35,7 @@ export default function ChangeLifeImagesMob() {
       >
         <div className="relative h-full w-full" style={ellipseMaskStyle}>
           <div className="absolute bottom-[-15px] sm:bottom-[-15px] left-[36px] w-[378px] aspect-378/237">
-            <Image
+            <SafeImage
               src="/images/home/changeLife/dogs-mobile.webp"
               alt="dogs"
               fill
@@ -49,7 +49,7 @@ export default function ChangeLifeImagesMob() {
         animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
         className="md:hidden absolute top-[-12px] left-[calc(50%-197px)] h-[436px] aspect-394/436"
       >
-        <Image
+        <SafeImage
           src="/images/home/changeLife/pawsMob.svg"
           alt="paws"
           width="394"

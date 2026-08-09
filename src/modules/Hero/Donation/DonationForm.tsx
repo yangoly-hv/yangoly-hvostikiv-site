@@ -3,7 +3,6 @@
 import {useState} from 'react';
 import { Controller } from "react-hook-form";
 import { useTranslations } from 'next-intl';
-import Image from "next/image";
 import clsx from 'clsx';
 
 import Button from "@/shared/components/Button/Button";
@@ -15,6 +14,7 @@ import {onceImages, monthlyImages} from "@/modules/Hero/Donation/donationIcons";
 
 import { useDonationCheckout } from "@/features/donation/model/useDonationCheckout";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 type Tab = 'once' | 'monthly';
 
 const onceValues = [100, 200, 600, 1500];
@@ -104,7 +104,7 @@ export default function DonationForm() {
                             )}
                         >
                             <div className={`flex justify-center items-center h-[56px] w-[56px] lg:size-[45px] shrink-0 rounded-[4px] ${amount === value ? "bg-white" : "bg-[rgba(76, 123, 103, 0.1)]"}`}>
-                                <Image
+                                <SafeImage
                                     key={icon.alt}
                                     src={icon.src}
                                     alt={icon.alt}
@@ -132,7 +132,7 @@ export default function DonationForm() {
                     <div className="flex items-start xl:items-center gap-3 xl:gap-[19px] rounded-[16px] border border-[#D1D1D1] p-4 xl:py-0 xl:px-3 xl:min-h-[69px] min-h-0 self-stretch">
                         <div
                             className={`flex justify-center items-center h-[56px] w-[56px] xl:size-[45px] shrink-0 rounded-[4px] bg-[rgba(76, 123, 103, 0.1)]`}>
-                            <Image
+                            <SafeImage
                                 key={customIcon.alt}
                                 src={customIcon.src}
                                 alt={customIcon.alt}

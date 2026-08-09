@@ -1,9 +1,9 @@
 import { IVolunteeringCardProps } from "@/shared/types";
 import clsx from "clsx";
-import Image from "next/image";
 import VolunteeringCardContent from "./VolunteeringCardContent";
 import VolunteeringCardFrame from "./VolunteeringCardFrame";
 
+import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const VolunteeringCardMobile = ({
   index,
   item,
@@ -25,7 +25,7 @@ const VolunteeringCardMobile = ({
           index === 3 && "aspect-448/299"
         )}
       >
-        <Image
+        <SafeImage
           src={item.imagePath}
           alt="Volunteering"
           fill
