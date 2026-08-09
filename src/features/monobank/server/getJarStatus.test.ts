@@ -12,67 +12,51 @@ vi.mock("next/cache", () => ({
 
 import { getMonobankJarStatus } from "./getJarStatus";
 
+const LONG_JAR_ID = "2zQL6sqnKgTYi7eVz71YYWKTXTfMK8g";
+
 describe("getMonobankJarStatus", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     mocks.unstable_cache.mockImplementation((fn: () => Promise<unknown>) => fn);
-    process.env.MONOBANK_TOKEN = "mono-token";
     vi.spyOn(console, "warn").mockImplementation(() => undefined);
     vi.spyOn(console, "error").mockImplementation(() => undefined);
   });
 
   afterEach(() => {
-    delete process.env.MONOBANK_TOKEN;
     vi.restoreAllMocks();
   });
 
-  it("returns null and logs when the jar URL is missing", async () => {
+  it("returns null and logs when longJarId is missing", async () => {
     await expect(getMonobankJarStatus(undefined)).resolves.toBeNull();
     await expect(getMonobankJarStatus("")).resolves.toBeNull();
     await expect(getMonobankJarStatus("   ")).resolves.toBeNull();
     expect(mocks.fetch).not.toHaveBeenCalled();
     expect(console.warn).toHaveBeenCalledWith(
-      "Monobank jar status skipped: monobankJarUrl is missing",
+      "Monobank jar status skipped: monobankLongJarId is missing",
     );
   });
 
-  it("returns null and logs when the token is missing", async () => {
-    delete process.env.MONOBANK_TOKEN;
-
-    await expect(getMonobankJarStatus("https://send.monobank.ua/jar/AbCdEf123")).resolves.toBeNull();
-    expect(mocks.fetch).not.toHaveBeenCalled();
-    expect(console.warn).toHaveBeenCalledWith(
-      "Monobank jar status skipped: MONOBANK_TOKEN is not configured",
-    );
-  });
-
-  it("returns null and logs when the jar URL is invalid", async () => {
+  it("returns null and logs when longJarId is invalid", async () => {
     await expect(getMonobankJarStatus("https://example.org/not-a-jar")).resolves.toBeNull();
     expect(mocks.fetch).not.toHaveBeenCalled();
     expect(console.warn).toHaveBeenCalledWith(
-      "Monobank jar status skipped: invalid jar URL",
-      { jarUrl: "https://example.org/not-a-jar" },
+      "Monobank jar status skipped: invalid longJarId",
+      { longJarId: "https://example.org/not-a-jar" },
     );
   });
 
-  it("returns jar status when Monobank lists the jar", async () => {
+  it("returns jar status from the public jar API", async () => {
     mocks.fetch.mockResolvedValue({
       ok: true,
       json: async () => ({
-        jars: [
-          {
-            id: "internal",
-            sendId: "AbCdEf123",
-            title: "Збір",
-            currencyCode: 980,
-            balance: 150_000,
-            goal: 500_000,
-          },
-        ],
+        jarId: "AbCdEf123",
+        title: "Збір",
+        amount: 150_000,
+        goal: 500_000,
       }),
     });
 
-    await expect(getMonobankJarStatus("https://send.monobank.ua/jar/AbCdEf123")).resolves.toEqual({
+    await expect(getMonobankJarStatus(LONG_JAR_ID)).resolves.toEqual({
       title: "Збір",
       balanceUah: 1500,
       goalUah: 5000,
@@ -81,33 +65,33 @@ describe("getMonobankJarStatus", () => {
     });
 
     expect(mocks.fetch).toHaveBeenCalledWith(
-      "https://api.monobank.ua/personal/client-info",
+      `https://api.monobank.ua/bank/jar/${LONG_JAR_ID}`,
       expect.objectContaining({
-        headers: { "X-Token": "mono-token" },
+        next: { revalidate: 60 },
       }),
     );
   });
 
-  it("returns null and logs when the jar is missing from client-info", async () => {
+  it("returns null and logs when the public payload is incomplete", async () => {
     mocks.fetch.mockResolvedValue({
       ok: true,
-      json: async () => ({ jars: [] }),
+      json: async () => ({ title: "Збір", amount: 100 }),
     });
 
-    await expect(getMonobankJarStatus("https://send.monobank.ua/jar/AbCdEf123")).resolves.toBeNull();
+    await expect(getMonobankJarStatus(LONG_JAR_ID)).resolves.toBeNull();
     expect(console.warn).toHaveBeenCalledWith(
-      "Monobank jar status skipped: jar not found in client-info",
-      { sendId: "AbCdEf123" },
+      "Monobank jar status skipped: public jar payload incomplete",
+      { longJarId: LONG_JAR_ID },
     );
   });
 
   it("returns null and logs when Monobank responds with an error", async () => {
-    mocks.fetch.mockResolvedValue({ ok: false, status: 429 });
+    mocks.fetch.mockResolvedValue({ ok: false, status: 404 });
 
-    await expect(getMonobankJarStatus("https://send.monobank.ua/jar/AbCdEf123")).resolves.toBeNull();
+    await expect(getMonobankJarStatus(LONG_JAR_ID)).resolves.toBeNull();
     expect(console.error).toHaveBeenCalledWith(
       "Monobank jar status failed",
-      expect.objectContaining({ error: "Monobank client-info returned 429" }),
+      expect.objectContaining({ error: "Monobank public jar returned 404" }),
     );
   });
 });

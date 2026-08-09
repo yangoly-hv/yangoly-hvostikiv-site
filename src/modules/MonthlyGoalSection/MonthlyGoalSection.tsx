@@ -36,7 +36,7 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
 
   let monoJar: Awaited<ReturnType<typeof getMonobankJarStatus>> = null;
   try {
-    monoJar = await getMonobankJarStatus(data.monobankJarUrl);
+    monoJar = await getMonobankJarStatus(data.monobankLongJarId);
   } catch (error) {
     console.error("Monobank jar status failed in MonthlyGoalSection", {
       error: error instanceof Error ? error.message : "unknown",

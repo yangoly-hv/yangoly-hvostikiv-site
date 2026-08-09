@@ -1,15 +1,11 @@
-export type MonobankJar = {
-  id: string;
-  sendId: string;
+/** Public jar payload from GET /bank/jar/{longJarId}. */
+export type MonobankPublicJar = {
+  jarId: string;
   title: string;
-  description?: string;
-  currencyCode: number;
-  balance: number;
+  /** Collected amount in kopiyky. */
+  amount: number;
+  /** Goal in kopiyky when set. */
   goal?: number;
-};
-
-export type MonobankClientInfo = {
-  jars?: MonobankJar[];
 };
 
 export type MonobankJarStatus = {

@@ -22,8 +22,8 @@ export type MainCollection = {
   description?: Partial<Record<"uk" | "en", ContentBlock[]>>;
   amount?: number;
   amountCollected?: number;
-  /** Public Monobank jar URL; swapped monthly by the owner in Sanity. */
-  monobankJarUrl?: string;
+  /** Widget longJarId for the public Monobank jar API; swapped monthly in Sanity. */
+  monobankLongJarId?: string;
   image?: SanityImage;
 };
 

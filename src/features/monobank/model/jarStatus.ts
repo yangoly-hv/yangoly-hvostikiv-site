@@ -1,24 +1,21 @@
-import type { MonobankClientInfo, MonobankJar, MonobankJarStatus } from "./types";
+import type { MonobankJarStatus, MonobankPublicJar } from "./types";
 
 export const minorToUah = (amountMinor: number): number => amountMinor / 100;
 
-export const findJarBySendId = (
-  clientInfo: MonobankClientInfo,
-  sendId: string,
-): MonobankJar | null => {
-  const jars = clientInfo.jars;
-  if (!Array.isArray(jars)) return null;
-  return jars.find((jar) => jar.sendId === sendId) ?? null;
-};
+export const toJarStatusFromPublic = (jar: MonobankPublicJar): MonobankJarStatus | null => {
+  const jarId = typeof jar.jarId === "string" ? jar.jarId.trim() : "";
+  if (!jarId) return null;
 
-export const toJarStatus = (
-  jar: MonobankJar,
-  jarUrl: string,
-  sendId: string,
-): MonobankJarStatus => ({
-  title: jar.title,
-  balanceUah: minorToUah(jar.balance),
-  goalUah: typeof jar.goal === "number" ? minorToUah(jar.goal) : null,
-  jarUrl,
-  sendId,
-});
+  const title = typeof jar.title === "string" ? jar.title.trim() : "";
+  if (!title) return null;
+
+  if (typeof jar.amount !== "number" || !Number.isFinite(jar.amount)) return null;
+
+  return {
+    title,
+    balanceUah: minorToUah(jar.amount),
+    goalUah: typeof jar.goal === "number" && Number.isFinite(jar.goal) ? minorToUah(jar.goal) : null,
+    jarUrl: `https://send.monobank.ua/jar/${jarId}`,
+    sendId: jarId,
+  };
+};

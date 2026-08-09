@@ -1,14 +1,12 @@
 import { describe, expect, it } from "vitest";
 
-import { findJarBySendId, minorToUah, toJarStatus } from "./jarStatus";
-import type { MonobankJar } from "./types";
+import { minorToUah, toJarStatusFromPublic } from "./jarStatus";
+import type { MonobankPublicJar } from "./types";
 
-const jar: MonobankJar = {
-  id: "jar-internal-id",
-  sendId: "AbCdEf123",
+const jar: MonobankPublicJar = {
+  jarId: "AbCdEf123",
   title: "Збір серпень",
-  currencyCode: 980,
-  balance: 400_000,
+  amount: 400_000,
   goal: 20_000_000,
 };
 
@@ -18,14 +16,8 @@ describe("monobank jar status helpers", () => {
     expect(minorToUah(0)).toBe(0);
   });
 
-  it("finds a jar by sendId", () => {
-    expect(findJarBySendId({ jars: [jar] }, "AbCdEf123")).toEqual(jar);
-    expect(findJarBySendId({ jars: [jar] }, "missing")).toBeNull();
-    expect(findJarBySendId({}, "AbCdEf123")).toBeNull();
-  });
-
-  it("maps API jar fields to display status", () => {
-    expect(toJarStatus(jar, "https://send.monobank.ua/jar/AbCdEf123", "AbCdEf123")).toEqual({
+  it("maps public API jar fields to display status", () => {
+    expect(toJarStatusFromPublic(jar)).toEqual({
       title: "Збір серпень",
       balanceUah: 4000,
       goalUah: 200_000,
@@ -36,6 +28,12 @@ describe("monobank jar status helpers", () => {
 
   it("allows jars without a goal", () => {
     const withoutGoal = { ...jar, goal: undefined };
-    expect(toJarStatus(withoutGoal, "https://send.monobank.ua/jar/AbCdEf123", "AbCdEf123").goalUah).toBeNull();
+    expect(toJarStatusFromPublic(withoutGoal)?.goalUah).toBeNull();
+  });
+
+  it("returns null when jarId or title is missing", () => {
+    expect(toJarStatusFromPublic({ ...jar, jarId: "" })).toBeNull();
+    expect(toJarStatusFromPublic({ ...jar, title: "  " })).toBeNull();
+    expect(toJarStatusFromPublic({ ...jar, amount: Number.NaN })).toBeNull();
   });
 });
