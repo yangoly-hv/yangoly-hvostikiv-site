@@ -64,7 +64,7 @@ Endpoint: `POST /api/revalidate`.
 }
 ```
 
-Filter: `_type in ["post", "tail", "reports", "donator", "collection", "perfomance", "aboutFoundation", "events", "siteSettings"]`. Drafts и versions в настройках webhook должны быть выключены.
+Filter: `_type in ["post", "tail", "reports", "donator", "collection", "perfomance", "partner", "aboutFoundation", "events", "siteSettings"]`. Drafts и versions в настройках webhook должны быть выключены.
 
 В Sanity webhook включаются Create, Update и Delete опубликованных документов. Endpoint дополнительно игнорирует `_id`, начинающиеся с `drafts.` или `versions.`, проверяет допустимый тип и инвалидирует только его tags и localized paths.
 
