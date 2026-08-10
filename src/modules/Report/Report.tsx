@@ -42,7 +42,7 @@ export default function Report({ translation, report, locale }: ReportProps) {
   const tabs = buildTabsFromReport(report, locale);
   const hasTabs = tabs.length > 0;
   const viewReportButtonText =
-    translation?.viewReportButton ?? "Переглянути цей звіт";
+    translation?.viewReportButton ?? "Фінансовий звіт";
 
   return (
     <section className="pt-[60px] xl:pt-12 pb-[100px] xl:pb-[148px]">
