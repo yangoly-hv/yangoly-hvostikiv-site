@@ -8,7 +8,8 @@ export type ResolvedPaymentStatus = Exclude<PaymentStatus, "created">;
 export type DonateOrder = {
   _id: string; _rev?: string; origin?: "checkout" | "providerOnly"; orderReference: string;
   amountMinor?: number; currency?: string; collectionId?: string; donationPurpose?: DonationPurpose;
-  donationTargetName?: string; donationItemDescription?: string; donationEmailEnabled?: boolean; donorFullName?: string;
+  donationTargetId?: string; donationTargetName?: string; donationItemDescription?: string;
+  donationEmailEnabled?: boolean; donorFullName?: string;
   isAnonymous?: boolean; comment?: string; wantNotifications?: boolean; paymentStatus?: PaymentStatus;
   paymentType?: DonationSchedule; initialPaymentOccurrenceId?: string;
   providerTransactionStatus?: string; lastProviderProcessingDate?: number; lastProviderProcessingAt?: string;

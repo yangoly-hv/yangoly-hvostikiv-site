@@ -45,7 +45,7 @@ class CallbackRouteError extends Error {
 const orderQuery = `
   *[_type == "donateOrder" && orderReference == $orderReference][0]{
     _id, _rev, origin, orderReference, amountMinor, currency,
-    collectionId, donationPurpose, donationTargetName, donationEmailEnabled,
+    collectionId, donationPurpose, donationTargetId, donationTargetName, donationEmailEnabled,
     donorFullName, isAnonymous, comment, wantNotifications, paymentType, paymentStatus,
     initialPaymentOccurrenceId,
     providerTransactionStatus, lastProviderProcessingDate, lastProviderProcessingAt
@@ -313,7 +313,10 @@ export const persistCallback = async ({
 
       await transaction.commit();
       const immediateEffects = effects.filter(
-        (effect) => effect.kind === "collection" || effect.kind === "donation-email",
+        (effect) =>
+          effect.kind === "collection" ||
+          effect.kind === "tail" ||
+          effect.kind === "donation-email",
       );
       if (immediateEffects.length > 0) {
         try {

@@ -4,7 +4,7 @@ import type { DonateOrder, PaymentOccurrence, PaymentStatus } from "@/shared/typ
 import { deliverDonationEmail } from "./donationEmail";
 import { getPaymentsClient } from "@/shared/lib/sanity.payments";
 
-export const paymentEffectKinds = ["collection", "donator", "donation-email"] as const;
+export const paymentEffectKinds = ["collection", "tail", "donator", "donation-email"] as const;
 export type PaymentEffectKind = (typeof paymentEffectKinds)[number];
 export type PaymentEffectStatus = "pending" | "processing" | "completed" | "failed";
 
@@ -50,6 +50,20 @@ export const getEffectsForPaymentStatus = (
     });
   }
   if (
+    order.donationPurpose === "tail-one-time" &&
+    order.donationTargetId &&
+    order.amountMinor !== undefined
+  ) {
+    effects.push({
+      _id: getPaymentEffectId("tail", occurrenceId, targetStatus),
+      kind: "tail",
+      orderReference: order.orderReference,
+      occurrenceId,
+      targetStatus,
+      status: "pending",
+    });
+  }
+  if (
     (order.amountMinor ?? 0) >= PUBLIC_DONOR_MIN_AMOUNT_MINOR &&
     order.isAnonymous !== true &&
     typeof order.donorFullName === "string" &&
@@ -78,6 +92,7 @@ export const getEffectsForPaymentStatus = (
 };
 
 const collectionContributionId = (occurrenceId: string) => `collectionContribution.${occurrenceId}`;
+const tailContributionId = (occurrenceId: string) => `tailContribution.${occurrenceId}`;
 const donatorId = (occurrenceId: string) => `donator.${occurrenceId}`;
 
 const applyCollection = async (
@@ -109,6 +124,69 @@ const applyCollection = async (
   transaction.patch(order.collectionId, { setIfMissing: { amountCollected: 0 }, inc: { amountCollected: isActive ? amount : -amount } });
   await transaction.commit();
   revalidateTag(sanityTags.collectionMain, { expire: 0 });
+};
+
+const applyTail = async (
+  order: DonateOrder,
+  occurrence: PaymentOccurrence,
+  targetStatus: "approved" | "reversed",
+) => {
+  if (
+    order.donationPurpose !== "tail-one-time" ||
+    !order.donationTargetId ||
+    order.amountMinor === undefined
+  ) {
+    return;
+  }
+  const [{ default: legacyClient }, { revalidateTag }, { sanityTags }] = await Promise.all([
+    import("@/shared/lib/sanity"), import("next/cache"), import("@/shared/lib/sanityTags"),
+  ]);
+  const contributionId = tailContributionId(occurrence.occurrenceId);
+  const contribution = await legacyClient.fetch<{ _id: string; _rev?: string; isActive?: boolean } | null>(
+    `*[_type == "tailContribution" && _id == $contributionId][0]{ _id, _rev, isActive }`,
+    { contributionId },
+  );
+  const isActive = targetStatus === "approved";
+  if (contribution?.isActive === isActive) return;
+  const amount = occurrence.amountMinor / 100;
+  const now = new Date().toISOString();
+  const transaction = legacyClient.transaction();
+  if (contribution) {
+    transaction.patch(contributionId, {
+      ifRevisionID: contribution._rev,
+      set: { isActive, paymentStatus: targetStatus, updatedAt: now },
+    });
+  } else if (isActive) {
+    transaction.create({
+      _id: contributionId,
+      _type: "tailContribution",
+      orderReference: order.orderReference,
+      occurrenceId: occurrence.occurrenceId,
+      tailId: order.donationTargetId,
+      amount,
+      amountMinor: occurrence.amountMinor,
+      isActive: true,
+      paymentStatus: "approved",
+      createdAt: now,
+      updatedAt: now,
+    });
+  } else {
+    return;
+  }
+  transaction.patch(order.donationTargetId, {
+    setIfMissing: { amountCollected: 0 },
+    inc: { amountCollected: isActive ? amount : -amount },
+  });
+  await transaction.commit();
+
+  const tail = await legacyClient.fetch<{ slug?: string } | null>(
+    `*[_type == "tail" && _id == $tailId][0]{ "slug": slug.current }`,
+    { tailId: order.donationTargetId },
+  );
+  revalidateTag(sanityTags.tailsList, { expire: 0 });
+  if (tail?.slug) {
+    revalidateTag(sanityTags.tail(tail.slug), { expire: 0 });
+  }
 };
 
 const applyDonator = async (
@@ -148,7 +226,7 @@ export const processPaymentEffect = async (effect: PaymentEffect) => {
     `{
       "order": *[_type == "donateOrder" && orderReference == $orderReference][0]{
         _id, _rev, origin, orderReference, amountMinor, currency, collectionId, donationPurpose,
-        donationTargetName, donationItemDescription, donationEmailEnabled, donorFullName, isAnonymous, comment,
+        donationTargetId, donationTargetName, donationItemDescription, donationEmailEnabled, donorFullName, isAnonymous, comment,
         paymentType, paymentStatus
       },
       "occurrence": *[_type == "paymentOccurrence" && occurrenceId == $occurrenceId][0]{
@@ -166,6 +244,7 @@ export const processPaymentEffect = async (effect: PaymentEffect) => {
   if (!occurrence) throw new Error("PAYMENT_OCCURRENCE_NOT_FOUND");
   if (occurrence.paymentStatus !== effect.targetStatus) return;
   if (effect.kind === "collection") await applyCollection(order, occurrence, effect.targetStatus);
+  if (effect.kind === "tail") await applyTail(order, occurrence, effect.targetStatus);
   if (effect.kind === "donator") await applyDonator(order, occurrence, effect.targetStatus);
   if (effect.kind === "donation-email") {
     if (!occurrence.amountMinor || !occurrence.currency || !order.donationPurpose || !order.donationTargetName) {

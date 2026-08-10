@@ -419,6 +419,37 @@ describe("POST /api/wayforpay/callback", () => {
     );
   });
 
+  it("credits the selected pet once after an approved tail-one-time donation", async () => {
+    setPaymentState(
+      storedOrder({
+        donationPurpose: "tail-one-time",
+        donationTargetId: "tail.luna",
+        donationTargetName: "Луна",
+        donationEmailEnabled: true,
+      }),
+    );
+
+    const response = await POST(request(createPayload()));
+
+    expect(response.status).toBe(200);
+    expect(mocks.processPaymentEffects).toHaveBeenCalledWith(
+      expect.arrayContaining([
+        expect.objectContaining({
+          kind: "tail",
+          orderReference,
+          targetStatus: "approved",
+        }),
+        expect.objectContaining({
+          kind: "donation-email",
+          targetStatus: "approved",
+        }),
+      ]),
+    );
+    expect(mocks.transactionCreateIfNotExists).toHaveBeenCalledWith(
+      expect.objectContaining({ _type: "paymentEffect", kind: "tail", targetStatus: "approved" }),
+    );
+  });
+
   it("does not credit an already active collection contribution twice", async () => {
     setPaymentState(storedOrder({ collectionId: "collection.main" }));
     mocks.legacyFetch.mockResolvedValue({
