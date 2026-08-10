@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 
 import { isPaymentStatus, type PaymentStatus } from "@/features/donation/model/payment";
 import { useModal } from "@/providers/ModalProvider";
+import { trackDonateConversion } from "@/shared/lib/metaPixel";
 
 const maxStatusChecks = 15;
 const statusCheckIntervalMs = 1_000;
@@ -45,7 +46,27 @@ export default function PaymentReturnHandler() {
           const response = await fetch(`/api/wayforpay/status?${new URLSearchParams({ orderReference })}`, { cache: "no-store", signal: controller.signal });
           const data: unknown = await response.json().catch(() => null);
           const status = data && typeof data === "object" && "status" in data && isPaymentStatus(data.status) ? data.status : undefined;
-          if (response.ok && status === "approved") { cleanUrl(orderReference); openThankYouModal(); return; }
+          if (response.ok && status === "approved") {
+            if (
+              data &&
+              typeof data === "object" &&
+              "value" in data &&
+              typeof data.value === "number" &&
+              Number.isFinite(data.value) &&
+              data.value > 0 &&
+              "currency" in data &&
+              typeof data.currency === "string"
+            ) {
+              trackDonateConversion({
+                orderReference,
+                value: data.value,
+                currency: data.currency,
+              });
+            }
+            cleanUrl(orderReference);
+            openThankYouModal();
+            return;
+          }
           if (response.ok && (status === "failed" || status === "reversed" || status === "unknown")) { showStatus(status); return; }
         } catch (error) {
           if (controller.signal.aborted) return;

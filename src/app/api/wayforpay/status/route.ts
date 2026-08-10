@@ -1,15 +1,25 @@
 import { NextResponse } from "next/server";
 
-import { isDonateOrderReference } from "@/features/donation/server/wayforpay";
+import { isDonateOrderReference, minorToMoney } from "@/features/donation/server/wayforpay";
 import { isPaymentStatus, type PaymentStatus } from "@/features/donation/model/payment";
 import { getPaymentsClient } from "@/shared/lib/sanity.payments";
 import { checkStatusRateLimit } from "../checkout/rateLimit";
 
 const orderStatusQuery = `
-  *[_type == "donateOrder" && orderReference == $orderReference][0]{ paymentStatus }
+  *[_type == "donateOrder" && orderReference == $orderReference][0]{
+    paymentStatus,
+    amountMinor,
+    currency
+  }
 `;
 
 const noStoreHeaders = { "Cache-Control": "no-store" };
+
+type OrderStatusRecord = {
+  paymentStatus?: PaymentStatus;
+  amountMinor?: number;
+  currency?: string;
+};
 
 export async function GET(request: Request) {
   const rateLimit = checkStatusRateLimit(request);
@@ -25,7 +35,7 @@ export async function GET(request: Request) {
   }
 
   try {
-    const order = await getPaymentsClient().fetch<{ paymentStatus?: PaymentStatus } | null>(
+    const order = await getPaymentsClient().fetch<OrderStatusRecord | null>(
       orderStatusQuery,
       { orderReference },
     );
@@ -36,6 +46,25 @@ export async function GET(request: Request) {
     const status = isPaymentStatus(order.paymentStatus ?? "created")
       ? (order.paymentStatus ?? "created")
       : "unknown";
+
+    if (
+      status === "approved" &&
+      typeof order.amountMinor === "number" &&
+      Number.isSafeInteger(order.amountMinor) &&
+      order.amountMinor > 0 &&
+      typeof order.currency === "string" &&
+      /^[A-Z]{3}$/.test(order.currency)
+    ) {
+      return NextResponse.json(
+        {
+          status,
+          value: Number(minorToMoney(order.amountMinor)),
+          currency: order.currency,
+        },
+        { headers: noStoreHeaders },
+      );
+    }
+
     return NextResponse.json({ status }, { headers: noStoreHeaders });
   } catch (error) {
     if (error instanceof Error && error.message.startsWith("Missing required environment variable:")) {

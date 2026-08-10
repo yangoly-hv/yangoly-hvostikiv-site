@@ -5,12 +5,12 @@ const isDevelopment = process.env.NODE_ENV === "development";
 
 const contentSecurityPolicy = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDevelopment ? " 'unsafe-eval'" : ""}`,
+  `script-src 'self' 'unsafe-inline' https://connect.facebook.net${isDevelopment ? " 'unsafe-eval'" : ""}`,
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "font-src 'self' data: https://fonts.gstatic.com",
-  "img-src 'self' data: blob: https://cdn.sanity.io https://res.cloudinary.com",
+  "img-src 'self' data: blob: https://cdn.sanity.io https://res.cloudinary.com https://www.facebook.com",
   "media-src 'self' https://cdn.sanity.io https://res.cloudinary.com",
-  `connect-src 'self'${isDevelopment ? " ws: http:" : ""}`,
+  `connect-src 'self' https://www.facebook.com https://connect.facebook.net${isDevelopment ? " ws: http:" : ""}`,
   "object-src 'none'",
   "base-uri 'self'",
   "frame-ancestors 'none'",

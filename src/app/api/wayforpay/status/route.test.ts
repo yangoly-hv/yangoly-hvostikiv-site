@@ -17,8 +17,12 @@ describe("GET /api/wayforpay/status", () => {
     vi.clearAllMocks();
   });
 
-  it("returns only the authoritative callback status and disables caching", async () => {
-    mocks.fetch.mockResolvedValue({ paymentStatus: "approved" });
+  it("returns approved status with donation value for conversion tracking", async () => {
+    mocks.fetch.mockResolvedValue({
+      paymentStatus: "approved",
+      amountMinor: 50_000,
+      currency: "UAH",
+    });
 
     const response = await GET(
       new Request(`https://example.org/api/wayforpay/status?orderReference=${orderReference}`),
@@ -26,7 +30,25 @@ describe("GET /api/wayforpay/status", () => {
 
     expect(response.status).toBe(200);
     expect(response.headers.get("cache-control")).toBe("no-store");
-    await expect(response.json()).resolves.toEqual({ status: "approved" });
+    await expect(response.json()).resolves.toEqual({
+      status: "approved",
+      value: 500,
+      currency: "UAH",
+    });
+  });
+
+  it("returns status without value fields for non-approved payments", async () => {
+    mocks.fetch.mockResolvedValue({
+      paymentStatus: "pending",
+      amountMinor: 50_000,
+      currency: "UAH",
+    });
+
+    const response = await GET(
+      new Request(`https://example.org/api/wayforpay/status?orderReference=${orderReference}`),
+    );
+
+    await expect(response.json()).resolves.toEqual({ status: "pending" });
   });
 
   it("does not expose statuses for invalid or unknown orders", async () => {
