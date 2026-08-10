@@ -24,12 +24,12 @@ const  WorkResults = async () => {
   }));
 
   return (
-    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-[80px] bg-green">
+    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-4 md:px-[80px] bg-green">
       <motion.ul
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="flex gap-[54px] xl:gap-[110px] flex-col md:flex-row md:items-start"
+        className="grid grid-cols-2 gap-x-4 gap-y-10 w-full max-w-[420px] md:max-w-none md:flex md:w-auto md:gap-[54px] xl:gap-[110px] md:items-start"
       >
         {results.map((item, index) => (
           <motion.li

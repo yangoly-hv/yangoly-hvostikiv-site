@@ -2,11 +2,11 @@ import { IWorkResult } from "@/shared/types";
 
 const AchievementItem = ({ amount, name }: IWorkResult) => {
   return (
-    <div className="w-[197px] flex flex-col justify-start items-center gap-[6px]">
-      <p className="text-[48px] numeric-font leading-[130%] text-orange font-extralight font-arial ">
+    <div className="w-full md:w-[197px] flex flex-col justify-start items-center gap-[6px]">
+      <p className="text-[40px] md:text-[48px] numeric-font leading-[130%] text-orange font-extralight font-arial ">
         {amount}
       </p>
-      <p className="text-[18px] text-orange uppercase font-medium text-center  leading-[130%]">
+      <p className="text-[14px] md:text-[18px] text-orange uppercase font-medium text-center leading-[130%]">
         {name}
       </p>
     </div>
