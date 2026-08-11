@@ -182,6 +182,10 @@ describe("POST /api/wayforpay/checkout", () => {
     );
 
     expect(response.status).toBe(200);
+    expect(mocks.contentFetch).toHaveBeenCalledWith(
+      expect.stringContaining('"name": coalesce(name.uk, name.en)'),
+      expect.objectContaining({ targetId: "tail.luna" }),
+    );
     expect(mocks.createOrder).toHaveBeenCalledWith(
       expect.objectContaining({
         donationPurpose: "tail-one-time",
@@ -189,6 +193,26 @@ describe("POST /api/wayforpay/checkout", () => {
         donationTargetName: "Луна",
       }),
     );
+  });
+
+  it("rejects a tail target without a resolved string name instead of crashing", async () => {
+    mocks.contentFetch.mockResolvedValue({
+      _id: "tail.luna",
+      name: { uk: "Луна", en: "Luna" },
+    });
+
+    const response = await POST(
+      request({
+        amount: 500,
+        isAgreed: true,
+        donationPurpose: "tail-one-time",
+        donationTargetId: "tail.luna",
+      }),
+    );
+
+    expect(response.status).toBe(400);
+    await expect(response.json()).resolves.toEqual({ error: "Unknown donation target" });
+    expect(mocks.createOrder).not.toHaveBeenCalled();
   });
 
   it("creates a preset monthly WayForPay checkout with explicit consent", async () => {

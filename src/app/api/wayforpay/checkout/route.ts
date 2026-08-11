@@ -24,7 +24,11 @@ const collectionQuery = `
     "name": coalesce(title.uk, title.en)
   }
 `;
-const tailQuery = `*[_type == "tail" && _id == $targetId][0]{ _id, name, keeping_price }`;
+const tailQuery = `*[_type == "tail" && _id == $targetId][0]{
+  _id,
+  "name": coalesce(name.uk, name.en),
+  keeping_price
+}`;
 const foundationDonationTargetName = "Підтримка роботи фонду";
 
 type DonationTargetDocument = { _id: string; name?: string; keeping_price?: number };
@@ -34,6 +38,10 @@ type ResolvedDonationTarget = {
   collectionId?: string;
   guardianshipAmount?: number;
 };
+
+const resolveTargetName = (name: unknown) =>
+  typeof name === "string" ? name.trim() : "";
+
 
 class RequestBodyTooLargeError extends Error {}
 
@@ -77,11 +85,12 @@ const resolveDonationTarget = async ({
 
   const query = purpose === "collection" ? collectionQuery : tailQuery;
   const target = await legacyClient.fetch<DonationTargetDocument | null>(query, { targetId });
-  if (!target || !target.name?.trim()) return null;
+  const donationTargetName = resolveTargetName(target?.name);
+  if (!target || !donationTargetName) return null;
 
   return {
     donationTargetId: target._id,
-    donationTargetName: target.name.trim(),
+    donationTargetName,
     ...(purpose === "collection" ? { collectionId: target._id } : {}),
     ...(purpose === "tail-guardianship" ? { guardianshipAmount: target.keeping_price } : {}),
   };
