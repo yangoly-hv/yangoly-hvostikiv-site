@@ -20,3 +20,16 @@ test("contact form is interactive", async ({ page }) => {
   await contacts.locator('textarea[name="message"]').fill("Automated smoke test");
   await expect(contacts.locator('button[type="submit"]')).toBeEnabled();
 });
+
+for (const locale of ["uk", "en"] as const) {
+  test(`${locale}/event-registration renders registration form`, async ({ page }) => {
+    const response = await page.goto(`/${locale}/event-registration`);
+    expect(response?.status()).toBe(200);
+    await expect(page.locator("main")).toBeVisible();
+    await expect(page.locator('input[name="fullName"]')).toBeVisible();
+    await expect(page.locator('input[name="email"]')).toBeVisible();
+    await expect(page.locator('input[name="phone"]')).toBeVisible();
+    await expect(page.locator('input[name="petName"]')).toBeVisible();
+    await expect(page.locator('button[type="submit"]')).toBeEnabled();
+  });
+}

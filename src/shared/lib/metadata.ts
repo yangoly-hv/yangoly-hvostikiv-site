@@ -18,7 +18,8 @@ type MetadataKey =
   | "partnership"
   | "volunteering"
   | "charityEvents"
-  | "publicOffer";
+  | "publicOffer"
+  | "eventRegistration";
 
 type PageMetadataOptions = {
   locale: AppLocale;

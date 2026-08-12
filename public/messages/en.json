@@ -756,6 +756,11 @@
       "title": "Angels of Tails Charity Foundation | Charity Events",
       "description": "Learn about Angels of Tails charity events and how to get involved",
       "keywords": "charity foundation, animal aid, charity events, activities"
+    },
+    "eventRegistration": {
+      "title": "Angels of Tails Charity Foundation | Event registration",
+      "description": "Registration form for an Angels of Tails charity event",
+      "keywords": "charity foundation, event registration"
     }
   },
   "Blog": {

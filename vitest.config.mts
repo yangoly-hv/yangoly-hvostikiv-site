@@ -10,6 +10,8 @@ export default defineConfig({
   },
   test: {
     environment: "node",
+    // Default forks leave the Vitest runner unset on this Windows + Node 24 host.
+    pool: "vmThreads",
     include: ["src/**/*.test.ts"],
     coverage: {
       reporter: ["text", "json-summary"],
