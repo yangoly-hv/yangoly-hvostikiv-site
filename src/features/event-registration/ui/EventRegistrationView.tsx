@@ -14,10 +14,10 @@ export default function EventRegistrationView({ locale }: EventRegistrationViewP
   const { submittedSuccess, submitError, submit } = useEventRegistration(locale);
 
   return (
-    <div className="mx-auto w-full max-w-[535px]">
+    <div className="mx-auto w-full max-w-md md:max-w-lg">
       {submittedSuccess ? (
         <p
-          className="pb-8 text-center text-lg font-semibold text-[#1D1D1D]"
+          className="pb-4 text-center text-base font-semibold text-[#1D1D1D] md:text-lg"
           role="status"
         >
           {copy.successText}
@@ -26,7 +26,7 @@ export default function EventRegistrationView({ locale }: EventRegistrationViewP
         <>
           <EventRegistrationForm onSubmit={submit} copy={copy} />
           {submitError && (
-            <p className="mt-3 text-center text-sm font-medium text-red-600" role="alert">
+            <p className="mt-2 text-center text-sm font-medium text-red-600" role="alert">
               {copy.errorText}
             </p>
           )}

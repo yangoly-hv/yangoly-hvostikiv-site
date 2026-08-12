@@ -9,6 +9,7 @@ import { UkraineFlag } from "../../../../public/images/icons";
 import Button from "@/shared/components/Button/Button";
 import CheckBox from "@/shared/components/CheckBox/CheckBox";
 import FormField from "@/shared/ui/form/FormField";
+import { formatUaPhoneMaskValue } from "@/shared/lib/uaPhone";
 import { cn } from "@/shared/utils";
 import type { EventRegistrationCopy } from "../model/copy";
 import {
@@ -35,6 +36,7 @@ export default function EventRegistrationForm({
   const {
     register,
     control,
+    setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<EventRegistrationFormValues>({
@@ -50,6 +52,17 @@ export default function EventRegistrationForm({
     resolver: zodResolver(eventRegistrationFormSchema),
   });
 
+  const phoneField = register("phone");
+
+  const applyPhoneValue = (raw: string, options?: { shouldValidate?: boolean }) => {
+    const formatted = formatUaPhoneMaskValue(raw);
+    setValue("phone", formatted, {
+      shouldDirty: true,
+      shouldValidate: options?.shouldValidate ?? true,
+    });
+    return formatted;
+  };
+
   const getErrorText = (field: keyof typeof errors) => {
     const code = errors[field]?.message as EventRegistrationValidationCode | undefined;
     return code ? copy.validation[code] ?? copy.errorText : undefined;
@@ -57,7 +70,7 @@ export default function EventRegistrationForm({
 
   const inputClassName = (hasError: boolean, withIcon = false) =>
     cn(
-      "w-full appearance-none rounded-md border bg-white px-[14px] py-3 text-[#1D1D1D] placeholder:text-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500",
+      "w-full appearance-none rounded-md border bg-white px-3 py-2.5 text-[15px] text-[#1D1D1D] placeholder:text-gray-500 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 md:text-[16px]",
       withIcon && "pl-10",
       hasError && "border-red-500",
     );
@@ -78,12 +91,13 @@ export default function EventRegistrationForm({
     <form
       onSubmit={handleSubmit(onSubmit)}
       aria-busy={isSubmitting}
-      className={cn("relative space-y-1", className)}
+      className={cn("relative space-y-0.5", className)}
     >
       <FormField
         id={fullNameId}
         label={copy.fullNameLabel}
         required
+        dense
         error={getErrorText("fullName")}
       >
         <input
@@ -93,24 +107,41 @@ export default function EventRegistrationForm({
           placeholder={copy.fullNamePlaceholder}
           className={inputClassName(Boolean(errors.fullName))}
           autoComplete="name"
+          suppressHydrationWarning
           {...register("fullName")}
         />
       </FormField>
 
-      <FormField id={emailId} label={copy.emailLabel} required error={getErrorText("email")}>
-        <input
-          id={emailId}
-          type="email"
-          aria-invalid={Boolean(errors.email) || undefined}
-          aria-describedby={errors.email ? `${emailId}-error` : undefined}
-          placeholder={copy.emailPlaceholder}
-          className={inputClassName(Boolean(errors.email))}
-          autoComplete="email"
-          {...register("email")}
-        />
+      <FormField
+        id={emailId}
+        label={copy.emailLabel}
+        required
+        dense
+        error={getErrorText("email")}
+      >
+        {/* Wrapper absorbs autofill/extension DOM injections (password managers, wallets). */}
+        <div suppressHydrationWarning>
+          <input
+            id={emailId}
+            type="email"
+            aria-invalid={Boolean(errors.email) || undefined}
+            aria-describedby={errors.email ? `${emailId}-error` : undefined}
+            placeholder={copy.emailPlaceholder}
+            className={inputClassName(Boolean(errors.email))}
+            autoComplete="email"
+            suppressHydrationWarning
+            {...register("email")}
+          />
+        </div>
       </FormField>
 
-      <FormField id={phoneId} label={copy.phoneLabel} required error={getErrorText("phone")}>
+      <FormField
+        id={phoneId}
+        label={copy.phoneLabel}
+        required
+        dense
+        error={getErrorText("phone")}
+      >
         <div className="relative">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <UkraineFlag />
@@ -123,14 +154,32 @@ export default function EventRegistrationForm({
             replacement={{ _: /\d/ }}
             placeholder={copy.phonePlaceholder}
             className={inputClassName(Boolean(errors.phone), true)}
-            autoComplete="tel"
-            {...register("phone")}
+            autoComplete="tel-national"
+            inputMode="numeric"
+            suppressHydrationWarning
+            name={phoneField.name}
+            ref={phoneField.ref}
+            onBlur={(event) => {
+              applyPhoneValue(event.target.value, { shouldValidate: true });
+              phoneField.onBlur(event);
+            }}
+            onChange={(event) => {
+              const formatted = formatUaPhoneMaskValue(event.target.value);
+              event.target.value = formatted;
+              phoneField.onChange(event);
+            }}
+            onPaste={(event) => {
+              const text = event.clipboardData.getData("text");
+              if (!text) return;
+              event.preventDefault();
+              applyPhoneValue(text, { shouldValidate: true });
+            }}
           />
         </div>
       </FormField>
 
       <fieldset className="min-w-0">
-        <legend className="block text-[16px] leading-[130%] text-dark lg:text-[18px]">
+        <legend className="mb-1 block text-[15px] leading-[130%] text-dark lg:text-[16px]">
           {copy.petTypeLabel}
           <span className={cn(petTypeError && "text-red-500")}>*</span>
         </legend>
@@ -140,7 +189,7 @@ export default function EventRegistrationForm({
           render={({ field }) => (
             <div
               id={petTypeId}
-              className="mt-2 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-6"
+              className="flex flex-row flex-wrap gap-x-5 gap-y-2"
               role="radiogroup"
               aria-invalid={Boolean(errors.petType) || undefined}
               aria-describedby={errors.petType ? `${petTypeId}-error` : undefined}
@@ -166,7 +215,7 @@ export default function EventRegistrationForm({
           id={`${petTypeId}-error`}
           aria-live="polite"
           className={cn(
-            "min-h-[20px] text-sm leading-[20px] transition-opacity duration-200",
+            "min-h-[16px] text-xs leading-[16px] transition-opacity duration-200",
             petTypeError ? "text-red-500 opacity-100" : "opacity-0",
           )}
         >
@@ -178,6 +227,7 @@ export default function EventRegistrationForm({
         id={petNameId}
         label={copy.petNameLabel}
         required
+        dense
         error={getErrorText("petName")}
       >
         <input
@@ -186,6 +236,7 @@ export default function EventRegistrationForm({
           aria-describedby={errors.petName ? `${petNameId}-error` : undefined}
           placeholder={copy.petNamePlaceholder}
           className={inputClassName(Boolean(errors.petName))}
+          suppressHydrationWarning
           {...register("petName")}
         />
       </FormField>
@@ -193,15 +244,17 @@ export default function EventRegistrationForm({
       <FormField
         id={commentsId}
         label={copy.commentsLabel}
+        dense
         error={getErrorText("comments")}
       >
         <textarea
           id={commentsId}
-          rows={3}
+          rows={2}
           aria-invalid={Boolean(errors.comments) || undefined}
           aria-describedby={errors.comments ? `${commentsId}-error` : undefined}
           placeholder={copy.commentsPlaceholder}
           className={cn(inputClassName(Boolean(errors.comments)), "resize-none")}
+          suppressHydrationWarning
           {...register("comments")}
         />
       </FormField>
@@ -217,7 +270,7 @@ export default function EventRegistrationForm({
       </div>
 
       <Button
-        className="w-full py-3 disabled:cursor-not-allowed disabled:opacity-60"
+        className="mt-2 w-full py-2.5 disabled:cursor-not-allowed disabled:opacity-60 md:mt-3"
         disabled={isSubmitting}
         text={copy.submitText}
         type="submit"

@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { UkraineFlag } from "../../../../public/images/icons";
 import Button from "@/shared/components/Button/Button";
 import FormField from "@/shared/ui/form/FormField";
+import { formatUaPhoneMaskValue } from "@/shared/lib/uaPhone";
 import { cn } from "@/shared/utils";
 import type { ContactRequestCopy } from "../model/copy";
 import {
@@ -26,12 +27,21 @@ export default function ContactRequestForm({ copy, className, onSubmit }: Contac
   const formId = useId();
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<ContactRequestValues>({
     defaultValues: { name: "", phone: "", message: "", website: "" },
     resolver: zodResolver(contactRequestSchema),
   });
+
+  const phoneField = register("phone");
+
+  const applyPhoneValue = (raw: string) => {
+    const formatted = formatUaPhoneMaskValue(raw);
+    setValue("phone", formatted, { shouldDirty: true, shouldValidate: true });
+    return formatted;
+  };
 
   const getErrorText = (field: keyof typeof errors) => {
     const code = errors[field]?.message as ContactValidationCode | undefined;
@@ -75,7 +85,25 @@ export default function ContactRequestForm({ copy, className, onSubmit }: Contac
             replacement={{ _: /\d/ }}
             placeholder={copy.phonePlaceholder}
             className={inputClassName(Boolean(errors.phone), true)}
-            {...register("phone")}
+            autoComplete="tel-national"
+            inputMode="numeric"
+            name={phoneField.name}
+            ref={phoneField.ref}
+            onBlur={(event) => {
+              applyPhoneValue(event.target.value);
+              phoneField.onBlur(event);
+            }}
+            onChange={(event) => {
+              const formatted = formatUaPhoneMaskValue(event.target.value);
+              event.target.value = formatted;
+              phoneField.onChange(event);
+            }}
+            onPaste={(event) => {
+              const text = event.clipboardData.getData("text");
+              if (!text) return;
+              event.preventDefault();
+              applyPhoneValue(text);
+            }}
           />
         </div>
       </FormField>

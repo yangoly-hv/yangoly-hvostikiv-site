@@ -32,11 +32,11 @@ export default async function EventRegistrationPage({ params }: PageParams) {
 
   return (
     <section className="bg-orange-bg">
-      <div className="container mx-auto px-4 pb-16 pt-[60px] xl:px-10">
-        <h1 className="mb-4 text-center font-arial text-[24px] font-black uppercase leading-[130%] text-dark lg:text-[44px]">
+      <div className="container mx-auto px-4 pb-10 pt-8 md:pb-12 md:pt-10 xl:px-10">
+        <h1 className="mb-2 text-center font-arial text-[22px] font-black uppercase leading-[120%] text-dark md:mb-3 md:text-[32px] lg:text-[40px]">
           {copy.title}
         </h1>
-        <p className="mx-auto mb-10 max-w-[640px] text-center text-[16px] leading-[140%] text-dark lg:text-[18px]">
+        <p className="mx-auto mb-5 max-w-xl text-center text-[15px] leading-[135%] text-dark md:mb-6 md:text-[16px]">
           {copy.intro}
         </p>
         <EventRegistrationView locale={locale} />
