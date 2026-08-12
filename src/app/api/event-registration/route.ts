@@ -8,6 +8,8 @@ import {
 } from "@/features/event-registration/server/appendRegistrationRow";
 import { checkEventRegistrationRateLimit } from "./rateLimit";
 
+export const runtime = "nodejs";
+
 const MAX_REQUEST_BODY_BYTES = 8 * 1024;
 
 class RequestBodyTooLargeError extends Error {}

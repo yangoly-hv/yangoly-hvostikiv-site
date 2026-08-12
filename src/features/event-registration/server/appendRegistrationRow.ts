@@ -35,6 +35,13 @@ const stripWrappingQuotes = (value: string) => {
   return value;
 };
 
+/** Normalize PEM keys from .env / Vercel (literal \\n, wrapping quotes, CRLF). */
+export const normalizeGooglePrivateKey = (raw: string) =>
+  stripWrappingQuotes(raw)
+    .trim()
+    .replace(/\\n/g, "\n")
+    .replace(/\r\n/g, "\n");
+
 const getSheetsConfig = () => {
   const clientEmail = process.env.GOOGLE_SHEETS_CLIENT_EMAIL?.trim();
   const privateKeyRaw = process.env.GOOGLE_SHEETS_PRIVATE_KEY;
@@ -48,9 +55,29 @@ const getSheetsConfig = () => {
 
   return {
     clientEmail,
-    privateKey: stripWrappingQuotes(privateKeyRaw).replace(/\\n/g, "\n"),
+    privateKey: normalizeGooglePrivateKey(privateKeyRaw),
     spreadsheetId,
     range,
+  };
+};
+
+const sheetsErrorMeta = (error: unknown) => {
+  if (!error || typeof error !== "object") {
+    return { status: "unknown", message: "unknown" };
+  }
+  const candidate = error as {
+    code?: unknown;
+    message?: unknown;
+    errors?: Array<{ message?: unknown }>;
+    response?: { status?: unknown };
+  };
+  return {
+    status: candidate.code ?? candidate.response?.status ?? "unknown",
+    message:
+      (typeof candidate.errors?.[0]?.message === "string" &&
+        candidate.errors[0].message) ||
+      (typeof candidate.message === "string" && candidate.message) ||
+      "unknown",
   };
 };
 
@@ -105,6 +132,8 @@ export const appendRegistrationRow = async (
     ) {
       throw error;
     }
+    const meta = sheetsErrorMeta(error);
+    console.error("[event-registration] sheets append failed", meta);
     throw new SheetsAppendError();
   }
 };

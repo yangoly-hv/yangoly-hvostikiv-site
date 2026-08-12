@@ -52,11 +52,12 @@ export const ensureRegistrationSheetLayout = async (
   });
 
   const existingSheets = listSheets(spreadsheet.data);
-  const requests: sheets_v4.Schema$Request[] = [];
+  const titleRequests: sheets_v4.Schema$Request[] = [];
+  const sheetRequests: sheets_v4.Schema$Request[] = [];
 
   const currentTitle = spreadsheet.data.properties?.title?.trim() || "";
   if (currentTitle !== EVENT_REGISTRATION_SPREADSHEET_TITLE) {
-    requests.push({
+    titleRequests.push({
       updateSpreadsheetProperties: {
         properties: { title: EVENT_REGISTRATION_SPREADSHEET_TITLE },
         fields: "title",
@@ -68,10 +69,10 @@ export const ensureRegistrationSheetLayout = async (
     existingSheets.map((sheet) => sheet.title),
     configuredTabTitle,
   );
-  let targetSheet = existingSheets.find((sheet) => sheet.title === targetTitle);
+  const targetSheet = existingSheets.find((sheet) => sheet.title === targetTitle);
 
   if (!targetSheet) {
-    requests.push({
+    sheetRequests.push({
       addSheet: {
         properties: {
           title: EVENT_REGISTRATION_SHEET_TAB_NAME,
@@ -81,7 +82,7 @@ export const ensureRegistrationSheetLayout = async (
     });
     targetTitle = EVENT_REGISTRATION_SHEET_TAB_NAME;
   } else if (targetSheet.title !== EVENT_REGISTRATION_SHEET_TAB_NAME) {
-    requests.push({
+    sheetRequests.push({
       updateSheetProperties: {
         properties: {
           sheetId: targetSheet.sheetId,
@@ -93,10 +94,27 @@ export const ensureRegistrationSheetLayout = async (
     targetTitle = EVENT_REGISTRATION_SHEET_TAB_NAME;
   }
 
-  if (requests.length > 0) {
+  // Title rename is best-effort so a cosmetic failure cannot block registrations.
+  if (titleRequests.length > 0) {
+    try {
+      await sheets.spreadsheets.batchUpdate({
+        spreadsheetId,
+        requestBody: { requests: titleRequests },
+      });
+    } catch (error) {
+      console.error("[event-registration] spreadsheet title update skipped", {
+        status:
+          error && typeof error === "object" && "code" in error
+            ? (error as { code?: unknown }).code
+            : "unknown",
+      });
+    }
+  }
+
+  if (sheetRequests.length > 0) {
     await sheets.spreadsheets.batchUpdate({
       spreadsheetId,
-      requestBody: { requests },
+      requestBody: { requests: sheetRequests },
     });
   }
 
