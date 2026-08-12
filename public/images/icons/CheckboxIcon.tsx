@@ -60,4 +60,24 @@ export const CheckboxIcon = ({
         />
       </svg>
     );
+
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      {...props}
+    >
+      <rect
+        x="3.83337"
+        y="3.83325"
+        width="12.3333"
+        height="12.3333"
+        rx="1.25"
+        stroke="#4E5053"
+      />
+    </svg>
+  );
 };

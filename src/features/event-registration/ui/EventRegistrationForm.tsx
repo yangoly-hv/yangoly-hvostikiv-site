@@ -3,10 +3,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { InputMask } from "@react-input/mask";
 import { useId } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
-import { CheckboxIcon, UkraineFlag } from "../../../../public/images/icons";
+import { UkraineFlag } from "../../../../public/images/icons";
 import Button from "@/shared/components/Button/Button";
+import CheckBox from "@/shared/components/CheckBox/CheckBox";
 import FormField from "@/shared/ui/form/FormField";
 import { cn } from "@/shared/utils";
 import type { EventRegistrationCopy } from "../model/copy";
@@ -33,8 +34,8 @@ export default function EventRegistrationForm({
   const formId = useId();
   const {
     register,
+    control,
     handleSubmit,
-    watch,
     formState: { errors, isSubmitting },
   } = useForm<EventRegistrationFormValues>({
     defaultValues: {
@@ -48,8 +49,6 @@ export default function EventRegistrationForm({
     },
     resolver: zodResolver(eventRegistrationFormSchema),
   });
-
-  const selectedPetType = watch("petType");
 
   const getErrorText = (field: keyof typeof errors) => {
     const code = errors[field]?.message as EventRegistrationValidationCode | undefined;
@@ -135,41 +134,34 @@ export default function EventRegistrationForm({
           {copy.petTypeLabel}
           <span className={cn(petTypeError && "text-red-500")}>*</span>
         </legend>
-        <div
-          id={petTypeId}
-          className="mt-2 flex flex-wrap gap-6"
-          role="radiogroup"
-          aria-invalid={Boolean(errors.petType) || undefined}
-          aria-describedby={errors.petType ? `${petTypeId}-error` : undefined}
-        >
-          {PET_TYPE_OPTIONS.map((value) => {
-            const optionId = `${petTypeId}-${value}`;
-            const checked = selectedPetType === value;
-            return (
-              <label
-                key={value}
-                htmlFor={optionId}
-                className="flex cursor-pointer items-center gap-2 text-[16px] text-[#1D1D1D] lg:text-[18px]"
-              >
-                <input
-                  id={optionId}
-                  type="radio"
-                  value={value}
-                  className="peer sr-only"
-                  {...register("petType")}
-                />
-                <span className="rounded-sm peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-orange">
-                  <CheckboxIcon
-                    variant={
-                      petTypeError ? "error" : checked ? "checked" : "default"
+        <Controller
+          name="petType"
+          control={control}
+          render={({ field }) => (
+            <div
+              id={petTypeId}
+              className="mt-2 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-6"
+              role="radiogroup"
+              aria-invalid={Boolean(errors.petType) || undefined}
+              aria-describedby={errors.petType ? `${petTypeId}-error` : undefined}
+            >
+              {PET_TYPE_OPTIONS.map((value) => (
+                <CheckBox
+                  key={value}
+                  name={`petType-${value}`}
+                  label={petTypeLabels[value]}
+                  checked={field.value === value}
+                  error={Boolean(petTypeError)}
+                  onChange={(checked) => {
+                    if (checked) {
+                      field.onChange(value);
                     }
-                  />
-                </span>
-                {petTypeLabels[value]}
-              </label>
-            );
-          })}
-        </div>
+                  }}
+                />
+              ))}
+            </div>
+          )}
+        />
         <p
           id={`${petTypeId}-error`}
           aria-live="polite"

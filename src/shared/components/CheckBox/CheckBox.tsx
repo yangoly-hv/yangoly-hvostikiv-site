@@ -25,7 +25,7 @@ const CheckBox = ({ label, error, onChange, checked = false, ...props }: ICheckB
         className="peer sr-only"
         {...props}
       />
-      <span className="rounded-sm peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-orange">
+      <span className="inline-flex size-5 shrink-0 items-center justify-center rounded-sm peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-orange">
         <CheckboxIcon
           variant={error ? "error" : checked ? "checked" : "default"}
         />
