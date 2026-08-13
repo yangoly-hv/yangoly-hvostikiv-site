@@ -25,8 +25,8 @@ export type EventRegistrationCopy = {
 
 const copyByLocale: Record<Locale, EventRegistrationCopy> = {
   uk: {
-    title: "Реєстрація на захід",
-    intro: "Заповніть форму, щоб зареєструватися. Ми збережемо ваші дані та зв’яжемося за потреби.",
+    title: "Вступити в спільноту Янголів",
+    intro: "Ми збережемо ваші дані та зв’яжемося за потреби.",
     fullNameLabel: "ПІБ",
     emailLabel: "Email",
     phoneLabel: "Телефон",
@@ -40,7 +40,7 @@ const copyByLocale: Record<Locale, EventRegistrationCopy> = {
     phonePlaceholder: "+38",
     petNamePlaceholder: "Ім’я вашого хвостика",
     commentsPlaceholder: "За бажанням",
-    submitText: "ЗАРЕЄСТРУВАТИСЯ",
+    submitText: "ВСТУПИТИ",
     successText: "Дякуємо! Вашу реєстрацію збережено.",
     errorText: "Не вдалося надіслати реєстрацію. Спробуйте ще раз.",
     validation: {
@@ -58,8 +58,8 @@ const copyByLocale: Record<Locale, EventRegistrationCopy> = {
     },
   },
   en: {
-    title: "Event registration",
-    intro: "Fill out the form to register. We will save your details and contact you if needed.",
+    title: "Join the Angels community",
+    intro: "We will save your details and contact you if needed.",
     fullNameLabel: "Full name",
     emailLabel: "Email",
     phoneLabel: "Phone",
@@ -73,7 +73,7 @@ const copyByLocale: Record<Locale, EventRegistrationCopy> = {
     phonePlaceholder: "+38",
     petNamePlaceholder: "Your pet’s name",
     commentsPlaceholder: "Optional",
-    submitText: "REGISTER",
+    submitText: "JOIN",
     successText: "Thank you! Your registration has been saved.",
     errorText: "Failed to submit registration. Please try again.",
     validation: {
