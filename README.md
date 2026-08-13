@@ -105,7 +105,7 @@ Preview включается защищённым URL `/api/draft/enable?secret=
 
 В Studio доступны workspace `/content` для контента и `/payments` для read-only платежных документов. Доступ к `payments` должен быть выдан только сотрудникам, которым разрешена работа с платежными данными.
 
-Соцсети сайта хранятся в singleton-документе `siteSettings` (Instagram, Facebook, Twitter/X, Telegram, YouTube). Пустые поля и URL с чужим доменом на сайте не показываются. Первичное заполнение: Studio → «Налаштування сайту» или `node --env-file=.env.local scripts/seed-site-settings.mjs` (нужен `SANITY_API_TOKEN`).
+Соцсети сайта и публичная банка Monobank для разовых донатов хранятся в singleton-документе `siteSettings` (Instagram, Facebook, Twitter/X, Telegram, YouTube, `monobankJarUrl`). Пустые соцсети и URL с чужим доменом на сайте не показываются. `monobankJarUrl` должен быть ссылкой `https://send.monobank.ua/jar/…`; её используют хедер «Разова допомога» и форма в hero. Если поле пустое, эти кнопки остаются на WayForPay. Первичное заполнение: Studio → «Налаштування сайту» или `node --env-file=.env.local scripts/seed-site-settings.mjs` (нужен `SANITY_API_TOKEN`).
 
 ## Статические маршруты и локализация
 

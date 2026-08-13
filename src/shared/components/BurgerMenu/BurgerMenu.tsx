@@ -65,7 +65,7 @@ const BurgerMenu = ({ isOpen, onClose, socials = [] }: IBurgerMenuopProps) => {
               <div className="flex justify-end pt-5 pr-5 sm:pt-6 sm:pr-6 lg:pr-8">
                 <button
                   type="button"
-                  aria-label="Закрити меню"
+                  aria-label={t("closeMenu")}
                   onClick={onClose}
                   className="cursor-pointer p-1 hover:bg-gray-100 rounded-full transition-colors"
                 >

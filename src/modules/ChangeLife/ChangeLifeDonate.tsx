@@ -1,21 +1,19 @@
 "use client";
 
 import Button from "../../shared/components/Button/Button";
-import {useModal} from "@/providers/ModalProvider";
-import {useTranslations} from "next-intl";
+import { useOneTimeDonationJarUrl } from "@/providers/OneTimeDonationJarProvider";
 
 export default function ChangeLifeDonate({ text }: { text: string }) {
-    const t = useTranslations("DonateModal");
-    const {openDonateModal} = useModal();
+    const jarUrl = useOneTimeDonationJarUrl();
+    if (!jarUrl) return null;
+
     return (
-        <>
-            <Button
-                onClick={() => openDonateModal(t("fundraisingOneTimeTitle"))}
-                variant="outline"
-                text={text}
-                fullWidth
-                className="w-full xl:h-[67px] bg-inherit text-dark border-dark hover:text-white hover:bg-dark"
-            />
-        </>
+        <Button
+            href={jarUrl}
+            variant="outline"
+            text={text}
+            fullWidth
+            className="w-full xl:h-[67px] bg-inherit text-dark border-dark hover:text-white hover:bg-dark"
+        />
     )
 }

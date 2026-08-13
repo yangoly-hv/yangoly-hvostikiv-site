@@ -18,24 +18,16 @@ import { checkCheckoutRateLimit } from "./rateLimit";
 const MAX_REQUEST_BODY_BYTES = 8 * 1024;
 const productName = "Charitable donation to Angels of Tails";
 
-const collectionQuery = `
-  *[_type == "collection" && _id == $targetId][0]{
-    _id,
-    "name": coalesce(title.uk, title.en)
-  }
-`;
 const tailQuery = `*[_type == "tail" && _id == $targetId][0]{
   _id,
   "name": coalesce(name.uk, name.en),
   keeping_price
 }`;
-const foundationDonationTargetName = "Підтримка роботи фонду";
 
 type DonationTargetDocument = { _id: string; name?: string; keeping_price?: number };
 type ResolvedDonationTarget = {
   donationTargetId?: string;
   donationTargetName: string;
-  collectionId?: string;
   guardianshipAmount?: number;
 };
 
@@ -79,19 +71,18 @@ const resolveDonationTarget = async ({
   purpose: DonationPurpose;
   targetId?: string;
 }): Promise<ResolvedDonationTarget | null> => {
-  if (purpose === "foundation") {
-    return { donationTargetName: foundationDonationTargetName };
+  // Foundation and collection WayForPay checkout is paused; those CTAs use Mono jars.
+  if (purpose !== "tail-one-time" && purpose !== "tail-guardianship") {
+    return null;
   }
 
-  const query = purpose === "collection" ? collectionQuery : tailQuery;
-  const target = await legacyClient.fetch<DonationTargetDocument | null>(query, { targetId });
+  const target = await legacyClient.fetch<DonationTargetDocument | null>(tailQuery, { targetId });
   const donationTargetName = resolveTargetName(target?.name);
   if (!target || !donationTargetName) return null;
 
   return {
     donationTargetId: target._id,
     donationTargetName,
-    ...(purpose === "collection" ? { collectionId: target._id } : {}),
     ...(purpose === "tail-guardianship" ? { guardianshipAmount: target.keeping_price } : {}),
   };
 };

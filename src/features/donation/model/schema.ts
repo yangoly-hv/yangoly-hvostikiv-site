@@ -1,6 +1,6 @@
 import * as z from "zod/mini";
 
-import { donationPurposes, donationSchedules } from "./purpose";
+import { donationSchedules } from "./purpose";
 
 export const donationAmountSchema = z
   .number("Enter a valid amount")
@@ -62,10 +62,7 @@ export const createDonationFormSchema = () =>
   );
 
 export const createCheckoutRequestSchema = z.extend(donationDraftSchema, {
-  donationPurpose: z.pipe(
-    z.optional(z.enum(donationPurposes)),
-    z.transform((value) => value ?? "foundation"),
-  ),
+  donationPurpose: z.enum(["tail-one-time", "tail-guardianship"]),
   donationTargetId: z.pipe(
     z.optional(z.string()),
     z.pipe(
@@ -87,15 +84,11 @@ export const createCheckoutRequestSchema = z.extend(donationDraftSchema, {
     "Agreement is required",
   ),
   z.refine(
-    (values) =>
-      values.donationPurpose === "foundation"
-        ? !values.donationTargetId
-        : Boolean(values.donationTargetId),
+    (values) => Boolean(values.donationTargetId),
     "A donation target is required for this purpose",
   ),
   z.refine(
     (values) => {
-      if (values.donationPurpose === "foundation") return true;
       if (values.donationPurpose === "tail-guardianship") {
         return values.donationSchedule === "monthly";
       }

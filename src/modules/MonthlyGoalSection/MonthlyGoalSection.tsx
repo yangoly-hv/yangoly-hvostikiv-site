@@ -22,7 +22,7 @@ const formatAmount = (amount: number) => amount.toLocaleString("uk-UA");
 
 const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
   const t = await getTranslations("");
-  const { generalGoal, result, supportFundrasing, support } =
+  const { generalGoal, result, supportFundrasing } =
     await t.raw("MonthlyGoalSection");
   const data = await getMainCollection();
   if (!data) return null;
@@ -123,14 +123,6 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
             <div>
               <CollectionDonateCta
                 monoJarUrl={monoJar?.jarUrl ?? null}
-                title={`${support} ${title}`}
-                donationTarget={{
-                  purpose: "collection",
-                  targetId: data._id,
-                  targetName: title,
-                  amount: sanityGoal,
-                  amountCollected: wayforpayCollected,
-                }}
                 className={buttonClassName}
                 buttonText={supportFundrasing}
               />

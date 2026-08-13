@@ -24,6 +24,7 @@ const Header = ({ socials = [] }: HeaderProps) => {
           href="/"
           variant="color"
           className="w-[94px] h-10 2xl:w-[112px] 2xl:h-12"
+          alt={t("logoAlt")}
         />
         <div className="flex justify-center items-center gap-4 xl:gap-8 laptop:gap-8">
           <LanguageSwitcher />
@@ -36,7 +37,7 @@ const Header = ({ socials = [] }: HeaderProps) => {
           <button
             type="button"
             className="ml-auto"
-            aria-label="Відкрити меню"
+            aria-label={t("openMenu")}
             onClick={() => setIsMenuOpen(true)}
           >
             <BurgerButtonIcon />

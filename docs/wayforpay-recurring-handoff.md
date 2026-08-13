@@ -6,11 +6,10 @@ The site uses WayForPay-managed recurring payments. The first payment is a signe
 
 | Flow | `donationPurpose` | `donationSchedule` | Amount source |
 | --- | --- | --- | --- |
-| Home, one-time tab | `foundation` | `oneTime` | Donor input |
-| Home, monthly tab | `foundation` | `monthly` | Donor input |
-| Tail one-time help | `tail-one-time` | `oneTime` | Donor input |
-| Tail guardianship | `tail-guardianship` | `monthly` | Current `keeping_price` from Sanity, verified on the server |
-| Collection | `collection` | `oneTime` | Donor input |
+| Home one-time / header «Разова допомога» | — | — | Monobank jar from `siteSettings.monobankJarUrl` |
+| Tail one-time help | `tail-one-time` | `oneTime` | Donor input (WayForPay) |
+| Tail guardianship | `tail-guardianship` | `monthly` | Current `keeping_price` from Sanity, verified on the server (WayForPay) |
+| Collection | — | — | Monobank jar from collection `monobankLongJarId` |
 
 Monthly checkout adds these fields to the standard signed Purchase payload:
 

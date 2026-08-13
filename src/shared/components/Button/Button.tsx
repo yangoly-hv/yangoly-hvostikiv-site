@@ -1,11 +1,14 @@
 import { cn } from "@/shared/utils";
 import { IButtonProps } from "@/shared/types";
+import { getSafeHref } from "@/shared/lib/safeHref";
 
 const Button = ({
   text,
   variant = "primary",
   fullWidth = false,
   className,
+  href,
+  type,
   ...props
 }: IButtonProps) => {
   const baseStyles =
@@ -20,12 +23,26 @@ const Button = ({
       "border border-green text-green hover:bg-green hover:text-white  active:scale-95",
   };
   const widthStyle = fullWidth ? "w-full" : "w-auto";
+  const classes = cn(baseStyles, variantStyles[variant], widthStyle, className);
+
+  if (href) {
+    const safeHref = getSafeHref(href);
+    if (!safeHref) return null;
+
+    return (
+      <a
+        href={safeHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cn(classes, "inline-flex items-center justify-center text-center")}
+      >
+        {text}
+      </a>
+    );
+  }
 
   return (
-    <button
-      className={cn(baseStyles, variantStyles[variant], widthStyle, className)}
-      {...props}
-    >
+    <button type={type} className={classes} {...props}>
       {text}
     </button>
   );

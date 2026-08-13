@@ -3,12 +3,12 @@ import clsx from "clsx";
 import { Link } from "@/i18n/navigation";
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
 
-const Logo = ({ variant = "black", className = "", ...props }: ILogoProps) => {
+const Logo = ({ variant = "black", className = "", alt, ...props }: ILogoProps) => {
     return (
         <Link {...props} className={`${className} relative block overflow-hidden`}>
             <SafeImage
                 src="/images/logo.webp"
-                alt="Янголи Хвостиків"
+                alt={alt ?? ""}
                 priority
                 fill
                 sizes="10vw"

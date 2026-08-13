@@ -14,7 +14,8 @@ import { getOrganizationSchema } from "@/shared/lib/structuredData";
 import JsonLd from "@/shared/components/JsonLd";
 import MetaPixel from "@/shared/components/MetaPixel/MetaPixel";
 import MotionProvider from "@/shared/ui/MotionProvider";
-import { getSocialLinks } from "@/features/site/server/data";
+import { getOneTimeDonationJarUrl, getSocialLinks } from "@/features/site/server/data";
+import { OneTimeDonationJarProvider } from "@/providers/OneTimeDonationJarProvider";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -44,7 +45,10 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
-  const socials = await getSocialLinks();
+  const [socials, oneTimeDonationJarUrl] = await Promise.all([
+    getSocialLinks(),
+    getOneTimeDonationJarUrl(),
+  ]);
   const clientMessages = {
     Header: messages.Header,
     Filters: messages.Filters,
@@ -67,19 +71,21 @@ export default async function LocaleLayout({
             socials.map((link) => link.href)
           )}
         />
-        <NextIntlClientProvider messages={clientMessages}>
+        <NextIntlClientProvider locale={locale} key={locale} messages={clientMessages}>
           <MotionProvider>
             <ModalProvider>
-              <div className="flex flex-col min-h-screen">
-                <Header socials={socials} />
-                <PaymentReturnClient />
-                <main
-                  className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway`}
-                >
-                  {children}
-                </main>
-                <Footer socials={socials} />
-              </div>
+              <OneTimeDonationJarProvider url={oneTimeDonationJarUrl}>
+                <div className="flex flex-col min-h-screen">
+                  <Header socials={socials} />
+                  <PaymentReturnClient />
+                  <main
+                    className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway`}
+                  >
+                    {children}
+                  </main>
+                  <Footer socials={socials} />
+                </div>
+              </OneTimeDonationJarProvider>
             </ModalProvider>
             <div id="modal-root" />
           </MotionProvider>

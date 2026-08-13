@@ -46,6 +46,7 @@ export interface IButtonProps
   text: string;
   variant?: ButtonVariant;
   fullWidth?: boolean;
+  href?: string;
 }
 
 interface IFundraisingGoalStyleProps {
@@ -79,6 +80,7 @@ export interface ISvgIconProps extends React.SVGProps<SVGSVGElement> {
 export interface ILogoProps extends ComponentProps<typeof Link> {
   variant?: "black" | "color";
   className: string;
+  alt?: string;
 }
 
 export interface IInfoBlockProps extends ComponentProps<"div"> {

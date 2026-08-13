@@ -31,12 +31,19 @@ const request = (body: unknown) =>
     },
   });
 
+const tailOneTime = {
+  amount: 500,
+  isAgreed: true,
+  donationPurpose: "tail-one-time",
+  donationTargetId: "tail.luna",
+} as const;
+
 describe("POST /api/wayforpay/checkout", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     resetCheckoutRateLimitForTests();
     mocks.createOrder.mockResolvedValue({ _id: "order-1" });
-    mocks.contentFetch.mockResolvedValue({ _id: "collection.main", name: "Збір на лікування" });
+    mocks.contentFetch.mockResolvedValue({ _id: "tail.luna", name: "Луна", keeping_price: 2500 });
     mocks.getRequiredEnv.mockImplementation((name: string) => {
       const values: Record<string, string> = {
         WAYFORPAY_ACCOUNT: "merchant",
@@ -52,13 +59,12 @@ describe("POST /api/wayforpay/checkout", () => {
   it("creates an order reference and server-defined payment values", async () => {
     const response = await POST(
       request({
-        amount: 500,
+        ...tailOneTime,
         productName: "Client-controlled value",
         fullName: "Oleksii Kovalenko",
         isAnonymous: false,
         comment: "For Luna",
         donationItemDescription: "1 день харчування цуценятка / кошенятка",
-        isAgreed: true,
         wantNotifications: true,
         returnPath: "/uk/fundraising",
       }),
@@ -75,8 +81,9 @@ describe("POST /api/wayforpay/checkout", () => {
         currency: "UAH",
         paymentStatus: "created",
         paymentType: "oneTime",
-        donationPurpose: "foundation",
-        donationTargetName: "Підтримка роботи фонду",
+        donationPurpose: "tail-one-time",
+        donationTargetId: "tail.luna",
+        donationTargetName: "Луна",
         donationItemDescription: "1 день харчування цуценятка / кошенятка",
         donationEmailEnabled: true,
         productName: "Charitable donation to Angels of Tails",
@@ -93,9 +100,8 @@ describe("POST /api/wayforpay/checkout", () => {
   it("ignores a client-supplied order reference", async () => {
     const response = await POST(
       request({
-        amount: 500,
+        ...tailOneTime,
         productName: "Donation",
-        isAgreed: true,
         wantNotifications: false,
         orderReference: "CLIENT_CONTROLLED",
       }),
@@ -117,7 +123,7 @@ describe("POST /api/wayforpay/checkout", () => {
       new NextRequest("http://localhost/api/wayforpay/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json", Origin: "https://attacker.example" },
-        body: JSON.stringify({ amount: 500, isAgreed: true }),
+        body: JSON.stringify(tailOneTime),
       }),
     );
 
@@ -126,14 +132,17 @@ describe("POST /api/wayforpay/checkout", () => {
   });
 
   it("normalizes an unsafe return path before persisting the order", async () => {
-    const response = await POST(request({ amount: 500, isAgreed: true, returnPath: "//attacker.example" }));
+    const response = await POST(request({ ...tailOneTime, returnPath: "//attacker.example" }));
 
     expect(response.status).toBe(200);
     expect(mocks.createOrder).toHaveBeenCalledWith(expect.objectContaining({ returnPath: "/" }));
   });
 
-  it("persists only an existing collection selected by the donation form", async () => {
-    const response = await POST(
+  it("rejects foundation and collection checkout while WayForPay is tails-only", async () => {
+    const foundation = await POST(request({ amount: 500, isAgreed: true }));
+    expect(foundation.status).toBe(400);
+
+    const collection = await POST(
       request({
         amount: 500,
         isAgreed: true,
@@ -141,31 +150,7 @@ describe("POST /api/wayforpay/checkout", () => {
         donationTargetId: "collection.main",
       }),
     );
-
-    expect(response.status).toBe(200);
-    expect(mocks.createOrder).toHaveBeenCalledWith(
-      expect.objectContaining({
-        donationPurpose: "collection",
-        donationTargetId: "collection.main",
-        donationTargetName: "Збір на лікування",
-        collectionId: "collection.main",
-      }),
-    );
-  });
-
-  it("rejects an unknown collection without creating an order", async () => {
-    mocks.contentFetch.mockResolvedValue(null);
-
-    const response = await POST(
-      request({
-        amount: 500,
-        isAgreed: true,
-        donationPurpose: "collection",
-        donationTargetId: "collection.unknown",
-      }),
-    );
-
-    expect(response.status).toBe(400);
+    expect(collection.status).toBe(400);
     expect(mocks.createOrder).not.toHaveBeenCalled();
   });
 
@@ -215,13 +200,48 @@ describe("POST /api/wayforpay/checkout", () => {
     expect(mocks.createOrder).not.toHaveBeenCalled();
   });
 
-  it("creates a preset monthly WayForPay checkout with explicit consent", async () => {
-    const response = await POST(
+  it("rejects monthly checkout unless it is tail guardianship with consent", async () => {
+    const missingConsent = await POST(
+      request({
+        amount: 2500,
+        isAgreed: true,
+        donationSchedule: "monthly",
+        donationPurpose: "tail-guardianship",
+        donationTargetId: "tail.luna",
+      }),
+    );
+    expect(missingConsent.status).toBe(400);
+
+    const foundationMonthly = await POST(
       request({
         amount: 500,
         isAgreed: true,
         donationSchedule: "monthly",
         isRecurringAgreed: true,
+      }),
+    );
+    expect(foundationMonthly.status).toBe(400);
+
+    const incompatiblePurpose = await POST(
+      request({
+        ...tailOneTime,
+        donationSchedule: "monthly",
+        isRecurringAgreed: true,
+      }),
+    );
+    expect(incompatiblePurpose.status).toBe(400);
+    expect(mocks.createOrder).not.toHaveBeenCalled();
+  });
+
+  it("creates a preset monthly WayForPay checkout for tail guardianship", async () => {
+    const response = await POST(
+      request({
+        amount: 2500,
+        isAgreed: true,
+        donationSchedule: "monthly",
+        isRecurringAgreed: true,
+        donationPurpose: "tail-guardianship",
+        donationTargetId: "tail.luna",
       }),
     );
 
@@ -230,38 +250,20 @@ describe("POST /api/wayforpay/checkout", () => {
       regularMode: "monthly",
       regularBehavior: "preset",
       regularOn: 1,
-      regularAmount: 500,
+      regularAmount: 2500,
       dateNext: expect.stringMatching(/^\d{2}\.\d{2}\.\d{4}$/),
       paymentSystems: "card;googlePay;applePay",
     });
     expect(mocks.createOrder).toHaveBeenCalledWith(
       expect.objectContaining({
         paymentType: "monthly",
+        donationPurpose: "tail-guardianship",
         isRecurringAgreed: true,
         regularMode: "monthly",
-        regularAmountMinor: 50_000,
+        regularAmountMinor: 250_000,
         regularNextPaymentDate: expect.stringMatching(/^\d{2}\.\d{2}\.\d{4}$/),
       }),
     );
-  });
-
-  it("requires recurring consent and rejects monthly schedules for one-time purposes", async () => {
-    const missingConsent = await POST(
-      request({ amount: 500, isAgreed: true, donationSchedule: "monthly" }),
-    );
-    expect(missingConsent.status).toBe(400);
-
-    const incompatiblePurpose = await POST(
-      request({
-        amount: 500,
-        isAgreed: true,
-        donationSchedule: "monthly",
-        isRecurringAgreed: true,
-        donationPurpose: "tail-one-time",
-        donationTargetId: "tail.luna",
-      }),
-    );
-    expect(incompatiblePurpose.status).toBe(400);
   });
 
   it("uses the server-side guardianship price and rejects a stale client amount", async () => {
@@ -306,7 +308,7 @@ describe("POST /api/wayforpay/checkout", () => {
   });
 
   it("requires agreement on the server even if a browser bypasses form validation", async () => {
-    const response = await POST(request({ amount: 500, isAgreed: false }));
+    const response = await POST(request({ ...tailOneTime, isAgreed: false }));
 
     expect(response.status).toBe(400);
     expect(mocks.createOrder).not.toHaveBeenCalled();
@@ -315,8 +317,7 @@ describe("POST /api/wayforpay/checkout", () => {
   it("does not persist a full name for anonymous donations", async () => {
     const response = await POST(
       request({
-        amount: 500,
-        isAgreed: true,
+        ...tailOneTime,
         isAnonymous: true,
         fullName: "Do not store me",
       }),

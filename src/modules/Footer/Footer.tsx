@@ -33,7 +33,7 @@ const Footer = async ({ socials }: FooterProps) => {
           visible: { opacity: 1, transition: { duration: 0.6, delay: 0.2 } },
         }}
       >
-        <Logo href={"/"} className="w-[109px] h-[48px]" variant="color" />
+        <Logo href={"/"} className="w-[109px] h-[48px]" variant="color" alt={t("logoAlt")} />
       </motion.div>
 
       <motion.nav

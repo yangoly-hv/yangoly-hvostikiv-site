@@ -19,7 +19,7 @@ export type CreateCheckoutParams = {
 
 export async function createCheckout({
   amount,
-  donationTarget = { purpose: "foundation" },
+  donationTarget,
   donationItemDescription,
   fullName,
   isAnonymous = false,
@@ -34,8 +34,8 @@ export async function createCheckout({
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       amount,
-      donationPurpose: donationTarget.purpose,
-      ...(donationTarget.targetId ? { donationTargetId: donationTarget.targetId } : {}),
+      donationPurpose: donationTarget?.purpose,
+      ...(donationTarget?.targetId ? { donationTargetId: donationTarget.targetId } : {}),
       ...(donationItemDescription ? { donationItemDescription } : {}),
       ...(isAnonymous ? { isAnonymous: true } : { isAnonymous: false, fullName }),
       comment,
