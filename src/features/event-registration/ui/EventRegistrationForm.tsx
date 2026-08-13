@@ -52,12 +52,11 @@ export default function EventRegistrationForm({
     resolver: zodResolver(eventRegistrationFormSchema),
   });
 
-  const phoneField = register("phone");
-
   const applyPhoneValue = (raw: string, options?: { shouldValidate?: boolean }) => {
     const formatted = formatUaPhoneMaskValue(raw);
     setValue("phone", formatted, {
       shouldDirty: true,
+      shouldTouch: true,
       shouldValidate: options?.shouldValidate ?? true,
     });
     return formatted;
@@ -157,16 +156,14 @@ export default function EventRegistrationForm({
             autoComplete="tel-national"
             inputMode="numeric"
             suppressHydrationWarning
-            name={phoneField.name}
-            ref={phoneField.ref}
+            {...register("phone")}
             onBlur={(event) => {
               applyPhoneValue(event.target.value, { shouldValidate: true });
-              phoneField.onBlur(event);
             }}
             onChange={(event) => {
               const formatted = formatUaPhoneMaskValue(event.target.value);
               event.target.value = formatted;
-              phoneField.onChange(event);
+              setValue("phone", formatted, { shouldDirty: true });
             }}
             onPaste={(event) => {
               const text = event.clipboardData.getData("text");

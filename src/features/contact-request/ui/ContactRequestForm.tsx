@@ -35,11 +35,13 @@ export default function ContactRequestForm({ copy, className, onSubmit }: Contac
     resolver: zodResolver(contactRequestSchema),
   });
 
-  const phoneField = register("phone");
-
   const applyPhoneValue = (raw: string) => {
     const formatted = formatUaPhoneMaskValue(raw);
-    setValue("phone", formatted, { shouldDirty: true, shouldValidate: true });
+    setValue("phone", formatted, {
+      shouldDirty: true,
+      shouldTouch: true,
+      shouldValidate: true,
+    });
     return formatted;
   };
 
@@ -87,16 +89,14 @@ export default function ContactRequestForm({ copy, className, onSubmit }: Contac
             className={inputClassName(Boolean(errors.phone), true)}
             autoComplete="tel-national"
             inputMode="numeric"
-            name={phoneField.name}
-            ref={phoneField.ref}
+            {...register("phone")}
             onBlur={(event) => {
               applyPhoneValue(event.target.value);
-              phoneField.onBlur(event);
             }}
             onChange={(event) => {
               const formatted = formatUaPhoneMaskValue(event.target.value);
               event.target.value = formatted;
-              phoneField.onChange(event);
+              setValue("phone", formatted, { shouldDirty: true });
             }}
             onPaste={(event) => {
               const text = event.clipboardData.getData("text");
