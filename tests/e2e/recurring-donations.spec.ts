@@ -47,6 +47,7 @@ test("tail one-time donation sends a one-time WayForPay checkout", async ({ page
   await page.getByRole("button", { name: "Разова допомога" }).click();
 
   const modal = page.getByRole("dialog");
+  await modal.getByRole("button", { name: /^\+500/ }).click();
   await modal.locator("label", { hasText: "договором публічної оферти" }).click();
 
   const checkoutRequest = page.waitForRequest("**/api/wayforpay/checkout");
@@ -55,6 +56,7 @@ test("tail one-time donation sends a one-time WayForPay checkout", async ({ page
   expect(request.postDataJSON()).toMatchObject({
     donationPurpose: "tail-one-time",
     donationSchedule: "oneTime",
+    amount: 500,
     isAgreed: true,
   });
 });
