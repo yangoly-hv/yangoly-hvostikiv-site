@@ -12,6 +12,7 @@ import { EmailIcon, PhoneIcon } from "../../../public/images/icons";
 import { LocationIcon } from "../../../public/images/icons/LocationIcon";
 import { getSocialLinks } from "@/features/site/server/data";
 import type { SocialLink } from "@/shared/lib/socialLinks";
+import MetaTrackedLink from "@/shared/components/MetaTrackedLink/MetaTrackedLink";
 
 type FooterProps = {
   socials?: SocialLink[];
@@ -79,20 +80,24 @@ const Footer = async ({ socials }: FooterProps) => {
         variants={containerVariants}
         className="flex flex-col gap-4 justify-center items-center xl:flex-row"
       >
-        <motion.a
-          variants={listItemVariants}
-          href="tel:+380972002400"
-          className="flex items-center gap-2 text-[14px] font-medium text-dark"
-        >
-          <PhoneIcon /> {contacts.phone}
-        </motion.a>
-        <motion.a
-          variants={listItemVariants}
-          href={`mailto:${contacts.email}`}
-          className="flex items-center gap-2 text-[14px] font-medium text-dark"
-        >
-          <EmailIcon /> {contacts.email}
-        </motion.a>
+        <motion.div variants={listItemVariants}>
+          <MetaTrackedLink
+            href="tel:+380972002400"
+            event="Contact"
+            className="flex items-center gap-2 text-[14px] font-medium text-dark"
+          >
+            <PhoneIcon /> {contacts.phone}
+          </MetaTrackedLink>
+        </motion.div>
+        <motion.div variants={listItemVariants}>
+          <MetaTrackedLink
+            href={`mailto:${contacts.email}`}
+            event="Contact"
+            className="flex items-center gap-2 text-[14px] font-medium text-dark"
+          >
+            <EmailIcon /> {contacts.email}
+          </MetaTrackedLink>
+        </motion.div>
         <motion.div
           variants={listItemVariants}
           className="flex items-center gap-2 text-[14px] font-medium text-dark"

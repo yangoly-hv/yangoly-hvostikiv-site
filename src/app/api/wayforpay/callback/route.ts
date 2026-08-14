@@ -13,6 +13,7 @@ import {
   shouldAdvancePaymentStatus,
   toIsoFromUnixSeconds,
   verifyCallbackSignature,
+  minorToMoney,
   type WayforpayCallback,
   WayforpayPayloadError,
 } from "@/features/donation/server/wayforpay";
@@ -21,6 +22,7 @@ import {
   getEffectsForPaymentStatus,
   processPaymentEffects,
 } from "@/features/donation/server/paymentEffects";
+import { scheduleMetaCapiEvent } from "@/shared/lib/metaCapi";
 import { getRequiredEnv } from "@/shared/lib/env.server";
 import legacyClient from "@/shared/lib/sanity";
 import { getPaymentsClient } from "@/shared/lib/sanity.payments";
@@ -131,6 +133,12 @@ const createRecoveredOrder = (
   callbackDeliveryCount: 0,
 });
 
+export type PersistCallbackResult = {
+  advancedToApproved: boolean;
+  isInitialOccurrence: boolean;
+  occurrenceId: string;
+};
+
 export const persistCallback = async ({
   payload,
   encryptionKey,
@@ -139,7 +147,7 @@ export const persistCallback = async ({
   payload: WayforpayCallback;
   encryptionKey: string;
   source?: "callback" | "reconciliation";
-}) => {
+}): Promise<PersistCallbackResult | undefined> => {
   const paymentsClient = getPaymentsClient();
   const eventId = source === "callback"
     ? getCallbackEventId(payload)
@@ -327,11 +335,18 @@ export const persistCallback = async ({
           });
         }
       }
-      return;
+      return {
+        advancedToApproved:
+          shouldAdvanceOccurrence && payload.normalizedStatus === "approved",
+        isInitialOccurrence,
+        occurrenceId,
+      };
     } catch (error) {
       if (attempt === 2) throw error;
     }
   }
+
+  return undefined;
 };
 
 export async function POST(request: Request) {
@@ -350,7 +365,24 @@ export async function POST(request: Request) {
       throw new CallbackRouteError("Invalid merchant signature", 401);
     }
 
-    await persistCallback({ payload, encryptionKey });
+    const persisted = await persistCallback({ payload, encryptionKey });
+    if (persisted?.advancedToApproved) {
+      void scheduleMetaCapiEvent({
+        eventName: "Donate",
+        eventId: persisted.isInitialOccurrence
+          ? payload.orderReference
+          : persisted.occurrenceId,
+        eventSourceUrl: process.env.NEXT_PUBLIC_BASE_URL,
+        customData: {
+          status: "completed",
+          value: Number(minorToMoney(payload.amountMinor)),
+          currency: payload.currency,
+        },
+        userData: {
+          externalId: payload.orderReference,
+        },
+      });
+    }
     logCallback("accepted", payload);
     return NextResponse.json(createCallbackResponse(payload.orderReference, secret));
   } catch (error) {

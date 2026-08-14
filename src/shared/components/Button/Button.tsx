@@ -1,3 +1,4 @@
+import type { MouseEventHandler } from "react";
 import { cn } from "@/shared/utils";
 import { IButtonProps } from "@/shared/types";
 import { getSafeHref } from "@/shared/lib/safeHref";
@@ -9,6 +10,7 @@ const Button = ({
   className,
   href,
   type,
+  onClick,
   ...props
 }: IButtonProps) => {
   const baseStyles =
@@ -35,6 +37,7 @@ const Button = ({
         target="_blank"
         rel="noopener noreferrer"
         className={cn(classes, "inline-flex items-center justify-center text-center")}
+        onClick={onClick as MouseEventHandler<HTMLAnchorElement> | undefined}
       >
         {text}
       </a>
@@ -42,7 +45,7 @@ const Button = ({
   }
 
   return (
-    <button type={type} className={classes} {...props}>
+    <button type={type} onClick={onClick} className={classes} {...props}>
       {text}
     </button>
   );

@@ -4,6 +4,7 @@ import { ButtonVariant } from "@/shared/types";
 import clsx from "clsx";
 
 import { useOneTimeDonationJarUrl } from "@/providers/OneTimeDonationJarProvider";
+import { trackMonoDonateClick } from "@/shared/lib/metaPixel";
 
 interface IDonateActionProps {
   buttonText: string;
@@ -25,6 +26,7 @@ const DonateAction = ({
     <Button
       href={jarUrl}
       variant={variant}
+      onClick={trackMonoDonateClick}
       className={clsx(
         "mx-auto w-full max-w-[300px] py-3 text-[14px] font-semibold xl:text-[18px] xl:max-w-[383px] mt-[2px] flex justify-center items-center",
         color,

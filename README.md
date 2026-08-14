@@ -119,6 +119,15 @@ must overwrite `x-real-ip`, `cf-connecting-ip`, or `x-forwarded-for`; never
 forward a client-supplied value unchanged. Limits reset when the application
 restarts and are independent for each deployed instance.
 
+## Meta Pixel and Conversions API
+
+Both are optional and fail open.
+
+- `NEXT_PUBLIC_META_PIXEL_ID` — public Pixel ID. If empty, the snippet is not rendered and browser `fbq` tracks are skipped.
+- `META_CAPI_ACCESS_TOKEN` — server-only Graph token. CAPI is skipped unless **both** the pixel ID and this token are set. Graph errors never fail contact, registration, or WayForPay routes.
+
+No test event code is used. When both values are set, Pixel and CAPI share the same `event_id` for deduplication.
+
 ## CI
 
 GitHub Actions воспроизводимо запускает frozen install, TypeScript, ESLint с нулём warnings, Vitest, production build, контроль gzip-размера клиентских route chunks и Playwright smoke для обеих локалей.

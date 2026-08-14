@@ -2,6 +2,7 @@
 
 import Button from "../../shared/components/Button/Button";
 import { useOneTimeDonationJarUrl } from "@/providers/OneTimeDonationJarProvider";
+import { trackMonoDonateClick } from "@/shared/lib/metaPixel";
 
 export default function ChangeLifeDonate({ text }: { text: string }) {
     const jarUrl = useOneTimeDonationJarUrl();
@@ -13,6 +14,7 @@ export default function ChangeLifeDonate({ text }: { text: string }) {
             variant="outline"
             text={text}
             fullWidth
+            onClick={trackMonoDonateClick}
             className="w-full xl:h-[67px] bg-inherit text-dark border-dark hover:text-white hover:bg-dark"
         />
     )

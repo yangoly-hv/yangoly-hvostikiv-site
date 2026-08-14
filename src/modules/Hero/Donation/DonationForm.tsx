@@ -6,6 +6,7 @@ import Button from "@/shared/components/Button/Button";
 import {onceImages} from "@/modules/Hero/Donation/donationIcons";
 import { useOneTimeDonationJarUrl } from "@/providers/OneTimeDonationJarProvider";
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
+import { trackMonoDonateClick } from "@/shared/lib/metaPixel";
 
 const onceValues = [100, 200, 600, 1500] as const;
 
@@ -67,6 +68,7 @@ export default function DonationForm() {
                         <Button
                             text={t('submit')}
                             href={jarUrl}
+                            onClick={trackMonoDonateClick}
                             className="w-full mb-3 desk:mb-8 xl:h-[53px] lg:text-[14px] rounded-[22px]"
                         />
                     </div>

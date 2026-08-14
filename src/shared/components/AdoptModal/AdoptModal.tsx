@@ -1,6 +1,7 @@
 import Modal from "../Modal/Modal";
 import Button from "../Button/Button";
 import { IAdoptModalProps } from "@/shared/types";
+import { trackContactClick } from "@/shared/lib/metaPixel";
 
 export default function AdoptModal({
   isOpen,
@@ -21,17 +22,18 @@ export default function AdoptModal({
       <p className="text-[14px] lg:text-[16px] leading-[130%] mt-2 px-[14px] py-[11px] border border-[#A1A1AA] rounded-[4px]">
         +380 93 098 57 78
       </p>
-      <a
+      <Button
         href="tel:+380930985778"
-        target="_blank"
-        rel="noopener noreferrer nofollow"
-      >
-        <Button
-          onClick={onClose}
-          className="mt-6 w-full"
-          text={connectButton}
-        />
-      </a>
+        onClick={() => {
+          try {
+            trackContactClick();
+          } finally {
+            onClose();
+          }
+        }}
+        className="mt-6 w-full"
+        text={connectButton}
+      />
     </Modal>
   );
 }

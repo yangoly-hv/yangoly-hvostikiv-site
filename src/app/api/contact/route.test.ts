@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({
   checkRateLimit: vi.fn(),
   sendEmail: vi.fn(),
+  sendMetaCapiEvent: vi.fn(),
+  getMetaCapiRequestContext: vi.fn(),
 }));
 
 vi.mock("./rateLimit", () => ({
@@ -12,6 +14,14 @@ vi.mock("./rateLimit", () => ({
 vi.mock("resend", () => ({
   Resend: class {
     emails = { send: mocks.sendEmail };
+  },
+}));
+
+vi.mock("@/shared/lib/metaCapi", () => ({
+  sendMetaCapiEvent: mocks.sendMetaCapiEvent,
+  getMetaCapiRequestContext: mocks.getMetaCapiRequestContext,
+  scheduleMetaCapiEvent: (input: unknown) => {
+    void mocks.sendMetaCapiEvent(input);
   },
 }));
 
@@ -44,6 +54,10 @@ describe("POST /api/contact", () => {
       retryAfterSeconds: 600,
     });
     mocks.sendEmail.mockResolvedValue({ data: { id: "email-1" }, error: null });
+    mocks.sendMetaCapiEvent.mockResolvedValue({ skipped: true });
+    mocks.getMetaCapiRequestContext.mockReturnValue({
+      clientIpAddress: "203.0.113.10",
+    });
   });
 
   it("returns 429 with Retry-After when the limiter blocks the request", async () => {
@@ -116,5 +130,34 @@ describe("POST /api/contact", () => {
 
     expect(response.status).toBe(400);
     expect(mocks.sendEmail).not.toHaveBeenCalled();
+  });
+
+  it("returns eventId even when CAPI is skipped after a real success", async () => {
+    const response = await POST(request(validBody));
+    const body = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(body.success).toBe(true);
+    expect(body.eventId).toMatch(
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i,
+    );
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Lead",
+        eventId: body.eventId,
+        userData: expect.objectContaining({ phone: validBody.phone }),
+      }),
+    );
+  });
+
+  it("does not track honeypot submissions", async () => {
+    const response = await POST(request({ ...validBody, website: "https://spam.test" }));
+    const body = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(body).toEqual({ success: true });
+    expect(body.eventId).toBeUndefined();
+    expect(mocks.sendEmail).not.toHaveBeenCalled();
+    expect(mocks.sendMetaCapiEvent).not.toHaveBeenCalled();
   });
 });

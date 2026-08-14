@@ -3,6 +3,7 @@ import * as motion from "motion/react-client";
 import ContactForm from "./ContactForm";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Locale } from "@/shared/types";
+import MetaTrackedLink from "@/shared/components/MetaTrackedLink/MetaTrackedLink";
 
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const Contacts = async () => {
@@ -49,7 +50,7 @@ const Contacts = async () => {
             </motion.p>
 
             <div className="flex flex-col gap-4">
-              <motion.a
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -61,16 +62,20 @@ const Contacts = async () => {
                     transition: { duration: 0.5, delay: 0.4 },
                   },
                 }}
-                href="tel:+380972002400"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
               >
-                <PhoneIcon className="w-6 h-6" variant="secondary" />
+                <MetaTrackedLink
+                  href="tel:+380972002400"
+                  event="Contact"
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
+                >
+                  <PhoneIcon className="w-6 h-6" variant="secondary" />
                   38 097 200 24 00
-              </motion.a>
+                </MetaTrackedLink>
+              </motion.div>
 
-              <motion.a
+              <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
@@ -82,14 +87,18 @@ const Contacts = async () => {
                     transition: { duration: 0.5, delay: 0.6 },
                   },
                 }}
-                href="mailto:angelsuaorg@gmail.com"
-                target="_blank"
-                rel="noopener noreferrer nofollow"
-                className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
               >
-                <EmailIcon className="w-6 h-6" variant="secondary" />
+                <MetaTrackedLink
+                  href="mailto:angelsuaorg@gmail.com"
+                  event="Contact"
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="flex items-center gap-2 text-white leading-[130%] text-[20px] lg:text-[24px] font-semibold"
+                >
+                  <EmailIcon className="w-6 h-6" variant="secondary" />
                   angelsuaorg@gmail.com
-              </motion.a>
+                </MetaTrackedLink>
+              </motion.div>
             </div>
           </div>
 

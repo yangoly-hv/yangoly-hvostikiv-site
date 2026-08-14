@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 const mocks = vi.hoisted(() => ({
   checkRateLimit: vi.fn(),
   appendRegistrationRow: vi.fn(),
+  sendMetaCapiEvent: vi.fn(),
+  getMetaCapiRequestContext: vi.fn(),
   SheetsUnavailableError: class SheetsUnavailableError extends Error {
     constructor() {
       super("SHEETS_UNAVAILABLE");
@@ -49,6 +51,10 @@ describe("POST /api/event-registration", () => {
       retryAfterSeconds: 600,
     });
     mocks.appendRegistrationRow.mockResolvedValue(undefined);
+    mocks.sendMetaCapiEvent.mockResolvedValue({ skipped: true });
+    mocks.getMetaCapiRequestContext.mockReturnValue({
+      clientIpAddress: "203.0.113.10",
+    });
 
     vi.doMock("./rateLimit", () => ({
       checkEventRegistrationRateLimit: mocks.checkRateLimit,
@@ -57,6 +63,13 @@ describe("POST /api/event-registration", () => {
       appendRegistrationRow: mocks.appendRegistrationRow,
       SheetsUnavailableError: mocks.SheetsUnavailableError,
       SheetsAppendError: mocks.SheetsAppendError,
+    }));
+    vi.doMock("@/shared/lib/metaCapi", () => ({
+      sendMetaCapiEvent: mocks.sendMetaCapiEvent,
+      getMetaCapiRequestContext: mocks.getMetaCapiRequestContext,
+      scheduleMetaCapiEvent: (input: unknown) => {
+        void mocks.sendMetaCapiEvent(input);
+      },
     }));
 
     ({ POST } = await import("./route"));
@@ -99,10 +112,13 @@ describe("POST /api/event-registration", () => {
     const response = await POST(
       request({ ...validBody, website: "bot.example" }),
     );
+    const body = await response.json();
 
     expect(response.status).toBe(200);
-    await expect(response.json()).resolves.toEqual({ success: true });
+    expect(body).toEqual({ success: true });
+    expect(body.eventId).toBeUndefined();
     expect(mocks.appendRegistrationRow).not.toHaveBeenCalled();
+    expect(mocks.sendMetaCapiEvent).not.toHaveBeenCalled();
   });
 
   it("rejects invalid input", async () => {
@@ -127,9 +143,22 @@ describe("POST /api/event-registration", () => {
 
   it("appends a valid registration row", async () => {
     const response = await POST(request(validBody));
+    const body = await response.json();
 
     expect(response.status).toBe(200);
-    await expect(response.json()).resolves.toEqual({ success: true });
+    expect(body.success).toBe(true);
+    expect(body.eventId).toEqual(expect.any(String));
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "CompleteRegistration",
+        eventId: body.eventId,
+        customData: { status: true },
+        userData: expect.objectContaining({
+          email: "maria@example.com",
+          phone: "+38 (067) 123-45-67",
+        }),
+      }),
+    );
     expect(mocks.appendRegistrationRow).toHaveBeenCalledWith(
       expect.objectContaining({
         fullName: "Марія Коваленко",

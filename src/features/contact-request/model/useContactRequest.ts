@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 
+import { trackLead } from "@/shared/lib/metaPixel";
 import { sendContactMessage } from "../api/sendContactMessage";
 import type { ContactRequestSource, ContactRequestValues } from "./schema";
 
@@ -14,8 +15,9 @@ export function useContactRequest(source: ContactRequestSource) {
       setSubmitError(false);
 
       try {
-        await sendContactMessage({ ...data, source });
+        const eventId = await sendContactMessage({ ...data, source });
         setSubmittedSuccess(true);
+        if (eventId) trackLead({ eventId });
       } catch {
         setSubmitError(true);
       }

@@ -20,6 +20,7 @@ const mocks = vi.hoisted(() => ({
   revalidateTag: vi.fn(),
   deliverDonationEmail: vi.fn(),
   processPaymentEffects: vi.fn(),
+  sendMetaCapiEvent: vi.fn(),
 }));
 
 vi.mock("@/shared/lib/env.server", () => ({ getRequiredEnv: mocks.getRequiredEnv }));
@@ -30,6 +31,12 @@ vi.mock("@/features/donation/server/donationEmail", () => ({
 vi.mock("@/features/donation/server/paymentEffects", async (importOriginal) => ({
   ...(await importOriginal<typeof import("@/features/donation/server/paymentEffects")>()),
   processPaymentEffects: mocks.processPaymentEffects,
+}));
+vi.mock("@/shared/lib/metaCapi", () => ({
+  sendMetaCapiEvent: mocks.sendMetaCapiEvent,
+  scheduleMetaCapiEvent: (input: unknown) => {
+    void mocks.sendMetaCapiEvent(input);
+  },
 }));
 vi.mock("@/shared/lib/sanity", () => ({
   default: {
@@ -193,6 +200,7 @@ describe("POST /api/wayforpay/callback", () => {
     mocks.legacyFetch.mockResolvedValue(null);
     mocks.deliverDonationEmail.mockResolvedValue("sent");
     mocks.processPaymentEffects.mockResolvedValue({ checked: 1, completed: 1, retried: 0, failed: 0 });
+    mocks.sendMetaCapiEvent.mockResolvedValue({ skipped: true });
   });
 
   it("verifies, persists and acknowledges an approved callback", async () => {
@@ -220,6 +228,14 @@ describe("POST /api/wayforpay/callback", () => {
       expect.objectContaining({
         inc: { callbackDeliveryCount: 1 },
         set: expect.objectContaining({ paymentStatus: "approved" }),
+      }),
+    );
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Donate",
+        eventId: orderReference,
+        customData: { status: "completed", value: 500, currency: "UAH" },
+        userData: { externalId: orderReference },
       }),
     );
   });
@@ -313,6 +329,7 @@ describe("POST /api/wayforpay/callback", () => {
     expect(response.status).toBe(200);
     expect(mocks.deliverDonationEmail).not.toHaveBeenCalled();
     expect(mocks.processPaymentEffects).not.toHaveBeenCalled();
+    expect(mocks.sendMetaCapiEvent).not.toHaveBeenCalled();
   });
 
   it("acknowledges WayForPay when donation email delivery fails", async () => {
@@ -346,6 +363,7 @@ describe("POST /api/wayforpay/callback", () => {
     expect(response.status).toBe(200);
     expect(mocks.deliverDonationEmail).not.toHaveBeenCalled();
     expect(mocks.processPaymentEffects).not.toHaveBeenCalled();
+    expect(mocks.sendMetaCapiEvent).not.toHaveBeenCalled();
   });
 
   it("adds an approved non-anonymous donation of at least 1,000 UAH to the existing donator list", async () => {
@@ -568,9 +586,17 @@ describe("POST /api/wayforpay/callback", () => {
     expect(mocks.transactionCreateIfNotExists).toHaveBeenCalledWith(
       expect.objectContaining({ _type: "paymentOccurrence", occurrenceId: firstOccurrenceId }),
     );
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Donate",
+        eventId: orderReference,
+        userData: { externalId: orderReference },
+      }),
+    );
 
     mocks.transactionCreateIfNotExists.mockClear();
     mocks.processPaymentEffects.mockClear();
+    mocks.sendMetaCapiEvent.mockClear();
     const secondPayload = createPayload({ authCode: "SECOND", processingDate: 1_702_678_400 });
     const secondOccurrenceId = getPaymentOccurrenceId({
       merchantAccount: "merchant",
@@ -591,6 +617,13 @@ describe("POST /api/wayforpay/callback", () => {
     expect(mocks.processPaymentEffects).toHaveBeenCalledWith([
       expect.objectContaining({ kind: "donation-email", occurrenceId: secondOccurrenceId }),
     ]);
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Donate",
+        eventId: secondOccurrenceId,
+        userData: { externalId: orderReference },
+      }),
+    );
   });
 
   it("deduplicates callback and reconciliation for the same occurrence", async () => {

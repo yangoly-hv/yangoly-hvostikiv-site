@@ -1,0 +1,101 @@
+import { NextResponse } from "next/server";
+
+import {
+  getMetaCapiRequestContext,
+  scheduleMetaCapiEvent,
+} from "@/shared/lib/metaCapi";
+
+import { checkMetaEventsRateLimit } from "./rateLimit";
+
+const MAX_REQUEST_BODY_BYTES = 4 * 1024;
+
+const isClickEventName = (value: unknown): value is "Contact" | "Donate" =>
+  value === "Contact" || value === "Donate";
+
+const isNonEmptyString = (value: unknown, min: number, max: number): value is string =>
+  typeof value === "string" && value.trim().length >= min && value.length <= max;
+
+const readJsonBody = async (request: Request): Promise<unknown> => {
+  const contentLength = Number(request.headers.get("content-length"));
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BODY_BYTES) {
+    throw new Error("PAYLOAD_TOO_LARGE");
+  }
+
+  const body = await request.text();
+  if (Buffer.byteLength(body, "utf8") > MAX_REQUEST_BODY_BYTES) {
+    throw new Error("PAYLOAD_TOO_LARGE");
+  }
+
+  return JSON.parse(body);
+};
+
+const sanitizeEventSourceUrl = (value: unknown) => {
+  if (typeof value !== "string" || value.length > 2048) return undefined;
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return undefined;
+    return value;
+  } catch {
+    return undefined;
+  }
+};
+
+export async function POST(request: Request) {
+  const rateLimit = checkMetaEventsRateLimit(request);
+  if (rateLimit.limited) {
+    return NextResponse.json(
+      { success: false, error: "RATE_LIMITED" },
+      {
+        status: 429,
+        headers: { "Retry-After": String(rateLimit.retryAfterSeconds) },
+      },
+    );
+  }
+
+  let input: unknown;
+  try {
+    input = await readJsonBody(request);
+  } catch (error) {
+    if (error instanceof Error && error.message === "PAYLOAD_TOO_LARGE") {
+      return NextResponse.json({ success: false, error: "PAYLOAD_TOO_LARGE" }, { status: 413 });
+    }
+    return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
+  }
+
+  if (!input || typeof input !== "object") {
+    return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
+  }
+
+  const { eventName, eventId, eventSourceUrl, customData } = input as {
+    eventName?: unknown;
+    eventId?: unknown;
+    eventSourceUrl?: unknown;
+    customData?: unknown;
+  };
+
+  if (!isClickEventName(eventName)) {
+    return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
+  }
+  if (!isNonEmptyString(eventId, 8, 128)) {
+    return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
+  }
+  if (eventName === "Donate") {
+    const status =
+      customData && typeof customData === "object"
+        ? (customData as { status?: unknown }).status
+        : undefined;
+    if (status !== "mono") {
+      return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
+    }
+  }
+
+  void scheduleMetaCapiEvent({
+    eventName,
+    eventId: eventId.trim(),
+    eventSourceUrl: sanitizeEventSourceUrl(eventSourceUrl),
+    customData: eventName === "Donate" ? { status: "mono" } : undefined,
+    userData: getMetaCapiRequestContext(request),
+  });
+
+  return NextResponse.json({ success: true });
+}

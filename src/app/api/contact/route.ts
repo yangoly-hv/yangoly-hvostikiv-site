@@ -5,6 +5,10 @@ import {
   contactSubmissionSchema,
   type ContactRequestSource,
 } from "@/features/contact-request/model/schema";
+import {
+  getMetaCapiRequestContext,
+  scheduleMetaCapiEvent,
+} from "@/shared/lib/metaCapi";
 import { checkContactRequestRateLimit } from "./rateLimit";
 
 const MAX_REQUEST_BODY_BYTES = 8 * 1024;
@@ -159,7 +163,19 @@ export async function POST(request: Request) {
       );
     }
 
-    return NextResponse.json({ success: true });
+    // eventId is the Pixel/CAPI dedup key and a real-submit marker — not gated on META_CAPI_ACCESS_TOKEN.
+    const eventId = crypto.randomUUID();
+    void scheduleMetaCapiEvent({
+      eventName: "Lead",
+      eventId,
+      eventSourceUrl: request.headers.get("referer") ?? undefined,
+      userData: {
+        ...getMetaCapiRequestContext(request),
+        phone,
+      },
+    });
+
+    return NextResponse.json({ success: true, eventId });
   } catch {
     return NextResponse.json(
       { success: false, error: "INTERNAL_ERROR" },

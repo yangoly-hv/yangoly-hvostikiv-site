@@ -2,6 +2,7 @@
 
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
+import MetaTrackedLink from "@/shared/components/MetaTrackedLink/MetaTrackedLink";
 import { cn } from "@/shared/utils";
 
 type CollectionDonateCtaProps = {
@@ -23,14 +24,15 @@ export default function CollectionDonateCta({
 
   return (
     <AnimatedWrapper animation={fadeInAnimation({ y: 30, delay: 0.4 })}>
-      <a
+      <MetaTrackedLink
         href={monoJarUrl}
+        event="Donate"
         target="_blank"
         rel="noopener noreferrer"
         className={cn(primaryLinkClassName, className)}
       >
         {buttonText}
-      </a>
+      </MetaTrackedLink>
     </AnimatedWrapper>
   );
 }

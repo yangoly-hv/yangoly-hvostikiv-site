@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 
+import { trackCompleteRegistration } from "@/shared/lib/metaPixel";
 import { submitRegistration } from "../api/submitRegistration";
 import type {
   EventRegistrationFormValues,
@@ -17,8 +18,9 @@ export function useEventRegistration(locale: EventRegistrationLocale) {
       setSubmitError(false);
 
       try {
-        await submitRegistration({ ...data, locale });
+        const eventId = await submitRegistration({ ...data, locale });
         setSubmittedSuccess(true);
+        if (eventId) trackCompleteRegistration({ eventId, status: true });
       } catch {
         setSubmitError(true);
       }

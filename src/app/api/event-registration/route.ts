@@ -6,6 +6,10 @@ import {
   SheetsAppendError,
   SheetsUnavailableError,
 } from "@/features/event-registration/server/appendRegistrationRow";
+import {
+  getMetaCapiRequestContext,
+  scheduleMetaCapiEvent,
+} from "@/shared/lib/metaCapi";
 import { checkEventRegistrationRateLimit } from "./rateLimit";
 
 export const runtime = "nodejs";
@@ -103,7 +107,20 @@ export async function POST(request: Request) {
 
   try {
     await appendRegistrationRow(parsedInput.data);
-    return NextResponse.json({ success: true });
+    // eventId is the Pixel/CAPI dedup key and a real-submit marker — not gated on META_CAPI_ACCESS_TOKEN.
+    const eventId = crypto.randomUUID();
+    void scheduleMetaCapiEvent({
+      eventName: "CompleteRegistration",
+      eventId,
+      eventSourceUrl: request.headers.get("referer") ?? undefined,
+      customData: { status: true },
+      userData: {
+        ...getMetaCapiRequestContext(request),
+        email: parsedInput.data.email,
+        phone: parsedInput.data.phone,
+      },
+    });
+    return NextResponse.json({ success: true, eventId });
   } catch (error) {
     if (error instanceof SheetsUnavailableError) {
       return NextResponse.json(
