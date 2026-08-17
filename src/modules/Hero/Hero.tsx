@@ -20,7 +20,7 @@ const Hero = async () => {
         <div
           aria-hidden="true"
           style={{ backgroundImage: "url(/images/hero-bg-mob.png)" }}
-          className="h-[694px] bg-cover bg-center sm:bg-[position:center_32%] lg:hidden"
+          className="h-[694px] bg-cover bg-[position:center_-80px] sm:bg-[position:center_32%] lg:hidden"
         />
         <div
           aria-hidden="true"
@@ -28,13 +28,13 @@ const Hero = async () => {
         />
 
       </div>
-        <div className="relative lg:py-[20px] xl:py-0 lg:px-[20px] xl:pl-[40px] xl:pr-0 flex justify-center xl:justify-start lg:items-stretch flex-wrap lg:flex-nowrap gap-[57px] xl:gap-[40px] z-10">
+        <div className="relative z-30 flex flex-col flex-wrap gap-[57px] lg:flex-row lg:flex-nowrap lg:items-stretch lg:justify-center lg:px-[20px] lg:py-[20px] xl:justify-start xl:gap-[40px] xl:py-0 xl:pl-[40px] xl:pr-0">
             <div className="order-2 md:order-1 lg:shrink-0">
                 <DonationForm />
             </div>
-            <div className="order-1 md:order-2 max-w-[700px] lg:max-w-none lg:flex-1 lg:min-w-0 xl:max-w-[700px] lg:flex lg:flex-col lg:justify-center mt-[300px] lg:mt-0">
+            <div className="order-1 flex min-h-[354px] flex-col pt-4 md:order-2 md:mt-[300px] md:min-h-0 max-w-[700px] lg:mt-0 lg:max-w-none lg:flex-1 lg:min-w-0 xl:max-w-[700px] lg:justify-center">
                     <motion.h1
-                        className="text-white font-arial uppercase text-center leading-[122%] lg:text-left mt-[12px] text-[32px] lg:text-[56px] lg:mt-0"
+                        className="text-white font-arial uppercase text-center leading-[122%] lg:text-left mt-0 text-[22px] lg:text-[56px]"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{once: true}}
