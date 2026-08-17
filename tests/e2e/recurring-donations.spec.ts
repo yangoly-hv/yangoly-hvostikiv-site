@@ -15,7 +15,7 @@ test("home one-time donation opens the Mono jar when CMS has a jar URL", async (
     hasText: "ЗРОБИТИ ДОНАТ",
   });
   const headerDonate = page.locator("header a[href*='send.monobank.ua/jar/']").filter({
-    hasText: "Разова допомога",
+    hasText: "Допомога",
   });
 
   if ((await heroDonate.count()) === 0) {

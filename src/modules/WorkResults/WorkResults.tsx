@@ -24,12 +24,12 @@ const  WorkResults = async () => {
   }));
 
   return (
-    <section className="flex justify-center items-center py-[120px] md:py-[56px] px-4 md:px-[80px] bg-green">
+    <section className="flex justify-center items-center py-[40px] md:py-[48px] px-4 md:px-[32px] lg:px-[40px] xl:px-[80px] bg-green">
       <motion.ul
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
-        className="grid grid-cols-2 gap-x-4 gap-y-10 w-full max-w-[420px] md:max-w-none md:flex md:w-auto md:gap-[54px] xl:gap-[110px] md:items-start"
+        className="grid grid-cols-2 gap-x-4 gap-y-6 w-full max-w-[420px] md:max-w-none md:flex md:w-full md:items-center md:justify-between md:gap-4 xl:gap-[110px] xl:w-auto"
       >
         {results.map((item, index) => (
           <motion.li
@@ -37,6 +37,7 @@ const  WorkResults = async () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
+            className="md:min-w-0 md:flex-1"
             variants={{
               hidden: { opacity: 0, y: 20 },
               visible: {

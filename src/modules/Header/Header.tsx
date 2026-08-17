@@ -30,7 +30,7 @@ const Header = ({ socials = [] }: HeaderProps) => {
           <LanguageSwitcher />
           <DonateAction
             variant="outline"
-            className="hidden xl:block bg-inherit text-dark border-dark hover:text-white hover:bg-dark"
+            className="hidden xl:block w-auto whitespace-nowrap xl:text-[16px] bg-inherit text-dark border-dark hover:text-white hover:bg-dark"
             color="text-dark bg-orange"
             buttonText={t("donateButton")}
           />

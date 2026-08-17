@@ -43,7 +43,7 @@ export default function DonationForm() {
     const jarUrl = useOneTimeDonationJarUrl();
 
     return (
-        <div className="max-w-[524px] rounded-[8px] bg-white px-[16px] pb-[25px] xl:p-[25px] py-[32px] shadow-md">
+        <div className="w-full max-w-[524px] lg:max-w-[460px] xl:max-w-[524px] rounded-[8px] bg-white px-[16px] pb-[25px] xl:p-[25px] py-[32px] shadow-md">
             <div className="mb-[24px] xl:mb-[25px] rounded-[10px] border-2 border-green">
                 <p className="rounded-[8px] py-2 px-4 text-center text-[16px] xl:text-[14px] bg-green text-white font-semibold">
                     {t("tabs.once")}
@@ -53,11 +53,11 @@ export default function DonationForm() {
                 {t("descriptions.once")}
             </p>
             <div className="space-y-4 xl:space-y-[25px] lg:px-[6px]">
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:gap-[13px]">
+                <div className="grid grid-cols-2 gap-4 xl:gap-[13px]">
                     {onceValues.map((value) => (
                         <div
                             key={value}
-                            className="flex items-center gap-3 lg:gap-[19px] rounded-[10px] px-[16px] py-[8px] text-left border-2 border-[#828282] xl:px-[14px] xl:py-0 xl:min-h-[69px]"
+                            className="flex min-w-0 flex-col items-center gap-2 rounded-[10px] border-2 border-[#828282] px-[12px] py-[12px] text-center sm:flex-row sm:items-center sm:gap-3 sm:px-[16px] sm:py-[8px] sm:text-left lg:gap-[19px] xl:min-h-[69px] xl:px-[14px] xl:py-0"
                         >
                             <AmountIllustration value={value} />
                         </div>

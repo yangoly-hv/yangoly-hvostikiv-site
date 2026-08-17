@@ -6,7 +6,7 @@ import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const Hero = async () => {
   const t = await getTranslations("Hero");
   return (
-    <section className="relative md:pt-[300px] xl:py-[141px] overflow-hidden">
+    <section className="relative md:pt-[300px] lg:pt-[48px] lg:pb-[48px] xl:py-[141px] overflow-hidden">
       <div className="absolute inset-0 w-full h-full xl:left-0 xl:w-[115%]">
         <SafeImage
           src="/images/hero-bg-desk.webp"
@@ -20,17 +20,21 @@ const Hero = async () => {
         <div
           aria-hidden="true"
           style={{ backgroundImage: "url(/images/hero-bg-mob.png)" }}
-          className="h-[694px] bg-cover bg-center sm:bg-[position:center_32%] lg:bg-[position:center_24%] xl:hidden"
+          className="h-[694px] bg-cover bg-center sm:bg-[position:center_32%] lg:hidden"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/35 to-black/15 md:bg-gradient-to-r md:from-black/20 md:via-black/30 md:to-black/55"
         />
 
       </div>
-        <div className="relative lg:py-[20px] xl:py-0 lg:pl-[20px] xl:pl-[40px] flex justify-center xl:justify-start xl:items-start flex-wrap lg:flex-nowrap gap-[57px] xl:gap-[40px] z-10">
-            <div className="order-2 md:order-1">
+        <div className="relative lg:py-[20px] xl:py-0 lg:px-[20px] xl:pl-[40px] xl:pr-0 flex justify-center xl:justify-start lg:items-stretch flex-wrap lg:flex-nowrap gap-[57px] xl:gap-[40px] z-10">
+            <div className="order-2 md:order-1 lg:shrink-0">
                 <DonationForm />
             </div>
-            <div className="order-1 md:order-2 max-w-[700px] lg:max-w-[50%] xl:max-w-[700px] lg:flex lg:content-between flex-wrap mt-[300px] lg:mt-[20px] xl:mt-0">
+            <div className="order-1 md:order-2 max-w-[700px] lg:max-w-none lg:flex-1 lg:min-w-0 xl:max-w-[700px] lg:flex lg:flex-col lg:justify-center mt-[300px] lg:mt-0">
                     <motion.h1
-                        className="text-white font-arial uppercase text-center leading-[122%] lg:text-left mt-[12px] text-[32px] lg:text-[52px] xl:text-[64px] lg:mt-0"
+                        className="text-white font-arial uppercase text-center leading-[122%] lg:text-left mt-[12px] text-[32px] lg:text-[56px] lg:mt-0"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{once: true}}
@@ -42,7 +46,7 @@ const Hero = async () => {
                         {t("title")}
                     </motion.h1>
                     <motion.div
-                        className="mx-auto xl:mx-0 max-w-[288px] mt-[14px] xl:max-w-full xl:w-full flex flex-col items-center xl:flex-row xl:justify-between lg:mt-[24px]"
+                        className="mx-auto lg:mx-0 max-w-[288px] mt-[14px] lg:max-w-full lg:w-full flex flex-col items-center lg:items-start xl:flex-row xl:justify-between lg:mt-[24px]"
                         initial="hidden"
                         whileInView="visible"
                         viewport={{once: true}}
