@@ -12,7 +12,7 @@ const Hero = async () => {
           src="/images/hero-bg-desk.webp"
           alt=""
           fill
-          className="hidden sm:flex object-cover w-full h-full lg:object-bottom xl:object-left-bottom"
+          className="hidden sm:flex object-cover w-full h-full lg:object-[center_40%] xl:object-[left_38%]"
           quality={75}
           priority
           sizes="100vw"
@@ -73,7 +73,7 @@ const Hero = async () => {
           width={91}
           height={91}
           aria-hidden="true"
-          className="pointer-events-none absolute right-[28px] bottom-[188px] z-20 hidden h-[91px] w-[91px] origin-center opacity-80 lg:block"
+          className="pointer-events-none absolute right-[15px] top-[96px] z-20 h-[47px] w-[47px] origin-center opacity-80 lg:right-[28px] rotate-[180deg] lg:top-auto lg:bottom-[188px] lg:h-[91px] lg:w-[91px]"
         />
         <SafeImage
           src="/images/home/hero-paw.svg"
@@ -81,7 +81,7 @@ const Hero = async () => {
           width={232}
           height={232}
           aria-hidden="true"
-          className="pointer-events-none absolute right-[-20px] bottom-[-68px] z-20 hidden h-[232px] w-[232px] origin-center rotate-[-20deg] opacity-80 lg:block"
+          className="pointer-events-none absolute right-[-10px] top-[-35px] z-20 h-[120px] w-[120px] origin-center rotate-[200deg] opacity-80 lg:right-[-20px] lg:top-auto lg:bottom-[-68px] lg:h-[232px] lg:w-[232px] lg:rotate-[-20deg]"
         />
     </section>
   );
