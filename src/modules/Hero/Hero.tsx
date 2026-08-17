@@ -6,8 +6,8 @@ import SafeImage from "@/shared/components/SafeImage/SafeImage";
 const Hero = async () => {
   const t = await getTranslations("Hero");
   return (
-    <section className="relative md:pt-[300px] lg:pt-[48px] lg:pb-[48px] xl:py-[141px] overflow-hidden">
-      <div className="absolute inset-0 w-full h-full xl:left-0 xl:w-[115%]">
+    <section className="relative z-0 md:pt-[300px] lg:pt-[48px] lg:pb-[48px] xl:py-[141px]">
+      <div className="absolute inset-0 w-full h-full overflow-hidden xl:left-0 xl:w-[115%]">
         <SafeImage
           src="/images/hero-bg-desk.webp"
           alt=""
@@ -67,6 +67,22 @@ const Hero = async () => {
                     </motion.div>
             </div>
         </div>
+        <SafeImage
+          src="/images/home/hero-paw.svg"
+          alt=""
+          width={91}
+          height={91}
+          aria-hidden="true"
+          className="pointer-events-none absolute right-[28px] bottom-[188px] z-20 hidden h-[91px] w-[91px] origin-center opacity-80 lg:block"
+        />
+        <SafeImage
+          src="/images/home/hero-paw.svg"
+          alt=""
+          width={232}
+          height={232}
+          aria-hidden="true"
+          className="pointer-events-none absolute right-[-20px] bottom-[-68px] z-20 hidden h-[232px] w-[232px] origin-center rotate-[-20deg] opacity-80 lg:block"
+        />
     </section>
   );
 };
