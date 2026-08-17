@@ -8,20 +8,26 @@ const Hero = async () => {
   return (
     <section className="relative z-0 md:pt-[300px] lg:pt-[48px] lg:pb-[48px] xl:py-[141px]">
       <div className="absolute inset-0 w-full h-full overflow-hidden xl:left-0 xl:w-[115%]">
-        <SafeImage
-          src="/images/hero-bg-desk.webp"
-          alt=""
-          fill
-          className="hidden sm:flex object-cover w-full h-full lg:object-[center_40%] xl:object-[left_38%]"
-          quality={75}
-          priority
-          sizes="100vw"
-        />
-        <div
-          aria-hidden="true"
-          style={{ backgroundImage: "url(/images/hero-bg-mob.png)" }}
-          className="h-[694px] bg-cover bg-[position:center_-80px] sm:bg-[position:center_32%] lg:hidden"
-        />
+        <picture className="pointer-events-none absolute inset-0 hidden sm:block">
+          <source srcSet="/images/hero-bg-desk.avif" type="image/avif" />
+          <img
+            src="/images/hero-bg-desk.webp"
+            alt=""
+            className="h-full w-full object-cover lg:object-[center_40%] xl:object-[left_38%]"
+            fetchPriority="high"
+            decoding="async"
+          />
+        </picture>
+        <picture className="lg:hidden">
+          <source srcSet="/images/hero-bg-mob.avif" type="image/avif" />
+          <img
+            src="/images/hero-bg-mob.webp"
+            alt=""
+            aria-hidden="true"
+            className="h-[694px] w-full object-cover object-[center_-80px] sm:object-[center_32%]"
+            decoding="async"
+          />
+        </picture>
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/35 to-black/15 md:bg-gradient-to-r md:from-black/20 md:via-black/30 md:to-black/55"
