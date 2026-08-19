@@ -31,7 +31,7 @@ const Hero = async () => {
         slideLabelPrefix={t("slideLabel")}
       />
 
-      <div className="relative z-20 mx-auto flex max-w-[1920px] flex-col gap-[40px] px-[16px] pb-[88px] pt-[110px] md:px-[32px] lg:min-h-[100svh] lg:flex-row lg:items-center lg:justify-between lg:gap-[48px] lg:px-[40px] lg:pb-[96px] lg:pt-[128px] xl:gap-[64px] xl:px-[80px]">
+      <div className="relative z-20 mx-auto flex min-h-[100svh] max-w-[1920px] flex-col justify-between gap-[40px] px-[16px] pb-[88px] pt-[110px] md:px-[32px] lg:flex-row lg:items-center lg:gap-[48px] lg:px-[40px] lg:pb-[96px] lg:pt-[128px] xl:gap-[64px] xl:px-[80px]">
         <div className="flex max-w-[720px] flex-col items-center pt-[16px] text-center lg:flex-1 lg:items-start lg:pt-0 lg:text-left">
           <motion.h1
             className="mt-0 font-arial text-[20px] uppercase leading-[130%] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.45)] md:text-[28px] lg:text-[34px] xl:text-[40px]"

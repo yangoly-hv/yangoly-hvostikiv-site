@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import Button from "@/shared/components/Button/Button";
@@ -39,23 +40,77 @@ function AmountIllustration({ value }: { value: (typeof onceValues)[number] }) {
     );
 }
 
+function TabPill({ label }: { label: string }) {
+    return (
+        <span className="inline-flex items-center gap-[10px] rounded-full border border-white/25 bg-green/85 px-[20px] py-[9px] text-[15px] font-semibold text-white shadow-[0_8px_24px_-10px_rgba(76,123,103,0.9),inset_0_1px_0_rgba(255,255,255,0.35)] xl:text-[14px]">
+            <span aria-hidden="true" className="relative flex h-[8px] w-[8px]">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70 motion-reduce:hidden" />
+                <span className="relative inline-flex h-[8px] w-[8px] rounded-full bg-white" />
+            </span>
+            {label}
+        </span>
+    );
+}
+
+// On phones the form starts folded to the pill and unfolds on the first
+// scroll (or a tap); from lg upward it is always fully expanded.
+const UNFOLD_SCROLL_Y = 40;
+
 export default function DonationForm() {
     const t = useTranslations('DonationForm');
     const jarUrl = useOneTimeDonationJarUrl();
+    const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        if (open) return;
+        const onScroll = () => {
+            if (window.scrollY > UNFOLD_SCROLL_Y) setOpen(true);
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, [open]);
 
     return (
-        <div className="liquid-glass w-full max-w-[524px] rounded-[28px] px-[16px] py-[28px] text-white sm:px-[24px] lg:max-w-[460px] xl:max-w-[524px] xl:p-[32px]">
+        <div className="liquid-glass w-full max-w-[524px] rounded-[28px] px-[16px] py-[20px] text-white sm:px-[24px] lg:max-w-[460px] lg:py-[28px] xl:max-w-[524px] xl:p-[32px]">
             <div className="relative z-10">
-                <div className="flex justify-center">
-                    <p className="inline-flex items-center gap-[10px] rounded-full border border-white/25 bg-green/85 px-[20px] py-[9px] text-[15px] font-semibold text-white shadow-[0_8px_24px_-10px_rgba(76,123,103,0.9),inset_0_1px_0_rgba(255,255,255,0.35)] xl:text-[14px]">
-                        <span aria-hidden="true" className="relative flex h-[8px] w-[8px]">
-                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white/70 motion-reduce:hidden" />
-                            <span className="relative inline-flex h-[8px] w-[8px] rounded-full bg-white" />
-                        </span>
-                        {t("tabs.once")}
-                    </p>
+                <button
+                    type="button"
+                    onClick={() => setOpen(true)}
+                    aria-expanded={open}
+                    aria-controls="donation-form-body"
+                    className="flex w-full flex-col items-center gap-[6px] lg:hidden"
+                >
+                    <TabPill label={t('tabs.once')} />
+                    <svg
+                        aria-hidden="true"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        className={`h-[18px] w-[18px] text-white/80 transition-all duration-500 ${
+                            open
+                                ? 'mt-[-2px] rotate-180 opacity-0'
+                                : 'animate-bounce motion-reduce:animate-none'
+                        }`}
+                    >
+                        <path
+                            d="M6 9l6 6 6-6"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
+                    </svg>
+                </button>
+                <div className="hidden justify-center lg:flex">
+                    <TabPill label={t('tabs.once')} />
                 </div>
-                <p className="mt-[18px] text-center text-[15px] leading-[140%] text-white/90 xl:text-[14px]">
+                <div
+                    id="donation-form-body"
+                    className={`overflow-hidden transition-[max-height,opacity] duration-700 ease-out lg:max-h-none lg:opacity-100 ${
+                        open ? 'max-h-[900px] opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                >
+                <p className="mt-[10px] text-center text-[15px] leading-[140%] text-white/90 lg:mt-[18px] xl:text-[14px]">
                     {t("descriptions.once")}
                 </p>
                 <div className="mt-[22px] grid grid-cols-1 gap-[12px] sm:grid-cols-2 xl:gap-[13px]">
@@ -69,7 +124,7 @@ export default function DonationForm() {
                     ))}
                 </div>
                 {jarUrl ? (
-                    <div className="mt-[24px]">
+                    <div className="mt-[24px] pb-[4px]">
                         <Button
                             text={t('submit')}
                             href={jarUrl}
@@ -78,6 +133,7 @@ export default function DonationForm() {
                         />
                     </div>
                 ) : null}
+                </div>
             </div>
         </div>
     );
