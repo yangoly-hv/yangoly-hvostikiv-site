@@ -81,7 +81,14 @@ export async function getPageMetadata({
         "x-default": localizedPath(defaultLocale, path),
       },
     },
-    icons: { icon: "/favicon.ico" },
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "48x48" },
+        { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+        { url: "/icon-512.png", type: "image/png", sizes: "512x512" },
+      ],
+      apple: "/apple-touch-icon.png",
+    },
     verification: {
       other: {
         "facebook-domain-verification": "cxpcls30yzkm7jisl8d6oz9i3umuk4",
