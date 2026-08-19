@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 
 import Button from "@/shared/components/Button/Button";
@@ -52,31 +52,42 @@ function TabPill({ label }: { label: string }) {
     );
 }
 
-// On phones the form starts folded to the pill and unfolds on the first
-// scroll (or a tap); from lg upward it is always fully expanded.
-const UNFOLD_SCROLL_Y = 40;
+// On phones the form starts folded to the pill, unfolds on the first bit of
+// scrolling (or a tap) and folds back at the very top; from lg upward it is
+// always fully expanded. A tap-open sticks until the next scroll cycle.
+const UNFOLD_SCROLL_Y = 16;
+const FOLD_SCROLL_Y = 6;
 
 export default function DonationForm() {
     const t = useTranslations('DonationForm');
     const jarUrl = useOneTimeDonationJarUrl();
     const [open, setOpen] = useState(false);
+    const manualOpen = useRef(false);
 
     useEffect(() => {
-        if (open) return;
         const onScroll = () => {
-            if (window.scrollY > UNFOLD_SCROLL_Y) setOpen(true);
+            const y = window.scrollY;
+            if (y > UNFOLD_SCROLL_Y) {
+                manualOpen.current = false;
+                setOpen(true);
+            } else if (y < FOLD_SCROLL_Y && !manualOpen.current) {
+                setOpen(false);
+            }
         };
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
-    }, [open]);
+    }, []);
 
     return (
         <div className="liquid-glass w-full max-w-[524px] rounded-[28px] px-[16px] py-[20px] text-white sm:px-[24px] lg:max-w-[460px] lg:py-[28px] xl:max-w-[524px] xl:p-[32px]">
             <div className="relative z-10">
                 <button
                     type="button"
-                    onClick={() => setOpen(true)}
+                    onClick={() => {
+                        manualOpen.current = true;
+                        setOpen(true);
+                    }}
                     aria-expanded={open}
                     aria-controls="donation-form-body"
                     className="flex w-full flex-col items-center gap-[6px] lg:hidden"
@@ -106,10 +117,13 @@ export default function DonationForm() {
                 </div>
                 <div
                     id="donation-form-body"
-                    className={`overflow-hidden transition-[max-height,opacity] duration-700 ease-out lg:max-h-none lg:opacity-100 ${
-                        open ? 'max-h-[900px] opacity-100' : 'max-h-0 opacity-0'
+                    className={`grid transition-[grid-template-rows,opacity] duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] lg:grid-rows-[1fr] lg:opacity-100 ${
+                        open
+                            ? 'grid-rows-[1fr] opacity-100'
+                            : 'grid-rows-[0fr] opacity-0'
                     }`}
                 >
+                <div className="min-h-0 overflow-hidden">
                 <p className="mt-[10px] text-center text-[15px] leading-[140%] text-white/90 lg:mt-[18px] xl:text-[14px]">
                     {t("descriptions.once")}
                 </p>
@@ -133,6 +147,7 @@ export default function DonationForm() {
                         />
                     </div>
                 ) : null}
+                </div>
                 </div>
             </div>
         </div>
