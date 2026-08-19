@@ -28,7 +28,7 @@ layer(base);
   --color-gray: #27272a;
 
   --font-raleway: var(--font-raleway), serif;
-  --font-arial: Arial Black, serif;
+  --font-arial: var(--font-unbounded), 'Arial Black', serif;
   --font-ranga: Ranga, cursive;
 
   --animate-marquee: marquee 40s linear infinite;
@@ -91,6 +91,15 @@ layer(base);
   button:disabled,
   [aria-disabled='true'] {
     cursor: not-allowed;
+  }
+
+  /*
+    The display face (Unbounded) replaces single-weight Arial Black, so give
+    every display-font element a bold default. Explicit font-weight utilities
+    still win over this base rule.
+  */
+  .font-arial {
+    font-weight: 700;
   }
 }
 
@@ -211,6 +220,116 @@ layer(base);
   }
   .animate-color {
     animation: colorChange 2s infinite ease-in-out;
+  }
+
+  /* --- Liquid glass surfaces (home hero) --- */
+  .liquid-glass {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      linear-gradient(
+        155deg,
+        rgba(255, 255, 255, 0.16) 0%,
+        rgba(255, 255, 255, 0.05) 34%,
+        rgba(255, 255, 255, 0.02) 62%,
+        rgba(255, 255, 255, 0.1) 100%
+      ),
+      rgba(24, 24, 27, 0.38);
+    -webkit-backdrop-filter: blur(26px) saturate(160%);
+    backdrop-filter: blur(26px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow:
+      0 28px 64px -20px rgba(0, 0, 0, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.32),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.07);
+  }
+  /* one slow specular sweep across the glass */
+  .liquid-glass::after {
+    content: '';
+    position: absolute;
+    inset: -40% auto -40% -60%;
+    z-index: 0;
+    width: 45%;
+    transform: skewX(-18deg) translateX(0);
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.09) 45%,
+      rgba(255, 255, 255, 0.16) 50%,
+      rgba(255, 255, 255, 0.09) 55%,
+      transparent 100%
+    );
+    animation: glass-sheen 9s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .liquid-glass-chip {
+    background:
+      linear-gradient(
+        150deg,
+        rgba(255, 255, 255, 0.12) 0%,
+        rgba(255, 255, 255, 0.04) 55%,
+        rgba(255, 255, 255, 0.08) 100%
+      ),
+      rgba(24, 24, 27, 0.28);
+    -webkit-backdrop-filter: blur(18px) saturate(150%);
+    backdrop-filter: blur(18px) saturate(150%);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    box-shadow:
+      0 12px 30px -14px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+  @keyframes glass-sheen {
+    0%,
+    62% {
+      transform: skewX(-18deg) translateX(-120%);
+    }
+    86%,
+    100% {
+      transform: skewX(-18deg) translateX(420%);
+    }
+  }
+  /* Ken Burns drift variants for the hero slideshow */
+  .kenburns-a {
+    animation: kenburns-a 9s linear forwards;
+  }
+  .kenburns-b {
+    animation: kenburns-b 9s linear forwards;
+  }
+  .kenburns-c {
+    animation: kenburns-c 9s linear forwards;
+  }
+  @keyframes kenburns-a {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.09);
+    }
+  }
+  @keyframes kenburns-b {
+    from {
+      transform: scale(1.09) translateX(1.2%);
+    }
+    to {
+      transform: scale(1) translateX(0);
+    }
+  }
+  @keyframes kenburns-c {
+    from {
+      transform: scale(1);
+    }
+    to {
+      transform: scale(1.09) translateY(-1.4%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .liquid-glass::after,
+    .kenburns-a,
+    .kenburns-b,
+    .kenburns-c {
+      animation: none;
+    }
   }
 }
 @layer utilities {
