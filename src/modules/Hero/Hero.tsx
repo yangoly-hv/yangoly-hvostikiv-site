@@ -1,94 +1,105 @@
 import * as motion from "motion/react-client";
 import DonationForm from "@/modules/Hero/Donation/DonationForm";
+import HeroSlideshow, { type HeroSlide } from "@/modules/Hero/HeroSlideshow";
 import { getTranslations } from "next-intl/server";
 
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
+
+const SLIDES_BASE = "/images/home/hero-slides";
+
+const slides: HeroSlide[] = [
+  { name: "slide-1", position: "object-[center_42%]" },
+  { name: "slide-2", position: "object-[center_55%]" },
+  { name: "slide-3", position: "object-[center_45%]" },
+  { name: "slide-4", position: "object-[center_45%]" },
+  { name: "slide-5", position: "object-[center_60%]" },
+].map(({ name, position }) => ({
+  deskAvif: `${SLIDES_BASE}/${name}-desk.avif`,
+  deskWebp: `${SLIDES_BASE}/${name}-desk.webp`,
+  mobAvif: `${SLIDES_BASE}/${name}-mob.avif`,
+  mobWebp: `${SLIDES_BASE}/${name}-mob.webp`,
+  position,
+}));
+
 const Hero = async () => {
   const t = await getTranslations("Hero");
   return (
-    <section className="relative z-0 md:pt-[300px] lg:pt-[48px] lg:pb-[48px] xl:py-[141px]">
-      <div className="absolute inset-0 w-full h-full overflow-hidden xl:left-0 xl:w-[115%]">
-        <picture className="pointer-events-none absolute inset-0 hidden sm:block">
-          <source srcSet="/images/hero-bg-desk.avif" type="image/avif" />
-          <img
-            src="/images/hero-bg-desk.webp"
-            alt=""
-            className="h-full w-full object-cover lg:object-[center_40%] xl:object-[left_38%]"
-            fetchPriority="high"
-            decoding="async"
-          />
-        </picture>
-        <picture className="lg:hidden">
-          <source srcSet="/images/hero-bg-mob.avif" type="image/avif" />
-          <img
-            src="/images/hero-bg-mob.webp"
-            alt=""
-            aria-hidden="true"
-            className="h-[694px] w-full object-cover object-[center_-80px] sm:object-[center_32%]"
-            decoding="async"
-          />
-        </picture>
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/35 to-black/15 md:bg-gradient-to-r md:from-black/20 md:via-black/30 md:to-black/55"
-        />
+    <section className="relative z-0 mt-[-72px] overflow-hidden bg-dark lg:mt-[-80px] 2xl:mt-[-88px]">
+      <HeroSlideshow
+        slides={slides}
+        railLabel={t("galleryLabel")}
+        slideLabelPrefix={t("slideLabel")}
+      />
 
-      </div>
-        <div className="relative z-30 flex flex-col flex-wrap gap-[57px] lg:flex-row lg:flex-nowrap lg:items-stretch lg:justify-center lg:px-[20px] lg:py-[20px] xl:justify-start xl:gap-[40px] xl:py-0 xl:pl-[40px] xl:pr-0">
-            <div className="order-2 md:order-1 lg:shrink-0">
-                <DonationForm />
-            </div>
-            <div className="order-1 flex min-h-[354px] flex-col pt-4 md:order-2 md:mt-[300px] md:min-h-0 max-w-[700px] lg:mt-0 lg:max-w-none lg:flex-1 lg:min-w-0 xl:max-w-[700px] lg:justify-center">
-                    <motion.h1
-                        className="text-white font-arial uppercase text-center leading-[122%] lg:text-left mt-0 text-[22px] lg:text-[56px]"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{once: true}}
-                        variants={{
-                            hidden: {opacity: 0},
-                            visible: {opacity: 1, transition: {duration: 0.6, delay: 0.5}},
-                        }}
-                    >
-                        {t("title")}
-                    </motion.h1>
-                    <motion.div
-                        className="mx-auto lg:mx-0 max-w-[288px] mt-[14px] lg:max-w-full lg:w-full flex flex-col items-center lg:items-start xl:flex-row xl:justify-between lg:mt-[24px]"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{once: true}}
-                    >
-                        <motion.p
-                            className="text-white text-center lg:text-left leading-[122%] text-[16px] lg:text-[32px] xl:max-w-[432px] "
-                            variants={{
-                                hidden: {opacity: 0, y: 20},
-                                visible: {
-                                    opacity: 1,
-                                    y: 0,
-                                    transition: {duration: 0.6, delay: 0.8},
-                                },
-                            }}
-                        >
-                            {t("callToAction")}
-                        </motion.p>
-                    </motion.div>
-            </div>
+      <div className="relative z-20 mx-auto flex max-w-[1920px] flex-col gap-[40px] px-[16px] pb-[88px] pt-[110px] md:px-[32px] lg:min-h-[100svh] lg:flex-row lg:items-center lg:justify-between lg:gap-[48px] lg:px-[40px] lg:pb-[96px] lg:pt-[128px] xl:gap-[64px] xl:px-[80px]">
+        <div className="flex max-w-[720px] flex-col items-center pt-[16px] text-center lg:flex-1 lg:items-start lg:pt-0 lg:text-left">
+          <motion.h1
+            className="mt-0 font-arial text-[20px] uppercase leading-[130%] text-white drop-shadow-[0_2px_18px_rgba(0,0,0,0.45)] md:text-[28px] lg:text-[34px] xl:text-[40px]"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0, y: 24 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.7, delay: 0.2, ease: "easeOut" },
+              },
+            }}
+          >
+            {t("title")}
+          </motion.h1>
+          <motion.p
+            className="mt-[16px] max-w-[420px] text-[16px] leading-[140%] text-white/90 md:text-[20px] lg:mt-[24px] lg:max-w-[520px] lg:text-[26px] xl:text-[30px]"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0, y: 24 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.7, delay: 0.45, ease: "easeOut" },
+              },
+            }}
+          >
+            {t("callToAction")}
+          </motion.p>
         </div>
-        <SafeImage
-          src="/images/home/hero-paw.svg"
-          alt=""
-          width={91}
-          height={91}
-          aria-hidden="true"
-          className="pointer-events-none absolute right-[15px] top-[96px] z-20 h-[47px] w-[47px] origin-center opacity-80 lg:right-[28px] rotate-[180deg] lg:top-auto lg:bottom-[188px] lg:h-[91px] lg:w-[91px]"
-        />
-        <SafeImage
-          src="/images/home/hero-paw.svg"
-          alt=""
-          width={232}
-          height={232}
-          aria-hidden="true"
-          className="pointer-events-none absolute right-[-10px] top-[-35px] z-20 h-[120px] w-[120px] origin-center rotate-[200deg] opacity-80 lg:right-[-20px] lg:top-auto lg:bottom-[-68px] lg:h-[232px] lg:w-[232px] lg:rotate-[-20deg]"
-        />
+
+        <motion.div
+          className="w-full max-w-[524px] self-center lg:w-auto lg:shrink-0 lg:self-auto"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: { duration: 0.9, delay: 0.35, ease: "easeOut" },
+            },
+          }}
+        >
+          <DonationForm />
+        </motion.div>
+      </div>
+
+      <SafeImage
+        src="/images/home/hero-paw.svg"
+        alt=""
+        width={91}
+        height={91}
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[15px] top-[86px] z-20 h-[44px] w-[44px] rotate-[180deg] opacity-70 lg:hidden"
+      />
+      <SafeImage
+        src="/images/home/hero-paw.svg"
+        alt=""
+        width={232}
+        height={232}
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[-14px] top-[-38px] z-20 h-[110px] w-[110px] rotate-[200deg] opacity-70 lg:hidden"
+      />
     </section>
   );
 };
