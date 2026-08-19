@@ -122,7 +122,9 @@
   "Hero": {
     "title": "Help animals feel needed in this world",
     "callToAction": "Become an Angel for Tails with us!",
-    "button": "Help a Tail"
+    "button": "Help a Tail",
+    "galleryLabel": "Photos from the shelter",
+    "slideLabel": "Show photo"
   },
   "WorkResults": [
     {
@@ -228,6 +230,8 @@
   },
   "MonthlyGoalSection": {
     "generalGoal": "Total goal: {{goal}} UAH for materials and construction.",
+    "collectedLabel": "Raised",
+    "goalLabel": "Goal",
     "result": "Raised: {{current}} UAH out of {{goal}} UAH",
     "supportFundrasing": "Support the fundraiser",
     "support": "Support"
