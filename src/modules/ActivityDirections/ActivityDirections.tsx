@@ -25,7 +25,7 @@ const ActivityDirections = async () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
               viewport={{ once: true, amount: 0.2 }}
-              className="uppercase font-arial text-[20px] xl:text-[32px] text-black xl:font-black md:text-center leading-[100%] xl:leading-[140%] mb-6 md:mb-[34px] whitespace-pre-line lg:whitespace-normal"
+              className="uppercase font-arial text-[20px] xl:text-[32px] text-black xl:font-black text-center leading-[100%] xl:leading-[140%] mb-6 md:mb-[34px] whitespace-pre-line lg:whitespace-normal"
             >
               {title}
             </motion.h2>
@@ -50,7 +50,7 @@ const ActivityDirections = async () => {
                     .filter(Boolean)
                     .join(" ")}
                 >
-                  <span className="text-black font-semibold text-[14px] lg:text-[16px] xl:text-[18px] leading-[130%] uppercase">
+                  <span className="text-center text-black font-semibold text-[14px] lg:text-[16px] xl:text-[18px] leading-[130%] uppercase">
                     {item}
                   </span>
                 </motion.div>
