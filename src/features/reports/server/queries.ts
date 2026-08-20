@@ -14,7 +14,7 @@ export const reportBySlugQuery = `
     date,
     "slug": slug.current,
     "updatedAt": _updatedAt,
-    "images": coalesce(images[].asset->url, []),
+    "images": coalesce(images[]{asset, crop, hotspot, "url": asset->url}, []),
     "reportFileUrl": reportFile.asset->url,
     "reportFileName": reportFile.asset->originalFilename,
     "shortFoodDescription": shortFoodDescription[$lang],

@@ -1,4 +1,5 @@
 import type { AppLocale } from "@/shared/config/site";
+import { imageUrlForSlot } from "@/shared/lib/sanityImage";
 import type { TailDocument, TailViewModel } from "./types";
 
 const getSterilizationText = (
@@ -22,16 +23,27 @@ export const mapTail = (
   locale: AppLocale
 ): TailViewModel => {
   const needsSterilization = tail.needs_sterilization !== false;
-  const additionalUrls = Array.isArray(tail.imageUrls) ? tail.imageUrls : [];
-  const mainImageUrl = tail.mainImageUrl || "";
+  const mainImageUrl =
+    imageUrlForSlot(tail.mainImage, "tailDetailMain") || tail.mainImageUrl || "";
+  const cardImage =
+    imageUrlForSlot(tail.mainImage, "tailCard") || mainImageUrl;
+  const additionalUrls = Array.isArray(tail.images) && tail.images.length
+    ? tail.images.map(
+        (image, index) =>
+          imageUrlForSlot(image, "tailDetailMain") || tail.imageUrls?.[index] || ""
+      )
+    : Array.isArray(tail.imageUrls)
+      ? tail.imageUrls
+      : [];
+  const galleryImages = [mainImageUrl, ...additionalUrls].filter(Boolean);
 
   return {
     id: tail._id,
     slug: tail.slug,
     image: mainImageUrl,
-    cardImage: mainImageUrl,
-    images: [mainImageUrl, ...additionalUrls].filter(Boolean),
-    galleryImages: [mainImageUrl, ...additionalUrls].filter(Boolean),
+    cardImage,
+    images: galleryImages,
+    galleryImages,
     name: tail.name,
     description: tail.description || [],
     mainText: tail.description || [],

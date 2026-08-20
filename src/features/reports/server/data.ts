@@ -4,7 +4,11 @@ import { cache } from "react";
 import type { AppLocale } from "@/shared/config/site";
 import { sanityFetch } from "@/shared/lib/sanity.server";
 import { sanityTags } from "@/shared/lib/sanityTags";
-import type { ReportDetail, ReportSummary } from "../model/types";
+import {
+  normalizeReportDetail,
+  type ReportDetailRecord,
+} from "../model/mapReportImages";
+import type { ReportSummary } from "../model/types";
 import {
   allReportSlugsQuery,
   allReportsQuery,
@@ -19,13 +23,14 @@ export const getAllReports = cache((locale: AppLocale) =>
   )
 );
 
-export const getReportBySlug = cache((locale: AppLocale, slug: string) =>
-  sanityFetch<ReportDetail | null>(
+export const getReportBySlug = cache(async (locale: AppLocale, slug: string) => {
+  const report = await sanityFetch<ReportDetailRecord | null>(
     reportBySlugQuery,
     { lang: locale, slug },
     { tags: [sanityTags.report(slug)] }
-  )
-);
+  );
+  return normalizeReportDetail(report);
+});
 
 export type ReportSlug = { slug: string; updatedAt?: string };
 

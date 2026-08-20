@@ -12,6 +12,7 @@ import {
 import { mapTail } from "@/features/tails/model/mapTail";
 import { locales } from "@/shared/config/site";
 import type { PageParams } from "@/shared/types";
+import { imageUrlForSlot } from "@/shared/lib/sanityImage";
 import { getPageMetadata } from "@/shared/lib/metadata";
 import { toPlainText, truncateDescription } from "@/shared/lib/seo";
 import { getBreadcrumbSchema, getItemPageSchema } from "@/shared/lib/structuredData";
@@ -58,7 +59,7 @@ export async function generateMetadata({
       description: truncateDescription(toPlainText(tail.description) || fallback.description),
       keywords: fallback.keywords,
     },
-    image: tail.mainImageUrl,
+    image: imageUrlForSlot(tail.mainImage, "tailCard") || tail.mainImageUrl,
     imageAlt: tail.name,
     modifiedTime: tail.updatedAt,
   });
@@ -104,7 +105,7 @@ export default async function TailPage({ params }: PageParams<{ slug: string }>)
             path: `/tails/${slug}`,
             name: tail.name,
             description: truncateDescription(toPlainText(tail.description)),
-            image: tail.mainImageUrl,
+            image: imageUrlForSlot(tail.mainImage, "tailCard") || tail.mainImageUrl,
             dateModified: tail.updatedAt,
           }),
           getBreadcrumbSchema(locale, [

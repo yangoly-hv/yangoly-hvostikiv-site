@@ -131,7 +131,7 @@ const ImageSlider = ({ images }: { images: string[] }) => {
           onClick={closeModal}
         >
           <motion.div
-              className="relative w-full max-w-[1040px] aspect-13/10 overflow-hidden rounded-[8px] bg-black"
+              className="relative w-full max-w-[1040px] aspect-6/5 overflow-hidden rounded-[8px] bg-black"
               initial={{ scale: 0.92, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.92, opacity: 0 }}

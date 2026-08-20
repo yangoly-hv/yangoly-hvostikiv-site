@@ -10,7 +10,10 @@ import Tail from "@/modules/Tail/Tail";
 import type { BlogPost } from "@/features/blog/model/types";
 import { postBySlugQuery } from "@/features/blog/server/queries";
 import { formatReportDate } from "@/features/reports/model/formatReportDate";
-import type { ReportDetail } from "@/features/reports/model/types";
+import {
+  normalizeReportDetail,
+  type ReportDetailRecord,
+} from "@/features/reports/model/mapReportImages";
 import { reportBySlugQuery } from "@/features/reports/server/queries";
 import { mapTail } from "@/features/tails/model/mapTail";
 import type { TailDocument } from "@/features/tails/model/types";
@@ -72,9 +75,11 @@ export default async function PreviewPage({ params }: PreviewPageProps) {
   }
 
   if (type === "reporting") {
-    const report = await sanityPreviewFetch<ReportDetail | null>(
-      reportBySlugQuery,
-      { lang: locale, slug }
+    const report = normalizeReportDetail(
+      await sanityPreviewFetch<ReportDetailRecord | null>(reportBySlugQuery, {
+        lang: locale,
+        slug,
+      })
     );
     if (!report) notFound();
     return (

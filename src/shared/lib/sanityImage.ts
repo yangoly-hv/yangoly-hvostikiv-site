@@ -33,7 +33,16 @@ export const imageUrlForSlot = (
   if (!source) return "";
   if (typeof source === "string") return source;
   const fallbackUrl = typeof source.url === "string" ? source.url : "";
-  const assetRef = "asset" in source ? source.asset?._ref : undefined;
+  const asset =
+    "asset" in source && source.asset && typeof source.asset === "object"
+      ? source.asset
+      : undefined;
+  const assetRef =
+    asset && "_ref" in asset && typeof asset._ref === "string"
+      ? asset._ref
+      : asset && "_id" in asset && typeof asset._id === "string"
+        ? asset._id
+        : undefined;
 
   if (!assetRef) return fallbackUrl;
 
