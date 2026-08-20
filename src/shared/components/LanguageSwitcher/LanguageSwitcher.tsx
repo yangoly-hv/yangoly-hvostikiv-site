@@ -21,7 +21,7 @@ const languages: ILanguages = {
 const queryFromLocation = () =>
   Object.fromEntries(new URLSearchParams(window.location.search));
 
-const LanguageSwitcher = () => {
+const LanguageSwitcher = ({ light = false }: { light?: boolean }) => {
   const pathname = usePathname();
   const router = useRouter();
   const selectedLocale = useLocale() as Locale;
@@ -70,11 +70,27 @@ const LanguageSwitcher = () => {
         aria-expanded={isOpen}
         disabled={isPending}
         onClick={() => setIsOpen((value) => !value)}
-        className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-gray-50 disabled:opacity-60"
+        className={cn(
+          "flex items-center gap-2 px-3 py-2 rounded-md disabled:opacity-60",
+          light ? "hover:bg-white/10" : "hover:bg-gray-50"
+        )}
       >
         <div className="shrink-0">{selectedLanguage.icon}</div>
-        <span className="text-sm font-medium text-[#262827]">{selectedLanguage.name}</span>
-        <ArrowDonwIcon className={cn("w-4 h-4 transition-transform text-[#262827]", isOpen && "rotate-180")} />
+        <span
+          className={cn(
+            "text-sm font-medium transition-colors duration-300",
+            light ? "text-white" : "text-[#262827]"
+          )}
+        >
+          {selectedLanguage.name}
+        </span>
+        <ArrowDonwIcon
+          className={cn(
+            "w-4 h-4 transition-transform",
+            light ? "text-white" : "text-[#262827]",
+            isOpen && "rotate-180"
+          )}
+        />
       </button>
 
       <AnimatePresence>

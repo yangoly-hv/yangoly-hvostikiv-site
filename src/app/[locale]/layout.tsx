@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Raleway } from "next/font/google";
+import { Raleway, Unbounded } from "next/font/google";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -36,6 +36,11 @@ const raleway = Raleway({
   subsets: ["latin", "cyrillic"],
 });
 
+const unbounded = Unbounded({
+  variable: "--font-unbounded",
+  subsets: ["latin", "cyrillic"],
+});
+
 export default async function LocaleLayout({
   children,
   params,
@@ -62,7 +67,7 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className={`${raleway.variable} ${unbounded.variable}`}>
       <body>
         <MetaPixel />
         <JsonLd
@@ -79,7 +84,7 @@ export default async function LocaleLayout({
                   <Header socials={socials} />
                   <PaymentReturnClient />
                   <main
-                    className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway`}
+                    className={`${raleway.variable} bg-orange-bg flex-1 w-full overflow-x-hidden font-raleway pt-[72px] lg:pt-[80px] 2xl:pt-[88px]`}
                   >
                     {children}
                   </main>

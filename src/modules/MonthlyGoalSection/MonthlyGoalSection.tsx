@@ -9,6 +9,7 @@ import { imageUrlForSlot } from "@/shared/lib/sanityImage";
 
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
 import CollectionDonateCta from "./CollectionDonateCta";
+import GoalProgress from "./GoalProgress";
 
 const fallbackImageUrl = "/images/home/monthlyGoal/dog.webp";
 
@@ -22,7 +23,7 @@ const formatAmount = (amount: number) => amount.toLocaleString("uk-UA");
 
 const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
   const t = await getTranslations("");
-  const { generalGoal, result, supportFundrasing } =
+  const { generalGoal, result, supportFundrasing, collectedLabel, goalLabel } =
     await t.raw("MonthlyGoalSection");
   const data = await getMainCollection();
   if (!data) return null;
@@ -51,8 +52,11 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
     .replace("{{current}}", formatAmount(current))
     .replace("{{goal}}", formatAmount(goal));
 
+  const percent =
+    goal > 0 ? Math.min(100, Math.round((current / goal) * 100)) : null;
+
   const buttonClassName =
-    "w-full lg:max-w-[348px] xl:max-w-[555px] mb-3 desk:mb-8 xl:h-[67px]";
+    "flex w-full lg:max-w-[348px] xl:max-w-[555px] mx-auto mb-3 desk:mb-8 xl:h-[67px]";
 
   return (
     <section className="relative pt-[120px] pb-[60px] bg-white md:bg-transparent overflow-hidden">
@@ -83,18 +87,18 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
             />
           </AnimatedWrapper>
           <div className="md:flex flex-col justify-between md:w-1/2 md:p-10 xl:py-[89px] xl:px-[81px] rounded-[8px] z-10">
-            <div className="lg:max-w-[348px] xl:max-w-[555px]">
+            <div className="mx-auto lg:max-w-[348px] xl:max-w-[555px]">
               <AnimatedWrapper
                 as="h2"
                 animation={fadeInAnimation({ y: 30 })}
-                className="mb-3 xl:mb-4 desk:mb-14 font-arial text-[18px] xl:text-[40px] leading-[120%] text-center md:text-left"
+                className="mb-3 xl:mb-4 desk:mb-14 font-arial text-[18px] xl:text-[32px] leading-[130%] text-center"
               >
                 {title}
               </AnimatedWrapper>
               <AnimatedWrapper
                 as="p"
                 animation={fadeInAnimation({ y: 30, delay: 0.4 })}
-                className="mb-6 xl:mb-[37px] desk:mb-20 text-[12px] xl:text-[18px] leading-[130%] text-center md:text-left"
+                className="mb-6 xl:mb-[37px] desk:mb-20 text-[12px] xl:text-[18px] leading-[140%] text-center"
               >
                 {description}
               </AnimatedWrapper>
@@ -113,26 +117,43 @@ const MonthlyGoalSection = async ({ lang }: IMonthlyGoalSectionProps) => {
               <AnimatedWrapper
                 as="h3"
                 animation={fadeInAnimation({ y: 30, delay: 0.4 })}
-                className="mb-[11px] xl:mb-6 font-arial text-[18px] xl:text-[24px] leading-[120%] text-center md:text-left"
+                className="mb-[20px] xl:mb-[28px] text-[14px] xl:text-[18px] leading-[140%] text-center text-dark/70"
               >
                 {generalGoalBefore}
-                <span className="text-green">{formatAmount(goal)}</span>
+                <span className="font-semibold text-green">
+                  {formatAmount(goal)}
+                </span>
                 {generalGoalAfter}
               </AnimatedWrapper>
             </div>
             <div>
+              {percent !== null ? (
+                <AnimatedWrapper
+                  animation={fadeInAnimation({ y: 20, delay: 0.5 })}
+                  className="mb-[24px] xl:mb-[32px]"
+                >
+                  <GoalProgress
+                    percent={percent}
+                    currentLabel={collectedLabel}
+                    goalLabel={goalLabel}
+                    currentFormatted={formatAmount(current)}
+                    goalFormatted={formatAmount(goal)}
+                  />
+                </AnimatedWrapper>
+              ) : (
+                <AnimatedWrapper
+                  as="p"
+                  animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
+                  className="mb-[16px] text-[12px] xl:text-[18px] font-arial font-light text-center leading-[130%]"
+                >
+                  {formattedResult}
+                </AnimatedWrapper>
+              )}
               <CollectionDonateCta
                 monoJarUrl={monoJar?.jarUrl ?? null}
                 className={buttonClassName}
                 buttonText={supportFundrasing}
               />
-              <AnimatedWrapper
-                as="p"
-                animation={fadeInAnimation({ scale: 0.9, delay: 0.8 })}
-                className="text-[12px] xl:text-[18px] font-arial font-light text-center leading-[130%]"
-              >
-                {formattedResult}
-              </AnimatedWrapper>
             </div>
           </div>
           <AnimatedWrapper
