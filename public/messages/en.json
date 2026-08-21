@@ -335,6 +335,17 @@
     "donor": "Donor",
     "sum": "Contribution amount"
   },
+  "TopDonors": {
+    "title": "Top 10 donors",
+    "subtitle": "People and companies who have supported the tails the most",
+    "company": "Company",
+    "hrn": "UAH"
+  },
+  "Volunteers": {
+    "title": "Our volunteers",
+    "subtitle": "The team that cares for the tails every day",
+    "contributionLabel": "Impact"
+  },
   "DonateModal": {
     "fundraisingTitle": "Thank you, Angel, for helping our foundation work",
     "fundraisingOneTimeTitle": "Thank you, Angel, for helping our foundation work",

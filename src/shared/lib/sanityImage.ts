@@ -20,6 +20,8 @@ export const tailImageSlots = {
 export const imageSlots = {
   ...tailImageSlots,
   collectionMonthlyGoal: {width: 705, height: 580},
+  donorAvatar: {width: 160, height: 160},
+  volunteerPhoto: {width: 640, height: 720},
   reportSlider: {width: 1040, height: 800},
   reportModal: {width: 1560, height: 1200},
 } as const;

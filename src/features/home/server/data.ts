@@ -9,12 +9,16 @@ import type {
   Donor,
   MainCollection,
   Performance,
+  TopDonor,
+  Volunteer,
 } from "../model/types";
 import {
   aboutFoundationQuery,
   mainCollectionQuery,
   performanceQuery,
+  topDonorBoardQuery,
   topDonorsQuery,
+  volunteersQuery,
 } from "./queries";
 
 export const getPerformance = cache(() =>
@@ -26,6 +30,18 @@ export const getPerformance = cache(() =>
 export const getTopDonors = cache((locale: AppLocale) =>
   sanityFetch<Donor[]>(topDonorsQuery, { lang: locale }, {
     tags: [sanityTags.donorsList],
+  })
+);
+
+export const getTopDonorBoard = cache((locale: AppLocale) =>
+  sanityFetch<TopDonor[]>(topDonorBoardQuery, { lang: locale }, {
+    tags: [sanityTags.donorsList],
+  })
+);
+
+export const getVolunteers = cache((locale: AppLocale) =>
+  sanityFetch<Volunteer[]>(volunteersQuery, { lang: locale }, {
+    tags: [sanityTags.volunteersList],
   })
 );
 

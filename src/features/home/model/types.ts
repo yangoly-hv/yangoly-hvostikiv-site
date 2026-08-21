@@ -16,6 +16,28 @@ export type Donor = {
   amount: number;
 };
 
+export type TopDonor = {
+  _id: string;
+  kind: "person" | "company";
+  name: string;
+  amount: number;
+  image?: SanityImage | null;
+  instagramUrl?: string | null;
+  telegramUrl?: string | null;
+  websiteUrl?: string | null;
+};
+
+export type Volunteer = {
+  _id: string;
+  name: string;
+  description: string;
+  contribution?: string | null;
+  photo?: SanityImage | null;
+  instagramUrl?: string | null;
+  telegramUrl?: string | null;
+  facebookUrl?: string | null;
+};
+
 export type MainCollection = {
   _id: string;
   title?: Partial<Record<"uk" | "en", string>>;

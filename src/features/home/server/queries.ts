@@ -15,6 +15,32 @@ export const topDonorsQuery = `
   }
 `;
 
+export const topDonorBoardQuery = `
+  *[_type == "donator" && (!defined(isActive) || isActive == true)] | order(amount desc, _createdAt asc)[0...10]{
+    _id,
+    "kind": coalesce(donorKind, "person"),
+    "name": coalesce(name[$lang], name.uk),
+    amount,
+    image{asset, crop, hotspot, "url": asset->url},
+    instagramUrl,
+    telegramUrl,
+    websiteUrl
+  }
+`;
+
+export const volunteersQuery = `
+  *[_type == "volunteer"] | order(sortOrder asc, _updatedAt desc){
+    _id,
+    "name": coalesce(name[$lang], name.uk),
+    "description": coalesce(description[$lang], description.uk),
+    "contribution": coalesce(contribution[$lang], contribution.uk),
+    photo{asset, crop, hotspot, "url": asset->url},
+    instagramUrl,
+    telegramUrl,
+    facebookUrl
+  }
+`;
+
 export const mainCollectionQuery = `
   *[_type == "collection" && main == true][0]{
     _id,

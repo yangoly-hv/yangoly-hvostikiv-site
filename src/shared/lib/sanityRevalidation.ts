@@ -62,6 +62,10 @@ export const getRevalidationTargets = (
       target.tags.push(sanityTags.donorsList);
       target.paths.push(...localizedPaths());
       break;
+    case "volunteer":
+      target.tags.push(sanityTags.volunteersList);
+      target.paths.push(...localizedPaths());
+      break;
     case "collection":
       target.tags.push(sanityTags.collectionMain);
       target.paths.push(...localizedPaths());
