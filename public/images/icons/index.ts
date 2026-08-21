@@ -11,3 +11,4 @@ export * from "./CardIcon";
 export * from "./CheckboxIcon";
 export * from "./CircleArrowIcon";
 export * from "./ArrowInCircleIcon";
+export * from "./CodeSiteTagIcon";

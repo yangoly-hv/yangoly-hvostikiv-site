@@ -8,7 +8,11 @@ import {
   containerVariants,
   listItemVariants,
 } from "@/shared/components/Animations/animationVariants";
-import { EmailIcon, PhoneIcon } from "../../../public/images/icons";
+import {
+  CodeSiteTagIcon,
+  EmailIcon,
+  PhoneIcon,
+} from "../../../public/images/icons";
 import { LocationIcon } from "../../../public/images/icons/LocationIcon";
 import { getSocialLinks } from "@/features/site/server/data";
 import type { SocialLink } from "@/shared/lib/socialLinks";
@@ -104,6 +108,28 @@ const Footer = async ({ socials }: FooterProps) => {
         >
           <LocationIcon /> {contacts.address}
         </motion.div>
+      </motion.div>
+      <motion.div
+        className="flex flex-col items-center gap-1"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { duration: 0.6, delay: 0.3 } },
+        }}
+      >
+        <p className="text-[8px] font-medium uppercase leading-[120%] text-dark/60">
+          {t("createdBy")}
+        </p>
+        <a
+          href="https://www.code-site.art"
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          className="flex items-center gap-2 font-arial text-[13px] leading-[120%] text-dark transition-colors duration-300 hover:text-green"
+        >
+          CODE-SITE.ART <CodeSiteTagIcon className="mb-1" width={18} height={17} />
+        </a>
       </motion.div>
     </footer>
   );

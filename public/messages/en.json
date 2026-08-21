@@ -117,7 +117,8 @@
       "email": "angelsuaorg@gmail.com",
       "address": "4 Pavla Tychyny Avenue, Kyiv, 02098, Ukraine"
     },
-    "logoAlt": "Angels of Tails"
+    "logoAlt": "Angels of Tails",
+    "createdBy": "Created by:"
   },
   "Hero": {
     "title": "Help animals feel needed in this world",

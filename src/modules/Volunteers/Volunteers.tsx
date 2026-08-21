@@ -44,10 +44,13 @@ export default async function Volunteers() {
         <AnimatedWrapper
           as="ul"
           animation={listVariants({ staggerChildren: 0.12, delayChildren: 0.2 })}
-          className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 xl:grid-cols-3 xl:gap-6"
+          className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-4 px-4 pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:grid md:snap-none md:grid-cols-2 md:gap-5 md:overflow-visible md:scroll-px-0 md:px-0 md:pb-0 xl:grid-cols-3 xl:gap-6"
         >
           {volunteers.map((volunteer) => (
-            <AnimatedListItem key={volunteer._id} className="h-full">
+            <AnimatedListItem
+              key={volunteer._id}
+              className="h-full w-[76%] max-w-[300px] shrink-0 snap-start md:w-auto md:max-w-none md:shrink"
+            >
               <VolunteerCard
                 volunteer={volunteer}
                 contributionLabel={t("contributionLabel")}
