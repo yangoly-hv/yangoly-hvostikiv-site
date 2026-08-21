@@ -1,9 +1,9 @@
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
-import AngelsList from "./AngelsList";
+import AngelsBoard from "./AngelsBoard";
 import Donate from "../../shared/components/Donate/Donate";
 import { getTranslations } from "next-intl/server";
-import type { Donor } from "@/features/home/model/types";
+import type { TopDonor } from "@/features/home/model/types";
 
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
 export default async function AngelsMob({
@@ -11,7 +11,7 @@ export default async function AngelsMob({
   donors,
 }: {
   title?: string;
-  donors: Donor[];
+  donors: TopDonor[];
 }) {
   const t = await getTranslations("Angels");
   const tr = await getTranslations("DonateModal");
@@ -51,7 +51,7 @@ export default async function AngelsMob({
         </div>
       </div>
       <div className="flex flex-col gap-y-10 container px-4 xl:px-10 mx-auto">
-        <AngelsList donors={donors} />
+        <AngelsBoard donors={donors} className="relative" />
         <Donate
             title={tr("fundraisingOneTimeTitle")}
           buttonText={t("makeContribution")}

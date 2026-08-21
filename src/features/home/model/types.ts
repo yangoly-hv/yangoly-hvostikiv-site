@@ -10,12 +10,6 @@ export type Performance = {
   treatmentsCount: number;
 };
 
-export type Donor = {
-  _id: string;
-  name: string;
-  amount: number;
-};
-
 export type TopDonor = {
   _id: string;
   kind: "person" | "company";

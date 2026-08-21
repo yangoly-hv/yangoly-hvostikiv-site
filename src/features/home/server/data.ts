@@ -6,7 +6,6 @@ import { sanityFetch } from "@/shared/lib/sanity.server";
 import { sanityTags } from "@/shared/lib/sanityTags";
 import type {
   AboutFoundation,
-  Donor,
   MainCollection,
   Performance,
   TopDonor,
@@ -17,19 +16,12 @@ import {
   mainCollectionQuery,
   performanceQuery,
   topDonorBoardQuery,
-  topDonorsQuery,
   volunteersQuery,
 } from "./queries";
 
 export const getPerformance = cache(() =>
   sanityFetch<Performance | null>(performanceQuery, {}, {
     tags: [sanityTags.performance],
-  })
-);
-
-export const getTopDonors = cache((locale: AppLocale) =>
-  sanityFetch<Donor[]>(topDonorsQuery, { lang: locale }, {
-    tags: [sanityTags.donorsList],
   })
 );
 

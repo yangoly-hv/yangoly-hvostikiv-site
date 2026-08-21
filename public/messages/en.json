@@ -333,13 +333,8 @@
     "makeContribution": "Make a contribution",
     "hrn": "UAH",
     "donor": "Donor",
-    "sum": "Contribution amount"
-  },
-  "TopDonors": {
-    "title": "Top 10 donors",
-    "subtitle": "People and companies who have supported the tails the most",
-    "company": "Company",
-    "hrn": "UAH"
+    "sum": "Contribution amount",
+    "company": "Company"
   },
   "Volunteers": {
     "title": "Our volunteers",

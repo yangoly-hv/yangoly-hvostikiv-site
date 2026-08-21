@@ -108,6 +108,19 @@ layer(base);
 }
 
 @layer utilities {
+  /*
+    On ultra-wide monitors the default container follows the desk breakpoint
+    (120rem) and sections stretch edge to edge. Cap it; this rule sits later
+    in the utilities layer than Tailwind's own container rules, so it wins.
+  */
+  @media (min-width: 120rem) {
+    .container {
+      max-width: 100rem;
+    }
+  }
+}
+
+@layer utilities {
   :root {
     --background: #fff7e5;
     --foreground: #18181b;

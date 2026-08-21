@@ -1,10 +1,10 @@
 import { fadeInAnimation } from "@/shared/components/Animations/animationVariants";
 import AnimatedWrapper from "@/shared/components/Animations/AnimationWrapper";
-import AngelsList from "./AngelsList";
+import AngelsBoard from "./AngelsBoard";
 import Donate from "../../shared/components/Donate/Donate";
 import { getTranslations } from "next-intl/server";
 import clsx from "clsx";
-import type { Donor } from "@/features/home/model/types";
+import type { TopDonor } from "@/features/home/model/types";
 
 import SafeImage from "@/shared/components/SafeImage/SafeImage";
 export default async function AngelsDesk({
@@ -14,7 +14,7 @@ export default async function AngelsDesk({
 }: {
   title?: string;
   withCircle?: boolean;
-  donors: Donor[];
+  donors: TopDonor[];
 }) {
   const t = await getTranslations("Angels");
   const tr = await getTranslations("DonateModal");
@@ -72,7 +72,10 @@ export default async function AngelsDesk({
             className="w-full md:w-[297px] lg:w-[397px] xl:w-[607px] xl:h-[67px]"
           />
         </div>
-        <AngelsList donors={donors} />
+        <AngelsBoard
+          donors={donors}
+          className="relative md:w-[45.7%] desk:w-[42%] xl:mt-5"
+        />
       </div>
     </div>
   );

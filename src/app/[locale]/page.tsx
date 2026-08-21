@@ -4,7 +4,6 @@ import ProblemsWeSolve from "@/modules/ProblemsWeSolve/ProblemsWeSolve";
 import WhatChangesThanksToUs from "@/modules/WhatChangesThanksToUs/WhatChangesThanksToUs";
 import WhatMakesUsDifferent from "@/modules/WhatMakesUsDifferent/WhatMakesUsDifferent";
 import Angels from "@/modules/Angels/Angels";
-import TopDonors from "@/modules/TopDonors/TopDonors";
 import Volunteers from "@/modules/Volunteers/Volunteers";
 import ChangeLife from "@/modules/ChangeLife/ChangeLife";
 import Contacts from "@/modules/Contacts/Contacts";
@@ -27,7 +26,6 @@ export default async function Home({ params }: PageParams) {
       <WorkResults />
       <MonthlyGoalSection lang={locale} />
       <Angels />
-      <TopDonors />
 
       <ChangeLife />
 

@@ -7,7 +7,7 @@ import {
   InstagramIcon,
   TelegramIcon,
 } from "../../../public/images/icons";
-import SocialIconLink from "../TopDonors/SocialIconLink";
+import SocialIconLink from "@/shared/components/SocialIconLink/SocialIconLink";
 
 type VolunteerCardProps = {
   volunteer: Volunteer;
