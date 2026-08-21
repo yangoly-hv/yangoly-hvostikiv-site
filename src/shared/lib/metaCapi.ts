@@ -9,6 +9,7 @@ const GRAPH_VERSION = "v21.0";
 const CAPI_TIMEOUT_MS = 3_000;
 
 export type MetaCapiEventName =
+  | "PageView"
   | "Lead"
   | "CompleteRegistration"
   | "Contact"

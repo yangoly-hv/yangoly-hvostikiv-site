@@ -1,5 +1,6 @@
 import Script from "next/script";
 
+import MetaPageView from "@/shared/components/MetaPixel/MetaPageView";
 import { getMetaPixelId } from "@/shared/lib/metaPixelId";
 
 export default function MetaPixel() {
@@ -19,9 +20,9 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', ${JSON.stringify(pixelId)});
-fbq('track', 'PageView');
         `}
       </Script>
+      <MetaPageView />
       <noscript>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img

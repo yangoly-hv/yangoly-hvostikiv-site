@@ -9,8 +9,10 @@ import { checkMetaEventsRateLimit } from "./rateLimit";
 
 const MAX_REQUEST_BODY_BYTES = 4 * 1024;
 
-const isClickEventName = (value: unknown): value is "Contact" | "Donate" =>
-  value === "Contact" || value === "Donate";
+const isBrowserForwardedEventName = (
+  value: unknown,
+): value is "PageView" | "Contact" | "Donate" =>
+  value === "PageView" || value === "Contact" || value === "Donate";
 
 const isNonEmptyString = (value: unknown, min: number, max: number): value is string =>
   typeof value === "string" && value.trim().length >= min && value.length <= max;
@@ -73,7 +75,7 @@ export async function POST(request: Request) {
     customData?: unknown;
   };
 
-  if (!isClickEventName(eventName)) {
+  if (!isBrowserForwardedEventName(eventName)) {
     return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
   }
   if (!isNonEmptyString(eventId, 8, 128)) {

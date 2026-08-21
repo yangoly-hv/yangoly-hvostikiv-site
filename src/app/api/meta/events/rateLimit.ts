@@ -1,7 +1,8 @@
 import { createHash } from "node:crypto";
 
 const WINDOW_MS = 10 * 60 * 1000;
-const MAX_REQUESTS_PER_WINDOW = 30;
+/** Higher ceiling so PageView beacons from normal browsing do not starve click events. */
+const MAX_REQUESTS_PER_WINDOW = 120;
 
 type RateLimitBucket = {
   startedAt: number;

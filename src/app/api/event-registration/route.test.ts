@@ -142,6 +142,7 @@ describe("POST /api/event-registration", () => {
   });
 
   it("appends a valid registration row", async () => {
+    vi.stubEnv("NEXT_PUBLIC_BASE_URL", "https://example.org");
     const response = await POST(request(validBody));
     const body = await response.json();
 
@@ -152,6 +153,7 @@ describe("POST /api/event-registration", () => {
       expect.objectContaining({
         eventName: "CompleteRegistration",
         eventId: body.eventId,
+        eventSourceUrl: "https://example.org/uk/event-registration",
         customData: { status: true },
         userData: expect.objectContaining({
           email: "maria@example.com",
@@ -165,6 +167,29 @@ describe("POST /api/event-registration", () => {
         email: "maria@example.com",
         petType: "dog",
         locale: "uk",
+      }),
+    );
+  });
+
+  it("prefers referer over the CompleteRegistration fallback URL", async () => {
+    vi.stubEnv("NEXT_PUBLIC_BASE_URL", "https://example.org");
+    const response = await POST(
+      new Request("https://example.org/api/event-registration", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-real-ip": "203.0.113.10",
+          referer: "https://example.org/uk/event-registration?utm=test",
+        },
+        body: JSON.stringify(validBody),
+      }),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "CompleteRegistration",
+        eventSourceUrl: "https://example.org/uk/event-registration?utm=test",
       }),
     );
   });

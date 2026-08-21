@@ -10,6 +10,7 @@ import {
   trackDonateConversion,
   trackLead,
   trackMonoDonateClick,
+  trackPageViewAndReport,
 } from "./metaPixel";
 
 describe("metaPixel", () => {
@@ -73,6 +74,53 @@ describe("metaPixel", () => {
       "CompleteRegistration",
       { status: true },
       { eventID: "reg-1" },
+    );
+  });
+
+  it("reports PageView to Pixel and CAPI with a shared event id", () => {
+    vi.stubGlobal("crypto", { randomUUID: () => "pageview-event-id" });
+    trackPageViewAndReport();
+    expect(fbq).toHaveBeenCalledWith(
+      "track",
+      "PageView",
+      {},
+      { eventID: "pageview-event-id" },
+    );
+    expect(sendBeacon).toHaveBeenCalledWith(
+      "/api/meta/events",
+      expect.any(Blob),
+    );
+  });
+
+  it("retries PageView Pixel until fbq is ready while still beaming CAPI", async () => {
+    vi.stubGlobal("crypto", { randomUUID: () => "pageview-retry-id" });
+    vi.stubGlobal("window", {
+      location: { href: "https://example.org/uk/tails" },
+      sessionStorage: {
+        getItem: () => null,
+        setItem: () => undefined,
+      },
+    });
+
+    trackPageViewAndReport();
+    expect(fbq).not.toHaveBeenCalled();
+    expect(sendBeacon).toHaveBeenCalled();
+
+    vi.stubGlobal("window", {
+      fbq,
+      location: { href: "https://example.org/uk/tails" },
+      sessionStorage: {
+        getItem: () => null,
+        setItem: () => undefined,
+      },
+    });
+
+    await vi.advanceTimersByTimeAsync(200);
+    expect(fbq).toHaveBeenCalledWith(
+      "track",
+      "PageView",
+      {},
+      { eventID: "pageview-retry-id" },
     );
   });
 

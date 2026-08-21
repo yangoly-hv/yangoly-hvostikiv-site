@@ -79,6 +79,28 @@ describe("POST /api/meta/events", () => {
     );
   });
 
+  it("accepts a PageView and forwards it to CAPI", async () => {
+    const response = await POST(
+      request({
+        eventName: "PageView",
+        eventId: "pageview-event-1",
+        eventSourceUrl: "https://example.org/uk/tails/zhorik",
+      }),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith({
+      eventName: "PageView",
+      eventId: "pageview-event-1",
+      eventSourceUrl: "https://example.org/uk/tails/zhorik",
+      customData: undefined,
+      userData: {
+        clientIpAddress: "203.0.113.10",
+        clientUserAgent: "vitest",
+      },
+    });
+  });
+
   it("rejects Donate clicks that are not status mono", async () => {
     const response = await POST(
       request({

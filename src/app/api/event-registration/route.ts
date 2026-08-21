@@ -109,10 +109,15 @@ export async function POST(request: Request) {
     await appendRegistrationRow(parsedInput.data);
     // eventId is the Pixel/CAPI dedup key and a real-submit marker — not gated on META_CAPI_ACCESS_TOKEN.
     const eventId = crypto.randomUUID();
+    const referer = request.headers.get("referer");
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, "");
+    const fallbackSourceUrl = baseUrl
+      ? `${baseUrl}/${parsedInput.data.locale}/event-registration`
+      : undefined;
     void scheduleMetaCapiEvent({
       eventName: "CompleteRegistration",
       eventId,
-      eventSourceUrl: request.headers.get("referer") ?? undefined,
+      eventSourceUrl: referer || fallbackSourceUrl,
       customData: { status: true },
       userData: {
         ...getMetaCapiRequestContext(request),
