@@ -3,6 +3,7 @@ import AngelsDesk from "./AngelsDesk";
 import {IAngelsProps, Locale} from "@/shared/types";
 import {getLocale} from "next-intl/server";
 import { getTopDonorBoard } from "@/features/home/server/data";
+import { getShowTopDonors } from "@/features/site/server/data";
 
 export default async function Angels({
   title,
@@ -10,6 +11,9 @@ export default async function Angels({
   ...props
 }: IAngelsProps) {
     const lang = (await getLocale()) as Locale;
+    const showTopDonors = await getShowTopDonors();
+    if (!showTopDonors) return null;
+
     const data = await getTopDonorBoard(lang);
     if(!data.length) return null;
   return (

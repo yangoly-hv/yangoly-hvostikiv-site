@@ -9,14 +9,17 @@ import {
   type SiteSettingsSocialFields,
   type SocialLink,
 } from "@/shared/lib/socialLinks";
+import { parseShowTopDonors } from "../model/showTopDonors";
 
 type SiteSettingsFields = SiteSettingsSocialFields & {
   monobankJarUrl?: string | null;
+  showTopDonors?: boolean | null;
 };
 
 type SiteSettings = {
   socials: SocialLink[];
   oneTimeDonationJarUrl: string | null;
+  showTopDonors: boolean;
 };
 
 const siteSettingsQuery = `
@@ -26,7 +29,8 @@ const siteSettingsQuery = `
     twitter,
     telegram,
     youtube,
-    monobankJarUrl
+    monobankJarUrl,
+    showTopDonors
   }
 `;
 
@@ -40,6 +44,7 @@ export const getSiteSettings = cache(async (): Promise<SiteSettings> => {
   return {
     socials: filterSocialLinks(settings),
     oneTimeDonationJarUrl: parseMonobankJarUrl(settings?.monobankJarUrl),
+    showTopDonors: parseShowTopDonors(settings?.showTopDonors),
   };
 });
 
@@ -51,4 +56,9 @@ export const getSocialLinks = cache(async (): Promise<SocialLink[]> => {
 export const getOneTimeDonationJarUrl = cache(async (): Promise<string | null> => {
   const { oneTimeDonationJarUrl } = await getSiteSettings();
   return oneTimeDonationJarUrl;
+});
+
+export const getShowTopDonors = cache(async (): Promise<boolean> => {
+  const { showTopDonors } = await getSiteSettings();
+  return showTopDonors;
 });
