@@ -12,6 +12,7 @@ import { locales } from "@/shared/config/site";
 import { getPageMetadata } from "@/shared/lib/metadata";
 import { getOrganizationSchema } from "@/shared/lib/structuredData";
 import JsonLd from "@/shared/components/JsonLd";
+import GoogleTagManager from "@/shared/components/GoogleTagManager/GoogleTagManager";
 import MetaPixel from "@/shared/components/MetaPixel/MetaPixel";
 import MotionProvider from "@/shared/ui/MotionProvider";
 import { getOneTimeDonationJarUrl, getSocialLinks } from "@/features/site/server/data";
@@ -69,6 +70,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${raleway.variable} ${unbounded.variable}`}>
       <body>
+        <GoogleTagManager />
         <MetaPixel />
         <JsonLd
           data={getOrganizationSchema(
