@@ -1,10 +1,13 @@
+import { getMetaClickIds } from "@/shared/lib/metaClickIds";
 import { getMetaPixelId } from "@/shared/lib/metaPixelId";
+import { getMetaExternalId } from "@/shared/lib/metaVisitorId";
 
 export { getMetaPixelId };
 
 const DONATE_DEDUP_PREFIX = "meta-pixel-donate:";
-const FBQ_RETRY_MS = 100;
-const FBQ_RETRY_ATTEMPTS = 10;
+export const FBQ_RETRY_MS = 100;
+export const FBQ_RETRY_ATTEMPTS = 30;
+const RETRY_AFTER_CAP_SECONDS = 10;
 
 type FbqFunction = {
   (...args: unknown[]): void;
@@ -32,8 +35,19 @@ export type DonateEventPayload = {
 
 export type MetaBrowserEventName = "PageView" | "Contact" | "Donate";
 
+type MetaAdvancedMatching = {
+  em?: string;
+  ph?: string;
+  external_id?: string;
+};
+
 const canTrack = () =>
   typeof window !== "undefined" && Boolean(getMetaPixelId()) && Boolean(window.fbq);
+
+const omitEmpty = (value: Record<string, string | undefined>) =>
+  Object.fromEntries(
+    Object.entries(value).filter((entry): entry is [string, string] => Boolean(entry[1])),
+  ) as MetaAdvancedMatching;
 
 const hasTrackedDonate = (orderReference: string) => {
   try {
@@ -48,6 +62,23 @@ const markDonateTracked = (orderReference: string) => {
     window.sessionStorage.setItem(`${DONATE_DEDUP_PREFIX}${orderReference}`, "1");
   } catch {
     // Ignore storage failures; Meta eventID still helps dedupe.
+  }
+};
+
+const initMetaPixel = (advancedMatching: MetaAdvancedMatching = {}): boolean => {
+  if (!canTrack() || !window.fbq) return false;
+  const pixelId = getMetaPixelId();
+  if (!pixelId) return false;
+  try {
+    const payload = omitEmpty(advancedMatching);
+    if (Object.keys(payload).length > 0) {
+      window.fbq("init", pixelId, payload);
+    } else {
+      window.fbq("init", pixelId);
+    }
+    return true;
+  } catch {
+    return false;
   }
 };
 
@@ -77,6 +108,88 @@ const retryUntilTracked = (tryTrack: () => boolean) => {
   setTimeout(retry, FBQ_RETRY_MS);
 };
 
+const waitUntilTracked = (tryTrack: () => boolean) =>
+  new Promise<boolean>((resolve) => {
+    if (tryTrack()) {
+      resolve(true);
+      return;
+    }
+    let attempts = 0;
+    const retry = () => {
+      if (tryTrack()) {
+        resolve(true);
+        return;
+      }
+      attempts += 1;
+      if (attempts >= FBQ_RETRY_ATTEMPTS) {
+        resolve(false);
+        return;
+      }
+      setTimeout(retry, FBQ_RETRY_MS);
+    };
+    setTimeout(retry, FBQ_RETRY_MS);
+  });
+
+const visitorAdvancedMatching = (extra: MetaAdvancedMatching = {}) =>
+  omitEmpty({
+    external_id: getMetaExternalId() || undefined,
+    ...extra,
+  });
+
+const browserUserData = () => {
+  const clickIds =
+    typeof document === "undefined"
+      ? {}
+      : getMetaClickIds({
+          cookieHeader: document.cookie,
+          href: window.location.href,
+        });
+  const externalId = getMetaExternalId() || undefined;
+  return omitEmpty({
+    fbp: clickIds.fbp,
+    fbc: clickIds.fbc,
+    externalId,
+  });
+};
+
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
+
+const retryAfterMs = (response: Response) => {
+  const parsed = Number(response.headers.get("Retry-After"));
+  const seconds = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+  return Math.min(seconds, RETRY_AFTER_CAP_SECONDS) * 1000;
+};
+
+const postMetaEvent = async (body: string) => {
+  try {
+    const response = await fetch("/api/meta/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      keepalive: true,
+    });
+    if (response.status !== 429) return;
+    await sleep(retryAfterMs(response));
+    await fetch("/api/meta/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body,
+      keepalive: true,
+    });
+  } catch {
+    try {
+      if (typeof navigator !== "undefined" && navigator.sendBeacon) {
+        navigator.sendBeacon("/api/meta/events", new Blob([body], { type: "application/json" }));
+      }
+    } catch {
+      // Pixel must stay independent of CAPI transport.
+    }
+  }
+};
+
 export const createMetaEventId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
@@ -88,20 +201,33 @@ export const trackPageView = ({ eventId }: { eventId: string }): boolean =>
 export const trackCompleteRegistration = ({
   eventId,
   status = true,
+  email,
+  phone,
 }: {
   eventId: string;
   status?: boolean;
+  email?: string;
+  phone?: string;
 }) => {
   if (typeof window === "undefined" || !getMetaPixelId()) return;
-  retryUntilTracked(() => track("CompleteRegistration", { status }, eventId));
+  retryUntilTracked(() => {
+    initMetaPixel(visitorAdvancedMatching({ em: email, ph: phone }));
+    return track("CompleteRegistration", { status }, eventId);
+  });
 };
 
 export const trackContact = ({ eventId }: { eventId: string }) => {
   track("Contact", {}, eventId);
 };
 
-export const trackLead = ({ eventId }: { eventId: string }) => {
-  track("Lead", {}, eventId);
+export const trackLead = ({ eventId, phone }: { eventId: string; phone?: string }) => {
+  if (typeof window === "undefined" || !getMetaPixelId()) return;
+  try {
+    initMetaPixel(visitorAdvancedMatching({ ph: phone }));
+    track("Lead", {}, eventId);
+  } catch {
+    // Pixel must not throw into form submit handlers.
+  }
 };
 
 export const trackDonate = ({
@@ -158,23 +284,9 @@ export const reportMetaBrowserEvent = (payload: {
       eventId: payload.eventId,
       eventSourceUrl: window.location.href,
       customData: payload.customData,
+      ...browserUserData(),
     });
-
-    try {
-      if (navigator.sendBeacon) {
-        const blob = new Blob([body], { type: "application/json" });
-        if (navigator.sendBeacon("/api/meta/events", blob)) return;
-      }
-    } catch {
-      // Fall through to fetch.
-    }
-
-    void fetch("/api/meta/events", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body,
-      keepalive: true,
-    }).catch(() => undefined);
+    void postMetaEvent(body);
   } catch {
     // Ignore serialization / location failures; Pixel must stay independent.
   }
@@ -183,12 +295,12 @@ export const reportMetaBrowserEvent = (payload: {
 export const trackPageViewAndReport = () => {
   if (typeof window === "undefined" || !getMetaPixelId()) return;
   const eventId = createMetaEventId();
-  try {
+  void waitUntilTracked(() => {
+    initMetaPixel(visitorAdvancedMatching());
+    return trackPageView({ eventId });
+  }).then(() => {
     reportMetaBrowserEvent({ eventName: "PageView", eventId });
-  } catch {
-    // CAPI must not block Pixel.
-  }
-  retryUntilTracked(() => trackPageView({ eventId }));
+  });
 };
 
 export const trackContactClick = () => {

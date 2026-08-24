@@ -4,6 +4,11 @@ import {
   getMetaCapiRequestContext,
   scheduleMetaCapiEvent,
 } from "@/shared/lib/metaCapi";
+import {
+  isValidMetaExternalId,
+  isValidMetaFbc,
+  isValidMetaFbp,
+} from "@/shared/lib/metaClickIds";
 
 import { checkMetaEventsRateLimit } from "./rateLimit";
 
@@ -30,6 +35,15 @@ const readJsonBody = async (request: Request): Promise<unknown> => {
 
   return JSON.parse(body);
 };
+
+const sanitizeFbp = (value: unknown) =>
+  typeof value === "string" && isValidMetaFbp(value) ? value : undefined;
+
+const sanitizeFbc = (value: unknown) =>
+  typeof value === "string" && isValidMetaFbc(value) ? value : undefined;
+
+const sanitizeExternalId = (value: unknown) =>
+  typeof value === "string" && isValidMetaExternalId(value) ? value : undefined;
 
 const sanitizeEventSourceUrl = (value: unknown) => {
   if (typeof value !== "string" || value.length > 2048) return undefined;
@@ -68,12 +82,16 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
   }
 
-  const { eventName, eventId, eventSourceUrl, customData } = input as {
-    eventName?: unknown;
-    eventId?: unknown;
-    eventSourceUrl?: unknown;
-    customData?: unknown;
-  };
+  const { eventName, eventId, eventSourceUrl, customData, fbp, fbc, externalId } =
+    input as {
+      eventName?: unknown;
+      eventId?: unknown;
+      eventSourceUrl?: unknown;
+      customData?: unknown;
+      fbp?: unknown;
+      fbc?: unknown;
+      externalId?: unknown;
+    };
 
   if (!isBrowserForwardedEventName(eventName)) {
     return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
@@ -91,12 +109,22 @@ export async function POST(request: Request) {
     }
   }
 
+  const requestContext = getMetaCapiRequestContext(request);
+  const bodyFbp = sanitizeFbp(fbp);
+  const bodyFbc = sanitizeFbc(fbc);
+  const bodyExternalId = sanitizeExternalId(externalId);
+
   void scheduleMetaCapiEvent({
     eventName,
     eventId: eventId.trim(),
     eventSourceUrl: sanitizeEventSourceUrl(eventSourceUrl),
     customData: eventName === "Donate" ? { status: "mono" } : undefined,
-    userData: getMetaCapiRequestContext(request),
+    userData: {
+      ...requestContext,
+      ...(bodyFbp ? { fbp: bodyFbp } : {}),
+      ...(bodyFbc ? { fbc: bodyFbc } : {}),
+      ...(bodyExternalId ? { externalId: bodyExternalId } : {}),
+    },
   });
 
   return NextResponse.json({ success: true });

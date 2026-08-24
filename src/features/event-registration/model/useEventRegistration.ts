@@ -20,7 +20,14 @@ export function useEventRegistration(locale: EventRegistrationLocale) {
       try {
         const eventId = await submitRegistration({ ...data, locale });
         setSubmittedSuccess(true);
-        if (eventId) trackCompleteRegistration({ eventId, status: true });
+        if (eventId) {
+          trackCompleteRegistration({
+            eventId,
+            status: true,
+            email: data.email,
+            phone: data.phone,
+          });
+        }
       } catch {
         setSubmitError(true);
       }

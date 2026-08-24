@@ -235,7 +235,11 @@ describe("POST /api/wayforpay/callback", () => {
         eventName: "Donate",
         eventId: orderReference,
         customData: { status: "completed", value: 500, currency: "UAH" },
-        userData: { externalId: orderReference },
+        userData: {
+          externalId: orderReference,
+          email: "payer@example.org",
+          phone: "+380001112233",
+        },
       }),
     );
   });
@@ -265,6 +269,20 @@ describe("POST /api/wayforpay/callback", () => {
     expect(response.status).toBe(200);
     expect(mocks.transactionCreateIfNotExists).toHaveBeenCalledWith(
       expect.not.objectContaining({ payerEmail: expect.anything(), payerPhone: expect.anything() }),
+    );
+  });
+
+  it("omits donor contacts from Donate CAPI without notification consent", async () => {
+    setPaymentState(storedOrder({ wantNotifications: false }));
+
+    const response = await POST(request(createPayload()));
+
+    expect(response.status).toBe(200);
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Donate",
+        userData: { externalId: orderReference },
+      }),
     );
   });
 
@@ -590,7 +608,11 @@ describe("POST /api/wayforpay/callback", () => {
       expect.objectContaining({
         eventName: "Donate",
         eventId: orderReference,
-        userData: { externalId: orderReference },
+        userData: {
+          externalId: orderReference,
+          email: "payer@example.org",
+          phone: "+380001112233",
+        },
       }),
     );
 
@@ -621,7 +643,11 @@ describe("POST /api/wayforpay/callback", () => {
       expect.objectContaining({
         eventName: "Donate",
         eventId: secondOccurrenceId,
-        userData: { externalId: orderReference },
+        userData: {
+          externalId: orderReference,
+          email: "payer@example.org",
+          phone: "+380001112233",
+        },
       }),
     );
   });

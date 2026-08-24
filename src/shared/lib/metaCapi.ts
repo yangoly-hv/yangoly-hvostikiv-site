@@ -3,6 +3,7 @@ import "server-only";
 import { createHash } from "node:crypto";
 import { after } from "next/server";
 
+import { getMetaClickIds } from "@/shared/lib/metaClickIds";
 import { getMetaPixelId } from "@/shared/lib/metaPixelId";
 
 const GRAPH_VERSION = "v21.0";
@@ -39,8 +40,66 @@ export type SendMetaCapiEventInput = {
   userData?: MetaCapiUserDataInput;
 };
 
-const firstHeaderValue = (value: string | null) =>
-  value?.split(",")[0]?.trim() || undefined;
+const headerValues = (value: string | null) =>
+  (value ?? "")
+    .split(",")
+    .map((part) => part.trim())
+    .filter(Boolean);
+
+const isIPv6 = (ip: string) => ip.includes(":") && !ip.toLowerCase().startsWith("::ffff:");
+
+const ipv4Octets = (ip: string) => {
+  const parts = ip.split(".");
+  if (parts.length !== 4) return undefined;
+  const octets = parts.map((part) => Number(part));
+  if (octets.some((octet) => !Number.isInteger(octet) || octet < 0 || octet > 255)) {
+    return undefined;
+  }
+  return octets;
+};
+
+const isLoopbackLinkLocalOrPrivate = (ip: string) => {
+  const lower = ip.toLowerCase();
+  if (ip.includes(":")) {
+    return (
+      lower === "::1" ||
+      lower === "::" ||
+      lower.startsWith("fe8") ||
+      lower.startsWith("fe9") ||
+      lower.startsWith("fea") ||
+      lower.startsWith("feb") ||
+      lower.startsWith("fc") ||
+      lower.startsWith("fd")
+    );
+  }
+
+  const octets = ipv4Octets(ip);
+  if (!octets) return true;
+  const first = octets[0];
+  const second = octets[1];
+  if (first === 10 || first === 127 || first === 0) return true;
+  if (first === 192 && second === 168) return true;
+  if (first === 172 && second !== undefined && second >= 16 && second <= 31) return true;
+  if (first === 169 && second === 254) return true;
+  return false;
+};
+
+export const pickClientIpAddress = (request: Request) => {
+  const candidates = [
+    ...headerValues(request.headers.get("x-forwarded-for")),
+    ...headerValues(request.headers.get("x-real-ip")),
+    ...headerValues(request.headers.get("cf-connecting-ip")),
+  ];
+  const publicIps = candidates.filter((ip) => !isLoopbackLinkLocalOrPrivate(ip));
+  const pool =
+    publicIps.length > 0
+      ? publicIps
+      : candidates.filter((ip) => {
+          const lower = ip.toLowerCase();
+          return lower !== "127.0.0.1" && lower !== "::1" && lower !== "::";
+        });
+  return pool.find((ip) => isIPv6(ip)) ?? pool[0];
+};
 
 const omitEmpty = (value: Record<string, unknown>) =>
   Object.fromEntries(
@@ -114,24 +173,15 @@ export const getMetaCapiRequestContext = (
   MetaCapiUserDataInput,
   "fbp" | "fbc" | "clientIpAddress" | "clientUserAgent"
 > => {
-  const cookieHeader = request.headers.get("cookie") ?? "";
-  const cookies: Record<string, string> = {};
-  for (const part of cookieHeader.split(";")) {
-    const trimmed = part.trim();
-    if (!trimmed) continue;
-    const separator = trimmed.indexOf("=");
-    if (separator <= 0) continue;
-    const name = trimmed.slice(0, separator);
-    cookies[name] = trimmed.slice(separator + 1);
-  }
+  const { fbp, fbc } = getMetaClickIds({
+    cookieHeader: request.headers.get("cookie") ?? "",
+    href: "",
+  });
 
   return {
-    fbp: cookies._fbp,
-    fbc: cookies._fbc,
-    clientIpAddress:
-      firstHeaderValue(request.headers.get("x-real-ip")) ||
-      firstHeaderValue(request.headers.get("cf-connecting-ip")) ||
-      firstHeaderValue(request.headers.get("x-forwarded-for")),
+    fbp,
+    fbc,
+    clientIpAddress: pickClientIpAddress(request),
     clientUserAgent: request.headers.get("user-agent") ?? undefined,
   };
 };
@@ -156,7 +206,10 @@ export const sendMetaCapiEvent = async (
       },
     );
     if (!response.ok) {
-      console.error("Meta CAPI request failed", { status: response.status });
+      console.error("Meta CAPI request failed", {
+        eventName: input.eventName,
+        status: response.status,
+      });
     }
   } catch {
     console.error("Meta CAPI request failed");

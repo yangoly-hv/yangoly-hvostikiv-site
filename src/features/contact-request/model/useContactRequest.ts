@@ -17,7 +17,7 @@ export function useContactRequest(source: ContactRequestSource) {
       try {
         const eventId = await sendContactMessage({ ...data, source });
         setSubmittedSuccess(true);
-        if (eventId) trackLead({ eventId });
+        if (eventId) trackLead({ eventId, phone: data.phone });
       } catch {
         setSubmitError(true);
       }

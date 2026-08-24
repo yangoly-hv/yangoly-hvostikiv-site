@@ -1,7 +1,10 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
+import { META_EXTERNAL_ID_STORAGE_KEY } from "./metaVisitorId";
 import { getMetaPixelId } from "./metaPixelId";
 import {
+  FBQ_RETRY_ATTEMPTS,
+  FBQ_RETRY_MS,
   reportMetaBrowserEvent,
   trackCompleteRegistration,
   trackContact,
@@ -13,21 +16,22 @@ import {
   trackPageViewAndReport,
 } from "./metaPixel";
 
+const parseFetchBody = (call: unknown[]) =>
+  JSON.parse(String((call[1] as { body: string }).body)) as Record<string, unknown>;
+
+const fbqRetryBudgetMs = FBQ_RETRY_MS * FBQ_RETRY_ATTEMPTS;
+
 describe("metaPixel", () => {
   const orderReference = "DONATE_123e4567-e89b-12d3-a456-426614174000";
   const storage = new Map<string, string>();
+  const localStore = new Map<string, string>();
   const fbq = vi.fn();
   const sendBeacon = vi.fn(() => true);
+  const fetchMock = vi.fn();
 
-  beforeEach(() => {
-    storage.clear();
-    fbq.mockReset();
-    sendBeacon.mockReset();
-    sendBeacon.mockReturnValue(true);
-    vi.useFakeTimers();
-    vi.stubEnv("NEXT_PUBLIC_META_PIXEL_ID", "123456789");
+  const stubWindow = (withFbq = true) => {
     vi.stubGlobal("window", {
-      fbq,
+      ...(withFbq ? { fbq } : {}),
       location: { href: "https://example.org/uk" },
       sessionStorage: {
         getItem: (key: string) => storage.get(key) ?? null,
@@ -35,8 +39,34 @@ describe("metaPixel", () => {
           storage.set(key, value);
         },
       },
+      localStorage: {
+        getItem: (key: string) => localStore.get(key) ?? null,
+        setItem: (key: string, value: string) => {
+          localStore.set(key, value);
+        },
+      },
     });
+  };
+
+  beforeEach(() => {
+    storage.clear();
+    localStore.clear();
+    localStore.set(META_EXTERNAL_ID_STORAGE_KEY, "visitor-test-id");
+    fbq.mockReset();
+    sendBeacon.mockReset();
+    sendBeacon.mockReturnValue(true);
+    fetchMock.mockReset();
+    fetchMock.mockResolvedValue({
+      ok: true,
+      status: 200,
+      headers: { get: () => null },
+    });
+    vi.useFakeTimers();
+    vi.stubEnv("NEXT_PUBLIC_META_PIXEL_ID", "123456789");
+    stubWindow();
+    vi.stubGlobal("document", { cookie: "" });
     vi.stubGlobal("navigator", { sendBeacon });
+    vi.stubGlobal("fetch", fetchMock);
   });
 
   afterEach(() => {
@@ -67,8 +97,17 @@ describe("metaPixel", () => {
     expect(fbq).not.toHaveBeenCalled();
   });
 
-  it("tracks CompleteRegistration with status true", () => {
-    trackCompleteRegistration({ eventId: "reg-1" });
+  it("inits Pixel with advanced matching then tracks CompleteRegistration", () => {
+    trackCompleteRegistration({
+      eventId: "reg-1",
+      email: "a@example.com",
+      phone: "+38 (067) 123-45-67",
+    });
+    expect(fbq).toHaveBeenCalledWith("init", "123456789", {
+      em: "a@example.com",
+      ph: "+38 (067) 123-45-67",
+      external_id: "visitor-test-id",
+    });
     expect(fbq).toHaveBeenCalledWith(
       "track",
       "CompleteRegistration",
@@ -77,45 +116,44 @@ describe("metaPixel", () => {
     );
   });
 
-  it("reports PageView to Pixel and CAPI with a shared event id", () => {
+  it("reports PageView to Pixel then CAPI with a shared event id and visitor id", async () => {
     vi.stubGlobal("crypto", { randomUUID: () => "pageview-event-id" });
+    vi.stubGlobal("document", {
+      cookie: "_fbp=fb.1.1710000000000.1234567890",
+    });
     trackPageViewAndReport();
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+
+    expect(fbq).toHaveBeenCalledWith("init", "123456789", {
+      external_id: "visitor-test-id",
+    });
     expect(fbq).toHaveBeenCalledWith(
       "track",
       "PageView",
       {},
       { eventID: "pageview-event-id" },
     );
-    expect(sendBeacon).toHaveBeenCalledWith(
-      "/api/meta/events",
-      expect.any(Blob),
-    );
+    expect(parseFetchBody(fetchMock.mock.calls[0] as unknown[])).toMatchObject({
+      eventName: "PageView",
+      eventId: "pageview-event-id",
+      eventSourceUrl: "https://example.org/uk",
+      fbp: "fb.1.1710000000000.1234567890",
+      externalId: "visitor-test-id",
+    });
   });
 
-  it("retries PageView Pixel until fbq is ready while still beaming CAPI", async () => {
+  it("retries PageView Pixel before beaming CAPI", async () => {
     vi.stubGlobal("crypto", { randomUUID: () => "pageview-retry-id" });
-    vi.stubGlobal("window", {
-      location: { href: "https://example.org/uk/tails" },
-      sessionStorage: {
-        getItem: () => null,
-        setItem: () => undefined,
-      },
-    });
+    stubWindow(false);
 
     trackPageViewAndReport();
     expect(fbq).not.toHaveBeenCalled();
-    expect(sendBeacon).toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
 
-    vi.stubGlobal("window", {
-      fbq,
-      location: { href: "https://example.org/uk/tails" },
-      sessionStorage: {
-        getItem: () => null,
-        setItem: () => undefined,
-      },
-    });
-
+    stubWindow(true);
     await vi.advanceTimersByTimeAsync(200);
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+
     expect(fbq).toHaveBeenCalledWith(
       "track",
       "PageView",
@@ -124,10 +162,48 @@ describe("metaPixel", () => {
     );
   });
 
+  it("still beacons PageView CAPI if fbq never appears", async () => {
+    vi.stubGlobal("crypto", { randomUUID: () => "pageview-blocked-id" });
+    stubWindow(false);
+
+    trackPageViewAndReport();
+    await vi.advanceTimersByTimeAsync(fbqRetryBudgetMs);
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(fbq).not.toHaveBeenCalled();
+    expect(parseFetchBody(fetchMock.mock.calls[0] as unknown[])).toMatchObject({
+      eventName: "PageView",
+      eventId: "pageview-blocked-id",
+    });
+  });
+
+  it("retries PageView CAPI once after a 429", async () => {
+    fetchMock
+      .mockResolvedValueOnce({
+        ok: false,
+        status: 429,
+        headers: { get: (name: string) => (name === "Retry-After" ? "1" : null) },
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        headers: { get: () => null },
+      });
+    vi.stubGlobal("crypto", { randomUUID: () => "pageview-retry-429" });
+
+    trackPageViewAndReport();
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    await vi.advanceTimersByTimeAsync(1000);
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
+  });
+
   it("tracks Contact and Lead", () => {
     trackContact({ eventId: "contact-1" });
-    trackLead({ eventId: "lead-1" });
+    trackLead({ eventId: "lead-1", phone: "+380671234567" });
     expect(fbq).toHaveBeenCalledWith("track", "Contact", {}, { eventID: "contact-1" });
+    expect(fbq).toHaveBeenCalledWith("init", "123456789", {
+      ph: "+380671234567",
+      external_id: "visitor-test-id",
+    });
     expect(fbq).toHaveBeenCalledWith("track", "Lead", {}, { eventID: "lead-1" });
   });
 
@@ -153,7 +229,6 @@ describe("metaPixel", () => {
       currency: "UAH",
     });
 
-    expect(fbq).toHaveBeenCalledTimes(1);
     expect(fbq).toHaveBeenCalledWith(
       "track",
       "Donate",
@@ -163,13 +238,7 @@ describe("metaPixel", () => {
   });
 
   it("no-ops when fbq is unavailable", () => {
-    vi.stubGlobal("window", {
-      location: { href: "https://example.org/uk" },
-      sessionStorage: {
-        getItem: () => null,
-        setItem: () => undefined,
-      },
-    });
+    stubWindow(false);
 
     expect(() =>
       trackDonateConversion({
@@ -180,25 +249,28 @@ describe("metaPixel", () => {
     ).not.toThrow();
   });
 
-  it("beacons click events when the pixel id is set", () => {
+  it("posts click events when the pixel id is set", async () => {
     reportMetaBrowserEvent({
       eventName: "Donate",
       eventId: "click-1",
       customData: { status: "mono" },
     });
-    expect(sendBeacon).toHaveBeenCalledWith(
-      "/api/meta/events",
-      expect.any(Blob),
-    );
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(parseFetchBody(fetchMock.mock.calls[0] as unknown[])).toMatchObject({
+      eventName: "Donate",
+      eventId: "click-1",
+      customData: { status: "mono" },
+      externalId: "visitor-test-id",
+    });
   });
 
-  it("does not beacon click events when the pixel id is unset", () => {
+  it("does not post click events when the pixel id is unset", () => {
     vi.stubEnv("NEXT_PUBLIC_META_PIXEL_ID", "");
     reportMetaBrowserEvent({ eventName: "Contact", eventId: "click-1" });
-    expect(sendBeacon).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
-  it("tracks a Mono donate click without value", () => {
+  it("tracks a Mono donate click without value", async () => {
     vi.stubGlobal("crypto", { randomUUID: () => "mono-click-id" });
     trackMonoDonateClick();
     expect(fbq).toHaveBeenCalledWith(
@@ -207,7 +279,7 @@ describe("metaPixel", () => {
       { status: "mono" },
       { eventID: "mono-click-id" },
     );
-    expect(sendBeacon).toHaveBeenCalled();
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
   });
 
   it("does not throw when fbq throws on Lead", () => {
@@ -217,20 +289,16 @@ describe("metaPixel", () => {
     expect(() => trackLead({ eventId: "lead-1" })).not.toThrow();
   });
 
-  it("still beacons when fbq throws on a click helper", () => {
+  it("still posts when fbq throws on a click helper", async () => {
     fbq.mockImplementation(() => {
       throw new Error("fbq failed");
     });
     expect(() => trackContactClick()).not.toThrow();
-    expect(sendBeacon).toHaveBeenCalled();
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
   });
 
-  it("still tracks Pixel when sendBeacon throws", () => {
-    sendBeacon.mockImplementation(() => {
-      throw new Error("beacon failed");
-    });
-    const fetchMock = vi.fn().mockResolvedValue({ ok: true });
-    vi.stubGlobal("fetch", fetchMock);
+  it("still tracks Pixel when fetch throws", async () => {
+    fetchMock.mockRejectedValue(new Error("network"));
     vi.stubGlobal("crypto", { randomUUID: () => "mono-click-id" });
 
     expect(() => trackMonoDonateClick()).not.toThrow();
@@ -240,18 +308,11 @@ describe("metaPixel", () => {
       { status: "mono" },
       { eventID: "mono-click-id" },
     );
+    await vi.waitFor(() => expect(sendBeacon).toHaveBeenCalled());
   });
 
   it("retries completed Donate until fbq is ready", async () => {
-    vi.stubGlobal("window", {
-      location: { href: "https://example.org/uk" },
-      sessionStorage: {
-        getItem: (key: string) => storage.get(key) ?? null,
-        setItem: (key: string, value: string) => {
-          storage.set(key, value);
-        },
-      },
-    });
+    stubWindow(false);
 
     trackDonateConversion({
       orderReference,
@@ -260,17 +321,7 @@ describe("metaPixel", () => {
     });
     expect(fbq).not.toHaveBeenCalled();
 
-    vi.stubGlobal("window", {
-      fbq,
-      location: { href: "https://example.org/uk" },
-      sessionStorage: {
-        getItem: (key: string) => storage.get(key) ?? null,
-        setItem: (key: string, value: string) => {
-          storage.set(key, value);
-        },
-      },
-    });
-
+    stubWindow(true);
     await vi.advanceTimersByTimeAsync(200);
     expect(fbq).toHaveBeenCalledWith(
       "track",
@@ -281,15 +332,7 @@ describe("metaPixel", () => {
   });
 
   it("gives up quietly if fbq never appears", async () => {
-    vi.stubGlobal("window", {
-      location: { href: "https://example.org/uk" },
-      sessionStorage: {
-        getItem: (key: string) => storage.get(key) ?? null,
-        setItem: (key: string, value: string) => {
-          storage.set(key, value);
-        },
-      },
-    });
+    stubWindow(false);
 
     expect(() =>
       trackDonateConversion({
@@ -299,7 +342,7 @@ describe("metaPixel", () => {
       }),
     ).not.toThrow();
 
-    await vi.advanceTimersByTimeAsync(2000);
+    await vi.advanceTimersByTimeAsync(fbqRetryBudgetMs);
     expect(fbq).not.toHaveBeenCalled();
   });
 });

@@ -96,7 +96,7 @@ describe("metaCapi", () => {
     const context = getMetaCapiRequestContext(
       new Request("https://example.org/api/meta/events", {
         headers: {
-          cookie: "_fbp=fb.1.1; _fbc=fb.1.2",
+          cookie: "_fbp=fb.1.1710000000000.1234567890; _fbc=fb.1.1710000000000.IwAR0_abc",
           "x-real-ip": "203.0.113.10",
           "user-agent": "vitest",
         },
@@ -104,11 +104,52 @@ describe("metaCapi", () => {
     );
 
     expect(context).toEqual({
-      fbp: "fb.1.1",
-      fbc: "fb.1.2",
+      fbp: "fb.1.1710000000000.1234567890",
+      fbc: "fb.1.1710000000000.IwAR0_abc",
       clientIpAddress: "203.0.113.10",
       clientUserAgent: "vitest",
     });
+  });
+
+  it("prefers a public IPv6 from x-forwarded-for over an IPv4 x-real-ip", () => {
+    const context = getMetaCapiRequestContext(
+      new Request("https://example.org/api/meta/events", {
+        headers: {
+          "x-real-ip": "203.0.113.10",
+          "x-forwarded-for": "2001:db8::1, 203.0.113.10",
+        },
+      }),
+    );
+
+    expect(context.clientIpAddress).toBe("2001:db8::1");
+  });
+
+  it("skips private and loopback addresses when a public IPv4 exists", () => {
+    const context = getMetaCapiRequestContext(
+      new Request("https://example.org/api/meta/events", {
+        headers: {
+          "x-forwarded-for": "127.0.0.1, 10.0.0.4, 203.0.113.20",
+          "x-real-ip": "192.168.1.9",
+        },
+      }),
+    );
+
+    expect(context.clientIpAddress).toBe("203.0.113.20");
+  });
+
+  it("logs Graph failures with the event name", async () => {
+    fetchMock.mockResolvedValue({ ok: false, status: 400 });
+    const error = vi.spyOn(console, "error").mockImplementation(() => undefined);
+
+    await expect(
+      sendMetaCapiEvent({ eventName: "PageView", eventId: "pageview-1" }),
+    ).resolves.toEqual({ skipped: false });
+
+    expect(error).toHaveBeenCalledWith("Meta CAPI request failed", {
+      eventName: "PageView",
+      status: 400,
+    });
+    error.mockRestore();
   });
 
   it("skips Graph when the pixel id is missing", async () => {

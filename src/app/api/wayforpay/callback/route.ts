@@ -137,6 +137,7 @@ export type PersistCallbackResult = {
   advancedToApproved: boolean;
   isInitialOccurrence: boolean;
   occurrenceId: string;
+  wantNotifications: boolean;
 };
 
 export const persistCallback = async ({
@@ -340,6 +341,7 @@ export const persistCallback = async ({
           shouldAdvanceOccurrence && payload.normalizedStatus === "approved",
         isInitialOccurrence,
         occurrenceId,
+        wantNotifications,
       };
     } catch (error) {
       if (attempt === 2) throw error;
@@ -380,6 +382,12 @@ export async function POST(request: Request) {
         },
         userData: {
           externalId: payload.orderReference,
+          ...(persisted.wantNotifications && payload.email
+            ? { email: payload.email }
+            : {}),
+          ...(persisted.wantNotifications && payload.phone
+            ? { phone: payload.phone }
+            : {}),
         },
       });
     }
