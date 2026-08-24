@@ -41,7 +41,9 @@ test.describe("locale switcher", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       /help animals feel needed/i
     );
-    await expect(page.getByText("One-time donation").first()).toBeVisible();
+    await expect(
+      page.getByText("One-time donation", { exact: true }).filter({ visible: true }).first(),
+    ).toBeVisible();
     await expect(page.locator("footer").getByRole("link", { name: "Home" })).toBeVisible();
     expect(await localeCookie(page)).toBe("en");
 
@@ -63,7 +65,9 @@ test.describe("locale switcher", () => {
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
       /help animals feel needed/i
     );
-    await expect(page.getByText("One-time donation").first()).toBeVisible();
+    await expect(
+      page.getByText("One-time donation", { exact: true }).filter({ visible: true }).first(),
+    ).toBeVisible();
     expect(await localeCookie(page)).toBe("en");
   });
 
