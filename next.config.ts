@@ -11,11 +11,11 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob: https://cdn.sanity.io https://res.cloudinary.com https://www.facebook.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com",
   "media-src 'self' https://cdn.sanity.io https://res.cloudinary.com",
   `connect-src 'self' https://www.facebook.com https://connect.facebook.net https://www.googletagmanager.com https://*.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com${isDevelopment ? " ws: http:" : ""}`,
-  "frame-src https://www.googletagmanager.com",
+  "frame-src https://www.googletagmanager.com https://www.facebook.com",
   "object-src 'none'",
   "base-uri 'self'",
   "frame-ancestors 'none'",
-  "form-action 'self' https://secure.wayforpay.com",
+  "form-action 'self' https://secure.wayforpay.com https://www.facebook.com",
   "upgrade-insecure-requests",
 ].join("; ");
 
