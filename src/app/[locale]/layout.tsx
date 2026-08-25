@@ -70,8 +70,8 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${raleway.variable} ${unbounded.variable}`}>
       <body>
-        <GoogleTagManager />
         <MetaPixel />
+        <GoogleTagManager />
         <JsonLd
           data={getOrganizationSchema(
             locale,

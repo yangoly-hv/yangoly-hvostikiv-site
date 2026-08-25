@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 import MetaPageView from "@/shared/components/MetaPixel/MetaPageView";
 import { getMetaPixelId } from "@/shared/lib/metaPixelId";
 
@@ -9,8 +7,10 @@ export default function MetaPixel() {
 
   return (
     <>
-      <Script id="meta-pixel" strategy="afterInteractive">
-        {`
+      <script
+        id="meta-pixel"
+        dangerouslySetInnerHTML={{
+          __html: `
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -19,8 +19,9 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-        `}
-      </Script>
+          `.trim(),
+        }}
+      />
       <MetaPageView />
       <noscript>
         {/* eslint-disable-next-line @next/next/no-img-element */}
