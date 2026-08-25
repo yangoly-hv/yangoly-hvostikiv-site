@@ -114,11 +114,35 @@ describe("POST /api/meta/events", () => {
     expect(mocks.sendMetaCapiEvent).not.toHaveBeenCalled();
   });
 
-  it("rejects unknown event names", async () => {
+  it("accepts a Lead and forwards it to CAPI without PII", async () => {
     const response = await POST(
       request({
         eventName: "Lead",
         eventId: "lead-event-1",
+        eventSourceUrl: "https://example.org/uk/partnership",
+        phone: "+380671234567",
+        email: "leak@example.org",
+      }),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith({
+      eventName: "Lead",
+      eventId: "lead-event-1",
+      eventSourceUrl: "https://example.org/uk/partnership",
+      customData: undefined,
+      userData: {
+        clientIpAddress: "203.0.113.10",
+        clientUserAgent: "vitest",
+      },
+    });
+  });
+
+  it("rejects unknown event names", async () => {
+    const response = await POST(
+      request({
+        eventName: "Purchase",
+        eventId: "purchase-event-1",
       }),
     );
 

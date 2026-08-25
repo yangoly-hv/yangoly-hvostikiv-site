@@ -33,7 +33,7 @@ export type DonateEventPayload = {
   currency: string;
 };
 
-export type MetaBrowserEventName = "PageView" | "Contact" | "Donate";
+export type MetaBrowserEventName = "PageView" | "Contact" | "Donate" | "Lead";
 
 type MetaAdvancedMatching = {
   em?: string;
@@ -222,11 +222,14 @@ export const trackContact = ({ eventId }: { eventId: string }) => {
 
 export const trackLead = ({ eventId, phone }: { eventId: string; phone?: string }) => {
   if (typeof window === "undefined" || !getMetaPixelId()) return;
-  try {
+  retryUntilTracked(() => {
     initMetaPixel(visitorAdvancedMatching({ ph: phone }));
-    track("Lead", {}, eventId);
+    return track("Lead", {}, eventId);
+  });
+  try {
+    reportMetaBrowserEvent({ eventName: "Lead", eventId });
   } catch {
-    // Pixel must not throw into form submit handlers.
+    // CAPI must not block Pixel.
   }
 };
 

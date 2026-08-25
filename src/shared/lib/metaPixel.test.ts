@@ -196,7 +196,7 @@ describe("metaPixel", () => {
     await vi.waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(2));
   });
 
-  it("tracks Contact and Lead", () => {
+  it("tracks Contact and Lead", async () => {
     trackContact({ eventId: "contact-1" });
     trackLead({ eventId: "lead-1", phone: "+380671234567" });
     expect(fbq).toHaveBeenCalledWith("track", "Contact", {}, { eventID: "contact-1" });
@@ -205,6 +205,28 @@ describe("metaPixel", () => {
       external_id: "visitor-test-id",
     });
     expect(fbq).toHaveBeenCalledWith("track", "Lead", {}, { eventID: "lead-1" });
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(parseFetchBody(fetchMock.mock.calls[0] as unknown[])).toMatchObject({
+      eventName: "Lead",
+      eventId: "lead-1",
+      externalId: "visitor-test-id",
+    });
+  });
+
+  it("retries Pixel Lead until fbq is ready and still posts CAPI", async () => {
+    stubWindow(false);
+
+    trackLead({ eventId: "lead-retry-1", phone: "+380671234567" });
+    expect(fbq).not.toHaveBeenCalled();
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(parseFetchBody(fetchMock.mock.calls[0] as unknown[])).toMatchObject({
+      eventName: "Lead",
+      eventId: "lead-retry-1",
+    });
+
+    stubWindow(true);
+    await vi.advanceTimersByTimeAsync(200);
+    expect(fbq).toHaveBeenCalledWith("track", "Lead", {}, { eventID: "lead-retry-1" });
   });
 
   it("tracks Mono Donate without value or currency", () => {
