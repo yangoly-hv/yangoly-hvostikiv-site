@@ -14,7 +14,8 @@ export type MetaCapiEventName =
   | "Lead"
   | "CompleteRegistration"
   | "Contact"
-  | "Donate";
+  | "Donate"
+  | "StartPartnership";
 
 export type MetaCapiCustomData = {
   status?: boolean | "mono" | "completed";

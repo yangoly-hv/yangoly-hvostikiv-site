@@ -6,6 +6,7 @@ import ChangeLifeImagesMob from "./ChangeLifeImagesMob";
 import ChangeLifeImagesDesk from "./ChangeLifeImagesDesk";
 import { getTranslations } from "next-intl/server";
 import ChangeLifeDonate from "@/modules/ChangeLife/ChangeLifeDonate";
+import ChangeLifePartnerCta from "@/modules/ChangeLife/ChangeLifePartnerCta";
 
 export default async function ChangeLife() {
   const t = await getTranslations("ChangeLife");
@@ -35,12 +36,7 @@ export default async function ChangeLife() {
               animation={fadeInAnimation({ y: 30, delay: 0.8 })}
               className="pt-[70px] md:pt-0 md:w-[283px] lg:w-[323px] xl:w-[383px] laptop:w-[463px] desk:w-[523px] flex flex-col sm:flex-row gap-x-5 md:flex-col gap-y-3 xl:gap-y-[14px] "
             >
-              <Link href="/partnership" className="block w-full">
-                <Button
-                  className="w-full xl:h-[67px]"
-                  text={t("becomePartner")}
-                />
-              </Link>
+              <ChangeLifePartnerCta text={t("becomePartner")} />
               <Link href="/volunteering" className="block w-full">
                 <Button
                   className="w-full xl:h-[67px]"

@@ -33,7 +33,12 @@ export type DonateEventPayload = {
   currency: string;
 };
 
-export type MetaBrowserEventName = "PageView" | "Contact" | "Donate" | "Lead";
+export type MetaBrowserEventName =
+  | "PageView"
+  | "Contact"
+  | "Donate"
+  | "Lead"
+  | "StartPartnership";
 
 type MetaAdvancedMatching = {
   em?: string;
@@ -90,6 +95,20 @@ const track = (
   if (!canTrack() || !window.fbq) return false;
   try {
     window.fbq("track", eventName, params, { eventID: eventId });
+    return true;
+  } catch {
+    return false;
+  }
+};
+
+const trackCustom = (
+  eventName: string,
+  params: Record<string, unknown>,
+  eventId: string,
+): boolean => {
+  if (!canTrack() || !window.fbq) return false;
+  try {
+    window.fbq("trackCustom", eventName, params, { eventID: eventId });
     return true;
   } catch {
     return false;
@@ -220,6 +239,9 @@ export const trackContact = ({ eventId }: { eventId: string }) => {
   track("Contact", {}, eventId);
 };
 
+export const trackStartPartnership = ({ eventId }: { eventId: string }) =>
+  trackCustom("StartPartnership", {}, eventId);
+
 export const trackLead = ({ eventId, phone }: { eventId: string; phone?: string }) => {
   if (typeof window === "undefined" || !getMetaPixelId()) return;
   retryUntilTracked(() => {
@@ -315,6 +337,20 @@ export const trackContactClick = () => {
   }
   try {
     reportMetaBrowserEvent({ eventName: "Contact", eventId });
+  } catch {
+    // CAPI must not block Pixel.
+  }
+};
+
+export const trackStartPartnershipClick = () => {
+  const eventId = createMetaEventId();
+  try {
+    trackStartPartnership({ eventId });
+  } catch {
+    // Pixel must not block CAPI.
+  }
+  try {
+    reportMetaBrowserEvent({ eventName: "StartPartnership", eventId });
   } catch {
     // CAPI must not block Pixel.
   }

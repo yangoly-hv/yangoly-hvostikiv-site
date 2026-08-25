@@ -16,11 +16,12 @@ const MAX_REQUEST_BODY_BYTES = 4 * 1024;
 
 const isBrowserForwardedEventName = (
   value: unknown,
-): value is "PageView" | "Contact" | "Donate" | "Lead" =>
+): value is "PageView" | "Contact" | "Donate" | "Lead" | "StartPartnership" =>
   value === "PageView" ||
   value === "Contact" ||
   value === "Donate" ||
-  value === "Lead";
+  value === "Lead" ||
+  value === "StartPartnership";
 
 const isNonEmptyString = (value: unknown, min: number, max: number): value is string =>
   typeof value === "string" && value.trim().length >= min && value.length <= max;

@@ -138,6 +138,28 @@ describe("POST /api/meta/events", () => {
     });
   });
 
+  it("accepts a StartPartnership click and forwards it to CAPI", async () => {
+    const response = await POST(
+      request({
+        eventName: "StartPartnership",
+        eventId: "start-partnership-1",
+        eventSourceUrl: "https://example.org/uk/partnership",
+      }),
+    );
+
+    expect(response.status).toBe(200);
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith({
+      eventName: "StartPartnership",
+      eventId: "start-partnership-1",
+      eventSourceUrl: "https://example.org/uk/partnership",
+      customData: undefined,
+      userData: {
+        clientIpAddress: "203.0.113.10",
+        clientUserAgent: "vitest",
+      },
+    });
+  });
+
   it("rejects unknown event names", async () => {
     const response = await POST(
       request({

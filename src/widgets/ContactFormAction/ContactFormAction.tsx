@@ -7,6 +7,7 @@ import clsx from "clsx";
 import Button from "@/shared/components/Button/Button";
 import type { ButtonVariant } from "@/shared/types";
 import type { ContactRequestSource } from "@/features/contact-request/model/schema";
+import { trackStartPartnershipClick } from "@/shared/lib/metaPixel";
 
 const ContactRequestModal = dynamic(
   () => import("@/features/contact-request/ui/ContactRequestModal"),
@@ -33,7 +34,10 @@ export default function ContactFormAction({
   return (
     <>
       <Button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          trackStartPartnershipClick();
+          setIsModalOpen(true);
+        }}
         variant={variant}
         className={clsx(
           "w-full py-3 text-[14px] font-semibold xl:text-[18px]",

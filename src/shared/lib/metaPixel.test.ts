@@ -14,6 +14,7 @@ import {
   trackLead,
   trackMonoDonateClick,
   trackPageViewAndReport,
+  trackStartPartnershipClick,
 } from "./metaPixel";
 
 const parseFetchBody = (call: unknown[]) =>
@@ -302,6 +303,23 @@ describe("metaPixel", () => {
       { eventID: "mono-click-id" },
     );
     await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+  });
+
+  it("tracks StartPartnership as a custom Pixel event and posts CAPI", async () => {
+    vi.stubGlobal("crypto", { randomUUID: () => "start-partnership-id" });
+    trackStartPartnershipClick();
+    expect(fbq).toHaveBeenCalledWith(
+      "trackCustom",
+      "StartPartnership",
+      {},
+      { eventID: "start-partnership-id" },
+    );
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(parseFetchBody(fetchMock.mock.calls[0] as unknown[])).toMatchObject({
+      eventName: "StartPartnership",
+      eventId: "start-partnership-id",
+      externalId: "visitor-test-id",
+    });
   });
 
   it("does not throw when fbq throws on Lead", () => {
