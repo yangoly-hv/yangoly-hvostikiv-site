@@ -47,6 +47,20 @@ export default function PaymentReturnHandler() {
           const data: unknown = await response.json().catch(() => null);
           const status = data && typeof data === "object" && "status" in data && isPaymentStatus(data.status) ? data.status : undefined;
           if (response.ok && status === "approved") {
+            const purpose =
+              data &&
+              typeof data === "object" &&
+              "purpose" in data &&
+              typeof data.purpose === "string"
+                ? data.purpose
+                : undefined;
+            const name =
+              data &&
+              typeof data === "object" &&
+              "name" in data &&
+              typeof data.name === "string"
+                ? data.name
+                : undefined;
             if (
               data &&
               typeof data === "object" &&
@@ -61,6 +75,8 @@ export default function PaymentReturnHandler() {
                 orderReference,
                 value: data.value,
                 currency: data.currency,
+                purpose,
+                name,
               });
             }
             cleanUrl(orderReference);

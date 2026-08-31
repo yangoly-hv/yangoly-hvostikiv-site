@@ -41,6 +41,8 @@ export type DonateEventPayload = {
   orderReference: string;
   value: number;
   currency: string;
+  purpose?: string;
+  name?: string;
 };
 
 export type MetaBrowserEventName =
@@ -371,6 +373,8 @@ const fireDonateConversion = (payload: DonateEventPayload) => {
     status: "completed",
     value: payload.value,
     currency: payload.currency,
+    purpose: payload.purpose,
+    name: payload.name,
   });
   if (tracked) markDonateTracked(payload.orderReference);
   return tracked;
@@ -380,10 +384,14 @@ export const trackDonateConversion = ({
   orderReference,
   value,
   currency,
+  purpose,
+  name,
 }: DonateEventPayload) => {
   if (typeof window === "undefined" || !getMetaPixelId()) return;
   if (hasTrackedDonate(orderReference)) return;
-  retryUntilTracked(() => fireDonateConversion({ orderReference, value, currency }));
+  retryUntilTracked(() =>
+    fireDonateConversion({ orderReference, value, currency, purpose, name }),
+  );
 };
 
 export const reportMetaBrowserEvent = (payload: {

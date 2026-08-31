@@ -484,6 +484,18 @@ describe("POST /api/wayforpay/callback", () => {
     expect(mocks.transactionCreateIfNotExists).toHaveBeenCalledWith(
       expect.objectContaining({ _type: "paymentEffect", kind: "tail", targetStatus: "approved" }),
     );
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Donate",
+        customData: {
+          status: "completed",
+          value: 500,
+          currency: "UAH",
+          purpose: "tail-one-time",
+          name: "Луна",
+        },
+      }),
+    );
   });
 
   it("does not credit an already active collection contribution twice", async () => {

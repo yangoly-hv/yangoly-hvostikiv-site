@@ -138,6 +138,8 @@ export type PersistCallbackResult = {
   isInitialOccurrence: boolean;
   occurrenceId: string;
   wantNotifications: boolean;
+  donationPurpose?: string;
+  donationTargetName?: string;
 };
 
 export const persistCallback = async ({
@@ -342,6 +344,8 @@ export const persistCallback = async ({
         isInitialOccurrence,
         occurrenceId,
         wantNotifications,
+        donationPurpose: order.donationPurpose,
+        donationTargetName: order.donationTargetName,
       };
     } catch (error) {
       if (attempt === 2) throw error;
@@ -379,6 +383,8 @@ export async function POST(request: Request) {
           status: "completed",
           value: Number(minorToMoney(payload.amountMinor)),
           currency: payload.currency,
+          ...(persisted.donationPurpose ? { purpose: persisted.donationPurpose } : {}),
+          ...(persisted.donationTargetName ? { name: persisted.donationTargetName } : {}),
         },
         userData: {
           externalId: payload.orderReference,

@@ -291,22 +291,32 @@ describe("metaPixel", () => {
     });
   });
 
-  it("tracks Donate once with completed status, value, currency, and eventID", () => {
+  it("tracks Donate once with completed status, value, currency, purpose, name, and eventID", () => {
     trackDonateConversion({
       orderReference,
       value: 500,
       currency: "UAH",
+      purpose: "tail-one-time",
+      name: "Zhorik",
     });
     trackDonateConversion({
       orderReference,
       value: 500,
       currency: "UAH",
+      purpose: "tail-one-time",
+      name: "Zhorik",
     });
 
     expect(fbq).toHaveBeenCalledWith(
       "track",
       "Donate",
-      { status: "completed", value: 500, currency: "UAH" },
+      {
+        status: "completed",
+        value: 500,
+        currency: "UAH",
+        purpose: "tail-one-time",
+        name: "Zhorik",
+      },
       { eventID: orderReference },
     );
   });

@@ -9,16 +9,27 @@ const orderStatusQuery = `
   *[_type == "donateOrder" && orderReference == $orderReference][0]{
     paymentStatus,
     amountMinor,
-    currency
+    currency,
+    donationPurpose,
+    donationTargetName
   }
 `;
 
 const noStoreHeaders = { "Cache-Control": "no-store" };
 
+const sanitizeShortLabel = (value: unknown, maxLength: number) => {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  if (trimmed.length < 1 || trimmed.length > maxLength) return undefined;
+  return trimmed;
+};
+
 type OrderStatusRecord = {
   paymentStatus?: PaymentStatus;
   amountMinor?: number;
   currency?: string;
+  donationPurpose?: string;
+  donationTargetName?: string;
 };
 
 export async function GET(request: Request) {
@@ -55,11 +66,16 @@ export async function GET(request: Request) {
       typeof order.currency === "string" &&
       /^[A-Z]{3}$/.test(order.currency)
     ) {
+      const purpose = sanitizeShortLabel(order.donationPurpose, 64);
+      const name = sanitizeShortLabel(order.donationTargetName, 100);
+
       return NextResponse.json(
         {
           status,
           value: Number(minorToMoney(order.amountMinor)),
           currency: order.currency,
+          ...(purpose ? { purpose } : {}),
+          ...(name ? { name } : {}),
         },
         { headers: noStoreHeaders },
       );

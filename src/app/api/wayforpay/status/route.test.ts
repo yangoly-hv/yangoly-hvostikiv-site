@@ -22,6 +22,8 @@ describe("GET /api/wayforpay/status", () => {
       paymentStatus: "approved",
       amountMinor: 50_000,
       currency: "UAH",
+      donationPurpose: "tail-one-time",
+      donationTargetName: "Луна",
     });
 
     const response = await GET(
@@ -34,6 +36,8 @@ describe("GET /api/wayforpay/status", () => {
       status: "approved",
       value: 500,
       currency: "UAH",
+      purpose: "tail-one-time",
+      name: "Луна",
     });
   });
 
