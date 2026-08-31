@@ -25,7 +25,17 @@ declare global {
   }
 }
 
-export type DonateStatus = "mono" | "completed";
+export type DonateStatus = "mono" | "started" | "payment_started" | "completed";
+
+export type DonateFlowCustomData = {
+  status: Exclude<DonateStatus, "completed">;
+  purpose?: string;
+  name?: string;
+  donorName?: string;
+  value?: number;
+  currency?: string;
+  schedule?: "oneTime" | "monthly";
+};
 
 export type DonateEventPayload = {
   orderReference: string;
@@ -255,23 +265,103 @@ export const trackLead = ({ eventId, phone }: { eventId: string; phone?: string 
   }
 };
 
+const buildDonateTrackParams = (data: {
+  status: DonateStatus;
+  purpose?: string;
+  name?: string;
+  donorName?: string;
+  schedule?: "oneTime" | "monthly";
+  value?: number;
+  currency?: string;
+}): Record<string, unknown> => {
+  const params: Record<string, unknown> = { status: data.status };
+  if (data.purpose) params.purpose = data.purpose;
+  if (data.name) params.name = data.name;
+  if (data.donorName) params.donorName = data.donorName;
+  if (data.schedule) params.schedule = data.schedule;
+  if (typeof data.value === "number") params.value = data.value;
+  if (data.currency) params.currency = data.currency;
+  return params;
+};
+
 export const trackDonate = ({
   eventId,
   status,
+  purpose,
+  name,
+  donorName,
+  schedule,
   value,
   currency,
 }: {
   eventId: string;
   status: DonateStatus;
+  purpose?: string;
+  name?: string;
+  donorName?: string;
+  schedule?: "oneTime" | "monthly";
   value?: number;
   currency?: string;
-}): boolean => {
-  const params: Record<string, unknown> = { status };
-  if (status === "completed") {
-    if (typeof value === "number") params.value = value;
-    if (currency) params.currency = currency;
+}): boolean =>
+  track(
+    "Donate",
+    buildDonateTrackParams({ status, purpose, name, donorName, schedule, value, currency }),
+    eventId,
+  );
+
+const trackDonateFlowClick = (customData: DonateFlowCustomData) => {
+  if (typeof window === "undefined" || !getMetaPixelId()) return;
+  const eventId = createMetaEventId();
+  try {
+    trackDonate({ eventId, ...customData });
+  } catch {
+    // Pixel must not block CAPI.
   }
-  return track("Donate", params, eventId);
+  try {
+    reportMetaBrowserEvent({ eventName: "Donate", eventId, customData });
+  } catch {
+    // CAPI must not block Pixel.
+  }
+};
+
+export const trackDonateStartedClick = ({
+  purpose,
+  name,
+}: {
+  purpose: string;
+  name?: string;
+}) => {
+  trackDonateFlowClick({
+    status: "started",
+    purpose,
+    ...(name ? { name } : {}),
+  });
+};
+
+export const trackDonatePaymentStartedClick = ({
+  purpose,
+  name,
+  donorName,
+  value,
+  currency = "UAH",
+  schedule,
+}: {
+  purpose?: string;
+  name?: string;
+  donorName?: string;
+  value: number;
+  currency?: string;
+  schedule?: "oneTime" | "monthly";
+}) => {
+  trackDonateFlowClick({
+    status: "payment_started",
+    value,
+    currency,
+    ...(purpose ? { purpose } : {}),
+    ...(name ? { name } : {}),
+    ...(donorName ? { donorName } : {}),
+    ...(schedule ? { schedule } : {}),
+  });
 };
 
 const fireDonateConversion = (payload: DonateEventPayload) => {
@@ -357,19 +447,5 @@ export const trackStartPartnershipClick = () => {
 };
 
 export const trackMonoDonateClick = () => {
-  const eventId = createMetaEventId();
-  try {
-    trackDonate({ eventId, status: "mono" });
-  } catch {
-    // Pixel must not block CAPI.
-  }
-  try {
-    reportMetaBrowserEvent({
-      eventName: "Donate",
-      eventId,
-      customData: { status: "mono" },
-    });
-  } catch {
-    // CAPI must not block Pixel.
-  }
+  trackDonateFlowClick({ status: "mono" });
 };

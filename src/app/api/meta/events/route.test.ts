@@ -79,6 +79,66 @@ describe("POST /api/meta/events", () => {
     );
   });
 
+  it("accepts Donate started and payment_started browser events", async () => {
+    const started = await POST(
+      request({
+        eventName: "Donate",
+        eventId: "donate-started-1",
+        customData: {
+          status: "started",
+          purpose: "tail-one-time",
+          name: "Zhorik",
+        },
+      }),
+    );
+
+    expect(started.status).toBe(200);
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Donate",
+        eventId: "donate-started-1",
+        customData: {
+          status: "started",
+          purpose: "tail-one-time",
+          name: "Zhorik",
+        },
+      }),
+    );
+
+    const paymentStarted = await POST(
+      request({
+        eventName: "Donate",
+        eventId: "donate-payment-1",
+        customData: {
+          status: "payment_started",
+          purpose: "tail-guardianship",
+          name: "Zhorik",
+          donorName: "Anatoliy",
+          value: 500,
+          currency: "UAH",
+          schedule: "monthly",
+        },
+      }),
+    );
+
+    expect(paymentStarted.status).toBe(200);
+    expect(mocks.sendMetaCapiEvent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventName: "Donate",
+        eventId: "donate-payment-1",
+        customData: {
+          status: "payment_started",
+          purpose: "tail-guardianship",
+          name: "Zhorik",
+          donorName: "Anatoliy",
+          value: 500,
+          currency: "UAH",
+          schedule: "monthly",
+        },
+      }),
+    );
+  });
+
   it("accepts a PageView and forwards it to CAPI", async () => {
     const response = await POST(
       request({
@@ -101,7 +161,7 @@ describe("POST /api/meta/events", () => {
     });
   });
 
-  it("rejects Donate clicks that are not status mono", async () => {
+  it("rejects Donate browser events with unsupported status", async () => {
     const response = await POST(
       request({
         eventName: "Donate",

@@ -60,6 +60,55 @@ const sanitizeEventSourceUrl = (value: unknown) => {
   }
 };
 
+const DONATE_BROWSER_STATUSES = new Set(["mono", "started", "payment_started"]);
+
+const sanitizeShortLabel = (value: unknown, maxLength: number) => {
+  if (typeof value !== "string") return undefined;
+  const trimmed = value.trim();
+  if (trimmed.length < 1 || trimmed.length > maxLength) return undefined;
+  return trimmed;
+};
+
+const sanitizeDonateCustomData = (value: unknown) => {
+  if (!value || typeof value !== "object") return undefined;
+  const raw = value as Record<string, unknown>;
+  const status = raw.status;
+  if (typeof status !== "string" || !DONATE_BROWSER_STATUSES.has(status)) return undefined;
+
+  const customData: {
+    status: "mono" | "started" | "payment_started";
+    purpose?: string;
+    name?: string;
+    donorName?: string;
+    schedule?: "oneTime" | "monthly";
+    value?: number;
+    currency?: string;
+  } = { status: status as "mono" | "started" | "payment_started" };
+
+  const purpose = sanitizeShortLabel(raw.purpose, 64);
+  if (purpose) customData.purpose = purpose;
+
+  const name = sanitizeShortLabel(raw.name, 100);
+  if (name) customData.name = name;
+
+  const donorName = sanitizeShortLabel(raw.donorName, 100);
+  if (donorName) customData.donorName = donorName;
+
+  if (raw.schedule === "oneTime" || raw.schedule === "monthly") {
+    customData.schedule = raw.schedule;
+  }
+
+  if (typeof raw.value === "number" && Number.isFinite(raw.value) && raw.value > 0) {
+    customData.value = raw.value;
+  }
+
+  if (typeof raw.currency === "string" && /^[A-Z]{3}$/.test(raw.currency)) {
+    customData.currency = raw.currency;
+  }
+
+  return customData;
+};
+
 export async function POST(request: Request) {
   const rateLimit = checkMetaEventsRateLimit(request);
   if (rateLimit.limited) {
@@ -104,13 +153,30 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
   }
   if (eventName === "Donate") {
-    const status =
-      customData && typeof customData === "object"
-        ? (customData as { status?: unknown }).status
-        : undefined;
-    if (status !== "mono") {
+    const sanitizedDonateCustomData = sanitizeDonateCustomData(customData);
+    if (!sanitizedDonateCustomData) {
       return NextResponse.json({ success: false, error: "INVALID_INPUT" }, { status: 400 });
     }
+
+    const requestContext = getMetaCapiRequestContext(request);
+    const bodyFbp = sanitizeFbp(fbp);
+    const bodyFbc = sanitizeFbc(fbc);
+    const bodyExternalId = sanitizeExternalId(externalId);
+
+    void scheduleMetaCapiEvent({
+      eventName,
+      eventId: eventId.trim(),
+      eventSourceUrl: sanitizeEventSourceUrl(eventSourceUrl),
+      customData: sanitizedDonateCustomData,
+      userData: {
+        ...requestContext,
+        ...(bodyFbp ? { fbp: bodyFbp } : {}),
+        ...(bodyFbc ? { fbc: bodyFbc } : {}),
+        ...(bodyExternalId ? { externalId: bodyExternalId } : {}),
+      },
+    });
+
+    return NextResponse.json({ success: true });
   }
 
   const requestContext = getMetaCapiRequestContext(request);
@@ -122,7 +188,7 @@ export async function POST(request: Request) {
     eventName,
     eventId: eventId.trim(),
     eventSourceUrl: sanitizeEventSourceUrl(eventSourceUrl),
-    customData: eventName === "Donate" ? { status: "mono" } : undefined,
+    customData: undefined,
     userData: {
       ...requestContext,
       ...(bodyFbp ? { fbp: bodyFbp } : {}),

@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { trackDonatePaymentStartedClick } from "@/shared/lib/metaPixel";
 import { useReturnPath } from "@/shared/hooks/useReturnPath";
 import { createCheckout } from "../api/createCheckout";
 import type { DonationSchedule, DonationTarget } from "./purpose";
@@ -54,6 +55,13 @@ export function useDonationCheckout({
         setSubmitError(false);
 
         try {
+          trackDonatePaymentStartedClick({
+            purpose: donationTarget?.purpose,
+            name: donationTarget?.targetName,
+            donorName: isAnonymous ? undefined : fullName?.trim() || undefined,
+            value: amount,
+            schedule: donationSchedule,
+          });
           await createCheckout({
             amount,
             donationTarget,

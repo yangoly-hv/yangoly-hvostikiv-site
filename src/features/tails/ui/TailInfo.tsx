@@ -10,6 +10,7 @@ import KeepingModal from "@/shared/components/KeepingModal/KeepingModal";
 import PortableTextRenderer from "@/shared/components/PortableTextRenderer/PortableTextRenderer";
 import type { ITails } from "@/shared/types";
 import { fadeIn } from "@/shared/utils";
+import { trackDonateStartedClick } from "@/shared/lib/metaPixel";
 import { useModal } from "@/providers/ModalProvider";
 import type { TailViewModel } from "../model/types";
 
@@ -54,7 +55,17 @@ const TailInfo = ({
           )}
           <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}>
             <Button
-              onClick={() => openDonateModal(supportText, { purpose: "tail-one-time", targetId: tail.id })}
+              onClick={() => {
+                trackDonateStartedClick({
+                  purpose: "tail-one-time",
+                  name: tail.name,
+                });
+                openDonateModal(supportText, {
+                  purpose: "tail-one-time",
+                  targetId: tail.id,
+                  targetName: tail.name,
+                });
+              }}
               variant="outline"
               text={oneTimeHelpButton}
               fullWidth
@@ -62,14 +73,30 @@ const TailInfo = ({
             />
           </motion.div>
           <motion.div variants={fadeIn} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={1}>
-            <Button onClick={() => setIsKeepingModalOpen(true)} variant="outline" text={becomeGuardianButton} fullWidth className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0" />
+            <Button
+              onClick={() => {
+                trackDonateStartedClick({
+                  purpose: "tail-guardianship",
+                  name: tail.name,
+                });
+                setIsKeepingModalOpen(true);
+              }}
+              variant="outline"
+              text={becomeGuardianButton}
+              fullWidth
+              className="max-w-[404px] lg:w-[313px] mx-auto lg:mx-0"
+            />
           </motion.div>
         </div>
       </div>
       <AdoptModal isOpen={isAdoptModalOpen} onClose={() => setIsAdoptModalOpen(false)} translation={translation} />
       <KeepingModal
         price={tail.keeping_price}
-        donationTarget={{ purpose: "tail-guardianship", targetId: tail.id }}
+        donationTarget={{
+          purpose: "tail-guardianship",
+          targetId: tail.id,
+          targetName: tail.name,
+        }}
         isOpen={isKeepingModalOpen}
         onClose={() => setIsKeepingModalOpen(false)}
       />

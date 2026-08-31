@@ -11,6 +11,8 @@ import {
   trackContactClick,
   trackDonate,
   trackDonateConversion,
+  trackDonatePaymentStartedClick,
+  trackDonateStartedClick,
   trackLead,
   trackMonoDonateClick,
   trackPageViewAndReport,
@@ -238,6 +240,55 @@ describe("metaPixel", () => {
       { status: "mono" },
       { eventID: "mono-1" },
     );
+  });
+
+  it("tracks Donate started and payment started funnel clicks", async () => {
+    vi.stubGlobal("crypto", { randomUUID: () => "donate-started-id" });
+    trackDonateStartedClick({ purpose: "tail-one-time", name: "Zhorik" });
+    expect(fbq).toHaveBeenCalledWith(
+      "track",
+      "Donate",
+      { status: "started", purpose: "tail-one-time", name: "Zhorik" },
+      { eventID: "donate-started-id" },
+    );
+
+    vi.stubGlobal("crypto", { randomUUID: () => "donate-payment-id" });
+    trackDonatePaymentStartedClick({
+      purpose: "tail-one-time",
+      name: "Zhorik",
+      donorName: "Anatoliy",
+      value: 500,
+      currency: "UAH",
+      schedule: "oneTime",
+    });
+    expect(fbq).toHaveBeenCalledWith(
+      "track",
+      "Donate",
+      {
+        status: "payment_started",
+        purpose: "tail-one-time",
+        name: "Zhorik",
+        donorName: "Anatoliy",
+        value: 500,
+        currency: "UAH",
+        schedule: "oneTime",
+      },
+      { eventID: "donate-payment-id" },
+    );
+    await vi.waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(parseFetchBody(fetchMock.mock.calls.at(-1) as unknown[])).toMatchObject({
+      eventName: "Donate",
+      eventId: "donate-payment-id",
+      customData: {
+        status: "payment_started",
+        purpose: "tail-one-time",
+        name: "Zhorik",
+        donorName: "Anatoliy",
+        value: 500,
+        currency: "UAH",
+        schedule: "oneTime",
+      },
+    });
   });
 
   it("tracks Donate once with completed status, value, currency, and eventID", () => {

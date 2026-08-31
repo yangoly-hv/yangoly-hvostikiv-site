@@ -18,9 +18,13 @@ export type MetaCapiEventName =
   | "StartPartnership";
 
 export type MetaCapiCustomData = {
-  status?: boolean | "mono" | "completed";
+  status?: boolean | "mono" | "completed" | "started" | "payment_started";
   value?: number;
   currency?: string;
+  purpose?: string;
+  name?: string;
+  donorName?: string;
+  schedule?: "oneTime" | "monthly";
 };
 
 export type MetaCapiUserDataInput = {
